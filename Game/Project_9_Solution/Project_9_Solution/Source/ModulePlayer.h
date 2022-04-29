@@ -57,6 +57,34 @@ public:
 	Animation rightAnim;
 	Animation leftAnim;
 
+	enum estadoPlayer
+	{
+		MOVE = 0,
+		WITHFRISBEE = 1,
+		
+		
+	};
+
+
+	enum lanzamientoPlayer {
+		NORMAL = 0,
+		PARABOLA =1,
+		MAX
+
+	};
+
+	enum direccionFrisbee {
+		DARIBBA = 0,
+		HORIZONTAL = 1,
+		DABAJO = 2,
+		MAX
+		
+	};
+
+	int matrixLanzamiento[lanzamientoPlayer::MAX][direccionFrisbee::MAX];
+
+
+
 	//Last Move
 	int last1;
 
@@ -68,6 +96,7 @@ public:
 
 	bool disco;
 	void frisbeeCollision();
+	void movimientoPlayer();
 
 	// Sound effects indices
 	uint explosionFx;
@@ -81,7 +110,7 @@ public:
 	char scoreText[10] = { "\0" };
 
 	//Numero de rondas ganadas
-	int round = 0;
+	int round;
 
 };
 
