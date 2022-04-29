@@ -66,14 +66,14 @@ public:
 	};
 
 
-	enum lanzamientoPlayer {
+	enum tipoLanzamientoPlayer {
 		NORMAL = 0,
 		PARABOLA =1,
 		MAX
 
 	};
 
-	enum direccionFrisbee {
+	enum direccionFrisbeePlayer {
 		DARIBBA = 0,
 		HORIZONTAL = 1,
 		DABAJO = 2,
@@ -81,9 +81,9 @@ public:
 		
 	};
 
-	int matrixLanzamiento[lanzamientoPlayer::MAX][direccionFrisbee::MAX];
+	int matrixLanzamiento[tipoLanzamientoPlayer::MAX][direccionFrisbeePlayer::MAX];
 
-
+	
 
 	//Last Move
 	int last1;
@@ -97,6 +97,7 @@ public:
 	bool disco;
 	void frisbeeCollision();
 	void movimientoPlayer();
+	void lanzamientoPlayer(tipoLanzamientoPlayer lanzamientoPlayer, direccionFrisbeePlayer direccionFrisbeePlayer);
 
 	// Sound effects indices
 	uint explosionFx;

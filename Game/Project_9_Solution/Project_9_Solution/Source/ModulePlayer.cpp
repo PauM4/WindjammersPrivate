@@ -110,6 +110,8 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	idleDisk.speed = 0.1f;
 
 	//TO DO SWITCH PARA ELEGIR CHARACTERS + ESCENARIOS
+
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -361,70 +363,81 @@ void ModulePlayer::frisbeeCollision() {
 }
 
 void ModulePlayer::movimientoPlayer(){
-	//MOVIMIENTO
-	if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 20 && estadoPlayer::MOVE)
-	{
-		position.x -= speed;
-
-		if (currentAnimation != &leftAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
+	if (estadoPlayer::MOVE) {
+		//MOVIMIENTO
+		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 20)
 		{
-			leftAnim.Reset();
-			currentAnimation = &leftAnim;
+			position.x -= speed;
+
+			if (currentAnimation != &leftAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
+			{
+				leftAnim.Reset();
+				currentAnimation = &leftAnim;
+			}
+			last1 = 0; //TO DO: REVISAR NOMBRE Y SU FUNCIÓN DE TODOS LOS LAST1
 		}
-		last1 = 0; //TO DO: REVISAR NOMBRE Y SU FUNCIÓN DE TODOS LOS LAST1
+
+
+		if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && position.x < 110)
+		{
+			position.x += speed;
+			if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
+			{
+				rightAnim.Reset();
+				currentAnimation = &rightAnim;
+			}
+			last1 = 1;
+		}
+
+		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 150)
+		{
+			position.y += speed;
+			if (currentAnimation != &downLAnim && last1 == 0)
+			{
+				downLAnim.Reset();
+				currentAnimation = &downLAnim;
+			}
+			if (currentAnimation != &downRAnim && last1 == 1)
+			{
+				downLAnim.Reset();
+				currentAnimation = &downRAnim;
+			}
+		}
+
+		if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > 50)
+		{
+			position.y -= speed;
+			if (currentAnimation != &upLAnim && last1 == 0)
+			{
+				upLAnim.Reset();
+				currentAnimation = &upLAnim;
+			}
+			if (currentAnimation != &upRAnim && last1 == 1)
+			{
+				upRAnim.Reset();
+				currentAnimation = &upRAnim;
+			}
+		}
+
+		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
+			&& App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_IDLE
+			&& App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_IDLE
+			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 0)
+			currentAnimation = &idleLAnim;
+
+		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
+			&& App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_IDLE
+			&& App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_IDLE
+			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 1)
+			currentAnimation = &idleRAnim;
 	}
+	
 
-
-	if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && position.x < 110 && estadoPlayer::MOVE)
-	{
-		position.x += speed;
-		if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
-		{
-			rightAnim.Reset();
-			currentAnimation = &rightAnim;
-		}
-		last1 = 1;
-	}
-
-	if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 150 && estadoPlayer::MOVE)
-	{
-		position.y += speed;
-		if (currentAnimation != &downLAnim && last1 == 0)
-		{
-			downLAnim.Reset();
-			currentAnimation = &downLAnim;
-		}
-		if (currentAnimation != &downRAnim && last1 == 1)
-		{
-			downLAnim.Reset();
-			currentAnimation = &downRAnim;
-		}
-	}
-
-	if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > 50 && estadoPlayer::MOVE)
-	{
-		position.y -= speed;
-		if (currentAnimation != &upLAnim && last1 == 0)
-		{
-			upLAnim.Reset();
-			currentAnimation = &upLAnim;
-		}
-		if (currentAnimation != &upRAnim && last1 == 1)
-		{
-			upRAnim.Reset();
-			currentAnimation = &upRAnim;
-		}
-	}
-
-	if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
-		&& App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_IDLE
-		&& App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_IDLE
-		&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 0 && estadoPlayer::MOVE)
-		currentAnimation = &idleLAnim;
-
-	if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
-		&& App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_IDLE
-		&& App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_IDLE
-		&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 1 && estadoPlayer::MOVE) 
-		currentAnimation = &idleRAnim; 
 }
+
+void ModulePlayer::lanzamientoPlayer(tipoLanzamientoPlayer lanzamientoPlayer, direccionFrisbeePlayer direccionFrisbeePlayer) {
+	if (estadoPlayer::WITHFRISBEE) {
+
+	}
+}
+
