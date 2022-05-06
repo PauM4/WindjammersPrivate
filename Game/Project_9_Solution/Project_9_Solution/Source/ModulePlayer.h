@@ -65,14 +65,7 @@ public:
 		
 		
 	};
-
-
-	enum tipoLanzamientoPlayer {
-		NORMAL = 0,
-		PARABOLA =1,
-		MAX
-
-	};
+	int estadoP1;
 
 
 	//Last Move
@@ -85,7 +78,7 @@ public:
 	bool destroyed;
 
 	bool disco;
-	void frisbeeCollision();
+	
 	void movimientoPlayer();
 	void lanzamientoPlayer();
 	

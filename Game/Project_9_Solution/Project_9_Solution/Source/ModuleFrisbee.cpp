@@ -95,32 +95,32 @@ Update_Status ModuleFrisbee::Update()
 	}
 	
 
-	if (arbitro == 1) {
-		App->player->position.x = 20;
-		App->player->position.y = 100;
-		App->player2->position.x = 259;
-		App->player2->position.y = 100;
-		FloorTime = 0;
-		App->player->currentAnimation = &App->player->idleRAnim;
-		App->player2->currentAnimation = &App->player2->idleLAnim;
-		if (position.x != App->player->position.x || position.y != App->player->position.y) {
-			position.x -= 3;
-			position.y -= 2;
-		}
-	}
-	if (arbitro == 2) {
-		App->player->position.x = 20;
-		App->player->position.y = 100;
-		App->player2->position.x = 259;
-		App->player2->position.y = 100;
-		FloorTime = 0;
-		App->player->currentAnimation = &App->player->idleRAnim;
-		App->player2->currentAnimation = &App->player2->idleLAnim;
-		if (position.x != App->player2->position.x || position.y != App->player2->position.y) {
-			position.x += 3;
-			position.y -= 2;
-		}
-	}
+	//if (arbitro == 1) {
+	//	App->player->position.x = 20;
+	//	App->player->position.y = 100;
+	//	App->player2->position.x = 259;
+	//	App->player2->position.y = 100;
+	//	FloorTime = 0;
+	//	App->player->currentAnimation = &App->player->idleRAnim;
+	//	App->player2->currentAnimation = &App->player2->idleLAnim;
+	//	if (position.x != App->player->position.x || position.y != App->player->position.y) {
+	//		position.x -= 3;
+	//		position.y -= 2;
+	//	}
+	//}
+	//if (arbitro == 2) {
+	//	App->player->position.x = 20;
+	//	App->player->position.y = 100;
+	//	App->player2->position.x = 259;
+	//	App->player2->position.y = 100;
+	//	FloorTime = 0;
+	//	App->player->currentAnimation = &App->player->idleRAnim;
+	//	App->player2->currentAnimation = &App->player2->idleLAnim;
+	//	if (position.x != App->player2->position.x || position.y != App->player2->position.y) {
+	//		position.x += 3;
+	//		position.y -= 2;
+	//	}
+	//}
 
 	////MOV FRISBEE HACIA ARRIBA
 	//if (mov == 1 && position.x >= 19 && position.x <= 276) {
@@ -291,9 +291,9 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && destroyed == false)
 	{
-		arbitro = 0;
 		currentAnimation2 = &desaparece;
-		FloorTime = 0;
+		estadoF = estadoFrisbee::STOP;
+	/*	FloorTime = 0;*/
 
 	}
 }
@@ -301,7 +301,6 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 
 void ModuleFrisbee :: movimientoFrisbee() {
 
-	
 
 	if (tipoLanzamiento::NORMAL) {
 
@@ -330,6 +329,10 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		else if (direccionFrisbeePlayer::HORIZONTAL) {
 
 		}
+	}
+	else if(tipoLanzamiento::ARBITRO){
+		position.x += xspeed;
+		position.y += yspeed;
 	}
 	else if (tipoLanzamiento::SUPERSHOT) {
 		//TODO
@@ -406,55 +409,83 @@ void ModuleFrisbee :: movimientoFrisbee() {
 	if (position.x <= 19 || position.x >= 276) {
 		mov = 0;
 
-		//aqui tendremos que llamar la accion del arbitro que envia el disco al player 1
+		////aqui tendremos que llamar la accion del arbitro que envia el disco al player 1
 
-		if (position.x <= 19) {
-			if (position.y >= 94 && position.y <= 144) {
-				App->player2->score += 5;
-				//arbitro = 1;
-				if (App->sceneBeachStage->suddenDeath) {
-					App->sceneBeachStage->Win();
-				}
-				App->sceneBeachStage->ScoreRound(1);
-				//App->sceneBeachStage->EndRound(1);
+		//if (position.x <= 19) {
+		//	if (position.y >= 94 && position.y <= 144) {
+		//		App->player2->score += 5;
+		//		//arbitro = 1;
+		//		if (App->sceneBeachStage->suddenDeath) {
+		//			App->sceneBeachStage->Win();
+		//		}
+		//		App->sceneBeachStage->ScoreRound(1);
+		//		//App->sceneBeachStage->EndRound(1);
 
-			}
-			else {
-				App->player2->score += 3;
-				//arbitro = 1;
-				if (App->sceneBeachStage->suddenDeath) {
-					App->sceneBeachStage->Win();
-				}
-				App->sceneBeachStage->ScoreRound(1);
-				//App->sceneBeachStage->EndRound(1);
-			}
-		}
-		if (position.x >= 276) {
-			if (position.y >= 94 && position.y <= 144) {
-				App->player->score += 5;
-				//arbitro = 2;
-				if (App->sceneBeachStage->suddenDeath) {
-					App->sceneBeachStage->Win();
-				}
+		//	}
+		//	else {
+		//		App->player2->score += 3;
+		//		//arbitro = 1;
+		//		if (App->sceneBeachStage->suddenDeath) {
+		//			App->sceneBeachStage->Win();
+		//		}
+		//		App->sceneBeachStage->ScoreRound(1);
+		//		//App->sceneBeachStage->EndRound(1);
+		//	}
+		//}
+		//if (position.x >= 276) {
+		//	if (position.y >= 94 && position.y <= 144) {
+		//		App->player->score += 5;
+		//		//arbitro = 2;
+		//		if (App->sceneBeachStage->suddenDeath) {
+		//			App->sceneBeachStage->Win();
+		//		}
 
-				App->sceneBeachStage->ScoreRound(2);
-				//App->sceneBeachStage->EndRound(2);
-			}
-			else {
-				App->player->score += 3;
-				//arbitro = 2;
-				if (App->sceneBeachStage->suddenDeath) {
-					App->sceneBeachStage->Win();
-				}
-				App->sceneBeachStage->ScoreRound(2);
-				//App->sceneBeachStage->EndRound(2);
-			}
-		}
+		//		App->sceneBeachStage->ScoreRound(2);
+		//		//App->sceneBeachStage->EndRound(2);
+		//	}
+		//	else {
+		//		App->player->score += 3;
+		//		//arbitro = 2;
+		//		if (App->sceneBeachStage->suddenDeath) {
+		//			App->sceneBeachStage->Win();
+		//		}
+		//		App->sceneBeachStage->ScoreRound(2);
+		//		//App->sceneBeachStage->EndRound(2);
+		//	}
+		//}
 
-		position.x = 150;
-		position.y = 200;
+		//position.x = 150;
+		//position.y = 200;
 
 
 	}
 
 }
+
+void ModuleFrisbee::limitesFrisbee() {
+
+	if (position.x >= 19 && position.x <= 276) {
+
+		if (position.y <= 50){
+			yspeed *= -1;
+		} 
+		else if (position.y >= 170){
+			yspeed *= -1;
+		}
+	}
+
+	else if (position.x < 19 || position.x >276) {
+		
+		//funsion score
+		estadoF = estadoFrisbee::STOP;
+		App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
+		App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+		App->sceneBeachStage->Score();
+
+	} 
+
+
+
+}
+
+

@@ -51,8 +51,10 @@ public:
 
 	//uint winFx = 0;
 
-	void EndRound(int arbitro);
-	void ScoreRound(int arbitro);
+	void Arbitro(int arbitro);
+	void Round();
+	void Score();
+	
 	void Win();
 	bool suddenDeath;
 	

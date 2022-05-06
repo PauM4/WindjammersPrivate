@@ -83,6 +83,7 @@ public:
 	enum tipoLanzamiento {
 		NORMAL,
 		PARABOLA,
+		ARBITRO,
 		SUPERSHOT
 	};
 	int lanzamientoF;

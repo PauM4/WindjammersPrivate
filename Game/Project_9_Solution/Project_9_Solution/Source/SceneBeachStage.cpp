@@ -328,157 +328,260 @@ bool SceneBeachStage::CleanUp()
 
 //En cuanto mete un jugador un gol, se llama a esto y se determina el valor de arbitro. Lo ponemos aqui como funcion externa en vez de dentro del update de frisbee
 //Ya que en este .cpp también llamaremos a esta función en función de las rondas/sets ganados~
-void SceneBeachStage::EndRound(int arbitro) { 
+
+
+void SceneBeachStage::Arbitro(int arbitro) {  //cambiar esta funcion a arbitro
+	App->player->position.x = 20;
+	App->player->position.y = 100;
+	App->player2->position.x = 259;
+	App->player2->position.y = 100;
+	App->player->currentAnimation = &App->player->idleRAnim;
+	App->player2->currentAnimation = &App->player2->idleLAnim;
+
 	if (arbitro == 1) {
-		App->frisbee->arbitro = 1;
+
+		App->frisbee->xspeed = 3;
+		App->frisbee->yspeed = 2;
+		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
+
 	}
+
 	if (arbitro == 2) {
-		App->frisbee->arbitro = 2;
+
+		App->frisbee->xspeed = 3;
+		App->frisbee->yspeed = -2;
+		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
 	}
 }
 
-void SceneBeachStage::ScoreRound(int arbitro) {
+void SceneBeachStage::Round() {
+
+	////Cambiar de Ronda y Dar puntos de la ronda
+	//if (App->player->score != App->player2->score && !godMode) { //|| App->player->score > 12 || App->player2->score > 12
+
+	//	if (App->player->score >= 12 || App->player2->score >= 12) {
+
+	//		if (App->player->score > App->player2->score + 2) { 
+	//			App->player->round += 1;
+	//			
+	//			Win();
+	//			a = 1;
+	//			//Llamar animación de jugador ganador 1 y las texturas
+	//			App->player->score = 0;
+	//			App->player2->score = 0;
+
+	//			EndRound(2);
+	//			
+	//			timerAnim.Reset();
+	//		}
+
+	//		if (App->player2->score > App->player->score + 2) {
+	//			App->player2->round += 1;
+	//			
+	//			Win();
+	//			a = 2;
+	//			//Llamar animación de jugador ganador 2 y las texturas
+	//			App->player->score = 0;
+	//			App->player2->score = 0;
+	//			EndRound(1);
+	//			timerAnim.Reset();
+	//		}
+
+	//	} 
+	//	else if (time == 1860 && (App->frisbee->posesion == 1 || App->frisbee->posesion == 2 || App->frisbee->projectil==0)) {
+	//		
+	//		 if (App->player->score > App->player2->score) {
+	//			App->player->round += 1;
+	//			
+	//			Win();
+	//			a = 1;
+	//			//Llamar animación de jugador ganador 1 y las texturas
+	//			App->player->score = 0; 
+	//			App->player2->score = 0;
+	//			App->frisbee->position.x = 150;
+	//			App->frisbee->position.y = 200;
+	//			App->frisbee->currentAnimation2 = &App->frisbee->moving;
+	//			EndRound(2);
+	//			timerAnim.Reset();
+	//			
+	//			time = 0;
+	//		} 
+	//		else if (App->player2->score > App->player->score) {
+	//			App->player2->round += 1;
+	//			
+	//			Win();
+	//			a = 2;
+	//			//Llamar animación de jugador ganador 2 y las texturas
+	//			App->player->score = 0;
+	//			App->player2->score = 0;
+	//			App->frisbee->position.x = 150;
+	//			App->frisbee->position.y = 200;
+	//			EndRound(1);
+	//			timerAnim.Reset();
+	//			time = 0;
+	//		}
+	//	}
+	//	else if(!godMode) { //cuando la puntucion es diferente pero no se da nada de arriba, llamamos igualmente a la funcion que ahce que el arbitro manda de nuevo la bola 
+	//		EndRound(arbitro);
+	//	}
+
+	//}
+	//else if (!godMode && App->player->score == App->player2->score && time >=1860 && (App->frisbee->posesion == 1 || App->frisbee->posesion == 2 || App->frisbee->projectil==0)) {
+	//	App->player->round += 1;
+	//	App->player2->round += 1;
+	//	App->player->score = 0;
+	//	App->player2->score = 0;
+	//	
+	//	Win();
+	//	a = 3;
+	//	//Animación de cuando los dos acaban una ronda en puntuacion empate
+	//	timerAnim.Reset();
+	//	App->frisbee->position.x = 150;
+	//	App->frisbee->position.y = 200;
+	//	App->frisbee->currentAnimation2 = &App->frisbee->moving;
+	//	EndRound(1);
+	//	time = 0;
+	//}
+	//else{ //puntuaciones empates
+	//	EndRound(arbitro);
+	//}
 
 	//Cambiar de Ronda y Dar puntos de la ronda
-	if (App->player->score != App->player2->score && !godMode) { //|| App->player->score > 12 || App->player2->score > 12
 
-		if (App->player->score >= 12 || App->player2->score >= 12) {
 
-			if (App->player->score > App->player2->score + 2) { 
-				App->player->round += 1;
-				
-				Win();
-				a = 1;
-				//Llamar animación de jugador ganador 1 y las texturas
-				App->player->score = 0;
-				App->player2->score = 0;
+	if (App->player->score >= 12 || App->player2->score >= 12) {
 
-				EndRound(2);
-				
-				timerAnim.Reset();
-			}
-
-			if (App->player2->score > App->player->score + 2) {
-				App->player2->round += 1;
-				
-				Win();
-				a = 2;
-				//Llamar animación de jugador ganador 2 y las texturas
-				App->player->score = 0;
-				App->player2->score = 0;
-				EndRound(1);
-				timerAnim.Reset();
-			}
-
-		} 
-		else if (time == 1860 && (App->frisbee->posesion == 1 || App->frisbee->posesion == 2 || App->frisbee->projectil==0)) {
-			
-			 if (App->player->score > App->player2->score) {
-				App->player->round += 1;
-				
-				Win();
-				a = 1;
-				//Llamar animación de jugador ganador 1 y las texturas
-				App->player->score = 0; 
-				App->player2->score = 0;
-				App->frisbee->position.x = 150;
-				App->frisbee->position.y = 200;
-				App->frisbee->currentAnimation2 = &App->frisbee->moving;
-				EndRound(2);
-				timerAnim.Reset();
-				
-				time = 0;
-			} 
-			else if (App->player2->score > App->player->score) {
-				App->player2->round += 1;
-				
-				Win();
-				a = 2;
-				//Llamar animación de jugador ganador 2 y las texturas
-				App->player->score = 0;
-				App->player2->score = 0;
-				App->frisbee->position.x = 150;
-				App->frisbee->position.y = 200;
-				EndRound(1);
-				timerAnim.Reset();
-				time = 0;
-			}
+		if (App->player->score > App->player2->score + 2) {
+			App->player->round += 1;
+			Win();
+			//Llamar animación de jugador ganador 1 y las texturas
+			App->player->score = 0;
+			App->player2->score = 0;
+			timerAnim.Reset();
 		}
-		else if(!godMode) { //cuando la puntucion es diferente pero no se da nada de arriba, llamamos igualmente a la funcion que ahce que el arbitro manda de nuevo la bola 
-			EndRound(arbitro);
+
+		if (App->player2->score > App->player->score + 2) {
+			App->player2->round += 1;
+			Win();
+			//Llamar animación de jugador ganador 2 y las texturas
+			App->player->score = 0;
+			App->player2->score = 0;
+			timerAnim.Reset();
 		}
 
 	}
-	else if (!godMode && App->player->score == App->player2->score && time >=1860 && (App->frisbee->posesion == 1 || App->frisbee->posesion == 2 || App->frisbee->projectil==0)) {
-		App->player->round += 1;
-		App->player2->round += 1;
-		App->player->score = 0;
-		App->player2->score = 0;
-		
-		Win();
-		a = 3;
-		//Animación de cuando los dos acaban una ronda en puntuacion empate
-		timerAnim.Reset();
-		App->frisbee->position.x = 150;
-		App->frisbee->position.y = 200;
-		App->frisbee->currentAnimation2 = &App->frisbee->moving;
-		EndRound(1);
-		time = 0;
-	}
-	else{ //puntuaciones empates
-		EndRound(arbitro);
-	}
+	else if (time == 1860 && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::STOP)) { //FALTA TIMER
 
+		if (App->player->score > App->player2->score) {
+			App->player->round += 1;
+			Win();
+			//Llamar animación de jugador ganador 1 y las texturas
+			App->player->score = 0;
+			App->player2->score = 0;
+			timerAnim.Reset();
+		}
+		else if (App->player2->score > App->player->score) {
+			App->player2->round += 1;
+			Win();
+			//Llamar animación de jugador ganador 2 y las texturas
+			App->player->score = 0;
+			App->player2->score = 0;
+			timerAnim.Reset();
+
+		}
+		else if (App->player->score == App->player2->score) {
+			App->player->round += 1;
+			App->player2->round += 1;
+			App->player->score = 0;
+			App->player2->score = 0;
+			Win();
+			//Animación de cuando los dos acaban una ronda en puntuacion empate
+			timerAnim.Reset();
+		}
+	}
 }
 
 void SceneBeachStage::Win() {
 
 	if (App->player->round == App->player2->round && App->player->round == 2 && App->player2->round ==2 && !suddenDeath) {
 		suddenDeath = true;
-		EndRound(1);
+		Arbitro(1);
 	} 
-	
 	else if (App->player->score != 0 && suddenDeath) {
 		//llamar animación y texturas de que ha ganado el primer jugador la partida
 		//SDL Delay
 		winState = 1;
-		
-		
+
 	}
-	
 	else if (App->player2->score != 0 && suddenDeath) {
 		//llamar animación y texturas de que ha ganado el segundo jugador la partida
 		//SDL Delay
 		winState = 2;
 		
 	}
-
 	else if ((App->player->round == 2 && !suddenDeath) || debugwinP1) {
 		//llamar animación y texturas de que ha ganado el primer jugador la partida
 		//SDL Delay
 		winState = 1;
-		
-
-	
-	}
-
+		}
 	else if ((App->player2->round == 2&&!suddenDeath) || debugwinP2) {
 		//llamar animación y texturas de que ha ganado el segundo jugador la partida
 			//SDL Delay
 		winState = 2;
-		
 
 	}
-
 	else if (suddenDeath && App->player->score == App->player2->score) {
 		//Animacion y texturas de que los dos han perdido
 		//SDL Delay
 		
 		winState = 3;
-		
+
 	}
 
+}
 
+void SceneBeachStage::Score(){
 
+	if (App->frisbee->position.x <= 19) {
+		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
+			App->player2->score += 5;
+			if (suddenDeath) {
+				Win();
+			}
+			Round();
+			Arbitro(1);
 
+		}
+		else {
+			App->player2->score += 3;
+			if (suddenDeath) {
+				Win();
+			}
+			Round();
+			Arbitro(1);
+			
+		}
+	}
+	if (App->frisbee->position.x >= 276) {
+		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
+			App->player->score += 5;
+			if (suddenDeath) {
+				Win();
+			}
+
+			Round();
+			Arbitro(2);
+		}
+		else {
+			App->player->score += 3;
+			if (suddenDeath) {
+				Win();
+			}
+			Round();
+			Arbitro(2);
+		}
+	}
+
+	App->frisbee->position.x = 150;
+	App->frisbee->position.y = 200;
 }

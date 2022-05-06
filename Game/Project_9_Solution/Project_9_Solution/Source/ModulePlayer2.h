@@ -84,6 +84,16 @@ public:
 	//Numero de rondas ganadas
 	int round;
 	int FrisbeeTime;
+
+	enum estadoPlayer2
+	{
+		STOP,
+		MOVIMIENTO,
+		WITHFRISBEE,
+
+
+	};
+	int estadoP2;
 	
 
 };

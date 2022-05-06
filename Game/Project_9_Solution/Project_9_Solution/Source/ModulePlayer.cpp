@@ -11,6 +11,7 @@
 #include "ModuleFonts.h"
 #include "ModuleFrisbee.h"
 #include "SceneBeachStage.h"
+#include "ModulePlayer2.h"
 
 #include <stdio.h>
 
@@ -352,22 +353,17 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collider && destroyed == false)
 	{
 		//creo q si ya lo tenemos puesto en el disco que si choca no haga nada, no deberia hacer falta ponerlo aqui tmb
-		frisbeeCollision();
+		App->frisbee->position.x = position.x + 28;
+		App->frisbee->position.y = position.y;
+		//Al recibir disco hace idle con disco en la mano
+		currentAnimation = &idleDisk;
+		estadoP1 = estadoPlayer::WITHFRISBEE;
+		App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::MOVIMIENTO;
 
 	}
 }
 
-void ModulePlayer::frisbeeCollision() {
-	App->frisbee->mov = 0;
-	disco = true;
-	/*App->frisbee->xspeed = 4;
-	App->frisbee->yspeed = 4;*/
-	App->frisbee->position.x = position.x +28;
-	App->frisbee->position.y = position.y;
-	App->frisbee->posesion = 1;
-	//Al recibir disco hace idle con disco en la mano
-	currentAnimation = &idleDisk;
-}
+
 
 void ModulePlayer::movimientoPlayer(){
 	
@@ -453,7 +449,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
-			estadoPlayer::MOVIMIENTO;
+			estadoP1 = estadoPlayer::MOVIMIENTO;
 			
 			
 
@@ -471,7 +467,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
-			estadoPlayer::MOVIMIENTO;
+			estadoP1 = estadoPlayer::MOVIMIENTO;
 			break;
 
 		}
@@ -486,7 +482,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
-			estadoPlayer::MOVIMIENTO;
+			estadoP1 = estadoPlayer::MOVIMIENTO;
 
 			break;
 
@@ -499,6 +495,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
+			estadoP1 = estadoPlayer::MOVIMIENTO;
 			break;
 		}
 
@@ -510,6 +507,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
+			estadoP1 = estadoPlayer::MOVIMIENTO;
 			break;
 
 		}
@@ -524,6 +522,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
+			estadoP1 = estadoPlayer::MOVIMIENTO;
 
 			break;
 		}
