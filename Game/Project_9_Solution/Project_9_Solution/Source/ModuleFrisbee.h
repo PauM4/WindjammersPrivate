@@ -71,6 +71,34 @@ public:
 
 	
 
+	enum estadoFrisbee
+	{
+		STOP, //en el suelo
+		MOVIMIENTO, //en el aire
+		WITHFRISBEE, //con el player + cambiar posicion
+
+	};
+	int estadoF;
+
+	enum tipoLanzamiento {
+		NORMAL,
+		PARABOLA,
+		SUPERSHOT
+	};
+	int lanzamientoF;
+	
+	enum direccionFrisbeePlayer {
+		DARRIBA,
+		HORIZONTAL,
+		DABAJO,
+		MAX
+
+	};
+	int direccionF;
+
+	void movimientoFrisbee();
+	void limitesFrisbee();
+
 };
 
 #endif //!__MODULE_FRISBEE_H__ 
