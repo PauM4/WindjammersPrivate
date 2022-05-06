@@ -453,6 +453,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
+			estadoPlayer::MOVIMIENTO;
 			
 			
 
@@ -470,6 +471,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
+			estadoPlayer::MOVIMIENTO;
 			break;
 
 		}
@@ -484,6 +486,8 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
+			estadoPlayer::MOVIMIENTO;
+
 			break;
 
 		}
@@ -528,3 +532,44 @@ void ModulePlayer::lanzamientoPlayer() {
 	}
 }
 
+
+
+
+
+//#include <iostream>
+//using namespace std;
+//
+//enum b {
+//	Nada,
+//	printar
+//};
+//
+//void a(int* s);
+//
+//int main() {
+//
+//	int s = 0;
+//	if (s == b::printar) {
+//		cout << "a" << endl;
+//	}
+//	else if (s == b::Nada) {
+//		cout << "sin llamar funcion" << endl;
+//	}
+//
+//	a(&s);
+//
+//	if (s == b::printar) {
+//		cout << "a" << endl;
+//	}
+//	else if (s == b::Nada) {
+//
+//	}
+//
+//}
+//
+//void a(int* s) {
+//
+//
+//	*s = b::printar;
+//
+//}
