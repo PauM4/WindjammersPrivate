@@ -152,6 +152,7 @@ bool ModulePlayer::Start()
 
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);
+
 	FrisbeeTime = 0;
 	return ret;
 }
@@ -331,9 +332,15 @@ Update_Status ModulePlayer::PostUpdate()
 	{
 		sprintf_s(scoreText, 10, "%2d", score);
 
-		App->fonts->BlitText(115, 16, scoreFont, scoreText);
+		App->fonts->BlitText(117, 17, scoreFont, scoreText);
 
 		//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
+	}
+
+	//5Punts UI de BEACH per sobre el player
+	if (!App->sceneBeachStage->startTheGame)
+	{
+		App->render->Blit(App->sceneBeachStage->uiSpriteTexture, 7, 92, &App->sceneBeachStage->cincPuntsL);
 	}
 
 

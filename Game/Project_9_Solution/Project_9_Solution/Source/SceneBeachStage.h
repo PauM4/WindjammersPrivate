@@ -71,6 +71,14 @@ public:
 	//Rectangulet dreta
 	SDL_Rect rectanguletR = { 0, 357, 29, 3 };
 
+	SDL_Rect rectTimer88;
+	SDL_Rect rectNormes;
+	SDL_Rect tresPuntsL;
+	SDL_Rect cincPuntsL;
+	SDL_Rect tresPuntsR;
+	SDL_Rect cincPuntsR;
+	SDL_Rect set1Rect;
+
 	bool a = 0;
 	
 };

@@ -237,9 +237,44 @@ Update_Status SceneBeachStage::PostUpdate()
 
 	if (startTheGame)
 	{
+
 		//Timer
 		SDL_Rect rectTimer = currentTimerAnim->GetCurrentFrame();
 		App->render->Blit(timerTexture, 144, 13, &rectTimer);
+
+		//12 points / 30 sec
+		rectNormes = { 207, 11, 151, 15 };
+		App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
+
+		//puntuació tots gols L
+		tresPuntsL = { 0, 188, 63, 34 };
+		cincPuntsL = { 76, 258, 63, 35 };
+		App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
+		//App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
+		App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
+
+		//puntuació tots gols R
+		tresPuntsR = { 112, 120, 63, 34 };
+		cincPuntsR = { 74, 224, 63, 35 };
+		App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
+		App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
+		App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
+
+		//Set1
+		set1Rect = { 160, 300, 160, 56 };
+		App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
+
+		//Time88
+		rectTimer88 = { 0, 0, 15, 15 };
+		App->render->Blit(timerTexture, 144, 13, &rectTimer88);
+
+		//Score 00-00 preGame
+		App->fonts->BlitText(114, 17, App->player->scoreFont, "0");
+		App->fonts->BlitText(130, 17, App->player->scoreFont, "0");
+		App->fonts->BlitText(162, 17, App->player->scoreFont, "0");
+		App->fonts->BlitText(178, 17, App->player->scoreFont, "0");
+
+		//App->fonts->BlitText(115, 16, scoreFont, scoreText);
 	}
 	else
 	{
