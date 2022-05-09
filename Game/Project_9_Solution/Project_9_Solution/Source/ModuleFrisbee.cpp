@@ -53,6 +53,7 @@ ModuleFrisbee::~ModuleFrisbee()
 
 bool ModuleFrisbee::Start()
 {
+	bool ret = true;
 	speed = 1;
 	arbitro = 1;
 	pared = false;
@@ -63,7 +64,7 @@ bool ModuleFrisbee::Start()
 	currentAnimation2 = &moving;
 	LOG("Loading frisbee textures");
 
-	bool ret = true;
+	
 
 	texture = App->textures->Load("Assets/Sprites/Levels/Beach.png");
 
@@ -77,22 +78,50 @@ bool ModuleFrisbee::Start()
 	destroyed = false;
 
 	collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this);
-
+	estadoF = STOP; 
+	lanzamientoF = ARBITRO;
 	return ret;
 }
 
 Update_Status ModuleFrisbee::Update()
 {
+
+	switch (estadoF) {
+
+	case STOP:
+
+		break;
+
+	case MOVIMIENTO:
+
+		movimientoFrisbee();
+		break;	
+
+	case WITHPLAYER:
+		currentAnimation2 = &stop;
+		if (App->player->estadoP1 == ModulePlayer::estadoPlayer::WITHFRISBEE) {
+			position.x = App->player->position.x + 33;
+			position.y = App->player->position.y + 19;
+		}
+		else if (App->player2->estadoP2 == ModulePlayer2::estadoPlayer2::WITHFRISBEE) {
+			position.x = App->player->position.x - 5;
+			position.y = App->player->position.y + 19;
+		}
+		break;
+		
+	}
+
+
 	//while (position.x != App->player->position.x && position.y != App->player->position.y) {
 		/*uint delay = 1500;
 		SDL_Delay(delay);*/
 
 	//TIMER SUELO FRISBBE
-	if (FloorTime < 120 && currentAnimation2== &stop)
+	/*if (FloorTime < 120 && currentAnimation2== &stop)
 	{
 		FloorTime++;
 		
-	}
+	}*/
 	
 
 	//if (arbitro == 1) {
@@ -250,13 +279,17 @@ Update_Status ModuleFrisbee::Update()
 
 	//}
 
+
+
+//PARABOLA
+
 	if (FloorTime == 120) {
 		if (position.x < 150 && position.x >20) {
 			App->player2->score += 2;
 			if (App->sceneBeachStage->suddenDeath) {
 				App->sceneBeachStage->Win();
 			}
-			App->sceneBeachStage->ScoreRound(1);
+			/*App->sceneBeachStage->ScoreRound(1); - LO  CCOMENTO PARA Q NO DE ERRO*/
 		}
 		if (position.x > 150 && position.x <275) {
 			App->player->score += 2;
@@ -264,7 +297,7 @@ Update_Status ModuleFrisbee::Update()
 				App->sceneBeachStage->Win();
 			}
 
-			App->sceneBeachStage->ScoreRound(2);
+			/*App->sceneBeachStage->ScoreRound(2);*/
 		}
 		position.x = 150;
 		position.y = 200;
@@ -302,44 +335,44 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 void ModuleFrisbee :: movimientoFrisbee() {
 
 
-	if (tipoLanzamiento::NORMAL) {
+ 	if (lanzamientoF == NORMAL) {
 
-		if (direccionFrisbeePlayer::DARRIBA) {
+		if (direccionF == DARRIBA) {
 			position.x += xspeed;
 			position.y += yspeed;
 
 		}
-		else if (direccionFrisbeePlayer:: DABAJO) {
+		else if (direccionF == DABAJO) {
 			position.x += xspeed;
 			position.y += yspeed;
 		}
-		else if (direccionFrisbeePlayer::HORIZONTAL) {
+		else if (direccionF == HORIZONTAL) {
 			position.x += xspeed;
 		}
 
 	}
-	else if (tipoLanzamiento::PARABOLA) { //TO DO límite parabola
-		if (direccionFrisbeePlayer::DARRIBA) {
+	else if (lanzamientoF == PARABOLA) { //TO DO límite parabola
+		if (direccionF == DARRIBA) {
 			
 
 		}
-		else if (direccionFrisbeePlayer::DABAJO) {
+		else if (direccionF  == DABAJO) {
 
 		}
-		else if (direccionFrisbeePlayer::HORIZONTAL) {
+		else if (HORIZONTAL) {
 
 		}
 	}
-	else if(tipoLanzamiento::ARBITRO){
-		position.x += xspeed;
-		position.y += yspeed;
+	else if(lanzamientoF == ARBITRO){
+		position.x -= xspeed;
+		position.y -= yspeed;
 	}
-	else if (tipoLanzamiento::SUPERSHOT) {
+	else if (lanzamientoF == SUPERSHOT) {
 		//TODO
 	}
 
 
-	if (mov == 1 && position.x >= 19 && position.x <= 276) {
+	/*if (mov == 1 && position.x >= 19 && position.x <= 276) {
 
 		if (pared == false && position.y >= 50) {
 
@@ -359,10 +392,10 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			pared = false;
 		}
 
-	}
+	}*/
 
 
-	if (projectil == 2) {
+	/*if (projectil == 2) {
 
 		if (PosTemp < position.x || PosTemp > position.x) {
 			position.x += xspeed;
@@ -376,38 +409,38 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		}
 
 
-	}
+	}*/
 
 
 
-	//MOV FRISBEE HACIA ABAJO
-	if (mov == 3 && position.x >= 19 && position.x <= 276) {
+	////MOV FRISBEE HACIA ABAJO
+	//if (mov == 3 && position.x >= 19 && position.x <= 276) {
 
-		if (pared == false && position.y < 170) {
+	//	if (pared == false && position.y < 170) {
 
-			position.x += xspeed;
-			position.y += yspeed;
+	//		position.x += xspeed;
+	//		position.y += yspeed;
 
-		}
-		else {
-			pared = true;
-		}
+	//	}
+	//	else {
+	//		pared = true;
+	//	}
 
-		if (pared == true && position.y >= 50) {
-			position.x += xspeed;
-			position.y -= yspeed;
-		}
-		else {
-			pared = false;
-		}
-	}
+	//	if (pared == true && position.y >= 50) {
+	//		position.x += xspeed;
+	//		position.y -= yspeed;
+	//	}
+	//	else {
+	//		pared = false;
+	//	}
+	//}
 
 
 	//MOV FRISBE PROJECTIL HACIA DELANTE
 
 
-	if (position.x <= 19 || position.x >= 276) {
-		mov = 0;
+	//if (position.x <= 19 || position.x >= 276) {
+	//	mov = 0;
 
 		////aqui tendremos que llamar la accion del arbitro que envia el disco al player 1
 
@@ -458,7 +491,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		//position.y = 200;
 
 
-	}
+	//}
 
 }
 

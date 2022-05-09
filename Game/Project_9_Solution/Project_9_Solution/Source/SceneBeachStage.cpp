@@ -49,7 +49,7 @@ SceneBeachStage::~SceneBeachStage()
 // Load assets
 bool SceneBeachStage::Start()
 {
-	
+
 	
 	round1FX = 0;
 	time = 0;
@@ -94,63 +94,95 @@ bool SceneBeachStage::Start()
 	winState = 0;
 	godMode = false;
 	a = 0;
+	estadoS = INICIO; 
 	return ret;
 }
 
 Update_Status SceneBeachStage::Update()
 {
-	//240 == 4s
-	if (initialTime < 240)
-	{
-		initialTime++;
-	}
-	else if (initialTime == 240)
-	{
-		startTheGame = true;
-		App->audio->PlayFx(round1FX, 0);
-		//EndRound(1);
-	}
 
-	if (startTheGame)
-	{
-		if (time <= 1860)
-		{
-			time++;
-		}
-		currentTimerAnim->Update();
-	}
+	switch (estadoS) {
+	case (INICIO):
 
-	currentBeachAnim->Update();
+		//bullshit animaciones texturas etc - inicio partida, primer momento, solo ocurre una vez en cada partida
 
-	// DEBUG INSTANT WIN
-	if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
-	{
-		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
-		
-		App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-		//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
-		debugwinP1 = true;
-		Win();
-	}
-	// DEBUG INSTANT LOSE
-	if (App->input->keys[SDL_SCANCODE_F4] == Key_State::KEY_DOWN)
-	{
-		App->audio->PlayMusic("Assets/Music/09_Lost Set.ogg", 0.0f);
-		
-		App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-		//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
-		debugwinP2 = true;
-		Win();
-	}
-	if (App->input->keys[SDL_SCANCODE_F1] == Key_State::KEY_DOWN)
-	{
+    		SceneBeachStage::Arbitro(1);
+		estadoS = RONDA;
+		break;
 
-		debugwinP2 = true;
-		Win();
+	case (INICIORONDA):
+		//Animacion Ronda 1.
+		estadoS = RONDA;
+		break;
+
+	case (RONDA):
+		Round();
+		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
+
+		break;
+
+	case (FINALRONDA):
+		//Animaciones caundo se gana/pierde una ronda
+		estadoS = INICIORONDA;
+		break;
+
+	case (FINAL):
+
+		break;
 	}
 
+	////240 == 4s
+	//if (initialTime < 240)
+	//{
+	//	initialTime++;
+	//}
+	//else if (initialTime == 240)
+	//{
+	//	startTheGame = true;
+	//	App->audio->PlayFx(round1FX, 0);
+	//	//EndRound(1);
+	//}
 
-	ScoreRound(0);
+	//if (startTheGame)
+	//{
+	//	if (time <= 1860)
+	//	{
+	//		time++;
+	//	}
+	//	currentTimerAnim->Update();
+	//}
+
+	//currentBeachAnim->Update();
+
+	//// DEBUG INSTANT WIN
+	//if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
+	//{
+	//	App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
+	//	
+	//	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+	//	//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+	//	debugwinP1 = true;
+	//	Win();
+	//}
+	//// DEBUG INSTANT LOSE
+	//if (App->input->keys[SDL_SCANCODE_F4] == Key_State::KEY_DOWN)
+	//{
+	//	App->audio->PlayMusic("Assets/Music/09_Lost Set.ogg", 0.0f);
+	//	
+	//	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+	//	//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+	//	debugwinP2 = true;
+	//	Win();
+	//}
+	//if (App->input->keys[SDL_SCANCODE_F1] == Key_State::KEY_DOWN)
+	//{
+
+	//	debugwinP2 = true;
+	//	Win();
+	//}
+
+
+	
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -343,14 +375,15 @@ void SceneBeachStage::Arbitro(int arbitro) {  //cambiar esta funcion a arbitro
 		App->frisbee->xspeed = 3;
 		App->frisbee->yspeed = 2;
 		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
+		App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::ARBITRO;
+		
 
-	}
-
-	if (arbitro == 2) {
+	} else if (arbitro == 2) {
 
 		App->frisbee->xspeed = 3;
 		App->frisbee->yspeed = -2;
 		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
+		App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::ARBITRO;
 	}
 }
 
@@ -501,7 +534,7 @@ void SceneBeachStage::Round() {
 	}
 }
 
-void SceneBeachStage::Win() {
+void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH FINAL PARA QUE SE EJECUTEN LAS ANIMACIONES/TEXTURAS CONCRETAS ~ ~~ o ponerlas aquid riectamente las anim/text
 
 	if (App->player->round == App->player2->round && App->player->round == 2 && App->player2->round ==2 && !suddenDeath) {
 		suddenDeath = true;
@@ -540,7 +573,7 @@ void SceneBeachStage::Win() {
 
 }
 
-void SceneBeachStage::Score(){
+void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MARCARPUNTO, en cada momento en que se meten puntos para que se realicen las animaciones 
 
 	if (App->frisbee->position.x <= 19) {
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {

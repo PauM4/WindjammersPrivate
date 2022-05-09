@@ -75,7 +75,8 @@ public:
 	{
 		STOP, //en el suelo
 		MOVIMIENTO, //en el aire
-		WITHFRISBEE, //con el player + cambiar posicion
+		PRUEBA,
+		WITHPLAYER, //con el player + cambiar posicion
 
 	};
 	int estadoF;

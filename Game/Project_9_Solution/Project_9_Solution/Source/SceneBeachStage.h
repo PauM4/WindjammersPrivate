@@ -39,8 +39,6 @@ public:
 	SDL_Texture* uiSpriteTexture = nullptr;
 	SDL_Texture* Winn;
 
-	
-
 	Animation timerAnim;
 	Animation* currentTimerAnim = nullptr;
 	Animation bgBeachAnim;
@@ -67,6 +65,18 @@ public:
 	int winState;
 
 	bool godMode;
+
+
+	enum estadoScene
+	{
+		INICIO, //Inicio
+		INICIORONDA, //Animaciones de inicio de ronda
+		RONDA, //durante el juego
+		FINALRONDA, //animaciones/texturas fin de ronda
+		FINAL //fin de partida
+
+	};
+	int estadoS;
 	
 	//Rectangulet esquerra
 	SDL_Rect rectanguletL = { 0, 357, 29, 3 };
