@@ -244,7 +244,7 @@ Update_Status ModulePlayer::PostUpdate()
 	}
 
 	//5Punts UI de BEACH per sobre el player
-	if (!App->sceneBeachStage->startTheGame)
+	if (App->sceneBeachStage->estadoS == App->sceneBeachStage->INICIO)
 	{
 		App->render->Blit(App->sceneBeachStage->uiSpriteTexture, 7, 92, &App->sceneBeachStage->cincPuntsL);
 	}

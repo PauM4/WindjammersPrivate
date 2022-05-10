@@ -123,7 +123,7 @@ Update_Status SceneBeachStage::Update()
 		App->player->score = 0;
 		App->player2->score = 0;
 		initialTimeS = SDL_GetTicks();
-		timeLimitS = 5 * 1000;
+		timeLimitS = 30 * 1000;
 		Arbitro(arbitroFinalRonda);
 		estadoS = RONDA;
 		break;
@@ -143,7 +143,6 @@ Update_Status SceneBeachStage::Update()
 		Win();
 		estadoS = INICIORONDA;
 		break;
-
 	case (FINAL):
 
 		break;
