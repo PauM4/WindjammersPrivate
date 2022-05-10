@@ -272,7 +272,7 @@ Update_Status ModulePlayer2::PostUpdate()
 	if (isDebugAppear)
 	{
 		sprintf_s(debugText, 10, "%2d", round);
-		App->fonts->BlitText(195, 215, debugFont, debugText);
+		App->fonts->BlitText(205, 20, debugFont, debugText);
 	}
 
 	return Update_Status::UPDATE_CONTINUE;
