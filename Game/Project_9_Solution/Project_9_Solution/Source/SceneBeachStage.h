@@ -112,6 +112,10 @@ public:
 
 	bool a = 0;
 
+	//Font Debug vars
+	int debugFont;
+	char debugText[10] = { "\0" };
+	bool isDebugAppear;
 	
 };
 

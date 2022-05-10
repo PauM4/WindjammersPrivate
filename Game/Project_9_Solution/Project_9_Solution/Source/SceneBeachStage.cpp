@@ -51,11 +51,14 @@ SceneBeachStage::~SceneBeachStage()
 // Load assets
 bool SceneBeachStage::Start()
 {
-
-
 	round1FX = 0;
 	time = 0;
 	LOG("Loading background assets");
+
+	//Debug Font
+	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
+	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
+	isDebugAppear = false;
 
 	bool ret = true;
 
@@ -355,6 +358,27 @@ Update_Status SceneBeachStage::PostUpdate()
 
 		//App->fonts->BlitText(115, 16, scoreFont, scoreText);
 
+	}
+
+	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
+	{
+		if (!isDebugAppear)
+			isDebugAppear = true;
+		else isDebugAppear = false;
+	}
+
+	if (isDebugAppear)
+	{
+		// Despres de qualsevol blit perque estigui per sobre de tot
+		// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
+		// Si no es fan servir variables, comentar aquesta linia
+
+		sprintf_s(debugText, 10, "%2d", initialTimeS);
+
+		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
+		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
+
+		App->fonts->BlitText(72, 190, debugFont, debugText);
 	}
 
 	return Update_Status::UPDATE_CONTINUE;
