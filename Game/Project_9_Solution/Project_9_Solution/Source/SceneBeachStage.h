@@ -32,7 +32,7 @@ public:
 
 public:
 
-	// The scene sprite sheet loaded into an SDL_Texture
+	//The scene sprite sheet loaded into an SDL_Texture
 	//SDL_Texture* beachTexture = nullptr;
 	SDL_Texture* bgBeachTexture = nullptr;
 	SDL_Texture* timerTexture = nullptr;
@@ -65,6 +65,9 @@ public:
 	int winState;
 
 	bool godMode;
+
+	int initialTimeS;
+	int currentTimeS;
 
 
 	enum estadoScene

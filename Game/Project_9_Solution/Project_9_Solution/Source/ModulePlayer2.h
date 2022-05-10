@@ -70,6 +70,9 @@ public:
 	};
 	int estadoP2;
 
+	int initialTimeP2;
+	int currentTimeP2;
+
 	//Last Move
 	int last2;
 

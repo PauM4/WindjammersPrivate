@@ -67,6 +67,9 @@ public:
 	};
 	int estadoP1;
 
+	int initialTimeP;
+	int currentTimeP;
+
 
 	//Last Move
 	int last1;
