@@ -56,6 +56,7 @@ public:
 	
 	void Win();
 	bool suddenDeath;
+
 	
 	int time;
 	int initialTime;
@@ -93,6 +94,8 @@ public:
 	int timeLimitS;
 
 	int arbitroFinalRonda;
+
+
 	
 
 	void TimerS();

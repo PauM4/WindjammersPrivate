@@ -156,7 +156,8 @@ Update_Status SceneBeachStage::Update()
 		//App->player->estadoP1 = App->player->STOP;
 		//App->player2->estadoP2 = App->player2->STOP;
 		Win();
-		estadoS = INICIORONDA;
+
+		
 		break;
 
 		//Animacions qui ha guanyat bailecito chingon i reiniciar
@@ -523,8 +524,8 @@ void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH 
 
 	if (App->player->round == App->player2->round && App->player->round == 2 && App->player2->round ==2 && !suddenDeath) {
 		suddenDeath = true;
-		Arbitro(1);
-
+		estadoS = INICIORONDA;
+		
 	} 
 	else if (App->player->score != 0 && suddenDeath) {
 		//llamar animación y texturas de que ha ganado el primer jugador la partida
@@ -559,6 +560,9 @@ void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH 
 		winState = 3;
 		estadoS = FINAL;
 
+	}
+	else {
+		estadoS = INICIORONDA;
 	}
 
 }
