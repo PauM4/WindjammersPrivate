@@ -234,7 +234,7 @@ Update_Status ModulePlayer::PostUpdate()
 	}
 
 	// Draw UI (score) --------------------------------------
-	if (App->sceneBeachStage->startTheGame)
+	if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
 	{
 		sprintf_s(scoreText, 10, "%2d", score);
 

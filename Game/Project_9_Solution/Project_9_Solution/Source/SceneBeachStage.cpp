@@ -106,9 +106,6 @@ bool SceneBeachStage::Start()
 
 Update_Status SceneBeachStage::Update()
 {
-	initialTimeS = SDL_GetTicks();
-
-
 	switch (estadoS) {
 	case (INICIO):
 
@@ -141,6 +138,8 @@ Update_Status SceneBeachStage::Update()
 
 	case (FINALRONDA):
 		//Animaciones caundo se gana/pierde una ronda
+		//App->player->estadoP1 = App->player->STOP;
+		//App->player2->estadoP2 = App->player2->STOP;
 		Win();
 		estadoS = INICIORONDA;
 		break;
