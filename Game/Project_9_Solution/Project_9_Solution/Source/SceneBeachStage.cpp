@@ -98,7 +98,7 @@ bool SceneBeachStage::Start()
 	godMode = false;
 	a = 0;
 	estadoS = INICIO; 
-	arbitroFinalRonda = 0;
+	arbitroFinalRonda = 1;
 
 
 	return ret;
@@ -107,14 +107,26 @@ bool SceneBeachStage::Start()
 Update_Status SceneBeachStage::Update()
 {
 	switch (estadoS) {
+		//4 segons inicicials (puntuacions, ui general)
 	case (INICIO):
 
 		//bullshit animaciones texturas etc - inicio partida, primer momento, solo ocurre una vez en cada partida
-
-    	SceneBeachStage::Arbitro(1);
-		estadoS = INICIORONDA;
+		if (estadoTS == INICIOT)
+		{
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 4 * 1000;
+			estadoTS = EJECUTANDO;
+		}
+		
+		TimerS();
+		if(estadoTS == FIN)
+		{
+    		//SceneBeachStage::Arbitro(1);
+			estadoS = INICIORONDA;
+		}
 		break;
 
+		//Iniciar ronda (round 2, final o suddendeath)
 	case (INICIORONDA):
 		//Animacion Ronda 1.
 		
@@ -128,14 +140,17 @@ Update_Status SceneBeachStage::Update()
 		estadoS = RONDA;
 		break;
 
+		//INGAME Gemplei 
 	case (RONDA):
 		TimerS();
 		Round();
+		currentTimerAnim->Update();
 
 		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 
 		break;
 
+		//Animacions qui ha guanyat bailecito chingon
 	case (FINALRONDA):
 		//Animaciones caundo se gana/pierde una ronda
 		//App->player->estadoP1 = App->player->STOP;
@@ -143,7 +158,24 @@ Update_Status SceneBeachStage::Update()
 		Win();
 		estadoS = INICIORONDA;
 		break;
+
+		//Animacions qui ha guanyat bailecito chingon i reiniciar
 	case (FINAL):
+
+		if (estadoTS == INICIOT)
+		{
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 4 * 1000;
+			estadoTS = EJECUTANDO;
+		}
+
+		TimerS();
+		if (estadoTS == FIN)
+		{
+			//SceneBeachStage::Arbitro(1);
+			estadoS = INICIO;
+			App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+		}
 
 		break;
 	}
@@ -235,35 +267,39 @@ Update_Status SceneBeachStage::PostUpdate()
 	SDL_Rect LoseUILeft = { 0, 54, 100, 27 };
 	
 
-	if (winState == 4) {
-		App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+
+	//if (winState == 4) {
+	//	App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+	//}
+
+	if (estadoS == FINAL)
+	{
+		if (winState == 1) {
+
+			App->render->Blit(Winn, 0, 0, NULL);
+			App->render->Blit(uiSpriteTexture, 18, 48, &winUILeft);
+			App->render->Blit(uiSpriteTexture, 175, 54, &LoseUIRight);
+			//winState = 4;
+
+		}
+		else if (winState == 2) {
+
+			App->render->Blit(Winn, 0, 0, NULL);
+			App->render->Blit(uiSpriteTexture, 176, 48, &winUIRight);
+			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
+			//winState = 4;
+
+		}
+		else if (winState == 3) {
+
+			App->render->Blit(Winn, 0, 0, NULL);
+			App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
+			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
+			//winState = 4;
+
+		}
 	}
-
-
-	if (winState == 1) {
-
-		App->render->Blit(Winn, 0, 0, NULL);
-		App->render->Blit(uiSpriteTexture, 18, 48, &winUILeft);
-		App->render->Blit(uiSpriteTexture, 175,54, &LoseUIRight);
-		winState = 4;
-
-	}
-	else if (winState == 2) {
-
-		App->render->Blit(Winn, 0, 0, NULL);
-		App->render->Blit(uiSpriteTexture, 176, 48, &winUIRight);
-		App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
-		winState = 4;
-		
-	}
-	else if (winState == 3) {
-
-		App->render->Blit(Winn, 0, 0, NULL);
-		App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
-		App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
-		winState = 4;
-
-	}
+	
 
 	if (a == 1) {
 		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
@@ -510,7 +546,7 @@ void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH 
 		winState = 1;
 		estadoS = FINAL;
 		}
-	else if ((App->player2->round == 2&&!suddenDeath) || debugwinP2) {
+	else if ((App->player2->round == 2 &&!suddenDeath) || debugwinP2) {
 		//llamar animación y texturas de que ha ganado el segundo jugador la partida
 			//SDL Delay
 		winState = 2;
