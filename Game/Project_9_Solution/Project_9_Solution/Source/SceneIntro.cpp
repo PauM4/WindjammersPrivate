@@ -50,11 +50,11 @@ Update_Status SceneIntro::Update()
 
 	if (scape)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+		App->fade->FadeToBlack(this, (Module*)App->sceneNeogeo, 15);
 	}
 	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+		App->fade->FadeToBlack(this, (Module*)App->sceneNeogeo, 15);
 	}
 
 	return Update_Status::UPDATE_CONTINUE;

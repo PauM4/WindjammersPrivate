@@ -8,6 +8,7 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "SceneIntro.h"
+#include "SceneNeogeo.h"
 #include "SceneTitle.h"
 #include "SceneCharacterSelect.h"
 #include "SceneStageSelect.h"
@@ -33,20 +34,21 @@ Application::Application()
 	modules[3] = audio = new ModuleAudio(true);
 
 	modules[4] = sceneIntro = new SceneIntro(true);
-	modules[5] = sceneTitle = new SceneTitle(false);
-	modules[6] = sceneCharacterSelect = new SceneCharacterSelect(false);
-	modules[7] = sceneStageSelect = new SceneStageSelect(false);
-	modules[8] = sceneCharacterPresent = new SceneCharacterPresent(false);
-	modules[9] = sceneBeachStage = new SceneBeachStage(false);
+	modules[5] = sceneNeogeo = new SceneNeogeo(false);
+	modules[6] = sceneTitle = new SceneTitle(false);
+	modules[7] = sceneCharacterSelect = new SceneCharacterSelect(false);
+	modules[8] = sceneStageSelect = new SceneStageSelect(false);
+	modules[9] = sceneCharacterPresent = new SceneCharacterPresent(false);
+	modules[10] = sceneBeachStage = new SceneBeachStage(false);
 
-	modules[10] = player = new ModulePlayer(false);	//Player starts disabled
-	modules[11] = player2 = new ModulePlayer2(false);	//Player starts disabled
-	modules[12] = frisbee = new ModuleFrisbee(false);
-	modules[13] = particles = new ModuleParticles(true);
-	modules[14] = collisions = new ModuleCollisions(true);
-	modules[15] = fade = new ModuleFadeToBlack(true);
-	modules[16] = fonts = new ModuleFonts(true);
-	modules[17] = render = new ModuleRender(true);
+	modules[11] = player = new ModulePlayer(false);	//Player starts disabled
+	modules[12] = player2 = new ModulePlayer2(false);	//Player starts disabled
+	modules[13] = frisbee = new ModuleFrisbee(false);
+	modules[14] = particles = new ModuleParticles(true);
+	modules[15] = collisions = new ModuleCollisions(true);
+	modules[16] = fade = new ModuleFadeToBlack(true);
+	modules[17] = fonts = new ModuleFonts(true);
+	modules[18] = render = new ModuleRender(true);
 }
 
 Application::~Application()
