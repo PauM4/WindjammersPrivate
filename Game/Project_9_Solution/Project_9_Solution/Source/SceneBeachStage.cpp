@@ -15,6 +15,8 @@
 
 #include "SDL/include/SDL.h"
 
+#include <stdio.h>
+
 
 SceneBeachStage::SceneBeachStage(bool startEnabled) : Module(startEnabled)
 {
@@ -50,7 +52,7 @@ SceneBeachStage::~SceneBeachStage()
 bool SceneBeachStage::Start()
 {
 
-	
+
 	round1FX = 0;
 	time = 0;
 	LOG("Loading background assets");
@@ -79,8 +81,6 @@ bool SceneBeachStage::Start()
 	uiSpriteTexture = App->textures->Load("Assets/Sprites/UI/UISpriteSheet_Upgrade.png");
 	Winn = App->textures->Load("Assets/Sprites/UI/charactersPresent2.png"); 
 
-
-
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
@@ -95,34 +95,50 @@ bool SceneBeachStage::Start()
 	godMode = false;
 	a = 0;
 	estadoS = INICIO; 
+	arbitroFinalRonda = 0;
+
+
 	return ret;
 }
 
 Update_Status SceneBeachStage::Update()
 {
+	initialTimeS = SDL_GetTicks();
+
 
 	switch (estadoS) {
 	case (INICIO):
 
 		//bullshit animaciones texturas etc - inicio partida, primer momento, solo ocurre una vez en cada partida
 
-    		SceneBeachStage::Arbitro(1);
-		estadoS = RONDA;
+    	SceneBeachStage::Arbitro(1);
+		estadoS = INICIORONDA;
 		break;
 
 	case (INICIORONDA):
 		//Animacion Ronda 1.
+		
+		estadoTS = estadoTimerS::INICIOT;
+		timerAnim.Reset();
+		App->player->score = 0;
+		App->player2->score = 0;
+		initialTimeS = SDL_GetTicks();
+		timeLimitS = 5 * 1000;
+		Arbitro(arbitroFinalRonda);
 		estadoS = RONDA;
 		break;
 
 	case (RONDA):
+		TimerS();
 		Round();
+
 		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 
 		break;
 
 	case (FINALRONDA):
 		//Animaciones caundo se gana/pierde una ronda
+		Win();
 		estadoS = INICIORONDA;
 		break;
 
@@ -130,6 +146,10 @@ Update_Status SceneBeachStage::Update()
 
 		break;
 	}
+
+
+
+
 
 	////240 == 4s
 	//if (initialTime < 240)
@@ -180,9 +200,6 @@ Update_Status SceneBeachStage::Update()
 	//	debugwinP2 = true;
 	//	Win();
 	//}
-
-
-	
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -258,9 +275,6 @@ Update_Status SceneBeachStage::PostUpdate()
 		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
 	}
 	
-
-
-
 
 	SDL_Rect rounds = { 0,0,0,0 };
 	App->render->Blit(uiSpriteTexture, 150, 150, &rounds);
@@ -356,11 +370,8 @@ bool SceneBeachStage::CleanUp()
 	return true;
 }
 
-
-
 //En cuanto mete un jugador un gol, se llama a esto y se determina el valor de arbitro. Lo ponemos aqui como funcion externa en vez de dentro del update de frisbee
 //Ya que en este .cpp también llamaremos a esta función en función de las rondas/sets ganados~
-
 
 void SceneBeachStage::Arbitro(int arbitro) {  //cambiar esta funcion a arbitro
 	App->player->position.x = 20;
@@ -393,52 +404,57 @@ void SceneBeachStage::Round() {
 
 		if (App->player->score > App->player2->score + 2) {
 			App->player->round += 1;
-			Win();
+			
 			//Llamar animación de jugador ganador 1 y las texturas
 			App->player->score = 0;
 			App->player2->score = 0;
-			timerAnim.Reset();
+			estadoS = FINALRONDA;
 		}
 
 		if (App->player2->score > App->player->score + 2) {
 			App->player2->round += 1;
-			Win();
+			
 			//Llamar animación de jugador ganador 2 y las texturas
 			App->player->score = 0;
 			App->player2->score = 0;
-			timerAnim.Reset();
+			estadoS = FINALRONDA;
 		}
 
 	}
-	else if (time == 1860 && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::STOP)) { //FALTA TIMER
+	else if (estadoTS == FIN && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::STOP)) { //FALTA TIMER
+
 
 		if (App->player->score > App->player2->score) {
 			App->player->round += 1;
-			Win();
+			
 			//Llamar animación de jugador ganador 1 y las texturas
-			App->player->score = 0;
-			App->player2->score = 0;
-			timerAnim.Reset();
+			arbitroFinalRonda = 2;
+			estadoS = FINALRONDA;
+
 		}
 		else if (App->player2->score > App->player->score) {
 			App->player2->round += 1;
-			Win();
+			
 			//Llamar animación de jugador ganador 2 y las texturas
-			App->player->score = 0;
-			App->player2->score = 0;
-			timerAnim.Reset();
+			arbitroFinalRonda = 1;
+			estadoS = FINALRONDA;
 
 		}
 		else if (App->player->score == App->player2->score) {
 			App->player->round += 1;
 			App->player2->round += 1;
-			App->player->score = 0;
-			App->player2->score = 0;
-			Win();
+
+			arbitroFinalRonda = 1;
+			estadoS = FINALRONDA;
+			
 			//Animación de cuando los dos acaban una ronda en puntuacion empate
-			timerAnim.Reset();
+
 		}
+
 	}
+
+
+
 }
 
 void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH FINAL PARA QUE SE EJECUTEN LAS ANIMACIONES/TEXTURAS CONCRETAS ~ ~~ o ponerlas aquid riectamente las anim/text
@@ -446,35 +462,40 @@ void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH 
 	if (App->player->round == App->player2->round && App->player->round == 2 && App->player2->round ==2 && !suddenDeath) {
 		suddenDeath = true;
 		Arbitro(1);
+
 	} 
 	else if (App->player->score != 0 && suddenDeath) {
 		//llamar animación y texturas de que ha ganado el primer jugador la partida
 		//SDL Delay
 		winState = 1;
+		estadoS = FINAL;
 
 	}
 	else if (App->player2->score != 0 && suddenDeath) {
 		//llamar animación y texturas de que ha ganado el segundo jugador la partida
 		//SDL Delay
 		winState = 2;
+		estadoS = FINAL;
 		
 	}
 	else if ((App->player->round == 2 && !suddenDeath) || debugwinP1) {
 		//llamar animación y texturas de que ha ganado el primer jugador la partida
 		//SDL Delay
 		winState = 1;
+		estadoS = FINAL;
 		}
 	else if ((App->player2->round == 2&&!suddenDeath) || debugwinP2) {
 		//llamar animación y texturas de que ha ganado el segundo jugador la partida
 			//SDL Delay
 		winState = 2;
+		estadoS = FINAL;
 
 	}
 	else if (suddenDeath && App->player->score == App->player2->score) {
 		//Animacion y texturas de que los dos han perdido
 		//SDL Delay
-		
 		winState = 3;
+		estadoS = FINAL;
 
 	}
 
@@ -524,4 +545,12 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 
 	App->frisbee->position.x = 150;
 	App->frisbee->position.y = 200;
+}
+
+void SceneBeachStage::TimerS() {
+	currentTimeS = SDL_GetTicks();
+
+	if (currentTimeS - initialTimeS >= timeLimitS) {
+		estadoTS = estadoTimerS::FIN;
+	}
 }

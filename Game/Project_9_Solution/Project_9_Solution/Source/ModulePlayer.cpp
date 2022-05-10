@@ -14,6 +14,7 @@
 #include "ModulePlayer2.h"
 
 #include <stdio.h>
+#include "SDL/include/SDL.h"
 
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
@@ -172,6 +173,7 @@ Update_Status ModulePlayer::Update()
 		break;
 
 	case (WITHFRISBEE): 
+		timerP();
 		lanzamientoPlayer();
 		break;
 
@@ -261,6 +263,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		//Al recibir disco hace idle con disco en la mano
 		currentAnimation = &idleDisk;
 		estadoP1 = estadoPlayer::WITHFRISBEE;
+
+		initialTimeP = SDL_GetTicks();
+		timeLimitP = 2 * 1000;
+		estadoTP = estadoTimerP::EJECUTANDO;
+
 		App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::MOVIMIENTO;
 
 	}
@@ -370,7 +377,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 
 
-		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN)
+		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN || estadoTP == FIN)
 		{
 			App->frisbee->xspeed = 4;
 			App->frisbee->yspeed = 0;
@@ -378,6 +385,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP1 = estadoPlayer::MOVIMIENTO;
+			estadoTP = estadoTimerP::INICIO;
 
 			break;
 
@@ -421,6 +429,14 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 
 
+	}
+}
+
+void ModulePlayer::timerP() {
+	currentTimeP = SDL_GetTicks();
+
+	if (currentTimeP - initialTimeP >= timeLimitP) {
+		estadoTP = estadoTimerP::FIN;
 	}
 }
 

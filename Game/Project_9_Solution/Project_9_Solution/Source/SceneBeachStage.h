@@ -53,6 +53,7 @@ public:
 	void Round();
 	void Score();
 	
+	
 	void Win();
 	bool suddenDeath;
 	
@@ -66,8 +67,7 @@ public:
 
 	bool godMode;
 
-	int initialTimeS;
-	int currentTimeS;
+	
 
 
 	enum estadoScene
@@ -80,6 +80,22 @@ public:
 
 	};
 	int estadoS;
+
+	enum estadoTimerS {
+		INICIOT,
+		EJECUTANDO,
+		FIN,
+	};
+	int estadoTS;
+
+	int initialTimeS;
+	int currentTimeS;
+	int timeLimitS;
+
+	int arbitroFinalRonda;
+	
+
+	void TimerS();
 	
 	//Rectangulet esquerra
 	SDL_Rect rectanguletL = { 0, 357, 29, 3 };
@@ -95,6 +111,7 @@ public:
 	SDL_Rect set1Rect;
 
 	bool a = 0;
+
 	
 };
 

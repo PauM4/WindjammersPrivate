@@ -12,6 +12,7 @@
 #include "ModuleFrisbee.h"
 #include "SceneBeachStage.h"
 #include "ModulePlayer.h"
+#include "SDL/include/SDL.h"
 
 //Venga developer;)
 
@@ -178,6 +179,7 @@ Update_Status ModulePlayer2::Update()
 		break;
 
 	case (WITHFRISBEE):
+		timerP2();
 		lanzamientoPlayer2();
 		break;
 
@@ -264,6 +266,11 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 		App->frisbee->position.y = position.y;
 		currentAnimation = &idleDisk;
 		estadoP2 = estadoPlayer2::WITHFRISBEE;
+
+		initialTimeP2 = SDL_GetTicks();
+		timeLimitP2 = 2 * 1000;
+		estadoTP2 = estadoTimerP2::EJECUTANDO;
+
 		App->player->estadoP1 = ModulePlayer::estadoPlayer::MOVIMIENTO;
 	}
 
@@ -365,7 +372,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 
 		}
 
-		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN)
+		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN || estadoTP2 == FIN)
 		{
 			App->frisbee->xspeed = -4;
 			App->frisbee->yspeed = 0;
@@ -373,6 +380,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP2 = estadoPlayer2::MOVIMIENTO;
+			estadoTP2 = estadoTimerP2::INICIO;
 
 			break;
 		}
@@ -417,3 +425,11 @@ void ModulePlayer2::lanzamientoPlayer2() {
 		}
 	}
 }
+
+void ModulePlayer2::timerP2() {
+	currentTimeP2 = SDL_GetTicks();
+
+	if (currentTimeP2 - initialTimeP2 >= timeLimitP2) {
+		estadoTP2 = estadoTimerP2::FIN;
+	}
+} 

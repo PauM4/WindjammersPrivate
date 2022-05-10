@@ -70,8 +70,18 @@ public:
 	};
 	int estadoP2;
 
+	enum estadoTimerP2 {
+		INICIO,
+		EJECUTANDO,
+		FIN,
+	};
+	int estadoTP2;
+
+	void timerP2();
+
 	int initialTimeP2;
 	int currentTimeP2;
+	int timeLimitP2;
 
 	//Last Move
 	int last2;
