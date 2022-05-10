@@ -106,6 +106,11 @@ public:
 	int scoreFont;
 	char scoreText[10] = { "\0" };
 
+	// Font round index
+	int debugFont;
+	char debugText[10] = { "\0" };
+	bool isDebugAppear;
+
 	//Numero de rondas ganadas
 	int round;
 

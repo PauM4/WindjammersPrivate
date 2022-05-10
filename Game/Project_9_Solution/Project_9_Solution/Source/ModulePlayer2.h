@@ -111,8 +111,10 @@ public:
 	int round;
 	int FrisbeeTime;
 
-
-	
+	// Font round index
+	int debugFont;
+	char debugText[10] = { "\0" };
+	bool isDebugAppear;
 
 };
 

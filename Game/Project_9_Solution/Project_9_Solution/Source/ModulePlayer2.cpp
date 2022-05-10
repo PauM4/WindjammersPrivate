@@ -161,6 +161,10 @@ bool ModulePlayer2::Start()
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);
 
+	char lookupTableDebug[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
+	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTableDebug, 2);
+	isDebugAppear = false;
+
 	FrisbeeTime = 0;
 
 	estadoP2 = STOP;
@@ -257,6 +261,19 @@ Update_Status ModulePlayer2::PostUpdate()
 		App->render->Blit(App->sceneBeachStage->uiSpriteTexture, 239, 92, &App->sceneBeachStage->cincPuntsR);
 	}
 
+	//Debug Text rounds P2
+	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
+	{
+		if (!isDebugAppear)
+			isDebugAppear = true;
+		else isDebugAppear = false;
+	}
+
+	if (isDebugAppear)
+	{
+		sprintf_s(debugText, 10, "%2d", round);
+		App->fonts->BlitText(195, 215, debugFont, debugText);
+	}
 
 	return Update_Status::UPDATE_CONTINUE;
 }
