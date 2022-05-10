@@ -162,7 +162,9 @@ Update_Status SceneBeachStage::Update()
 
 		//Animacions qui ha guanyat bailecito chingon i reiniciar
 	case (FINAL):
-
+		App->player->estadoP1 = App->player->STOP;
+		App->player2->estadoP2 = App->player2->STOP;
+		App->frisbee->estadoF = App->frisbee->STOP;
 		if (estadoTS == INICIOT)
 		{
 			initialTimeS = SDL_GetTicks();

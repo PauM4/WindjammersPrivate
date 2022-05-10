@@ -89,7 +89,7 @@ Update_Status ModuleFrisbee::Update()
 	switch (estadoF) {
 
 	case STOP:
-
+		currentAnimation2 = &desaparece;
 		break;
 
 	case MOVIMIENTO:
@@ -238,10 +238,10 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 
 
 void ModuleFrisbee :: movimientoFrisbee() {
-
+	currentAnimation2 = &moving;
 
  	if (lanzamientoF == NORMAL) {
-		currentAnimation2 = &moving; 
+		
 
 		if (direccionF == DARRIBA) {
 			position.x += xspeed;
