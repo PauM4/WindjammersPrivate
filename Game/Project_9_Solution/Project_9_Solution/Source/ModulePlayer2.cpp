@@ -11,6 +11,7 @@
 #include "ModuleFonts.h"
 #include "ModuleFrisbee.h"
 #include "SceneBeachStage.h"
+#include "ModulePlayer.h"
 
 //Venga developer;)
 
@@ -160,165 +161,178 @@ bool ModulePlayer2::Start()
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);
 
 	FrisbeeTime = 0;
+
+	estadoP2 = STOP;
+
 	return ret;
 }
 
 Update_Status ModulePlayer2::Update()
 {
 	
+	switch (estadoP2) {
+	case (STOP):
+		break;
+	case (MOVIMIENTO):
+		movimientoPlayer2();
+		break;
 
-	if (App->sceneBeachStage->startTheGame) {
+	case (WITHFRISBEE):
+		lanzamientoPlayer2();
+		break;
 
-		if (FrisbeeTime < 120 && App->frisbee->posesion == 2)
-		{
-			FrisbeeTime++;
-		}
+	}
 
-		//MOVIMIENTO
-		if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT && position.x > 159 && App->frisbee->posesion != 2)
-		{
-			position.x -= speed;
 
-			if (currentAnimation != &leftAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
-			{
-				leftAnim.Reset();
-				currentAnimation = &leftAnim;
-			}
-			last2 = 0;
-		}
+	//if (App->sceneBeachStage->startTheGame) {
 
-		if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT && position.x < 258 && App->frisbee->posesion != 2)
-		{
-			position.x += speed;
-			if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
-			{
-				rightAnim.Reset();
-				currentAnimation = &rightAnim;
-			}
-			last2 = 1;
-		}
+	//	if (FrisbeeTime < 120 && App->frisbee->posesion == 2)
+	//	{
+	//		FrisbeeTime++;
+	//	}
 
-		if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && position.y < 150 && App->frisbee->posesion != 2)
-		{
-			position.y += speed;
-			if (currentAnimation != &downLAnim && last2 == 0)
-			{
-				downLAnim.Reset();
-				currentAnimation = &downLAnim;
-			}
-			if (currentAnimation != &downRAnim && last2 == 1)
-			{
-				downLAnim.Reset();
-				currentAnimation = &downRAnim;
-			}
-		}
+	//	//MOVIMIENTO
+	//	if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT && position.x > 159 && App->frisbee->posesion != 2)
+	//	{
+	//		position.x -= speed;
 
-		if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && position.y > 50 && App->frisbee->posesion != 2)
-		{
-			position.y -= speed;
-			if (currentAnimation != &upLAnim && last2 == 0)
-			{
-				upLAnim.Reset();
-				currentAnimation = &upLAnim;
-			}
-			if (currentAnimation != &upRAnim && last2 == 1)
-			{
-				upRAnim.Reset();
-				currentAnimation = &upRAnim;
-			}
-		}
+	//		if (currentAnimation != &leftAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
+	//		{
+	//			leftAnim.Reset();
+	//			currentAnimation = &leftAnim;
+	//		}
+	//		last2 = 0;
+	//	}
 
-		if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_IDLE
-			&& App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_IDLE
-			&& App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_IDLE
-			&& App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_IDLE && last2 == 0 && App->frisbee->posesion != 2)
-			currentAnimation = &idleLAnim;
+	//	if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT && position.x < 258 && App->frisbee->posesion != 2)
+	//	{
+	//		position.x += speed;
+	//		if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
+	//		{
+	//			rightAnim.Reset();
+	//			currentAnimation = &rightAnim;
+	//		}
+	//		last2 = 1;
+	//	}
 
-		if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_IDLE
-			&& App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_IDLE
-			&& App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_IDLE
-			&& App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_IDLE && last2 == 1 && App->frisbee->posesion != 2)
-			currentAnimation = &idleRAnim;
+	//	if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && position.y < 150 && App->frisbee->posesion != 2)
+	//	{
+	//		position.y += speed;
+	//		if (currentAnimation != &downLAnim && last2 == 0)
+	//		{
+	//			downLAnim.Reset();
+	//			currentAnimation = &downLAnim;
+	//		}
+	//		if (currentAnimation != &downRAnim && last2 == 1)
+	//		{
+	//			downLAnim.Reset();
+	//			currentAnimation = &downRAnim;
+	//		}
+	//	}
+
+	//	if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && position.y > 50 && App->frisbee->posesion != 2)
+	//	{
+	//		position.y -= speed;
+	//		if (currentAnimation != &upLAnim && last2 == 0)
+	//		{
+	//			upLAnim.Reset();
+	//			currentAnimation = &upLAnim;
+	//		}
+	//		if (currentAnimation != &upRAnim && last2 == 1)
+	//		{
+	//			upRAnim.Reset();
+	//			currentAnimation = &upRAnim;
+	//		}
+	//	}
+
+	//	if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_IDLE
+	//		&& App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_IDLE
+	//		&& App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_IDLE
+	//		&& App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_IDLE && last2 == 0 && App->frisbee->posesion != 2)
+	//		currentAnimation = &idleLAnim;
+
+	//	if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_IDLE
+	//		&& App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_IDLE
+	//		&& App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_IDLE
+	//		&& App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_IDLE && last2 == 1 && App->frisbee->posesion != 2)
+	//		currentAnimation = &idleRAnim;
 
 
 		//LANZAMIENTO DE DISCO NORMAL
-		for (int i = 0; i < 1; i++) {
-			if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && disco && App->frisbee->posesion == 2)
-			{
-				App->frisbee->mov = 1;
-				disco = false;
-				App->frisbee->posesion = 0;
-				App->frisbee->projectil = 1;
-				App->frisbee->currentAnimation2 = &App->frisbee->moving;
-				App->audio->PlayFx(tossFx);
-				break;
-			}
+		//for (int i = 0; i < 1; i++) {
+		//	if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && disco && App->frisbee->posesion == 2)
+		//	{
+		//		App->frisbee->mov = 1;
+		//		disco = false;
+		//		App->frisbee->posesion = 0;
+		//		App->frisbee->projectil = 1;
+		//		App->frisbee->currentAnimation2 = &App->frisbee->moving;
+		//		App->audio->PlayFx(tossFx);
+		//		break;
+		//	}
 
 
-			if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && disco && App->frisbee->posesion == 2)
-			{
-				App->frisbee->mov = 3;
-				disco = false;
-				App->frisbee->posesion = 0;
-				App->frisbee->projectil = 1;
-				App->frisbee->currentAnimation2 = &App->frisbee->moving;
-				App->audio->PlayFx(tossFx);
-				break;
+		//	if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && disco && App->frisbee->posesion == 2)
+		//	{
+		//		App->frisbee->mov = 3;
+		//		disco = false;
+		//		App->frisbee->posesion = 0;
+		//		App->frisbee->projectil = 1;
+		//		App->frisbee->currentAnimation2 = &App->frisbee->moving;
+		//		App->audio->PlayFx(tossFx);
+		//		break;
 
-			}
+		//	}
 
-			if ((App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN || FrisbeeTime == 120) && App->frisbee->posesion == 2)
-			{
-				App->frisbee->mov = 2;
-				disco = false;
-				App->frisbee->posesion = 0;
-				App->frisbee->projectil = 1;
-				App->frisbee->currentAnimation2 = &App->frisbee->moving;
-				App->audio->PlayFx(tossFx);
-				FrisbeeTime = 0;
-				break;
-			}
-		}
+		//	if ((App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN || FrisbeeTime == 120) && App->frisbee->posesion == 2)
+		//	{
+		//		App->frisbee->mov = 2;
+		//		disco = false;
+		//		App->frisbee->posesion = 0;
+		//		App->frisbee->projectil = 1;
+		//		App->frisbee->currentAnimation2 = &App->frisbee->moving;
+		//		App->audio->PlayFx(tossFx);
+		//		FrisbeeTime = 0;
+		//		break;
+		//	}
+		////}
 
-		//LANZAMIENTO DE DISCO PARÁBOLA
-		for (int i = 0; i < 1; i++) {
-			if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && disco)
-			{
+		////LANZAMIENTO DE DISCO PARÁBOLA
+		//for (int i = 0; i < 1; i++) {
+		//	if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && disco)
+		//	{
 
-				
-				break;
-			}
+		//		
+		//		break;
+		//	}
 
 
-			if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && disco)
-			{
-				
-				break;
+		//	if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && disco)
+		//	{
+		//		
+		//		break;
 
-			}
+		//	}
 
-			if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && disco && App->frisbee->posesion == 2)
-			{
-				App->frisbee->mov = 2;
-				disco = false;
-				App->frisbee->posesion = 0;
-				App->frisbee->currentAnimation2 = &App->frisbee->projectile;
-				App->audio->PlayFx(tossFx);
-				FrisbeeTime = 0;
-				App->frisbee->projectil = 2;
-				App->frisbee->PosTemp = 30;
-				App->collisions->RemoveCollider(App->frisbee->collider);
+		//	if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && disco && App->frisbee->posesion == 2)
+		//	{
+		//		App->frisbee->mov = 2;
+		//		disco = false;
+		//		App->frisbee->posesion = 0;
+		//		App->frisbee->currentAnimation2 = &App->frisbee->projectile;
+		//		App->audio->PlayFx(tossFx);
+		//		FrisbeeTime = 0;
+		//		App->frisbee->projectil = 2;
+		//		App->frisbee->PosTemp = 30;
+		//		App->collisions->RemoveCollider(App->frisbee->collider);
 
-				break;
-			}
-		}
+		//		break;
+		//	}
+		//}
 
-		collider->SetPos(position.x, position.y);
-	}
-		
 	
-
-	currentAnimation->Update();
+collider->SetPos(position.x, position.y);		
+currentAnimation->Update();
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -352,19 +366,160 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && destroyed == false)
 	{//le pongo 0,0 pq no se exactamente q es esto y como he cambiado la funcion como tal tengo q meterle estos parametros i o si
-		frisbeeCollision();
-
+		App->frisbee->position.x = position.x - 17;
+		App->frisbee->position.y = position.y;
+		currentAnimation = &idleDisk;
+		estadoP2 = estadoPlayer2::WITHFRISBEE;
+		App->player->estadoP1 = ModulePlayer::estadoPlayer::MOVIMIENTO;
 	}
+
+	
 }
 
-void ModulePlayer2::frisbeeCollision() {
-	App->frisbee->mov = 0;
-	disco = true;
-	App->frisbee->xspeed = -4;
-	App->frisbee->yspeed = 4;
-	App->frisbee->position.x = position.x - 17;
-	App->frisbee->position.y = position.y;
-	App->frisbee->posesion = 2;
-	//Al recibir disco hace idle con disco en la mano
-	currentAnimation = &idleDisk;
+void ModulePlayer2::movimientoPlayer2() {
+	//MOVIMIENTO
+	if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT && position.x > 159 && App->frisbee->posesion != 2)
+	{
+		position.x -= speed;
+
+		if (currentAnimation != &leftAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
+		{
+			leftAnim.Reset();
+			currentAnimation = &leftAnim;
+		}
+		last2 = 0;
+	}
+
+	if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT && position.x < 258 && App->frisbee->posesion != 2)
+	{
+		position.x += speed;
+		if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
+		{
+			rightAnim.Reset();
+			currentAnimation = &rightAnim;
+		}
+		last2 = 1;
+	}
+
+	if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && position.y < 150 && App->frisbee->posesion != 2)
+	{
+		position.y += speed;
+		if (currentAnimation != &downLAnim && last2 == 0)
+		{
+			downLAnim.Reset();
+			currentAnimation = &downLAnim;
+		}
+		if (currentAnimation != &downRAnim && last2 == 1)
+		{
+			downLAnim.Reset();
+			currentAnimation = &downRAnim;
+		}
+	}
+
+	if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && position.y > 50 && App->frisbee->posesion != 2)
+	{
+		position.y -= speed;
+		if (currentAnimation != &upLAnim && last2 == 0)
+		{
+			upLAnim.Reset();
+			currentAnimation = &upLAnim;
+		}
+		if (currentAnimation != &upRAnim && last2 == 1)
+		{
+			upRAnim.Reset();
+			currentAnimation = &upRAnim;
+		}
+	}
+
+	if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_IDLE
+		&& App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_IDLE
+		&& App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_IDLE
+		&& App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_IDLE && last2 == 0 && App->frisbee->posesion != 2)
+		currentAnimation = &idleLAnim;
+
+	if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_IDLE
+		&& App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_IDLE
+		&& App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_IDLE
+		&& App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_IDLE && last2 == 1 && App->frisbee->posesion != 2)
+		currentAnimation = &idleRAnim;
+}
+
+void ModulePlayer2::lanzamientoPlayer2() {
+	for (int i = 0; i < 1; i++) {
+		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT)
+		{
+
+			App->frisbee->xspeed = -4;
+			App->frisbee->yspeed = -4;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
+			estadoP2 = estadoPlayer2::MOVIMIENTO;
+			break;
+		}
+
+
+		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT)
+		{
+			App->frisbee->xspeed = -4;
+			App->frisbee->yspeed = 4;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
+			estadoP2 = estadoPlayer2::MOVIMIENTO;
+			break;
+
+		}
+
+		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN)
+		{
+			App->frisbee->xspeed = -4;
+			App->frisbee->yspeed = 0;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
+			estadoP2 = estadoPlayer2::MOVIMIENTO;
+
+			break;
+		}
+		//}
+
+		//LANZAMIENTO DE DISCO PARÁBOLA
+
+		if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT)
+		{
+			App->frisbee->xspeed = -4;
+			App->frisbee->yspeed = 4;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
+			estadoP2 = estadoPlayer2::MOVIMIENTO;
+			break;
+
+		}
+
+
+		if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT)
+		{
+			App->frisbee->xspeed = -4;
+			App->frisbee->yspeed = -4;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
+			estadoP2 = estadoPlayer2::MOVIMIENTO;
+			break;
+
+		}
+
+		if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN)
+		{
+			App->frisbee->xspeed = -4;
+			App->frisbee->yspeed = 0;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
+			estadoP2 = estadoPlayer2::MOVIMIENTO;
+			break;
+		}
+	}
 }

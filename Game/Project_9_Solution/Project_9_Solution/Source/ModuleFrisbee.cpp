@@ -93,7 +93,7 @@ Update_Status ModuleFrisbee::Update()
 		break;
 
 	case MOVIMIENTO:
-
+		limitesFrisbee();
 		movimientoFrisbee();
 		break;	
 
@@ -305,6 +305,7 @@ Update_Status ModuleFrisbee::Update()
 
 
 	currentAnimation2->Update();
+	
 
 	collider->SetPos(position.x, position.y);
 
@@ -336,6 +337,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 
  	if (lanzamientoF == NORMAL) {
+		currentAnimation2 = &moving; 
 
 		if (direccionF == DARRIBA) {
 			position.x += xspeed;
@@ -364,8 +366,8 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		}
 	}
 	else if(lanzamientoF == ARBITRO){
-		position.x -= xspeed;
-		position.y -= yspeed;
+		position.x += xspeed;
+		position.y += yspeed;
 	}
 	else if (lanzamientoF == SUPERSHOT) {
 		//TODO
@@ -497,25 +499,29 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 void ModuleFrisbee::limitesFrisbee() {
 
-	if (position.x >= 19 && position.x <= 276) {
+	if (lanzamientoF != ARBITRO) {
+		if (position.x >= 19 && position.x <= 276) {
 
-		if (position.y <= 50){
-			yspeed *= -1;
-		} 
-		else if (position.y >= 170){
-			yspeed *= -1;
+			if (position.y <= 50) {
+				yspeed *= -1;
+			}
+			else if (position.y >= 170) {
+				yspeed *= -1;
+			}
+		}
+
+		else if (position.x < 19 || position.x >276) {
+
+			//funsion score
+			estadoF = estadoFrisbee::STOP;
+			App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
+			App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+			App->sceneBeachStage->Score();
+
 		}
 	}
 
-	else if (position.x < 19 || position.x >276) {
-		
-		//funsion score
-		estadoF = estadoFrisbee::STOP;
-		App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
-		App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
-		App->sceneBeachStage->Score();
 
-	} 
 
 
 

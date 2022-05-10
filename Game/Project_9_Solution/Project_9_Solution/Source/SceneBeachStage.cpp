@@ -372,8 +372,8 @@ void SceneBeachStage::Arbitro(int arbitro) {  //cambiar esta funcion a arbitro
 
 	if (arbitro == 1) {
 
-		App->frisbee->xspeed = 3;
-		App->frisbee->yspeed = 2;
+		App->frisbee->xspeed = -3;
+		App->frisbee->yspeed = -2;
 		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
 		App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::ARBITRO;
 		

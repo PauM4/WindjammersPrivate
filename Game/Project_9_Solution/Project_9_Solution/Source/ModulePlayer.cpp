@@ -156,7 +156,7 @@ bool ModulePlayer::Start()
 
 	FrisbeeTime = 0;
 
-	estadoP1 = MOVIMIENTO;
+	estadoP1 = STOP;
 
 	return ret;
 }
@@ -456,16 +456,12 @@ void ModulePlayer::lanzamientoPlayer() {
 	for (int i = 0; i < 1; i++) {
 		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
 		{
-
 			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = 4;
+			App->frisbee->yspeed = -4;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
-			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;			
 			estadoP1 = estadoPlayer::MOVIMIENTO;
-			
-			
-
 
 			break;
 		}
@@ -476,7 +472,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			
 
 			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = -4;
+			App->frisbee->yspeed = 4;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
@@ -486,10 +482,8 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 
 
-		if ((App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN))
+		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN)
 		{
-			
-
 			App->frisbee->xspeed = 4;
 			App->frisbee->yspeed = 0;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
@@ -528,8 +522,6 @@ void ModulePlayer::lanzamientoPlayer() {
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
 
-
-
 			App->frisbee->xspeed = 4;
 			App->frisbee->yspeed = 0;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
@@ -545,43 +537,3 @@ void ModulePlayer::lanzamientoPlayer() {
 }
 
 
-
-
-
-//#include <iostream>
-//using namespace std;
-//
-//enum b {
-//	Nada,
-//	printar
-//};
-//
-//void a(int* s);
-//
-//int main() {
-//
-//	int s = 0;
-//	if (s == b::printar) {
-//		cout << "a" << endl;
-//	}
-//	else if (s == b::Nada) {
-//		cout << "sin llamar funcion" << endl;
-//	}
-//
-//	a(&s);
-//
-//	if (s == b::printar) {
-//		cout << "a" << endl;
-//	}
-//	else if (s == b::Nada) {
-//
-//	}
-//
-//}
-//
-//void a(int* s) {
-//
-//
-//	*s = b::printar;
-//
-//}

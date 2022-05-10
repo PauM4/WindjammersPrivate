@@ -60,6 +60,16 @@ public:
 	Animation rightAnim;
 	Animation leftAnim;
 
+	enum estadoPlayer2
+	{
+		STOP,
+		MOVIMIENTO,
+		WITHFRISBEE,
+
+
+	};
+	int estadoP2;
+
 	//Last Move
 	int last2;
 
@@ -70,7 +80,10 @@ public:
 	bool destroyed;
 
 	bool disco;
-	void frisbeeCollision();
+
+	void movimientoPlayer2();
+	void lanzamientoPlayer2();
+
 
 	// Sound effects indices
 	uint explosionFx;
@@ -85,15 +98,7 @@ public:
 	int round;
 	int FrisbeeTime;
 
-	enum estadoPlayer2
-	{
-		STOP,
-		MOVIMIENTO,
-		WITHFRISBEE,
 
-
-	};
-	int estadoP2;
 	
 
 };

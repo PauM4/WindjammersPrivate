@@ -8,7 +8,7 @@
 
 ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 {
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i) // TODO LIMPIAR ESTO
 		colliders[i] = nullptr;
 
 	matrix[Collider::Type::WALL][Collider::Type::WALL] = false;
@@ -144,7 +144,7 @@ void ModuleCollisions::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		case Collider::Type::FRISBEE: //Grey
-			App->render->DrawQuad(colliders[i]->rect, 255, 239, 3, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, alpha);
 			break;
 		}
 	}
