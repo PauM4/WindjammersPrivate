@@ -35,7 +35,7 @@ ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 	projectile.PushBack({ 229, 0, 43, 44 });
 	projectile.loop = false;
 	projectile.pingpong = true;
-	projectile.speed = 0.3f;
+	projectile.speed = 0.2f;
 
 	//Desaparece: que no hace falta hacer nada
 	//Stop
@@ -61,7 +61,7 @@ bool ModuleFrisbee::Start()
 	posesion = false;
 	destroyed = false;
 
-	currentAnimation2 = &moving;
+	currentAnimation2 = &desaparece;
 	LOG("Loading frisbee textures");
 
 	
@@ -78,7 +78,7 @@ bool ModuleFrisbee::Start()
 	destroyed = false;
 
 	collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this);
-	estadoF = STOP; 
+	estadoF = ARBITROF;
 	lanzamientoF = ARBITRO;
 	estadoTF = INICIO;
 	blockSuperShot = true;
@@ -90,8 +90,11 @@ Update_Status ModuleFrisbee::Update()
 
 	switch (estadoF) {
 
-	case STOP:
+	case ARBITROF:
 		currentAnimation2 = &desaparece;
+		break;
+	case STOP:
+		currentAnimation2 = &stop;
 		break;
 
 	case MOVIMIENTO:
@@ -100,14 +103,14 @@ Update_Status ModuleFrisbee::Update()
 		break;	
 
 	case WITHPLAYER:
-		currentAnimation2 = &stop;
+		currentAnimation2 = &desaparece;
 		if (App->player->estadoP1 == ModulePlayer::estadoPlayer::WITHFRISBEE) {
-			App->frisbee->position.x = position.x + 28;
-			App->frisbee->position.y = position.y;
+			position.x = App->player->position.x + 28;
+			position.y = App->player->position.y;
 		}
 		else if (App->player2->estadoP2 == ModulePlayer2::estadoPlayer2::WITHFRISBEE) {
-			App->frisbee->position.x = position.x - 17;
-			App->frisbee->position.y = position.y;
+			position.x = App->player2->position.x - 17;
+			position.y = App->player2->position.y;
 		}
 		break;
 	
@@ -115,17 +118,23 @@ Update_Status ModuleFrisbee::Update()
 
 		//animaciones del disco volando
 		if (estadoTF == INICIO) {
+			position.x = App->player->position.x + 35;
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
 			estadoTF = EJECUTANDO;
 			currentAnimation2 = &projectile;
 			App->collisions->RemoveCollider(App->frisbee->collider);
 		}
+		if (estadoTF == EJECUTANDO) {
+			timerF();
+		}
 		
 		if (estadoTF == FIN) {
 
-			//collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
+			collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
 			blockSuperShot = true;
+			estadoTF = INICIO;
+			estadoF = ARBITROF;
 		}
 
 
@@ -250,8 +259,8 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && destroyed == false)
 	{
-		currentAnimation2 = &desaparece;
-		estadoF = estadoFrisbee::STOP;
+		//currentAnimation2 = &desaparece;
+		//estadoF = estadoFrisbee::STOP;
 	/*	FloorTime = 0;*/
 
 	}
@@ -438,7 +447,7 @@ void ModuleFrisbee::limitesFrisbee() {
 		else if (position.x < 19 || position.x >276) {
 
 			//funsion score
-			estadoF = estadoFrisbee::STOP;
+			estadoF = ARBITROF;
 			App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
 			App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
 			App->sceneBeachStage->Score();

@@ -73,6 +73,7 @@ public:
 
 	enum estadoFrisbee
 	{
+		ARBITROF,
 		STOP, //en el suelo
 		MOVIMIENTO, //en el aire
 		PRUEBA,

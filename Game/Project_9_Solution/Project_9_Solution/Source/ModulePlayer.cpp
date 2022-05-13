@@ -363,12 +363,13 @@ void ModulePlayer::movimientoPlayer(){
 			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 1)
 			currentAnimation = &idleRAnim;
 
-		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && (App->frisbee->position.x - position.x +28 >= 1 && App->frisbee->position.x - position.x + 28 <= 5)) {
+		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN &&  (App->frisbee->position.x - (position.x +20)) > 1  && (App->frisbee->position.x - (position.x + 20)) < 25) {
+		
 
-			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
-
+				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
+			
 		}
-	
+	 
 
 }
 

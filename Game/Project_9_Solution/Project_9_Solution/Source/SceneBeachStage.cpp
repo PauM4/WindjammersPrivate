@@ -165,7 +165,7 @@ Update_Status SceneBeachStage::Update()
 	case (FINAL):
 		App->player->estadoP1 = App->player->STOP;
 		App->player2->estadoP2 = App->player2->STOP;
-		App->frisbee->estadoF = App->frisbee->STOP;
+		App->frisbee->estadoF = App->frisbee->ARBITROF;
 		if (estadoTS == INICIOT)
 		{
 			initialTimeS = SDL_GetTicks();
@@ -415,7 +415,7 @@ Update_Status SceneBeachStage::PostUpdate()
 		// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
 		// Si no es fan servir variables, comentar aquesta linia
 
-		sprintf_s(debugText, 10, "%2d", timeLimitS);
+		sprintf_s(debugText, 10, "%2d", App->frisbee->position.x - (App->player->position.x + 20));
 
 		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
 		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
@@ -488,7 +488,7 @@ void SceneBeachStage::Round() {
 			}
 
 		}
-		else if (estadoTS == FIN && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::STOP)) { //FALTA TIMER
+		else if (estadoTS == FIN && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::WITHPLAYER)) { //FALTA TIMER
 
 
 			if (App->player->score > App->player2->score) {
