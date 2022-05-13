@@ -1,4 +1,4 @@
-#include "SceneNeogeo.h"
+#include "SceneDataeast.h"
 
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -9,32 +9,32 @@
 
 #include "SDL/include/SDL.h"
 
-SceneNeogeo::SceneNeogeo(bool startEnabled) : Module(startEnabled)
+SceneDataeast::SceneDataeast(bool startEnabled) : Module(startEnabled)
 {
-	
-	for (int i = 0; i < 50; i++)
+
+	for (int i = 0; i < 12; i++)
 	{
-		neogeo.PushBack({ i * 304, 0, 304, 224 });
+		dataeast.PushBack({ i * 304, 0, 304, 224 });
 	}
-	neogeo.loop = false;
-	neogeo.speed = 0.3f;
+	dataeast.loop = false;
+	dataeast.speed = 0.7f;
 }
 
-SceneNeogeo::~SceneNeogeo()
+SceneDataeast::~SceneDataeast()
 {
 
 }
 
 // Load assets
-bool SceneNeogeo::Start()
+bool SceneDataeast::Start()
 {
 	//selectFx = 0;
 	LOG("Loading background assets");
 
 	bool ret = true;
 
-	bgTexture = App->textures->Load("Assets/Sprites/UI/neogeo.png");
-	currentAnimation = &neogeo;
+	bgTexture = App->textures->Load("Assets/Sprites/UI/dataeast.png");
+	currentAnimation = &dataeast;
 	//SILENT AUDIO per aturar la música de IntroScreen
 	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 	//selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
@@ -45,12 +45,12 @@ bool SceneNeogeo::Start()
 	return ret;
 }
 
-Update_Status SceneNeogeo::Update()
+Update_Status SceneDataeast::Update()
 {
 	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
 	{
 		App->audio->PlayFx(selectFx);
-		App->fade->FadeToBlack(this, (Module*)App->sceneDataeast, 30);
+		App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 30);
 	}
 
 	currentAnimation->Update();
@@ -59,7 +59,7 @@ Update_Status SceneNeogeo::Update()
 }
 
 // Update: draw background
-Update_Status SceneNeogeo::PostUpdate()
+Update_Status SceneDataeast::PostUpdate()
 {
 	// Draw everything --------------------------------------
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
