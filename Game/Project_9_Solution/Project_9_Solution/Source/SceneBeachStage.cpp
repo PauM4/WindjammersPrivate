@@ -12,6 +12,7 @@
 #include "ModuleFrisbee.h"
 #include "ModuleFonts.h"
 #include "SceneCharacterPresent.h"
+#include "ModuleIngameUI.h"
 
 #include "SDL/include/SDL.h"
 
