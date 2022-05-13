@@ -24,6 +24,7 @@ bool SceneTitle::Start()
 	LOG("Loading background assets");
 
 	bool ret = true;
+	hasPlayed = false;
 
 	bgTexture = App->textures->Load("Assets/Sprites/UI/titleScreen.png");
 	//SILENT AUDIO per aturar la música de IntroScreen
@@ -40,7 +41,12 @@ Update_Status SceneTitle::Update()
 {
 	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
 	{
-		App->audio->PlayFx(selectFx);
+		if (!hasPlayed)
+		{
+			App->audio->PlayFx(selectFx);
+			hasPlayed = true;
+		}
+		
 		App->fade->FadeToBlack(this, (Module*)App->sceneCharacterSelect, 30);
 	}
 

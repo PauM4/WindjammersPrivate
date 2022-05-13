@@ -33,6 +33,7 @@ public:
 
 	// Sound effects indices
 	uint selectFx;
+	bool hasPlayed;
 
 };
 
