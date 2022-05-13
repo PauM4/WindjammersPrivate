@@ -113,8 +113,6 @@ public:
 	SDL_Rect cincPuntsR;
 	SDL_Rect set1Rect;
 
-	bool a = 0;
-
 	//Font Debug vars
 	int debugFont;
 	char debugText[10] = { "\0" };

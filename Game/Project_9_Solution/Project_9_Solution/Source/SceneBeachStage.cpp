@@ -96,7 +96,6 @@ bool SceneBeachStage::Start()
 	debugwinP2 = false;
 	winState = 0;
 	godMode = false;
-	a = 0;
 	estadoS = INICIO; 
 	arbitroFinalRonda = 1;
 
@@ -303,18 +302,21 @@ Update_Status SceneBeachStage::PostUpdate()
 		}
 	}
 	
+	// Rectangulets. S'encen si a la seguent ronda el player guanyara
+	if (App->player->round > App->player2->round)
+	{
+		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
+	}
+	else if (App->player->round < App->player2->round)
+	{
+		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
+	}
+	else if (App->player->round == App->player2->round && App->player->round >= 1 && App->player2->round >= 1)
+	{
+		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
+		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
+	}
 
-	if (a == 1) {
-		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
-	}
-	else if (a == 2) {
-		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
-	}
-	else if (a == 3) {
-		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
-		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
-	}
-	
 
 	SDL_Rect rounds = { 0,0,0,0 };
 	App->render->Blit(uiSpriteTexture, 150, 150, &rounds);

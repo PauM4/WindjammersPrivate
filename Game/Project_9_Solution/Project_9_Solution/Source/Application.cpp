@@ -33,9 +33,9 @@ Application::Application()
 	modules[2] = textures = new ModuleTextures(true);
 	modules[3] = audio = new ModuleAudio(true);
 
-	modules[4] = sceneIntro = new SceneIntro(true);
+	modules[4] = sceneIntro = new SceneIntro(false);
 	modules[5] = sceneNeogeo = new SceneNeogeo(false);
-	modules[6] = sceneTitle = new SceneTitle(false);
+	modules[6] = sceneTitle = new SceneTitle(true);
 	modules[7] = sceneCharacterSelect = new SceneCharacterSelect(false);
 	modules[8] = sceneStageSelect = new SceneStageSelect(false);
 	modules[9] = sceneCharacterPresent = new SceneCharacterPresent(false);
