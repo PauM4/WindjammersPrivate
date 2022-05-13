@@ -282,8 +282,8 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && destroyed == false)
 	{//le pongo 0,0 pq no se exactamente q es esto y como he cambiado la funcion como tal tengo q meterle estos parametros i o si
-		App->frisbee->position.x = position.x - 17;
-		App->frisbee->position.y = position.y;
+		
+		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::WITHPLAYER;
 		currentAnimation = &idleDisk;
 		estadoP2 = estadoPlayer2::WITHFRISBEE;
 

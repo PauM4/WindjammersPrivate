@@ -77,6 +77,7 @@ public:
 		MOVIMIENTO, //en el aire
 		PRUEBA,
 		WITHPLAYER, //con el player + cambiar posicion
+		BLOCK
 
 	};
 	int estadoF;
@@ -100,6 +101,20 @@ public:
 
 	void movimientoFrisbee();
 	void limitesFrisbee();
+
+	enum estadoTimerF {
+		INICIO,
+		EJECUTANDO,
+		FIN,
+	};
+	int estadoTF;
+
+	void timerF();
+	int initialTimeF;
+	int currentTimeF;
+	int timeLimitF;
+
+	bool blockSuperShot;
 
 };
 

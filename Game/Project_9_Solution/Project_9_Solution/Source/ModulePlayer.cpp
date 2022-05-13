@@ -276,11 +276,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collider && destroyed == false)
 	{
 		//creo q si ya lo tenemos puesto en el disco que si choca no haga nada, no deberia hacer falta ponerlo aqui tmb
-		App->frisbee->position.x = position.x + 28;
-		App->frisbee->position.y = position.y;
+		estadoP1 = estadoPlayer::WITHFRISBEE;
+		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::WITHPLAYER;
+
 		//Al recibir disco hace idle con disco en la mano
 		currentAnimation = &idleDisk;
-		estadoP1 = estadoPlayer::WITHFRISBEE;
+		
 
 		initialTimeP = SDL_GetTicks();
 		timeLimitP = 2 * 1000;
@@ -348,6 +349,8 @@ void ModulePlayer::movimientoPlayer(){
 			}
 		}
 
+	
+
 		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_IDLE
@@ -359,7 +362,12 @@ void ModulePlayer::movimientoPlayer(){
 			&& App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 1)
 			currentAnimation = &idleRAnim;
-	
+
+		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && (App->frisbee->position.x - position.x +28 >= 1 && App->frisbee->position.x - position.x + 28 <= 5)) {
+
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
+
+		}
 	
 
 }

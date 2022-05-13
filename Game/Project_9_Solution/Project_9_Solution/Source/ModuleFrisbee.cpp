@@ -80,6 +80,8 @@ bool ModuleFrisbee::Start()
 	collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this);
 	estadoF = STOP; 
 	lanzamientoF = ARBITRO;
+	estadoTF = INICIO;
+	blockSuperShot = true;
 	return ret;
 }
 
@@ -100,15 +102,34 @@ Update_Status ModuleFrisbee::Update()
 	case WITHPLAYER:
 		currentAnimation2 = &stop;
 		if (App->player->estadoP1 == ModulePlayer::estadoPlayer::WITHFRISBEE) {
-			position.x = App->player->position.x + 33;
-			position.y = App->player->position.y + 19;
+			App->frisbee->position.x = position.x + 28;
+			App->frisbee->position.y = position.y;
 		}
 		else if (App->player2->estadoP2 == ModulePlayer2::estadoPlayer2::WITHFRISBEE) {
-			position.x = App->player->position.x - 5;
-			position.y = App->player->position.y + 19;
+			App->frisbee->position.x = position.x - 17;
+			App->frisbee->position.y = position.y;
 		}
 		break;
+	
+	case BLOCK:
+
+		//animaciones del disco volando
+		if (estadoTF == INICIO) {
+			initialTimeF = SDL_GetTicks();
+			timeLimitF = 2 * 1000;
+			estadoTF = EJECUTANDO;
+			currentAnimation2 = &projectile;
+			App->collisions->RemoveCollider(App->frisbee->collider);
+		}
 		
+		if (estadoTF == FIN) {
+
+			//collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
+			blockSuperShot = true;
+		}
+
+
+		break;
 	}
 
 
@@ -430,5 +451,15 @@ void ModuleFrisbee::limitesFrisbee() {
 
 
 }
+
+
+void ModuleFrisbee::timerF() {
+	currentTimeF = SDL_GetTicks();
+
+	if (currentTimeF - initialTimeF >= timeLimitF) {
+		estadoTF = estadoTimerF::FIN;
+	}
+}
+
 
 

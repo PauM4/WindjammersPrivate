@@ -99,6 +99,7 @@ bool SceneBeachStage::Start()
 	a = 0;
 	estadoS = INICIO; 
 	arbitroFinalRonda = 1;
+	
 
 
 	return ret;
@@ -210,32 +211,32 @@ Update_Status SceneBeachStage::Update()
 
 	//currentBeachAnim->Update();
 
-	//// DEBUG INSTANT WIN
-	//if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
-	//{
-	//	App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
-	//	
-	//	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-	//	//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
-	//	debugwinP1 = true;
-	//	Win();
-	//}
-	//// DEBUG INSTANT LOSE
-	//if (App->input->keys[SDL_SCANCODE_F4] == Key_State::KEY_DOWN)
-	//{
-	//	App->audio->PlayMusic("Assets/Music/09_Lost Set.ogg", 0.0f);
-	//	
-	//	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-	//	//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
-	//	debugwinP2 = true;
-	//	Win();
-	//}
-	//if (App->input->keys[SDL_SCANCODE_F1] == Key_State::KEY_DOWN)
-	//{
-
-	//	debugwinP2 = true;
-	//	Win();
-	//}
+	// DEBUG INSTANT WIN
+	if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
+	{
+		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
+		
+		App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+		//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+		debugwinP1 = true;
+		Win();
+	}
+	// DEBUG INSTANT LOSE
+	if (App->input->keys[SDL_SCANCODE_F4] == Key_State::KEY_DOWN)
+	{
+		App->audio->PlayMusic("Assets/Music/09_Lost Set.ogg", 0.0f);
+		
+		App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+		//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+		debugwinP2 = true;
+		Win();
+	}
+	if (App->input->keys[SDL_SCANCODE_F1] == Key_State::KEY_DOWN)
+	{
+		if (estadoS == RONDA) {
+			godMode = true;
+		}
+	}
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -414,7 +415,7 @@ Update_Status SceneBeachStage::PostUpdate()
 		// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
 		// Si no es fan servir variables, comentar aquesta linia
 
-		sprintf_s(debugText, 10, "%2d", initialTimeS);
+		sprintf_s(debugText, 10, "%2d", timeLimitS);
 
 		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
 		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
@@ -464,62 +465,63 @@ void SceneBeachStage::Arbitro(int arbitro) {  //cambiar esta funcion a arbitro
 }
 
 void SceneBeachStage::Round() {
+	if (!godMode) {
 
-	if (App->player->score >= 12 || App->player2->score >= 12) {
+		if (App->player->score >= 12 || App->player2->score >= 12) {
 
-		if (App->player->score > App->player2->score + 2) {
-			App->player->round += 1;
-			
-			//Llamar animación de jugador ganador 1 y las texturas
-			App->player->score = 0;
-			App->player2->score = 0;
-			estadoS = FINALRONDA;
+			if (App->player->score > App->player2->score + 2) {
+				App->player->round += 1;
+
+				//Llamar animación de jugador ganador 1 y las texturas
+				App->player->score = 0;
+				App->player2->score = 0;
+				estadoS = FINALRONDA;
+			}
+
+			if (App->player2->score > App->player->score + 2) {
+				App->player2->round += 1;
+
+				//Llamar animación de jugador ganador 2 y las texturas
+				App->player->score = 0;
+				App->player2->score = 0;
+				estadoS = FINALRONDA;
+			}
+
 		}
+		else if (estadoTS == FIN && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::STOP)) { //FALTA TIMER
 
-		if (App->player2->score > App->player->score + 2) {
-			App->player2->round += 1;
-			
-			//Llamar animación de jugador ganador 2 y las texturas
-			App->player->score = 0;
-			App->player2->score = 0;
-			estadoS = FINALRONDA;
+
+			if (App->player->score > App->player2->score) {
+				App->player->round += 1;
+
+				//Llamar animación de jugador ganador 1 y las texturas
+				arbitroFinalRonda = 2;
+				estadoS = FINALRONDA;
+
+			}
+			else if (App->player2->score > App->player->score) {
+				App->player2->round += 1;
+
+				//Llamar animación de jugador ganador 2 y las texturas
+				arbitroFinalRonda = 1;
+				estadoS = FINALRONDA;
+
+			}
+			else if (App->player->score == App->player2->score) {
+				App->player->round += 1;
+				App->player2->round += 1;
+
+				arbitroFinalRonda = 1;
+				estadoS = FINALRONDA;
+
+				//Animación de cuando los dos acaban una ronda en puntuacion empate
+
+			}
+
 		}
 
 	}
-	else if (estadoTS == FIN && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::STOP)) { //FALTA TIMER
-
-
-		if (App->player->score > App->player2->score) {
-			App->player->round += 1;
-			
-			//Llamar animación de jugador ganador 1 y las texturas
-			arbitroFinalRonda = 2;
-			estadoS = FINALRONDA;
-
-		}
-		else if (App->player2->score > App->player->score) {
-			App->player2->round += 1;
-			
-			//Llamar animación de jugador ganador 2 y las texturas
-			arbitroFinalRonda = 1;
-			estadoS = FINALRONDA;
-
-		}
-		else if (App->player->score == App->player2->score) {
-			App->player->round += 1;
-			App->player2->round += 1;
-
-			arbitroFinalRonda = 1;
-			estadoS = FINALRONDA;
-			
-			//Animación de cuando los dos acaban una ronda en puntuacion empate
-
-		}
-
-	}
-
-
-
+	
 }
 
 void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH FINAL PARA QUE SE EJECUTEN LAS ANIMACIONES/TEXTURAS CONCRETAS ~ ~~ o ponerlas aquid riectamente las anim/text
@@ -563,7 +565,7 @@ void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH 
 		estadoS = FINAL;
 
 	}
-	else {
+	else if(!godMode) {
 		estadoS = INICIORONDA;
 	}
 
