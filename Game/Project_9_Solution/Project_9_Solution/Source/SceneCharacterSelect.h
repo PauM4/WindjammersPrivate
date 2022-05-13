@@ -58,11 +58,6 @@ public:
 	int x1, y1;
 	int x2, y2;
 
-	bool hasP1Selected;
-	bool hasP2Selected;
-	bool hasP1FxPlayed;
-	bool hasP2FxPlayed;
-
 
 };
 

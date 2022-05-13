@@ -26,8 +26,6 @@ bool SceneCharacterSelect::Start()
 	LOG("Loading background assets");
 
 	bool ret = true;
-	hasP1Selected = false;
-	hasP2Selected = false;
 
 	//P1
 	CharList::Mita;
@@ -57,12 +55,7 @@ Update_Status SceneCharacterSelect::Update()
 	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN && x1 == 9 && y1 == 72
 		&& x2 == 33 && y2 == 72)
 	{
-		hasP1Selected = true;
-		hasP2Selected = true;
-		if (hasP1Selected)
-		{
-			App->audio->PlayFx(hiromiSelected);
-		}
+		App->audio->PlayFx(hiromiSelected);
 		App->fade->FadeToBlack(this, (Module*)App->sceneStageSelect, 30);
 	}
 
