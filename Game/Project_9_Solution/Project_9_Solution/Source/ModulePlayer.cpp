@@ -276,7 +276,7 @@ Update_Status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider && destroyed == false)
+	if (c1 == collider)
 	{
 		//creo q si ya lo tenemos puesto en el disco que si choca no haga nada, no deberia hacer falta ponerlo aqui tmb
 		estadoP1 = estadoPlayer::WITHFRISBEE;
@@ -284,21 +284,53 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		//Al recibir disco hace idle con disco en la mano
 		currentAnimation = &idleDisk;
-		
 
 		initialTimeP = SDL_GetTicks();
 		timeLimitP = 2 * 1000;
 		estadoTP = estadoTimerP::EJECUTANDO;
 
 		App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::MOVIMIENTO;
-
 	}
 }
 
 void ModulePlayer::movimientoPlayer(){
-	
-		//MOVIMIENTO
-		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 20)
+		
+		//MOVIMIENTO - DASH 
+		if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && position.x < 110)
+		{
+			position.x += speed;
+
+			if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
+			{
+				rightAnim.Reset();
+				currentAnimation = &rightAnim;
+			}
+			last1 = 1;
+
+			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
+
+				initialTimeP = SDL_GetTicks();
+				timeLimitP = 2 * 1000;
+				estadoTP = EJECUTANDO;
+
+			}
+			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
+			{
+				timerP();
+				position.x += 1, 5 * speed;
+				currentAnimation = &rightAnim;
+			}
+			else if (estadoTP == FIN) {
+				estadoTP = INICIO;
+			}
+
+			if (currentAnimation != &rightAnim) {
+				rightAnim.Reset();
+				currentAnimation = &rightAnim;
+			}
+
+		}
+		else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 20)
 		{
 			position.x -= speed;
 
@@ -308,38 +340,35 @@ void ModulePlayer::movimientoPlayer(){
 				currentAnimation = &leftAnim;
 			}
 			last1 = 0; //TO DO: REVISAR NOMBRE Y SU FUNCIÓN DE TODOS LOS LAST1
-		}
 
 
-		if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && position.x < 110)
-		{
-			position.x += speed;
-			if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
-			{
-				rightAnim.Reset();
-				currentAnimation = &rightAnim;
+			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
+
+				initialTimeP = SDL_GetTicks();
+				timeLimitP = 2 * 1000;
+				estadoTP = EJECUTANDO;
+
 			}
-			last1 = 1;
-		}
-
-		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 150)
-		{
-			position.y += speed;
-			if (currentAnimation != &downLAnim && last1 == 0)
+			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				downLAnim.Reset();
-				currentAnimation = &downLAnim;
+				timerP();
+				position.x -= 1, 5 * speed;
+				currentAnimation = &leftAnim;
 			}
-			if (currentAnimation != &downRAnim && last1 == 1)
-			{
-				downLAnim.Reset();
-				currentAnimation = &downRAnim;
+			else if (estadoTP == FIN) {
+				estadoTP = INICIO;
 			}
-		}
 
-		if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > 50)
+			if (currentAnimation != &leftAnim) {
+				leftAnim.Reset();
+				currentAnimation = &leftAnim;
+			}
+
+		}
+		else if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > 50)
 		{
 			position.y -= speed;
+
 			if (currentAnimation != &upLAnim && last1 == 0)
 			{
 				upLAnim.Reset();
@@ -350,9 +379,73 @@ void ModulePlayer::movimientoPlayer(){
 				upRAnim.Reset();
 				currentAnimation = &upRAnim;
 			}
+
+
+			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
+
+				initialTimeP = SDL_GetTicks();
+				timeLimitP = 2 * 1000;
+				estadoTP = EJECUTANDO;
+
+			}
+			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
+			{
+				timerP();
+				position.y -= 1, 5 * speed;
+
+				currentAnimation = &rightAnim;
+			}
+			else if (estadoTP == FIN) {
+				estadoTP = INICIO;
+			}
+
+			if (currentAnimation != &rightAnim) {
+				rightAnim.Reset();
+				currentAnimation = &rightAnim;
+			}
+
+		}
+		else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 150)
+		{
+			position.y += speed;
+
+			if (currentAnimation != &downLAnim && last1 == 0)
+			{
+				downLAnim.Reset();
+				currentAnimation = &downLAnim;
+			}
+			if (currentAnimation != &downRAnim && last1 == 1)
+			{
+				downLAnim.Reset();
+				currentAnimation = &downRAnim;
+			}
+
+
+			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
+
+				initialTimeP = SDL_GetTicks();
+				timeLimitP = 2 * 1000;
+				estadoTP = EJECUTANDO;
+
+			}
+			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
+			{
+				timerP();
+				position.y += 1, 5 * speed;
+
+				currentAnimation = &rightAnim;
+			}
+			else if (estadoTP == FIN) {
+				estadoTP = INICIO;
+			}
+
+			if (currentAnimation != &rightAnim) {
+				rightAnim.Reset();
+				currentAnimation = &rightAnim;
+			}
+
 		}
 
-	
 
 		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_IDLE
@@ -471,3 +564,41 @@ void ModulePlayer::timerP() {
 }
 
 
+
+//
+//Update_Status ModulePlayer::Update()
+//{
+//	if (dashtimer == 0) {
+//
+//		dashup = false;
+//	}
+//
+//	if (dashtimer > 0) {
+//		dashtimer--;
+//	}
+//
+//
+//	if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 6)
+//	{
+//		position.x -= speed;
+//		if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN && dashup == true) {
+//			dashtimer = 15;
+//
+//		}
+//		if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_REPEAT && dashup == true)
+//		{
+//			position.x -= 3 * speed;
+//
+//			currentAnimation = &leftAnim;
+//		}
+//
+//		if (currentAnimation != &leftAnim) {
+//			leftAnim.Reset();
+//			currentAnimation = &leftAnim;
+//		}
+//
+//	}
+//
+//
+//
+//}
