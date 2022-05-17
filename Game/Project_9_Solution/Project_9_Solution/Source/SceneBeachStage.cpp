@@ -117,7 +117,7 @@ Update_Status SceneBeachStage::Update()
 		//Animacion Ronda 1.
 		
 		estadoTS = estadoTimerS::INICIOT;
-		timerAnim.Reset();
+		App->ingameUI->timerAnim.Reset();
 		App->player->score = 0;
 		App->player2->score = 0;
 		initialTimeS = SDL_GetTicks();

@@ -154,7 +154,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 		tresPuntsL = { 0, 188, 63, 34 };
 		cincPuntsL = { 76, 258, 63, 35 };
 		App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-		//App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
+		App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 		App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 
 		//puntuació tots gols R
@@ -180,7 +180,8 @@ Update_Status ModuleInGameUI::PostUpdate()
 
 		//App->fonts->BlitText(115, 16, scoreFont, scoreText);
 	}
-	else //COMENÇA PARTIDA
+	//COMENÇA PARTIDA
+	else if(App->sceneBeachStage->estadoS == App->sceneBeachStage->RONDA)
 	{
 		//Timer
 		rectTimer = currentTimerAnim->GetCurrentFrame();
