@@ -20,6 +20,16 @@
 
 ModuleInGameUI::ModuleInGameUI(bool startEnabled) : Module(startEnabled)
 {
+	//Load animation Timer test
+	int posX = 15;
+	for (int i = 0; i < 32; ++i)
+	{
+		timerAnim.PushBack({ posX, 0, 15, 15 });
+		posX += 15;
+	}
+	timerAnim.loop = false;
+	timerAnim.pingpong = false;
+	timerAnim.speed = 0.017f;
 
 }
 
@@ -128,6 +138,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 	SDL_Rect rounds = { 0,0,0,0 };
 	App->render->Blit(uiSpriteTexture, 150, 150, &rounds);
 
+	//INICI PARTIDA
 	if (App->sceneBeachStage->estadoS == App->sceneBeachStage->INICIO)
 	{
 
@@ -169,7 +180,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 
 		//App->fonts->BlitText(115, 16, scoreFont, scoreText);
 	}
-	else
+	else //COMENÇA PARTIDA
 	{
 		//Timer
 		rectTimer = currentTimerAnim->GetCurrentFrame();

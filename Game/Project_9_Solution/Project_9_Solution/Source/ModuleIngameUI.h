@@ -32,6 +32,12 @@ public:
 
 public:
 
+	SDL_Texture* uiSpriteTexture = nullptr;
+	SDL_Texture* timerTexture = nullptr;
+
+	Animation* currentTimerAnim = nullptr;
+	Animation timerAnim;
+
 	enum estadoScene
 	{
 		INICIO, //Inicio
@@ -53,13 +59,6 @@ public:
 	int initialTimeS;
 	int currentTimeS;
 	int timeLimitS;
-
-	SDL_Texture* uiSpriteTexture = nullptr;
-	SDL_Texture* timerTexture = nullptr;
-
-	Animation* currentTimerAnim = nullptr;
-
-	Animation timerAnim;
 
 	void TimerS();
 
