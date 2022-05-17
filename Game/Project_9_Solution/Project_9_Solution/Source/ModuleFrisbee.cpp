@@ -120,9 +120,9 @@ Update_Status ModuleFrisbee::Update()
 		//animaciones del disco volando
 		if (estadoTF == INICIO) {
 			initialTimeF = SDL_GetTicks();
-			position.x = App->player->position.x + 35;
 			
 			if (contadorBlock == 0) {
+				position.x = App->player->position.x + 35;
 				timeLimitF = 2 * 1000;
 				currentAnimation2 = &projectile;
 				App->collisions->RemoveCollider(App->frisbee->collider);
