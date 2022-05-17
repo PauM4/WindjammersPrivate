@@ -112,7 +112,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	idleDisk.speed = 0.1f;
 
 	//TO DO SWITCH PARA ELEGIR CHARACTERS + ESCENARIOS
-
+	destroyed = false;
 
 }
 
@@ -266,7 +266,10 @@ Update_Status ModulePlayer::PostUpdate()
 		sprintf_s(debugText, 10, "%2d", round);
 		App->fonts->BlitText(90, 20, debugFont, debugText);
 	}
-
+	
+	sprintf_s(debugText, 10, "%2d", estadoP1);
+	App->fonts->BlitText(110, 30, debugFont, debugText);
+	
 
 	return Update_Status::UPDATE_CONTINUE;
 }
