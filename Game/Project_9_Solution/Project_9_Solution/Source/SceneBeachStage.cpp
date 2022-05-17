@@ -435,6 +435,7 @@ bool SceneBeachStage::CleanUp()
 	App->player2->Disable();
 	App->frisbee->Disable();
 	App->collisions->Disable();
+	App->ingameUI->Disable();
 
 	return true;
 }

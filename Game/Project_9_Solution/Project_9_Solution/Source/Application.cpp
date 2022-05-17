@@ -49,7 +49,7 @@ Application::Application()
 
 	// Aquest modul ha d'estar sempre per sobre dels players i els mapes
 	//modules[15] = ingameUI = new ModuleIngameUI(true);
-	modules[15] = ingameUI = new ModuleInGameUI(true);
+	modules[15] = ingameUI = new ModuleInGameUI(false);
 
 	modules[16] = collisions = new ModuleCollisions(true);
 	modules[17] = fade = new ModuleFadeToBlack(true);

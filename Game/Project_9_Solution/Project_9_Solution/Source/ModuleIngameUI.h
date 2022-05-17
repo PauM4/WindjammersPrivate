@@ -32,10 +32,36 @@ public:
 
 public:
 
+	enum estadoScene
+	{
+		INICIO, //Inicio
+		INICIORONDA, //Animaciones de inicio de ronda
+		RONDA, //durante el juego
+		FINALRONDA, //animaciones/texturas fin de ronda
+		FINAL //fin de partida
+
+	};
+	int estadoS;
+
+	enum estadoTimerS {
+		INICIOT,
+		EJECUTANDO,
+		FIN,
+	};
+	int estadoTS;
+
+	int initialTimeS;
+	int currentTimeS;
+	int timeLimitS;
+
 	SDL_Texture* uiSpriteTexture = nullptr;
 	SDL_Texture* timerTexture = nullptr;
 
 	Animation* currentTimerAnim = nullptr;
+
+	Animation timerAnim;
+
+	void TimerS();
 
 	//Rectangulet esquerra
 	SDL_Rect rectanguletL;
@@ -48,6 +74,8 @@ public:
 	SDL_Rect tresPuntsR;
 	SDL_Rect cincPuntsR;
 	SDL_Rect set1Rect;
+
+	SDL_Rect rectTimer;
 
 	SDL_Rect winUIRight;
 	SDL_Rect LoseUIRight;

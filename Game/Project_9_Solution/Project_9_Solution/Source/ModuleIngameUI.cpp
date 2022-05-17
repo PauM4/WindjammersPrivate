@@ -51,6 +51,9 @@ bool ModuleInGameUI::Start()
 	uiSpriteTexture = App->textures->Load("Assets/Sprites/UI/UISpriteSheet_Upgrade.png");
 	bothCharactersTexture = App->textures->Load("Assets/Sprites/UI/charactersPresent2.png");
 
+	// Load timer texture
+	timerTexture = App->textures->Load("Assets/Sprites/UI/Fonts/timerSpriteSheet.png");
+	currentTimerAnim = &timerAnim;
 
 	return ret;
 }
@@ -169,7 +172,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 	else
 	{
 		//Timer
-		SDL_Rect rectTimer = currentTimerAnim->GetCurrentFrame();
+		rectTimer = currentTimerAnim->GetCurrentFrame();
 		App->render->Blit(timerTexture, 144, 13, &rectTimer);
 
 		////12 points / 30 sec
@@ -233,4 +236,12 @@ bool ModuleInGameUI::CleanUp()
 {
 
 	return true;
+}
+
+void ModuleInGameUI::TimerS() {
+	currentTimeS = SDL_GetTicks();
+
+	if (currentTimeS - initialTimeS >= timeLimitS) {
+		estadoTS = estadoTimerS::FIN;
+	}
 }
