@@ -593,7 +593,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			
 		}
 	}
-	if (App->frisbee->position.x >= 276) {
+	else if (App->frisbee->position.x >= 276) {
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 			App->player->score += 5;
 			if (suddenDeath) {
@@ -612,7 +612,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			Arbitro(2);
 		}
 	}
-	if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
+	else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150 && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1) {
 			App->player2->score += 2;
 			if (suddenDeath) {
 				Win();
@@ -621,7 +621,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			Arbitro(1);
 
 	}
-	if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
+	else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150 && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER2) {
 		App->player->score += 2;
 		if (suddenDeath) {
 			Win();

@@ -122,7 +122,13 @@ Update_Status ModuleFrisbee::Update()
 			initialTimeF = SDL_GetTicks();
 			
 			if (contadorBlock == 0) {
-				position.x = App->player->position.x + 35;
+				if (lanzamientoF == BLOCKPLAYER1) {
+					position.x = App->player->position.x + 35;
+				} 
+				else if (lanzamientoF == BLOCKPLAYER2) {
+					position.x = App->player2->position.x - 25;
+				}
+
 				timeLimitF = 2 * 1000;
 				currentAnimation2 = &projectile;
 				App->collisions->RemoveCollider(App->frisbee->collider);
@@ -146,14 +152,19 @@ Update_Status ModuleFrisbee::Update()
 			if (contadorBlock == 1){
 				collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
 				blockSuperShot = true;
+				estadoTF = INICIO;
 			}
 
 			if (contadorBlock == 2) {
-				estadoF = ARBITROF;
-				App->sceneBeachStage->Score();
 				contadorBlock = 0;
+				estadoTF = INICIO;
+				currentAnimation2 = &desaparece;
+				App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
+				App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+				App->sceneBeachStage->Score();
+				
 			}
-			estadoTF = INICIO;
+			
 		}
 		break;
 	}

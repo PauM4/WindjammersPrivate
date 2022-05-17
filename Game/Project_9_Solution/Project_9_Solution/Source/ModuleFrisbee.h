@@ -88,7 +88,9 @@ public:
 		NORMAL,
 		PARABOLA,
 		ARBITRO,
-		SUPERSHOT
+		SUPERSHOT, 
+		BLOCKPLAYER1,
+		BLOCKPLAYER2
 	};
 	int lanzamientoF;
 	
