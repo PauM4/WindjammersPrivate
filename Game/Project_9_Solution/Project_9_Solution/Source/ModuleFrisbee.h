@@ -79,7 +79,8 @@ public:
 		MOVIMIENTO, //en el aire
 		PRUEBA,
 		WITHPLAYER, //con el player + cambiar posicion
-		BLOCK
+		BLOCK,
+		SUELO
 
 	};
 	int estadoF;

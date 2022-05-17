@@ -366,7 +366,7 @@ void ModulePlayer2::movimientoPlayer2() {
 
 
 
-	if (App->input->keys[SDL_SCANCODE_I] == Key_State::KEY_DOWN && ((position.x) - App->frisbee->position.x ) > 1 && ((position.x) - App->frisbee->position.x) < 40) {
+	if (App->input->keys[SDL_SCANCODE_I] == Key_State::KEY_DOWN && ((position.x) - App->frisbee->position.x ) > 1 && ((position.x) - App->frisbee->position.x) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
 
 		if (App->frisbee->position.y >= position.y && App->frisbee->position.y <= (position.y + 31)) {
 	
