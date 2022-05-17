@@ -92,9 +92,6 @@ public:
 
 	int arbitroFinalRonda;
 
-
-	
-
 	void TimerS();
 	
 	//Rectangulet esquerra

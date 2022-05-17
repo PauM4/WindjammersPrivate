@@ -22,15 +22,8 @@
 SceneBeachStage::SceneBeachStage(bool startEnabled) : Module(startEnabled)
 {
 	//Load animation Timer test
-	int posX = 15;
-	for (int i = 0; i < 32; ++i)
-	{
-		timerAnim.PushBack({ posX, 0, 15, 15 });
-		posX += 15;
-	}
-	timerAnim.loop = false;
-	timerAnim.pingpong = false;
-	timerAnim.speed = 0.017f;
+	//AAAAAAAAAAAAAAAAAAAAAAA
+	//AAAAAAAAAAAAAAAAAAAAAAA
 
 	//Load beach bg animation
 	bgBeachAnim.PushBack({ 0, 0, 304, 224 });
@@ -76,14 +69,6 @@ bool SceneBeachStage::Start()
 	currentBeachAnim = &bgBeachAnim;
 
 	App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
-	
-	// Load timer texture
-	timerTexture = App->textures->Load("Assets/Sprites/UI/Fonts/timerSpriteSheet.png");
-	currentTimerAnim = &timerAnim;
-
-	// Load UI Texture
-	uiSpriteTexture = App->textures->Load("Assets/Sprites/UI/UISpriteSheet_Upgrade.png");
-	Winn = App->textures->Load("Assets/Sprites/UI/charactersPresent2.png"); 
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -145,7 +130,7 @@ Update_Status SceneBeachStage::Update()
 	case (RONDA):
 		TimerS();
 		Round();
-		currentTimerAnim->Update();
+		App->ingameUI->currentTimerAnim->Update();
 
 		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 
@@ -251,159 +236,12 @@ Update_Status SceneBeachStage::PostUpdate()
 	SDL_Rect rectBeach = currentBeachAnim->GetCurrentFrame();
 	App->render->Blit(bgBeachTexture, 0, 0, &rectBeach);
 
-	//P1 UI
-	SDL_Rect p1Rect = { 359, 0, 15, 8 };
-	App->render->Blit(uiSpriteTexture, 10, 10, &p1Rect);
-
-	//P2 UI
-	SDL_Rect p2Rect = { 374, 0, 16, 8 };
-	App->render->Blit(uiSpriteTexture, 200, 10, &p2Rect);
-
-	//Japan Flag x2
-	SDL_Rect japanFlagRect = { 460, 0, 15, 9 };
-	App->render->Blit(uiSpriteTexture, 40, 10, &japanFlagRect);
-	App->render->Blit(uiSpriteTexture, 230, 10, &japanFlagRect);
-
-	SDL_Rect winUIRight = { 224, 86, 100, 32 };
-	SDL_Rect LoseUIRight = { 393, 27, 99, 27 };
-
-	SDL_Rect winUILeft = { 324, 86, 112, 32 };
-	SDL_Rect LoseUILeft = { 0, 54, 100, 27 };
-	
-
-
 	//if (winState == 4) {
 	//	App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
 	//}
 
-	if (estadoS == FINAL)
-	{
-		if (winState == 1) {
-
-			App->render->Blit(Winn, 0, 0, NULL);
-			App->render->Blit(uiSpriteTexture, 18, 48, &winUILeft);
-			App->render->Blit(uiSpriteTexture, 175, 54, &LoseUIRight);
-			//winState = 4;
-
-		}
-		else if (winState == 2) {
-
-			App->render->Blit(Winn, 0, 0, NULL);
-			App->render->Blit(uiSpriteTexture, 176, 48, &winUIRight);
-			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
-			//winState = 4;
-
-		}
-		else if (winState == 3) {
-
-			App->render->Blit(Winn, 0, 0, NULL);
-			App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
-			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
-			//winState = 4;
-
-		}
-	}
-	
-	// Rectangulets. S'encen si a la seguent ronda el player guanyara
-	if (App->player->round > App->player2->round)
-	{
-		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
-	}
-	else if (App->player->round < App->player2->round)
-	{
-		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
-	}
-	else if (App->player->round == App->player2->round && App->player->round >= 1 && App->player2->round >= 1)
-	{
-		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
-		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
-	}
-
-
-	SDL_Rect rounds = { 0,0,0,0 };
-	App->render->Blit(uiSpriteTexture, 150, 150, &rounds);
-
 	/*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*//*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*//*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*/
 
-	if (estadoS == INICIO)
-	{
-
-		////Timer
-		//SDL_Rect rectTimer = currentTimerAnim->GetCurrentFrame();
-		//App->render->Blit(timerTexture, 144, 13, &rectTimer);
-
-		//12 points / 30 sec
-		rectNormes = { 207, 11, 151, 15 };
-		App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
-
-		//puntuació tots gols L
-		tresPuntsL = { 0, 188, 63, 34 };
-		cincPuntsL = { 76, 258, 63, 35 };
-		App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-		//App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
-		App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
-
-		//puntuació tots gols R
-		tresPuntsR = { 112, 120, 63, 34 };
-		cincPuntsR = { 74, 224, 63, 35 };
-		App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
-		App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
-		App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
-
-		//Set1
-		set1Rect = { 160, 300, 160, 56 };
-		App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
-
-		//Time88
-		rectTimer88 = { 0, 0, 15, 15 };
-		App->render->Blit(timerTexture, 144, 13, &rectTimer88);
-
-		//Score 00-00 preGame
-		App->fonts->BlitText(114, 17, App->player->scoreFont, "0");
-		App->fonts->BlitText(130, 17, App->player->scoreFont, "0");
-		App->fonts->BlitText(162, 17, App->player->scoreFont, "0");
-		App->fonts->BlitText(178, 17, App->player->scoreFont, "0");
-
-		//App->fonts->BlitText(115, 16, scoreFont, scoreText);
-	}
-	else
-	{
-		//Timer
-		SDL_Rect rectTimer = currentTimerAnim->GetCurrentFrame();
-		App->render->Blit(timerTexture, 144, 13, &rectTimer);
-
-		////12 points / 30 sec
-		//SDL_Rect rectNormes = { 207, 11, 151, 15 };
-		//App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
-
-		////puntuació tots gols L
-		//SDL_Rect tresPuntsL = { 0, 188, 63, 34 };
-		//SDL_Rect cincPuntsL = { 76, 258, 63, 35 };
-		//App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-		//App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
-		//App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
-
-		////puntuació tots gols R
-		//SDL_Rect tresPuntsR = { 112, 120, 63, 34 };
-		//SDL_Rect cincPuntsR = { 74,	224, 63, 35 };
-		//App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
-		//App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
-		//App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
-
-		////Set1
-		//SDL_Rect set1Rect = { 160, 300, 160, 56 };
-		//App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
-
-		////Time88
-		//SDL_Rect rectTimer88 = { 0, 0, 15, 15 };
-		//App->render->Blit(timerTexture, 144, 13, &rectTimer88);
-
-		////Score 00-00
-		//App->fonts->BlitText(155, 16, App->player->scoreFont, App->player->scoreText);
-
-		////App->fonts->BlitText(115, 16, scoreFont, scoreText);
-
-	}
 
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
 	{
