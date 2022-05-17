@@ -49,6 +49,7 @@ public:
 	int PosTemp;
 	int projectil;
 	int FloorTime;
+	int contadorBlock;
 
 	// The player spritesheet loaded into an SDL_Texture
 	SDL_Texture* texture = nullptr;

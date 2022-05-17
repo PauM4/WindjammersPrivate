@@ -143,10 +143,14 @@ Update_Status ModuleFrisbee::Update()
 		}
 		else if (estadoTF == FIN) {
 
+
 			if (contadorBlock == 1){
 				collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
 				blockSuperShot = true;
 			}
+			
+
+
 
 			if (contadorBlock == 2) {
 				estadoF = ARBITROF;
