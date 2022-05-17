@@ -31,6 +31,8 @@ ModuleInGameUI::~ModuleInGameUI()
 // Load assets
 bool ModuleInGameUI::Start()
 {
+	bool ret = true;
+
 	rectanguletL = { 0, 357, 29, 3 };
 	rectanguletR = { 0, 357, 29, 3 };
 
@@ -50,7 +52,7 @@ bool ModuleInGameUI::Start()
 	bothCharactersTexture = App->textures->Load("Assets/Sprites/UI/charactersPresent2.png");
 
 
-
+	return ret;
 }
 
 Update_Status ModuleInGameUI::Update()
@@ -103,6 +105,125 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
 			//winState = 4;
 		}
+	}
+
+	// Rectangulets. S'encen si a la seguent ronda el player guanyara
+	if (App->player->round > App->player2->round)
+	{
+		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
+	}
+	else if (App->player->round < App->player2->round)
+	{
+		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
+	}
+	else if (App->player->round == App->player2->round && App->player->round >= 1 && App->player2->round >= 1)
+	{
+		App->render->Blit(uiSpriteTexture, 113, 12, &rectanguletL);
+		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
+	}
+
+	SDL_Rect rounds = { 0,0,0,0 };
+	App->render->Blit(uiSpriteTexture, 150, 150, &rounds);
+
+	if (App->sceneBeachStage->estadoS == App->sceneBeachStage->INICIO)
+	{
+
+		////Timer
+		//SDL_Rect rectTimer = currentTimerAnim->GetCurrentFrame();
+		//App->render->Blit(timerTexture, 144, 13, &rectTimer);
+
+		//12 points / 30 sec
+		rectNormes = { 207, 11, 151, 15 };
+		App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
+
+		//puntuació tots gols L
+		tresPuntsL = { 0, 188, 63, 34 };
+		cincPuntsL = { 76, 258, 63, 35 };
+		App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
+		//App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
+		App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
+
+		//puntuació tots gols R
+		tresPuntsR = { 112, 120, 63, 34 };
+		cincPuntsR = { 74, 224, 63, 35 };
+		App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
+		App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
+		App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
+
+		//Set1
+		set1Rect = { 160, 300, 160, 56 };
+		App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
+
+		//Time88
+		rectTimer88 = { 0, 0, 15, 15 };
+		App->render->Blit(timerTexture, 144, 13, &rectTimer88);
+
+		//Score 00-00 preGame
+		App->fonts->BlitText(114, 17, App->player->scoreFont, "0");
+		App->fonts->BlitText(130, 17, App->player->scoreFont, "0");
+		App->fonts->BlitText(162, 17, App->player->scoreFont, "0");
+		App->fonts->BlitText(178, 17, App->player->scoreFont, "0");
+
+		//App->fonts->BlitText(115, 16, scoreFont, scoreText);
+	}
+	else
+	{
+		//Timer
+		SDL_Rect rectTimer = currentTimerAnim->GetCurrentFrame();
+		App->render->Blit(timerTexture, 144, 13, &rectTimer);
+
+		////12 points / 30 sec
+		//SDL_Rect rectNormes = { 207, 11, 151, 15 };
+		//App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
+
+		////puntuació tots gols L
+		//SDL_Rect tresPuntsL = { 0, 188, 63, 34 };
+		//SDL_Rect cincPuntsL = { 76, 258, 63, 35 };
+		//App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
+		//App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
+		//App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
+
+		////puntuació tots gols R
+		//SDL_Rect tresPuntsR = { 112, 120, 63, 34 };
+		//SDL_Rect cincPuntsR = { 74,	224, 63, 35 };
+		//App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
+		//App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
+		//App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
+
+		////Set1
+		//SDL_Rect set1Rect = { 160, 300, 160, 56 };
+		//App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
+
+		////Time88
+		//SDL_Rect rectTimer88 = { 0, 0, 15, 15 };
+		//App->render->Blit(timerTexture, 144, 13, &rectTimer88);
+
+		////Score 00-00
+		//App->fonts->BlitText(155, 16, App->player->scoreFont, App->player->scoreText);
+
+		////App->fonts->BlitText(115, 16, scoreFont, scoreText);
+
+	}
+
+	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
+	{
+		if (!isDebugAppear)
+			isDebugAppear = true;
+		else isDebugAppear = false;
+	}
+
+	if (isDebugAppear)
+	{
+		// Despres de qualsevol blit perque estigui per sobre de tot
+		// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
+		// Si no es fan servir variables, comentar aquesta linia
+
+		sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->initialTimeS);
+
+		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
+		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
+
+		App->fonts->BlitText(72, 190, debugFont, debugText);
 	}
 
 	return Update_Status::UPDATE_CONTINUE;

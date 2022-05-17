@@ -1,5 +1,5 @@
-#ifndef __MODULE_IN_GAME_H__
-#define __MODULE_IN_GAME_H__
+#ifndef __MODULE_IN_GAME_UI_H__
+#define __MODULE_IN_GAME_UI_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -33,6 +33,9 @@ public:
 public:
 
 	SDL_Texture* uiSpriteTexture = nullptr;
+	SDL_Texture* timerTexture = nullptr;
+
+	Animation* currentTimerAnim = nullptr;
 
 	//Rectangulet esquerra
 	SDL_Rect rectanguletL;
@@ -50,6 +53,8 @@ public:
 	SDL_Rect LoseUIRight;
 	SDL_Rect winUILeft;
 	SDL_Rect LoseUILeft;
+
+	SDL_Rect rectTimer88;
 
 	SDL_Texture* bothCharactersTexture;
 

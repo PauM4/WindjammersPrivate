@@ -14,7 +14,7 @@
 #include "SceneStageSelect.h"
 #include "SceneCharacterPresent.h"
 #include "SceneBeachStage.h"
-#include "ModuleIngameUI.h"
+#include "ModuleInGameUI.h"
 
 #include "ModuleParticles.h"
 #include "ModuleCollisions.h"
@@ -48,7 +48,8 @@ Application::Application()
 	modules[14] = particles = new ModuleParticles(true);
 
 	// Aquest modul ha d'estar sempre per sobre dels players i els mapes
-	modules[15] = ingameUI = new ModuleIngameUI(true);
+	//modules[15] = ingameUI = new ModuleIngameUI(true);
+	modules[15] = ingameUI = new ModuleInGameUI(true);
 
 	modules[16] = collisions = new ModuleCollisions(true);
 	modules[17] = fade = new ModuleFadeToBlack(true);

@@ -68,9 +68,6 @@ public:
 
 	bool godMode;
 
-	
-
-
 	enum estadoScene
 	{
 		INICIO, //Inicio
