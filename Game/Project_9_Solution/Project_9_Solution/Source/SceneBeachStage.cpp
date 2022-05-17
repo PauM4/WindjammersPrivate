@@ -612,6 +612,25 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			Arbitro(2);
 		}
 	}
+	if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
+			App->player2->score += 2;
+			if (suddenDeath) {
+				Win();
+			}
+			Round();
+			Arbitro(1);
+
+	}
+	if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
+		App->player->score += 2;
+		if (suddenDeath) {
+			Win();
+		}
+		Round();
+		Arbitro(2);
+	}
+
+
 
 	App->frisbee->position.x = 150;
 	App->frisbee->position.y = 200;

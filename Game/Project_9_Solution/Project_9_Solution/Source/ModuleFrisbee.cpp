@@ -125,16 +125,17 @@ Update_Status ModuleFrisbee::Update()
 			currentAnimation2 = &projectile;
 			App->collisions->RemoveCollider(App->frisbee->collider);
 		}
-		if (estadoTF == EJECUTANDO) {
+		else if (estadoTF == EJECUTANDO) {
 			timerF();
 		}
-		
-		if (estadoTF == FIN) {
+		else if (estadoTF == FIN) {
 
 			collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
 			blockSuperShot = true;
-			estadoTF = INICIO;
 			estadoF = ARBITROF;
+			estadoTF = INICIO;
+			App->sceneBeachStage->Score();
+
 		}
 
 
@@ -308,29 +309,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 	}
 
 
-	/*if (mov == 1 && position.x >= 19 && position.x <= 276) {
-
-		if (pared == false && position.y >= 50) {
-
-			position.x += xspeed;
-			position.y -= yspeed;
-
-		}
-		else {
-			pared = true;
-		}
-
-		if (pared == true && position.y < 170) {
-			position.x += xspeed;
-			position.y += yspeed;
-		}
-		else {
-			pared = false;
-		}
-
-	}*/
-
-
+	
 	/*if (projectil == 2) {
 
 		if (PosTemp < position.x || PosTemp > position.x) {
@@ -347,29 +326,6 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 	}*/
 
-
-
-	////MOV FRISBEE HACIA ABAJO
-	//if (mov == 3 && position.x >= 19 && position.x <= 276) {
-
-	//	if (pared == false && position.y < 170) {
-
-	//		position.x += xspeed;
-	//		position.y += yspeed;
-
-	//	}
-	//	else {
-	//		pared = true;
-	//	}
-
-	//	if (pared == true && position.y >= 50) {
-	//		position.x += xspeed;
-	//		position.y -= yspeed;
-	//	}
-	//	else {
-	//		pared = false;
-	//	}
-	//}
 
 
 	//MOV FRISBE PROJECTIL HACIA DELANTE
@@ -422,12 +378,6 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		//		//App->sceneBeachStage->EndRound(2);
 		//	}
 		//}
-
-		//position.x = 150;
-		//position.y = 200;
-
-
-	//}
 
 }
 
