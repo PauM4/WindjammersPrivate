@@ -109,7 +109,7 @@
     <ClInclude Include="SceneNeogeo.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleIngameUI.h">
+    <ClInclude Include="ModuleInGameUI.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
@@ -192,7 +192,7 @@
     <ClCompile Include="SceneNeogeo.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleIngameUI.cpp">
+    <ClCompile Include="ModuleInGameUI.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>

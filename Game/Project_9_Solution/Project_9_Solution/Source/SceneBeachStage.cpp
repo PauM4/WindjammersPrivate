@@ -92,6 +92,7 @@ bool SceneBeachStage::Start()
 	App->player2->Enable();
 	App->frisbee->Enable();
 	App->collisions->Enable();
+	App->ingameUI->Enable();
 
 	debugwinP1 = false;
 	debugwinP2 = false;

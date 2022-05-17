@@ -21,7 +21,7 @@ class SceneStageSelect;
 class SceneCharacterPresent;
 class SceneBeachStage;
 class ModuleParticles;
-class ModuleIngameUI;
+class ModuleInGameUI;
 class ModuleCollisions;
 class ModuleFadeToBlack;
 class ModuleFonts;
@@ -71,7 +71,7 @@ public:
 
 	ModuleParticles* particles = nullptr;
 
-	ModuleIngameUI* ingameUI = nullptr;
+	ModuleInGameUI* ingameUI = nullptr;
 
 	ModuleCollisions* collisions = nullptr;
 	ModuleFadeToBlack* fade = nullptr;
