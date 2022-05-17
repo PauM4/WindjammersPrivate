@@ -21,10 +21,6 @@
 
 SceneBeachStage::SceneBeachStage(bool startEnabled) : Module(startEnabled)
 {
-	//Load animation Timer test
-	//AAAAAAAAAAAAAAAAAAAAAAA
-	//AAAAAAAAAAAAAAAAAAAAAAA
-
 	//Load beach bg animation
 	bgBeachAnim.PushBack({ 0, 0, 304, 224 });
 	bgBeachAnim.PushBack({ 304, 0, 304, 224 });
@@ -60,6 +56,8 @@ bool SceneBeachStage::Start()
 	initialTime = 0;
 	startTheGame = false;
 
+	estadoGolScore = CLEAR;
+
 	//FX de rounds
 	round1FX = App->audio->LoadFx("Assets/Fx/round1.wav");
 
@@ -84,6 +82,7 @@ bool SceneBeachStage::Start()
 	winState = 0;
 	godMode = false;
 	estadoS = INICIO; 
+	estadoTGol == INICIOGOL;
 	arbitroFinalRonda = 1;
 
 
@@ -133,6 +132,20 @@ Update_Status SceneBeachStage::Update()
 		App->ingameUI->currentTimerAnim->Update();
 
 		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
+		if (estadoTGol == EJECUTANDOGOL)
+		{
+			TimerGol();
+		}
+		else if (estadoTGol == FINGOL)
+		{
+			if (suddenDeath) {
+				Win();
+			}
+			estadoTGol = INICIOGOL;
+			Round();
+			Arbitro(arbitroFinalRonda);
+		}
+		
 
 		break;
 
@@ -191,6 +204,7 @@ Update_Status SceneBeachStage::Update()
 	//	{
 	//		time++;
 	//	}
+	//	currentTimerAnim->Update();
 	//	currentTimerAnim->Update();
 	//}
 
@@ -263,6 +277,8 @@ Update_Status SceneBeachStage::PostUpdate()
 
 		App->fonts->BlitText(72, 190, debugFont, debugText);
 	}
+
+	//BLIT 5 punts a ModuleInGameUI.cpp
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -356,9 +372,7 @@ void SceneBeachStage::Round() {
 			estadoS = FINALRONDA;
 			
 			//Animación de cuando los dos acaban una ronda en puntuacion empate
-
 		}
-
 	}
 
 
@@ -413,44 +427,73 @@ void SceneBeachStage::Win() { //AQUI SE TENDRÍA QUE CAMBIAR EL ESTADO EN SWITCH 
 }
 
 void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MARCARPUNTO, en cada momento en que se meten puntos para que se realicen las animaciones 
-
+	//Score esquerra
 	if (App->frisbee->position.x <= 19) {
+		//5 punts
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 			App->player2->score += 5;
-			if (suddenDeath) {
-				Win();
-			}
-			Round();
-			Arbitro(1);
 
+			//Just despres d'afegir score, UI Textura d'on ha marcat
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 1;
+			estadoGolScore = MIDLEFT;
 		}
-		else {
+		//3 punts adalt
+		else if(App->frisbee->position.y < 94)
+		{
 			App->player2->score += 3;
-			if (suddenDeath) {
-				Win();
-			}
-			Round();
-			Arbitro(1);
-			
+			//Just despres d'afegir score, UI Textura d'on ha marcat
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 1;	
+			estadoGolScore = UPLEFT;
+		}
+		//3 punts abaix
+		else if (App->frisbee->position.y > 144)
+		{
+			App->player2->score += 3;
+			//Just despres d'afegir score, UI Textura d'on ha marcat
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 1;
+			estadoGolScore = DOWNLEFT;
 		}
 	}
+	//Score dreta
 	if (App->frisbee->position.x >= 276) {
+		//5 punts
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 			App->player->score += 5;
-			if (suddenDeath) {
-				Win();
-			}
-
-			Round();
-			Arbitro(2);
+			//Just despres d'afegir score, UI Textura d'on ha marcat
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 2;
+			estadoGolScore = MIDRIGHT;
 		}
-		else {
+		// 3 punts UP
+		else if(App->frisbee->position.y < 94)
+		{
 			App->player->score += 3;
-			if (suddenDeath) {
-				Win();
-			}
-			Round();
-			Arbitro(2);
+			//Just despres d'afegir score, UI Textura d'on ha marcat
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 2;
+			estadoGolScore = UPRIGHT;
+		}
+		else if (App->frisbee->position.y > 144)
+		{
+			//Just despres d'afegir score, UI Textura d'on ha marcat
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 2;
+			estadoGolScore = DOWNRIGHT;
 		}
 	}
 
@@ -464,4 +507,16 @@ void SceneBeachStage::TimerS() {
 	if (currentTimeS - initialTimeS >= timeLimitS) {
 		estadoTS = estadoTimerS::FIN;
 	}
+}
+
+void SceneBeachStage::TimerGol() {
+	currentTimeGol = SDL_GetTicks();
+
+	if (currentTimeGol - initialTimeGol >= timeLimitGol) {
+		estadoTGol = estadoTimerGol::FINGOL;
+
+		//Elimina textura quan estadoTGol sigui FINGOL
+		estadoGolScore = CLEAR;
+	}
+
 }

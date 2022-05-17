@@ -68,6 +68,20 @@ public:
 
 	bool godMode;
 
+	//UPLEFT == 3 punts adalt esquerra
+	//MIDRIGHT == 5 punts mig dreta etc...
+	enum golScoreUI
+	{
+		UPLEFT,
+		MIDLEFT,
+		DOWNLEFT,
+		UPRIGHT,
+		MIDRIGHT,
+		DOWNRIGHT,
+		CLEAR
+	};
+	int estadoGolScore;
+
 	enum estadoScene
 	{
 		INICIO, //Inicio
@@ -85,14 +99,26 @@ public:
 		FIN,
 	};
 	int estadoTS;
-
 	int initialTimeS;
 	int currentTimeS;
 	int timeLimitS;
 
+	//TIMER PER GOLS
+	enum estadoTimerGol {
+		INICIOGOL,
+		EJECUTANDOGOL,
+		FINGOL,
+	};
+	int estadoTGol;
+	int initialTimeGol;
+	int currentTimeGol;
+	int timeLimitGol;
+
+
 	int arbitroFinalRonda;
 
 	void TimerS();
+	void TimerGol();
 	
 	//Rectangulet esquerra
 	SDL_Rect rectanguletL = { 0, 357, 29, 3 };

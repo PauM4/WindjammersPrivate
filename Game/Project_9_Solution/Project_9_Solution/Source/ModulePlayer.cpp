@@ -247,12 +247,6 @@ Update_Status ModulePlayer::PostUpdate()
 		//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
 	}
 
-	//5Punts UI de BEACH per sobre el player
-	if (App->sceneBeachStage->estadoS == App->sceneBeachStage->INICIO)
-	{
-		App->render->Blit(App->sceneBeachStage->uiSpriteTexture, 7, 92, &App->sceneBeachStage->cincPuntsL);
-	}
-
 	//Debug Text rounds P1
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
 	{

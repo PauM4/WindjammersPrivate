@@ -52,6 +52,12 @@ bool ModuleInGameUI::Start()
 	winUILeft = { 324, 86, 112, 32 };
 	LoseUILeft = { 0, 54, 100, 27 };
 
+	tresPuntsL = { 0, 188, 63, 34 };
+	cincPuntsL = { 76, 258, 63, 35 };
+
+	tresPuntsR = { 112, 120, 63, 34 };
+	cincPuntsR = { 74, 224, 63, 35 };
+
 	//Debug Font
 	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
@@ -151,15 +157,11 @@ Update_Status ModuleInGameUI::PostUpdate()
 		App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
 
 		//puntuació tots gols L
-		tresPuntsL = { 0, 188, 63, 34 };
-		cincPuntsL = { 76, 258, 63, 35 };
 		App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
 		App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 		App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 
 		//puntuació tots gols R
-		tresPuntsR = { 112, 120, 63, 34 };
-		cincPuntsR = { 74, 224, 63, 35 };
 		App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
 		App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
 		App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
@@ -240,6 +242,47 @@ Update_Status ModuleInGameUI::PostUpdate()
 
 		App->fonts->BlitText(72, 190, debugFont, debugText);
 	}
+
+	switch (App->sceneBeachStage->estadoGolScore)
+	{
+	case (0):
+		App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
+		break;
+	case(1):
+		App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
+		break;
+	case(2):
+		App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
+		break;
+	case(3):
+		App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
+		break;
+	case(4):
+		App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
+		break;
+	case(5):
+		App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
+		break;
+	case(6):
+		break;
+	}
+
+	if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->FINGOL)
+	{
+		App->fonts->BlitText(72, 200, debugFont, "FINGOL");
+	}
+	if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->EJECUTANDOGOL)
+	{
+		App->fonts->BlitText(72, 200, debugFont, "EJECUTANDOGOL");
+	}
+	if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->INICIOGOL)
+	{
+		App->fonts->BlitText(72, 200, debugFont, "INICIOGOL");
+	}
+	sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->timeLimitGol);
+	App->fonts->BlitText(72, 210, debugFont, debugText);
+	sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->currentTimeGol);
+	App->fonts->BlitText(112, 210, debugFont, debugText);
 
 	return Update_Status::UPDATE_CONTINUE;
 }
