@@ -14,6 +14,7 @@
 #include "SceneStageSelect.h"
 #include "SceneCharacterPresent.h"
 #include "SceneBeachStage.h"
+#include "ModuleInGameUI.h"
 
 #include "ModuleParticles.h"
 #include "ModuleCollisions.h"
@@ -33,9 +34,9 @@ Application::Application()
 	modules[2] = textures = new ModuleTextures(true);
 	modules[3] = audio = new ModuleAudio(true);
 
-	modules[4] = sceneIntro = new SceneIntro(true);
+	modules[4] = sceneIntro = new SceneIntro(false);
 	modules[5] = sceneNeogeo = new SceneNeogeo(false);
-	modules[6] = sceneTitle = new SceneTitle(false);
+	modules[6] = sceneTitle = new SceneTitle(true);
 	modules[7] = sceneCharacterSelect = new SceneCharacterSelect(false);
 	modules[8] = sceneStageSelect = new SceneStageSelect(false);
 	modules[9] = sceneCharacterPresent = new SceneCharacterPresent(false);
@@ -45,10 +46,15 @@ Application::Application()
 	modules[12] = player2 = new ModulePlayer2(false);	//Player starts disabled
 	modules[13] = frisbee = new ModuleFrisbee(false);
 	modules[14] = particles = new ModuleParticles(true);
-	modules[15] = collisions = new ModuleCollisions(true);
-	modules[16] = fade = new ModuleFadeToBlack(true);
-	modules[17] = fonts = new ModuleFonts(true);
-	modules[18] = render = new ModuleRender(true);
+
+	// Aquest modul ha d'estar sempre per sobre dels players i els mapes
+	//modules[15] = ingameUI = new ModuleIngameUI(true);
+	modules[15] = ingameUI = new ModuleInGameUI(false);
+
+	modules[16] = collisions = new ModuleCollisions(true);
+	modules[17] = fade = new ModuleFadeToBlack(true);
+	modules[18] = fonts = new ModuleFonts(true);
+	modules[19] = render = new ModuleRender(true);
 }
 
 Application::~Application()
