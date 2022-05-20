@@ -116,7 +116,7 @@ Update_Status SceneBeachStage::Update()
 	case (INICIORONDA):
 		//Animacion Ronda 1.
 		
-		estadoTS = estadoTimerS::INICIOT;
+		estadoTS = INICIOT;
 		App->ingameUI->timerAnim.Reset();
 		App->player->score = 0;
 		App->player2->score = 0;
@@ -128,8 +128,9 @@ Update_Status SceneBeachStage::Update()
 
 		//INGAME Gemplei 
 	case (RONDA):
+		TimerS();
 		if (estadoTGol == INICIOGOL) {
-			TimerS();
+			
 			Round();
 			App->ingameUI->currentTimerAnim->Update();
 		}
@@ -329,8 +330,23 @@ Update_Status SceneBeachStage::PostUpdate()
 		}
 
 
-		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
+		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,       
 		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
+
+		//DEBUG ESTADO TIMER SCENE BEACH STAGE
+
+		estadoTS;
+
+		if (estadoTS == 0) {
+			App->fonts->BlitText(90, 90, debugFont, "INICIOT");
+		}
+		if (estadoTS == 1) {
+			App->fonts->BlitText(90, 90, debugFont, "EJECUTANDO");
+		}
+		if (estadoTS == 2) {
+			App->fonts->BlitText(90, 90, debugFont, "FIN");
+		}
+
 
 		App->fonts->BlitText(110, 110, debugFont, debugText);
 		App->fonts->BlitText(165, 110, debugFont, debugText2);
@@ -412,7 +428,9 @@ void SceneBeachStage::Round() {
 			if (App->player->score > App->player2->score) {
 				App->player->round += 1;
 
-				//Llamar animaci�n de jugador ganador 1 y las texturas
+				//Llamar animacion de jugador ganador 1 y las texturas
+				App->player->score = 0;
+				App->player2->score = 0;
 				arbitroFinalRonda = 2;
 				estadoS = FINALRONDA;
 
@@ -421,6 +439,8 @@ void SceneBeachStage::Round() {
 				App->player2->round += 1;
 
 				//Llamar animaci�n de jugador ganador 2 y las texturas
+				App->player->score = 0;
+				App->player2->score = 0;
 				arbitroFinalRonda = 1;
 				estadoS = FINALRONDA;
 
@@ -429,6 +449,8 @@ void SceneBeachStage::Round() {
 				App->player->round += 1;
 				App->player2->round += 1;
 
+				App->player->score = 0;
+				App->player2->score = 0;
 				arbitroFinalRonda = 1;
 				estadoS = FINALRONDA;
 

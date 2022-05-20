@@ -212,6 +212,7 @@ Update_Status ModuleFrisbee::Update()
 		}
 		else if (estadoTF == FIN) {
 			estadoTF = INICIO;
+			estadoF = ARBITROF;
 			App->sceneBeachStage->Score();
 		}
 		break;
