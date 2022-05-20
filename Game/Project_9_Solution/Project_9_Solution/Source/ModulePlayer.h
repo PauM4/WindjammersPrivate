@@ -59,7 +59,7 @@ public:
 
 	enum estadoPlayer
 	{
-		STOP,
+		STOP =0,
 		MOVIMIENTO,
 		WITHFRISBEE,
 		

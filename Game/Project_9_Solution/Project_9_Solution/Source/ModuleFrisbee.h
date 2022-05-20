@@ -49,6 +49,7 @@ public:
 	int PosTemp;
 	int projectil;
 	int FloorTime;
+	int contadorBlock;
 
 	// The player spritesheet loaded into an SDL_Texture
 	SDL_Texture* texture = nullptr;
@@ -73,10 +74,13 @@ public:
 
 	enum estadoFrisbee
 	{
+		ARBITROF,
 		STOP, //en el suelo
 		MOVIMIENTO, //en el aire
 		PRUEBA,
 		WITHPLAYER, //con el player + cambiar posicion
+		BLOCK,
+		SUELO
 
 	};
 	int estadoF;
@@ -85,7 +89,9 @@ public:
 		NORMAL,
 		PARABOLA,
 		ARBITRO,
-		SUPERSHOT
+		SUPERSHOT, 
+		BLOCKPLAYER1,
+		BLOCKPLAYER2
 	};
 	int lanzamientoF;
 	
@@ -100,6 +106,20 @@ public:
 
 	void movimientoFrisbee();
 	void limitesFrisbee();
+
+	enum estadoTimerF {
+		INICIO,
+		EJECUTANDO,
+		FIN,
+	};
+	int estadoTF;
+
+	void timerF();
+	int initialTimeF;
+	int currentTimeF;
+	int timeLimitF;
+
+	bool blockSuperShot;
 
 };
 

@@ -282,8 +282,8 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && destroyed == false)
 	{//le pongo 0,0 pq no se exactamente q es esto y como he cambiado la funcion como tal tengo q meterle estos parametros i o si
-		App->frisbee->position.x = position.x - 17;
-		App->frisbee->position.y = position.y;
+		
+		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::WITHPLAYER;
 		currentAnimation = &idleDisk;
 		estadoP2 = estadoPlayer2::WITHFRISBEE;
 
@@ -363,6 +363,23 @@ void ModulePlayer2::movimientoPlayer2() {
 		&& App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_IDLE
 		&& App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_IDLE && last2 == 1 && App->frisbee->posesion != 2)
 		currentAnimation = &idleRAnim;
+
+
+
+	if (App->input->keys[SDL_SCANCODE_I] == Key_State::KEY_DOWN && ((position.x) - App->frisbee->position.x ) > 1 && ((position.x) - App->frisbee->position.x) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
+
+		if (App->frisbee->position.y >= position.y && App->frisbee->position.y <= (position.y + 31)) {
+	
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::BLOCKPLAYER2;
+
+		}
+
+
+
+	}
+
+
 }
 
 void ModulePlayer2::lanzamientoPlayer2() {

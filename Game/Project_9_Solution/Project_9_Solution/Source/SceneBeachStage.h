@@ -63,6 +63,7 @@ public:
 	bool startTheGame;
 	bool debugwinP1;
 	bool debugwinP2;
+	
 
 	int winState;
 
