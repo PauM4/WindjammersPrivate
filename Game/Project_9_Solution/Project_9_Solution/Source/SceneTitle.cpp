@@ -7,9 +7,16 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 
+#include "SDL/include/SDL.h"
+
 SceneTitle::SceneTitle(bool startEnabled) : Module(startEnabled)
 {
-
+	for (int i = 0; i < 27; i++)
+	{
+		title.PushBack({ i * 304, 0, 304, 224 });
+	}
+	title.loop = false;
+	title.speed = 0.35f;
 }
 
 SceneTitle::~SceneTitle()
@@ -20,6 +27,7 @@ SceneTitle::~SceneTitle()
 // Load assets
 bool SceneTitle::Start()
 {
+	title.Reset();
 	selectFx = 0;
 	LOG("Loading background assets");
 
@@ -27,6 +35,7 @@ bool SceneTitle::Start()
 	hasPlayed = false;
 
 	bgTexture = App->textures->Load("Assets/Sprites/UI/titleScreen.png");
+	currentAnimation = &title;
 	//SILENT AUDIO per aturar la música de IntroScreen
 	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 	selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
@@ -50,6 +59,8 @@ Update_Status SceneTitle::Update()
 		App->fade->FadeToBlack(this, (Module*)App->sceneCharacterSelect, 30);
 	}
 
+	currentAnimation->Update();
+
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -57,7 +68,8 @@ Update_Status SceneTitle::Update()
 Update_Status SceneTitle::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	App->render->Blit(bgTexture, 0, 0, NULL);
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	App->render->Blit(bgTexture, 0, 0, &rect);
 
 	return Update_Status::UPDATE_CONTINUE;
 }

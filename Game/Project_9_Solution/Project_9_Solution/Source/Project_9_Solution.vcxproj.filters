@@ -111,6 +111,8 @@
     </ClInclude>
     <ClInclude Include="ModuleInGameUI.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
+    <ClInclude Include="SceneDataeast.h">
+      <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +195,8 @@
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
     <ClCompile Include="ModuleInGameUI.cpp">
+      <Filter>Source Files\Modules\Gameplay</Filter>
+    <ClCompile Include="SceneDataeast.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>

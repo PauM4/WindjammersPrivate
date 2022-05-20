@@ -1,19 +1,19 @@
-#ifndef __SCENE_TITLE_H__
-#define __SCENE_TITLE_H__
+#ifndef __SCENE_DATAEAST_H__
+#define __SCENE_DATAEAST_H__
 
 #include "Module.h"
 #include "Animation.h"
 
 struct SDL_Texture;
 
-class SceneTitle : public Module
+class SceneDataeast : public Module
 {
 public:
 	//Constructor
-	SceneTitle(bool startEnabled);
+	SceneDataeast(bool startEnabled);
 
 	//Destructor
-	~SceneTitle();
+	~SceneDataeast();
 
 	// Called when the module is activated
 	// Loads the necessary textures for the map background
@@ -36,12 +36,12 @@ public:
 	Animation* currentAnimation = nullptr;
 
 	// A set of animations
-	Animation title;
+	Animation dataeast;
 
 	// Sound effects indices
 	uint selectFx;
-	bool hasPlayed;
 
 };
 
 #endif
+

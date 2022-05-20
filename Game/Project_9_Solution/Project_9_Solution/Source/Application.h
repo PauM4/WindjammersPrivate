@@ -15,6 +15,7 @@ class ModulePlayer2;
 class ModuleFrisbee;
 class SceneIntro;
 class SceneNeogeo;
+class SceneDataeast;
 class SceneTitle;
 class SceneCharacterSelect;
 class SceneStageSelect;
@@ -63,6 +64,7 @@ public:
 
 	SceneIntro* sceneIntro = nullptr;
 	SceneNeogeo* sceneNeogeo = nullptr;
+	SceneDataeast* sceneDataeast = nullptr;
 	SceneTitle* sceneTitle = nullptr;
 	SceneCharacterSelect* sceneCharacterSelect = nullptr;
 	SceneStageSelect* sceneStageSelect = nullptr;

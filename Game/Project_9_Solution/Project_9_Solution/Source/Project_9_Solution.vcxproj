@@ -88,6 +88,7 @@
     <ClInclude Include="SceneBeachStage.h" />
     <ClInclude Include="SceneCharacterSelect.h" />
     <ClInclude Include="SceneCharacterPresent.h" />
+    <ClInclude Include="SceneDataeast.h" />
     <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModulePlayer.h" />
@@ -119,6 +120,7 @@
     <ClCompile Include="SceneBeachStage.cpp" />
     <ClCompile Include="SceneCharacterSelect.cpp" />
     <ClCompile Include="SceneCharacterPresent.cpp" />
+    <ClCompile Include="SceneDataeast.cpp" />
     <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
