@@ -83,6 +83,14 @@ public:
 
 	SDL_Rect rectTimer88;
 
+	SDL_Rect p1Rect;
+	SDL_Rect p2Rect;
+	SDL_Rect japanFlagRect;
+	SDL_Rect koreanFlagRect;
+	SDL_Rect germanyFlagRect;
+
+	SDL_Rect rounds;
+
 	SDL_Texture* bothCharactersTexture;
 
 	//Font Debug vars

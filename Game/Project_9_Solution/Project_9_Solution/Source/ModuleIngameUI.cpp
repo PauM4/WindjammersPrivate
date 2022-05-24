@@ -12,6 +12,7 @@
 #include "ModuleFrisbee.h"
 #include "ModuleFonts.h"
 #include "SceneBeachStage.h"
+#include "SceneCharacterSelect.h"
 
 #include "SDL/include/SDL.h"
 
@@ -58,6 +59,15 @@ bool ModuleInGameUI::Start()
 	tresPuntsR = { 112, 120, 63, 34 };
 	cincPuntsR = { 74, 224, 63, 35 };
 
+	p1Rect = { 359, 0, 15, 8 };
+	p2Rect = { 374, 0, 16, 8 };
+
+	japanFlagRect = { 460, 0, 15, 9 };
+	koreanFlagRect = { 430, 0, 15, 9 };
+	germanyFlagRect = { 445, 0, 15, 9 };
+
+	rounds = { 0,0,0,0 };
+
 	//Debug Font
 	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
@@ -84,19 +94,37 @@ Update_Status ModuleInGameUI::Update()
 Update_Status ModuleInGameUI::PostUpdate()
 {
 	//P1 UI
-	SDL_Rect p1Rect = { 359, 0, 15, 8 };
 	App->render->Blit(uiSpriteTexture, 10, 10, &p1Rect);
+	switch (App->sceneCharacterSelect->p1Char)
+	{
+	case Mita:
+		App->render->Blit(uiSpriteTexture, 40, 10, &japanFlagRect);
+		break;
+	case Yoo:
+		App->render->Blit(uiSpriteTexture, 40, 10, &koreanFlagRect);
+		break;
+	case Wessel:
+		App->render->Blit(uiSpriteTexture, 40, 10, &germanyFlagRect);
+		break;
+	}
 
 	//P2 UI
-	SDL_Rect p2Rect = { 374, 0, 16, 8 };
 	App->render->Blit(uiSpriteTexture, 200, 10, &p2Rect);
+	switch (App->sceneCharacterSelect->p2Char)
+	{
+	case Mita:
+		App->render->Blit(uiSpriteTexture, 230, 10, &japanFlagRect);
+		break;
+	case Yoo:
+		App->render->Blit(uiSpriteTexture, 230, 10, &koreanFlagRect);
+		break;
+	case Wessel:
+		App->render->Blit(uiSpriteTexture, 230, 10, &germanyFlagRect);
+		break;
+	}
 
-	//CANVIAR AMB ENUM DEPENENT DEL PLAYER
-	//Japan Flag x2
-	SDL_Rect japanFlagRect = { 460, 0, 15, 9 };
-	App->render->Blit(uiSpriteTexture, 40, 10, &japanFlagRect);
-	App->render->Blit(uiSpriteTexture, 230, 10, &japanFlagRect);
 	
+
 	//Mostra qui ha guanyat i qui ha perdut al final de la partida
 	//estadoS nomes depen de sceneBeach, cal canviar
 	if (App->sceneBeachStage->estadoS == App->sceneBeachStage->FINAL)
@@ -141,7 +169,6 @@ Update_Status ModuleInGameUI::PostUpdate()
 		App->render->Blit(uiSpriteTexture, 161, 12, &rectanguletR);
 	}
 
-	SDL_Rect rounds = { 0,0,0,0 };
 	App->render->Blit(uiSpriteTexture, 150, 150, &rounds);
 
 	//INICI PARTIDA
