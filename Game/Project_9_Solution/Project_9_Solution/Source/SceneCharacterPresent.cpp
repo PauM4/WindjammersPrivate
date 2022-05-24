@@ -69,13 +69,16 @@ Update_Status SceneCharacterPresent::Update()
 		scape = true;
 	}
 
-	if (scape)
+	if (scape || App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->sceneBeachStage, 15);
-	}
-	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
-	{
-		App->fade->FadeToBlack(this, (Module*)App->sceneBeachStage, 15);
+		if (App->sceneStageSelect->sceneSelected == Beach)
+		{
+			App->fade->FadeToBlack(this, (Module*)App->sceneBeachStage, 15);
+		}
+		else if (App->sceneStageSelect->sceneSelected == Lawn)
+		{
+			App->fade->FadeToBlack(this, (Module*)App->sceneLawnStage, 15);
+		}
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
