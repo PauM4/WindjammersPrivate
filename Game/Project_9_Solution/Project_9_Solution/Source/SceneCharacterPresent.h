@@ -43,11 +43,6 @@ public:
 
 	int timer;
 	bool scape;
-
-	//Font Debug vars
-	int debugFont;
-	char debugText[10] = { "\0" };
-	bool isDebugAppear;
 };
 
 #endif
