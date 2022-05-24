@@ -82,6 +82,7 @@ bool SceneBeachStage::Start()
 	winState = 0;
 	godMode = false;
 	estadoS = INICIO; 
+	estadoTS = INICIOT;
 	estadoTGol == INICIOGOL;
 	arbitroFinalRonda = 1;
 	
@@ -101,42 +102,68 @@ Update_Status SceneBeachStage::Update()
 		{
 			initialTimeS = SDL_GetTicks();
 			timeLimitS = 4 * 1000;
-			estadoTS = EJECUTANDO;
+			estadoTS = EJECUTANDO;		
 		}
-		
-		TimerS();
-		if(estadoTS == FIN)
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+		}
+		else if(estadoTS == FIN)
 		{
     		//SceneBeachStage::Arbitro(1);
+			estadoTS = INICIOT;
 			estadoS = INICIORONDA;
 		}
 		break;
 
+
+
 		//Iniciar ronda (round 2, final o suddendeath)
 	case (INICIORONDA):
 		//Animacion Ronda 1.
-		
-		estadoTS = INICIOT;
-		App->ingameUI->timerAnim.Reset();
+		estadoTS;
 		App->player->score = 0;
 		App->player2->score = 0;
-		initialTimeS = SDL_GetTicks();
-		timeLimitS = 30 * 1000;
-		Arbitro(arbitroFinalRonda);
-		estadoS = RONDA;
+
+		if (estadoTS == INICIOT)
+		{
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 4 * 1000;
+			estadoTS = EJECUTANDO;
+		}
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+		}
+		else if (estadoTS == FIN)
+		{
+			//SceneBeachStage::Arbitro(1);
+			Arbitro(arbitroFinalRonda);
+			estadoS = RONDA;
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 30 * 1000;
+			estadoTS = EJECUTANDO;
+			App->ingameUI->timerAnim.Reset();
+		}  
+
 		break;
 
 		//INGAME Gemplei 
 	case (RONDA):
-		TimerS();
-		if (estadoTGol == INICIOGOL) {
-			
-			Round();
+		
+		if (estadoTS == EJECUTANDO) {
+			TimerS();
 			App->ingameUI->currentTimerAnim->Update();
 		}
+		Round();
+		if (estadoTS == FIN) {
+			estadoTS = INICIOT;
+		}
+
+		if (estadoTGol == INICIOGOL) {
 		
+		}
+
 		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
-		if (estadoTGol == EJECUTANDOGOL)
+		else if (estadoTGol == EJECUTANDOGOL)
 		{
 			TimerGol();
 		}
@@ -286,10 +313,10 @@ Update_Status SceneBeachStage::PostUpdate()
 		if (App->player->estadoP1 == 0) {
 			App->fonts->BlitText(30, 50, debugFont, "P1.STOP");
 		}
-		if (App->player->estadoP1 == 1) {
+		else if (App->player->estadoP1 == 1) {
 			App->fonts->BlitText(30, 50, debugFont, "P1.MOVIMIENTO");
 		}
-		if (App->player->estadoP1 == 2) {
+		else if (App->player->estadoP1 == 2) {
 			App->fonts->BlitText(30, 50, debugFont, "P1.WIITHFRISBEE");
 		}
 
@@ -297,10 +324,10 @@ Update_Status SceneBeachStage::PostUpdate()
 		if (App->player2->estadoP2 == 0) {
 			App->fonts->BlitText(160, 50, debugFont, "P2.STOP");
 		}
-		if (App->player2->estadoP2 == 1) {
+		else if (App->player2->estadoP2 == 1) {
 			App->fonts->BlitText(160, 50, debugFont, "P2.MOVIMIENTO");
 		}
-		if (App->player2->estadoP2 == 2) {
+		else if (App->player2->estadoP2 == 2) {
 			App->fonts->BlitText(160, 50, debugFont, "P2.WIITHFRISBEE");
 		}
 
@@ -310,22 +337,22 @@ Update_Status SceneBeachStage::PostUpdate()
 		if (App->frisbee->estadoF == 0) {
 			App->fonts->BlitText(110,100, debugFont, "ARBITROF");
 		}
-		if (App->frisbee->estadoF == 1) {
+		else if (App->frisbee->estadoF == 1) {
 			App->fonts->BlitText(110, 100, debugFont, "STOP");
 		}
-		if (App->frisbee->estadoF == 2) {
+		else if (App->frisbee->estadoF == 2) {
 			App->fonts->BlitText(110, 100, debugFont, "MOVIMIENTO");
 		}
-		if (App->frisbee->estadoF == 3) {
+		else if (App->frisbee->estadoF == 3) {
 			App->fonts->BlitText(110, 100, debugFont, "PRUEBA");
 		}
-		if (App->frisbee->estadoF == 4) {
+		else if (App->frisbee->estadoF == 4) {
 			App->fonts->BlitText(110, 100, debugFont, "WITHPLAYER");
 		}
-		if (App->frisbee->estadoF == 5) {
+		else if (App->frisbee->estadoF == 5) {
 			App->fonts->BlitText(110, 100, debugFont, "BLOCK");
 		}
-		if (App->frisbee->estadoF == 6) {
+		else if (App->frisbee->estadoF == 6) {
 			App->fonts->BlitText(110, 100, debugFont, "SUELO");
 		}
 
@@ -335,17 +362,40 @@ Update_Status SceneBeachStage::PostUpdate()
 
 		//DEBUG ESTADO TIMER SCENE BEACH STAGE
 
-		estadoTS;
 
 		if (estadoTS == 0) {
-			App->fonts->BlitText(90, 90, debugFont, "INICIOT");
+			App->fonts->BlitText(90, 90, debugFont, "TS.INICIOT");
 		}
-		if (estadoTS == 1) {
-			App->fonts->BlitText(90, 90, debugFont, "EJECUTANDO");
+		else if (estadoTS == 1) {
+			App->fonts->BlitText(90, 90, debugFont, "TS.EJECUTANDO");
 		}
-		if (estadoTS == 2) {
-			App->fonts->BlitText(90, 90, debugFont, "FIN");
+		else if (estadoTS == 2) {
+			App->fonts->BlitText(90, 90, debugFont, "TS.FIN");
 		}
+
+		//INICIO, //Inicio
+		//	INICIORONDA, //Animaciones de inicio de ronda
+		//	RONDA, //durante el juego
+		//	FINALRONDA, //animaciones/texturas fin de ronda
+		//	FINAL
+
+
+		if (estadoS == 0){
+			App->fonts->BlitText(110, 180, debugFont, "S.INICIO");
+		}
+		if (estadoS == 1) {
+			App->fonts->BlitText(110, 180, debugFont, "S.INICIORONDA");
+		}
+		if (estadoS == 2) {
+			App->fonts->BlitText(110, 180, debugFont, "S.RONDA");
+		}
+		if (estadoS == 3) {
+			App->fonts->BlitText(110, 180, debugFont, "S.FINALRONDA");
+		}
+		if (estadoS == 4) {
+			App->fonts->BlitText(110, 180, debugFont, "S.FINAL");
+		}
+
 
 
 		App->fonts->BlitText(110, 110, debugFont, debugText);
@@ -423,6 +473,12 @@ void SceneBeachStage::Round() {
 
 		}
 		else if (estadoTS == FIN && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::WITHPLAYER)) { //FALTA TIMER
+
+			App->frisbee->position.x = 150;
+			App->frisbee->position.y = 200;
+			App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
+			App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::ARBITROF;
 
 
 			if (App->player->score > App->player2->score) {

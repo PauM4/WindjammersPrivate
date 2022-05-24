@@ -94,6 +94,7 @@ Update_Status ModuleFrisbee::Update()
 	case ARBITROF:
 		currentAnimation2 = &desaparece;
 		break;
+
 	case STOP:
 		currentAnimation2 = &stop;
 		break;
