@@ -33,7 +33,7 @@ bool SceneNeogeo::Start()
 	char s[128];
 
 	for (int i = 0; i < NUM_IMAGES; ++i) {
-		sprintf_s(s, "Assets/Sprites/UI/NeogeoIntro/neogeo%d.png", i + 1);
+		sprintf_s(s, "Assets/Sprites/UI/Neogeo/neogeo%d.png", i + 1);
 		bgTexture[i] = App->textures->Load(s);
 	}
 	frame = 0;
@@ -54,6 +54,27 @@ bool SceneNeogeo::Start()
 Update_Status SceneNeogeo::Update()
 {
 	
+	if (timer == 2) {
+		if (frame < NUM_IMAGES - 1) {
+			frame++;
+			timer = 0;
+		}
+	}
+	timer++;
+
+	if (next < 300)
+	{
+		next++;
+	}
+	else if (next == 300)
+	{
+		scape = true;
+	}
+
+	if (scape)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sceneDataeast, 30);
+	}
 	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
 	{
 		//App->audio->PlayFx(selectFx);

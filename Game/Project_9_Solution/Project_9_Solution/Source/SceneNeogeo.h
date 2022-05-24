@@ -38,6 +38,8 @@ public:
 
 	int timer;
 	int frame;
+	int next = 0;
+	bool scape = false;
 
 	// Sound effects indices
 	uint selectFx;
