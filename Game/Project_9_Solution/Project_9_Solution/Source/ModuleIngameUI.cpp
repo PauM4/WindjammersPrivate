@@ -13,7 +13,6 @@
 #include "ModuleFonts.h"
 #include "SceneStageSelect.h"
 #include "SceneBeachStage.h"
-#include "SceneLawnStage.h"
 #include "SceneCharacterSelect.h"
 
 #include "SDL/include/SDL.h"
@@ -61,15 +60,6 @@ bool ModuleInGameUI::Start()
 	tresPuntsR = { 112, 120, 63, 34 };
 	cincPuntsR = { 74, 224, 63, 35 };
 
-	p1Rect = { 359, 0, 15, 8 };
-	p2Rect = { 374, 0, 16, 8 };
-
-	japanFlagRect = { 460, 0, 15, 9 };
-	koreanFlagRect = { 430, 0, 15, 9 };
-	germanyFlagRect = { 445, 0, 15, 9 };
-
-	rounds = { 0,0,0,0 };
-
 	//Debug Font
 	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
@@ -96,37 +86,22 @@ Update_Status ModuleInGameUI::Update()
 Update_Status ModuleInGameUI::PostUpdate()
 {
 	//P1 UI
+	SDL_Rect p1Rect = { 359, 0, 15, 8 };
 	App->render->Blit(uiSpriteTexture, 10, 10, &p1Rect);
-	switch (App->sceneCharacterSelect->p1Char)
-	{
-	case Mita:
-		App->render->Blit(uiSpriteTexture, 40, 10, &japanFlagRect);
-		break;
-	case Yoo:
-		App->render->Blit(uiSpriteTexture, 40, 10, &koreanFlagRect);
-		break;
-	case Wessel:
-		App->render->Blit(uiSpriteTexture, 40, 10, &germanyFlagRect);
-		break;
-	}
 
 	//P2 UI
+	SDL_Rect p2Rect = { 374, 0, 16, 8 };
 	App->render->Blit(uiSpriteTexture, 200, 10, &p2Rect);
-	switch (App->sceneCharacterSelect->p2Char)
-	{
-	case Mita:
-		App->render->Blit(uiSpriteTexture, 230, 10, &japanFlagRect);
-		break;
-	case Yoo:
-		App->render->Blit(uiSpriteTexture, 230, 10, &koreanFlagRect);
-		break;
-	case Wessel:
-		App->render->Blit(uiSpriteTexture, 230, 10, &germanyFlagRect);
-		break;
-	}
 
-
-	switch (App->sceneStageSelect->sceneSelected)
+	//CANVIAR AMB ENUM DEPENENT DEL PLAYER
+	//Japan Flag x2
+	SDL_Rect japanFlagRect = { 460, 0, 15, 9 };
+	App->render->Blit(uiSpriteTexture, 40, 10, &japanFlagRect);
+	App->render->Blit(uiSpriteTexture, 230, 10, &japanFlagRect);
+	
+	//Mostra qui ha guanyat i qui ha perdut al final de la partida
+	//estadoS nomes depen de sceneBeach, cal canviar
+	if (App->sceneBeachStage->estadoS == App->sceneBeachStage->FINAL)
 	{
 	case Beach:
 		if (App->sceneBeachStage->estadoS == App->sceneBeachStage->FINAL)
@@ -185,12 +160,12 @@ Update_Status ModuleInGameUI::PostUpdate()
 			rectNormes = { 207, 11, 151, 15 };
 			App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
 
-			//puntuació tots gols L
+			//puntuaciï¿½ tots gols L
 			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
 			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 
-			//puntuació tots gols R
+			//puntuaciï¿½ tots gols R
 			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
 			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
@@ -211,7 +186,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 
 			//App->fonts->BlitText(115, 16, scoreFont, scoreText);
 		}
-		//COMENÇA PARTIDA
+		//COMENï¿½A PARTIDA
 		else if (App->sceneBeachStage->estadoS == App->sceneBeachStage->RONDA)
 		{
 			//Timer
@@ -235,8 +210,8 @@ Update_Status ModuleInGameUI::PostUpdate()
 			// Si no es fan servir variables, comentar aquesta linia
 			sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->initialTimeS);
 
-			// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
-			// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
+	SDL_Rect rounds = { 0,0,0,0 };
+	App->render->Blit(uiSpriteTexture, 150, 150, &rounds);
 
 			App->fonts->BlitText(72, 190, debugFont, debugText);
 			App->fonts->BlitText(0, 0, debugFont, "BEACH STAGE");
@@ -341,12 +316,12 @@ Update_Status ModuleInGameUI::PostUpdate()
 			rectNormes = { 207, 11, 151, 15 };
 			App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
 
-			//puntuació tots gols L
+			//puntuaciï¿½ tots gols L
 			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
 			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 
-			//puntuació tots gols R
+			//puntuaciï¿½ tots gols R
 			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
 			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
@@ -367,7 +342,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 
 			//App->fonts->BlitText(115, 16, scoreFont, scoreText);
 		}
-		//COMENÇA PARTIDA
+		//COMENï¿½A PARTIDA
 		else if (App->sceneLawnStage->estadoS == App->sceneLawnStage->RONDA)
 		{
 			//Timer
