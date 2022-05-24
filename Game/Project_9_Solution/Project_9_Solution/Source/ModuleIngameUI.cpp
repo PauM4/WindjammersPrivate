@@ -13,7 +13,6 @@
 #include "ModuleFonts.h"
 #include "SceneStageSelect.h"
 #include "SceneBeachStage.h"
-#include "SceneCharacterSelect.h"
 
 #include "SDL/include/SDL.h"
 
