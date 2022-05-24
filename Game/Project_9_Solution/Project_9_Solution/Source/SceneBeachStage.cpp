@@ -276,7 +276,7 @@ Update_Status SceneBeachStage::PostUpdate()
 		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
 		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
 
-		App->fonts->BlitText(72, 190, debugFont, debugText);
+		App->fonts->BlitText(102, 190, debugFont, debugText);
 	}
 
 	//BLIT 5 punts a ModuleInGameUI.cpp

@@ -129,8 +129,6 @@ Update_Status ModuleInGameUI::PostUpdate()
 	switch (App->sceneStageSelect->sceneSelected)
 	{
 	case Beach:
-		//Mostra qui ha guanyat i qui ha perdut al final de la partida
-		//estadoS nomes depen de sceneBeach, cal canviar
 		if (App->sceneBeachStage->estadoS == App->sceneBeachStage->FINAL)
 		{
 			if (App->sceneBeachStage->winState == 1) {
