@@ -120,7 +120,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 		else if (App->sceneBeachStage->winState == 3) {
 
 			App->render->Blit(bothCharactersTexture, 0, 0, NULL);
-			App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
+			App->render->Blit(uiSpriteTexture, 180, 48, &LoseUIRight);
 			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
 			//winState = 4;
 		}

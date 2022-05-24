@@ -120,14 +120,13 @@ Update_Status SceneBeachStage::Update()
 		//Iniciar ronda (round 2, final o suddendeath)
 	case (INICIORONDA):
 		//Animacion Ronda 1.
-		estadoTS;
 		App->player->score = 0;
 		App->player2->score = 0;
 
 		if (estadoTS == INICIOT)
 		{
 			initialTimeS = SDL_GetTicks();
-			timeLimitS = 4 * 1000;
+			timeLimitS = 2 * 1000;
 			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
@@ -135,7 +134,6 @@ Update_Status SceneBeachStage::Update()
 		}
 		else if (estadoTS == FIN)
 		{
-			//SceneBeachStage::Arbitro(1);
 			Arbitro(arbitroFinalRonda);
 			estadoS = RONDA;
 			initialTimeS = SDL_GetTicks();
@@ -161,7 +159,6 @@ Update_Status SceneBeachStage::Update()
 		if (estadoTGol == INICIOGOL) {
 		
 		}
-
 		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 		else if (estadoTGol == EJECUTANDOGOL)
 		{
@@ -187,7 +184,20 @@ Update_Status SceneBeachStage::Update()
 		//App->player2->estadoP2 = App->player2->STOP;
 		Win();
 
-		
+		if (estadoTS == INICIOT)
+		{
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 4 * 1000;
+			estadoTS = EJECUTANDO;
+		}
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+		}
+		else if (estadoTS == FIN)
+		{
+			estadoS = INICIORONDA;
+			estadoTS = INICIOT; 
+		}
 		break;
 
 		//Animacions qui ha guanyat bailecito chingon i reiniciar
@@ -364,13 +374,13 @@ Update_Status SceneBeachStage::PostUpdate()
 
 
 		if (estadoTS == 0) {
-			App->fonts->BlitText(90, 90, debugFont, "TS.INICIOT");
+			App->fonts->BlitText(95, 33, debugFont, "TS.INICIOT");
 		}
 		else if (estadoTS == 1) {
-			App->fonts->BlitText(90, 90, debugFont, "TS.EJECUTANDO");
+			App->fonts->BlitText(95, 33, debugFont, "TS.EJECUTANDO");
 		}
 		else if (estadoTS == 2) {
-			App->fonts->BlitText(90, 90, debugFont, "TS.FIN");
+			App->fonts->BlitText(95, 33, debugFont, "TS.FIN");
 		}
 
 		//INICIO, //Inicio
