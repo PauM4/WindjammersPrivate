@@ -35,16 +35,14 @@ bool SceneStageSelect::Start()
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
 	isDebugAppear = false;
 
-	//Beach only available
-	MapList::Beach;
+	//Beach com a stage inicial
+	sceneSelected = Beach;
+
 	yMove = 55;
 	x1 = 24;
 	// -200 outside screen
 	x2 = -200;
 	x3 = -200;
-	x4 = -200;
-	x5 = -200;
-	x6 = -200;
 
 	bgStageTexture = App->textures->Load("Assets/Sprites/UI/stageSelectBg.png");
 	selectSquareTexture = App->textures->Load("Assets/Sprites/UI/UISpriteSheet_Upgrade.png");
@@ -72,7 +70,7 @@ Update_Status SceneStageSelect::Update()
 	{
 		if (yMove == 55)
 		{
-			MapList::Beach;
+			sceneSelected = Lawn;
 			yMove = 79;
 			x1 = -200;
 			x2 = 24;
@@ -80,42 +78,11 @@ Update_Status SceneStageSelect::Update()
 		}
 		else if (yMove == 79)
 		{
-			MapList::Lawn;
-			yMove = 103;
+			sceneSelected = Concrete;
+			yMove = 127;
 			x2 = -200;
 			x3 = 24;
 			App->audio->PlayFx(moveFx);
-		}
-		else if (yMove == 103)
-		{
-			MapList::Tiled;
-			yMove = 127;
-			x3 = -200;
-			x4 = 24;
-			App->audio->PlayFx(moveFx);
-		}
-		else if (yMove == 127)
-		{
-			MapList::Concrete;
-			yMove = 151;
-			x4 = -200;
-			x5 = 24;
-			App->audio->PlayFx(moveFx);
-		}
-		else if (yMove == 151)
-		{
-			MapList::Clay;
-			yMove = 175;
-			x5 = -200;
-			x6 = 24;
-			App->audio->PlayFx(moveFx);
-		}
-		else if (yMove == 175)
-		{
-			MapList::Stadium;
-			yMove = 175;
-			x6 = 24;
-			//App->audio->PlayFx(moveFx);
 		}
 	}
 
@@ -123,52 +90,20 @@ Update_Status SceneStageSelect::Update()
 	{
 		if (yMove == 79)
 		{
-			MapList::Lawn;
+			sceneSelected = Beach;
 			yMove = 55;
 			x2 = -200;
 			x1 = 24;
 			App->audio->PlayFx(moveFx);
 		}
-		else if (yMove == 103)
+		else if (yMove == 127)
 		{
-			MapList::Tiled;
+			sceneSelected = Lawn;
 			yMove = 79;
 			x3 = -200;
 			x2 = 24;
 			App->audio->PlayFx(moveFx);
 		}
-		else if (yMove == 127)
-		{
-			MapList::Concrete;
-			yMove = 103;
-			x4 = -200;
-			x3 = 24;
-			App->audio->PlayFx(moveFx);
-		}
-		else if (yMove == 151)
-		{
-			MapList::Clay;
-			yMove = 127;
-			x5 = -200;
-			x4 = 24;
-			App->audio->PlayFx(moveFx);
-		}
-		else if (yMove == 175)
-		{
-			MapList::Stadium;
-			yMove = 151;
-			x6 = -200;
-			x5 = 24;
-			App->audio->PlayFx(moveFx);
-		}
-		//else if (yMove == 55)
-		//{
-		//	MapList::Stadium;
-		//	yMove = 175;
-		//	x3 = -200;
-		//	x2 = 24;
-		//	App->audio->PlayFx(moveFx);
-		//}
 	}
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
@@ -178,17 +113,16 @@ Update_Status SceneStageSelect::Update()
 			App->audio->PlayFx(selectFx);
 			App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
 		}
-		////QUAN CREEM NOUS ESCENARIS; CANVIAR AIXÒ
-		//else if (yMove == 79)
-		//{
-		//	App->audio->PlayFx(selectFx);
-		//	App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
-		//}
-		//else if (yMove == 104)
-		//{
-		//	App->audio->PlayFx(selectFx);
-		//	App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
-		//}
+		else if (yMove == 79)
+		{
+			App->audio->PlayFx(selectFx);
+			App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
+		}
+		else if (yMove == 104)
+		{
+			App->audio->PlayFx(selectFx);
+			App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
+		}
 	}
 
 
@@ -220,10 +154,10 @@ Update_Status SceneStageSelect::PostUpdate()
 
 	App->render->Blit(miniBeachTexture, x1, 84, NULL);
 	App->render->Blit(miniLawnTexture, x2, 84, NULL);
-	App->render->Blit(miniTiledTexture, x3, 84, NULL);
-	App->render->Blit(miniConcreteTexture, x4, 84, NULL);
-	App->render->Blit(miniClayTexture, x5, 84, NULL);
-	App->render->Blit(miniStadiumTexture, x6, 84, NULL);
+	//App->render->Blit(miniTiledTexture, x3, 84, NULL);
+	App->render->Blit(miniConcreteTexture, x3, 84, NULL);
+	//App->render->Blit(miniClayTexture, x5, 84, NULL);
+	//App->render->Blit(miniStadiumTexture, x6, 84, NULL);
 
 	if (isDebugAppear)
 	{
