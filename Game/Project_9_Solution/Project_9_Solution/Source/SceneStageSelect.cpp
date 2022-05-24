@@ -30,6 +30,8 @@ bool SceneStageSelect::Start()
 
 	bool ret = true;
 
+	isSelected = false;
+
 	//Debug Font
 	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
@@ -66,67 +68,70 @@ bool SceneStageSelect::Start()
 
 Update_Status SceneStageSelect::Update()
 {
-	if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_DOWN)
+	if (!isSelected)
 	{
-		if (yMove == 55)
+		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_DOWN)
 		{
-			sceneSelected = Lawn;
-			yMove = 79;
-			x1 = -200;
-			x2 = 24;
-			App->audio->PlayFx(moveFx);
+			if (yMove == 55)
+			{
+				sceneSelected = Lawn;
+				yMove = 79;
+				x1 = -200;
+				x2 = 24;
+				App->audio->PlayFx(moveFx);
+			}
+			else if (yMove == 79)
+			{
+				sceneSelected = Concrete;
+				yMove = 127;
+				x2 = -200;
+				x3 = 24;
+				App->audio->PlayFx(moveFx);
+			}
 		}
-		else if (yMove == 79)
+
+		if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_DOWN)
 		{
-			sceneSelected = Concrete;
-			yMove = 127;
-			x2 = -200;
-			x3 = 24;
-			App->audio->PlayFx(moveFx);
+			if (yMove == 79)
+			{
+				sceneSelected = Beach;
+				yMove = 55;
+				x2 = -200;
+				x1 = 24;
+				App->audio->PlayFx(moveFx);
+			}
+			else if (yMove == 127)
+			{
+				sceneSelected = Lawn;
+				yMove = 79;
+				x3 = -200;
+				x2 = 24;
+				App->audio->PlayFx(moveFx);
+			}
+		}
+
+		if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
+		{
+			if (yMove == 55)
+			{
+				App->audio->PlayFx(selectFx);
+				isSelected = true;
+				App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
+			}
+			else if (yMove == 79)
+			{
+				App->audio->PlayFx(selectFx);
+				isSelected = true;
+				App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
+			}
+			else if (yMove == 127)
+			{
+				App->audio->PlayFx(selectFx);
+				isSelected = true;
+				App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
+			}
 		}
 	}
-
-	if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_DOWN)
-	{
-		if (yMove == 79)
-		{
-			sceneSelected = Beach;
-			yMove = 55;
-			x2 = -200;
-			x1 = 24;
-			App->audio->PlayFx(moveFx);
-		}
-		else if (yMove == 127)
-		{
-			sceneSelected = Lawn;
-			yMove = 79;
-			x3 = -200;
-			x2 = 24;
-			App->audio->PlayFx(moveFx);
-		}
-	}
-
-	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
-	{
-		if (yMove == 55)
-		{
-			App->audio->PlayFx(selectFx);
-			App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
-		}
-		else if (yMove == 79)
-		{
-			App->audio->PlayFx(selectFx);
-			App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
-		}
-		else if (yMove == 104)
-		{
-			App->audio->PlayFx(selectFx);
-			App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
-		}
-	}
-
-
-
 
 	//if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
 	//{		

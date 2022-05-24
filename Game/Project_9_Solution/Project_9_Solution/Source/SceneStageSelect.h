@@ -57,6 +57,7 @@ public:
 
 	//Scene selected
 	int sceneSelected;
+	bool isSelected;
 
 	// Sound effects indices
 	uint selectFx;
