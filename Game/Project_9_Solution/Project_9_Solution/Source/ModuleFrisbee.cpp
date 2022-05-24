@@ -370,16 +370,18 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 	}
 	else if (lanzamientoF == PARABOLA) { //TO DO límite parabola
-		if (direccionF == DARRIBA) {
-			
+	
+		//solo haremos que la parabola se pueda lanzar horizontalmente
+
+		if (35 < position.x && 260 > position.x) {
+			position.x += xspeed;
+		}
+		else {
+			collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this); 
+			estadoF = SUELO;
 
 		}
-		else if (direccionF  == DABAJO) {
 
-		}
-		else if (HORIZONTAL) {
-
-		}
 	}
 	else if(lanzamientoF == ARBITRO){
 		position.x += xspeed;

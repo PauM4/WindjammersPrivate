@@ -519,6 +519,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
+		//LANZAMIENTO PARABOLA
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
 		{
 			App->frisbee->xspeed = 4;
@@ -545,6 +546,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
+			App->collisions->RemoveCollider(App->frisbee->collider);
 
 			App->frisbee->xspeed = 4;
 			App->frisbee->yspeed = 0;
