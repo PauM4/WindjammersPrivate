@@ -1,5 +1,6 @@
 #ifndef __SCENE_NEOGEO_H__
 #define __SCENE_NEOGEO_H__
+#define NUM_IMAGES 97
 
 #include "Module.h"
 #include "Animation.h"
@@ -29,14 +30,14 @@ public:
 
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
-	SDL_Texture* bgTexture = nullptr;
+	SDL_Texture* bgTexture[NUM_IMAGES];
 
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
-	Animation* currentAnimation = nullptr;
+	//Animation* currentAnimation = nullptr;
 
-	// A set of animations
-	Animation neogeo;
+	int timer;
+	int frame;
 
 	// Sound effects indices
 	uint selectFx;
