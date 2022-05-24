@@ -61,6 +61,11 @@ public:
 
 	//Coordinates
 	int yMove, x1, x2, x3, x4, x5, x6;
+
+	//Font Debug vars
+	int debugFont;
+	char debugText[10] = { "\0" };
+	bool isDebugAppear;
 };
 
 #endif

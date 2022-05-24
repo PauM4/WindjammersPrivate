@@ -43,16 +43,23 @@ public:
 	SDL_Texture* bgTexture = nullptr;
 	SDL_Texture* uiSpriteSheet = nullptr;
 
-	// 1p, 2p sprite positions
+	//Bool already selected
+	bool p1Selected;
+	bool p2Selected;
 
 	// Rects de 1p, 2p
 	SDL_Rect p1Rect;
 	SDL_Rect p2Rect;
 
+	//Players characters
+	int p1Char;
+	int p2Char;
 
 	// Sound effects indices
 	uint moveFx;
 	uint hiromiSelected;
+	uint yooSelected;
+	uint wesselSelected;
 
 	///Coordinates
 	int x1, y1;

@@ -5,7 +5,11 @@
 #include "ModuleRender.h"
 #include "ModuleAudio.h"
 #include "ModuleInput.h"
+#include "ModuleFonts.h"
 #include "ModuleFadeToBlack.h"
+#include "SceneCharacterSelect.h"
+
+#include <stdio.h>
 
 SceneStageSelect::SceneStageSelect(bool startEnabled) : Module(startEnabled)
 {
@@ -25,6 +29,11 @@ bool SceneStageSelect::Start()
 	LOG("Loading background assets");
 
 	bool ret = true;
+
+	//Debug Font
+	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
+	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
+	isDebugAppear = false;
 
 	//Beach only available
 	MapList::Beach;
@@ -191,6 +200,13 @@ Update_Status SceneStageSelect::Update()
 	//	App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
 	//}
 
+	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
+	{
+		if (!isDebugAppear)
+			isDebugAppear = true;
+		else isDebugAppear = false;
+	}
+
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -209,6 +225,34 @@ Update_Status SceneStageSelect::PostUpdate()
 	App->render->Blit(miniClayTexture, x5, 84, NULL);
 	App->render->Blit(miniStadiumTexture, x6, 84, NULL);
 
+	if (isDebugAppear)
+	{
+		if (App->sceneCharacterSelect->p1Char == Mita)
+		{
+			App->fonts->BlitText(72, 190, debugFont, "P1 MITA");
+		}
+		else if (App->sceneCharacterSelect->p1Char == Yoo)
+		{
+			App->fonts->BlitText(72, 190, debugFont, "P1 YOO");
+		}
+		else if (App->sceneCharacterSelect->p1Char == Wessel)
+		{
+			App->fonts->BlitText(72, 190, debugFont, "P1 WESSEL");
+		}
+
+		if (App->sceneCharacterSelect->p2Char == Mita)
+		{
+			App->fonts->BlitText(72, 200, debugFont, "P2 MITA");
+		}
+		else if (App->sceneCharacterSelect->p2Char == Yoo)
+		{
+			App->fonts->BlitText(72, 200, debugFont, "P2 YOO");
+		}
+		else if (App->sceneCharacterSelect->p2Char == Wessel)
+		{
+			App->fonts->BlitText(72, 200, debugFont, "P2 WESSEL");
+		}
+	}
 
 	return Update_Status::UPDATE_CONTINUE;
 }
