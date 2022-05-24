@@ -146,21 +146,11 @@ Update_Status SceneBeachStage::Update()
 
 		//INGAME Gemplei 
 	case (RONDA):
-		
-		if (estadoTS == EJECUTANDO) {
-			TimerS();
-			App->ingameUI->currentTimerAnim->Update();
-		}
-		Round();
-		if (estadoTS == FIN) {
-			estadoTS = INICIOT;
-		}
+		App->ingameUI->currentTimerAnim->Update();
+		//if (estadoTGol == INICIOGOL) {
 
-		if (estadoTGol == INICIOGOL) {
-		
-		}
-		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
-		else if (estadoTGol == EJECUTANDOGOL)
+		//}//Tendremos que poner una condicion para cuando se marquen puntos que aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
+		if (estadoTGol == EJECUTANDOGOL)
 		{
 			TimerGol();
 		}
@@ -171,10 +161,19 @@ Update_Status SceneBeachStage::Update()
 			}
 			estadoTGol = INICIOGOL;
 			Round();
-			Arbitro(arbitroFinalRonda);
+			if(estadoS != FINALRONDA){
+			 Arbitro(arbitroFinalRonda);
+			}
 		}
-		
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+			
+		}
+		else if (estadoTS == FIN) {
+			Round();
+			estadoTS = INICIOT;
 
+		} 
 		break;
 
 		//Animacions qui ha guanyat bailecito chingon
@@ -190,12 +189,10 @@ Update_Status SceneBeachStage::Update()
 			timeLimitS = 4 * 1000;
 			estadoTS = EJECUTANDO;
 		}
-		
-		if (estadoTS == EJECUTANDO) {
+		else if (estadoTS == EJECUTANDO) {
 			TimerS();
 		}
-		
-		if (estadoTS == FIN)
+		else if (estadoTS == FIN)
 		{
 			estadoS = INICIORONDA;
 			estadoTS = INICIOT; 
@@ -319,7 +316,8 @@ Update_Status SceneBeachStage::PostUpdate()
 		// Si no es fan servir variables, comentar aquesta linia
 
 		sprintf_s(debugText, 10, "%2d", App->frisbee->position.x - (App->player->position.x + 20));
-		sprintf_s(debugText2, 10, "%2d", App->frisbee->position.y);
+		//sprintf_s(debugText2, 10, "%2d", App->frisbee->position.y);
+		sprintf_s(debugText2, 10, "%2d", App->player->bea);
 		
 		//DEBUGG ESTADO PLAYER1
 		if (App->player->estadoP1 == 0) {
@@ -471,7 +469,10 @@ void SceneBeachStage::Round() {
 				//Llamar animaci�n de jugador ganador 1 y las texturas
 				App->player->score = 0;
 				App->player2->score = 0;
+				arbitroFinalRonda = 2;
+				estadoTS = INICIOT;
 				estadoS = FINALRONDA;
+				
 			}
 
 			if (App->player2->score > App->player->score + 2) {
@@ -480,6 +481,7 @@ void SceneBeachStage::Round() {
 				//Llamar animaci�n de jugador ganador 2 y las texturas
 				App->player->score = 0;
 				App->player2->score = 0;
+				arbitroFinalRonda = 1;
 				estadoS = FINALRONDA;
 			}
 
@@ -574,7 +576,7 @@ void SceneBeachStage::Win() { //AQUI SE TENDR�A QUE CAMBIAR EL ESTADO EN SWITC
 
 	}
 	else if(!godMode) {
-		estadoS = INICIORONDA;
+		//estadoS = INICIORONDA;
 	}
 
 }

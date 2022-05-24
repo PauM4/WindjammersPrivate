@@ -178,10 +178,13 @@ Update_Status ModulePlayer::Update()
 
 	case (WITHFRISBEE): 
 		timerP();
+		bea = (currentTimeP - initialTimeP) / 1000;
 		lanzamientoPlayer();
 		break;
 
 	}
+
+	
 
 
 	//if (App->sceneBeachStage->startTheGame)
@@ -497,7 +500,14 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN || estadoTP == FIN)
 		{
-			App->frisbee->xspeed = 4;
+
+			//Pepe y bea sirven para modificar la velocidad del disco en funcion del tiempo que la haya tenido el player1.
+			pepe = (float)bea + 1;
+			if (pepe > 1.5) {
+				pepe = 1.5;
+			}
+
+			App->frisbee->xspeed = 4 / pepe;
 			App->frisbee->yspeed = 0;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;

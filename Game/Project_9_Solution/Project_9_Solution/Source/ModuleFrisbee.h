@@ -37,9 +37,9 @@ public:
 	iPoint position;
 
 	// The speed in which we move the player (pixels per frame)
-	int speed;
-	int xspeed;
-	int yspeed;
+	float speed;
+	float xspeed;
+	float yspeed;
 	int mov;
 	int arbitro;
 

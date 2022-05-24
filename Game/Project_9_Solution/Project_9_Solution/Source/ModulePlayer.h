@@ -113,6 +113,10 @@ public:
 
 	//Numero de rondas ganadas
 	int round;
+	int bea;
+	float pepe;
+
+	
 
 };
 
