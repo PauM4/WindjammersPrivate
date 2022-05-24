@@ -241,6 +241,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 			// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
 
 			App->fonts->BlitText(72, 190, debugFont, debugText);
+			App->fonts->BlitText(0, 0, debugFont, "BEACH STAGE");
 		}
 
 		switch (App->sceneBeachStage->estadoGolScore)
@@ -396,6 +397,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 			// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
 
 			App->fonts->BlitText(72, 190, debugFont, debugText);
+			App->fonts->BlitText(0, 0, debugFont, "LAWN STAGE");
 		}
 
 		switch (App->sceneLawnStage->estadoGolScore)
