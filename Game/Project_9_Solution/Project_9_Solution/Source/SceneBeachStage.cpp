@@ -190,10 +190,12 @@ Update_Status SceneBeachStage::Update()
 			timeLimitS = 4 * 1000;
 			estadoTS = EJECUTANDO;
 		}
-		else if (estadoTS == EJECUTANDO) {
+		
+		if (estadoTS == EJECUTANDO) {
 			TimerS();
 		}
-		else if (estadoTS == FIN)
+		
+		if (estadoTS == FIN)
 		{
 			estadoS = INICIORONDA;
 			estadoTS = INICIOT; 
