@@ -565,7 +565,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 
 		//LANZAMIENTO SUPERSHOT
-		p1Char = 0;
+		p1Char = 1;
 		if (p1Char == 0) { //japo
 
 			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
@@ -582,11 +582,21 @@ void ModulePlayer::lanzamientoPlayer() {
 
 			}
 
-
-			
-			//position.x += xspeed * calculameElAngulo();
 		}
 		else if (p1Char == 1) { //coreano
+
+			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			{
+				App->frisbee->xspeed = 5;
+				App->frisbee->yspeed = -5;
+				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::SUPERSHOT;
+				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::MAX;
+				App->frisbee->tipoSupershot = ModuleFrisbee::tipoSupershot::YOO_SUPERSHOT;
+				estadoP1 = estadoPlayer::MOVIMIENTO;
+				break;
+
+			}
 
 		}
 		else if (p1Char == 2) { //aleman

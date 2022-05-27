@@ -84,7 +84,9 @@ bool ModuleFrisbee::Start()
 	estadoTF = INICIO;
 	blockSuperShot = true;
 	contadorBlock = 0;
-	limiteAngulo = false;
+	contador_Angulo_SuperShot = true;
+	contadorYooSuperShot = 0;
+	yooDirec = true;
 	return ret;
 }
 
@@ -393,11 +395,48 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		if (tipoSupershot == MITA_SUPERSHOT) {
 
 			anguloSupershot();
-			position.x += xspeed * sin(angulo)+1.5;
+			position.x += xspeed * sin(angulo)+1.5; //este 1,5 deberá sernegativo para el player2
 			position.y += yspeed * cos(angulo);
 
 
 		} else if (tipoSupershot == YOO_SUPERSHOT) {
+
+			if (contadorYooSuperShot <= 8 && contador_Angulo_SuperShot) {
+				position.x += xspeed;
+				contadorYooSuperShot++;
+
+				if (contadorYooSuperShot == 8) {
+					contador_Angulo_SuperShot = false;
+					if (yooDirec) {
+						contadorYooSuperShot = 0;
+					}
+					
+					
+				}
+			}
+			else if (!contador_Angulo_SuperShot) {
+
+				if (yooDirec) {
+					position.y += yspeed;
+					contadorYooSuperShot++;
+
+					if (contadorYooSuperShot >= 4) {
+						contador_Angulo_SuperShot = true;
+						contadorYooSuperShot = 0;
+						yooDirec = false;
+					}
+
+				}
+				else if (!yooDirec) {
+					position.y -= yspeed;
+					contadorYooSuperShot--;
+
+					if (contadorYooSuperShot <= 0) {
+						contador_Angulo_SuperShot = true;
+						yooDirec = true;
+					}
+				}
+			}
 
 		}
 		else if (tipoSupershot == WESSEL_SUPERSHOT) {
@@ -412,75 +451,6 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 
 	
-	/*if (projectil == 2) {
-
-		if (PosTemp < position.x || PosTemp > position.x) {
-			position.x += xspeed;
-		}
-		else {
-			currentAnimation2 = &stop;
-			mov = 0;
-			projectil = 0;
-			posesion = 0;
-			collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this);
-		}
-
-
-	}*/
-
-
-
-	//MOV FRISBE PROJECTIL HACIA DELANTE
-
-
-	//if (position.x <= 19 || position.x >= 276) {
-	//	mov = 0;
-
-		////aqui tendremos que llamar la accion del arbitro que envia el disco al player 1
-
-		//if (position.x <= 19) {
-		//	if (position.y >= 94 && position.y <= 144) {
-		//		App->player2->score += 5;
-		//		//arbitro = 1;
-		//		if (App->sceneBeachStage->suddenDeath) {
-		//			App->sceneBeachStage->Win();
-		//		}
-		//		App->sceneBeachStage->ScoreRound(1);
-		//		//App->sceneBeachStage->EndRound(1);
-
-		//	}
-		//	else {
-		//		App->player2->score += 3;
-		//		//arbitro = 1;
-		//		if (App->sceneBeachStage->suddenDeath) {
-		//			App->sceneBeachStage->Win();
-		//		}
-		//		App->sceneBeachStage->ScoreRound(1);
-		//		//App->sceneBeachStage->EndRound(1);
-		//	}
-		//}
-		//if (position.x >= 276) {
-		//	if (position.y >= 94 && position.y <= 144) {
-		//		App->player->score += 5;
-		//		//arbitro = 2;
-		//		if (App->sceneBeachStage->suddenDeath) {
-		//			App->sceneBeachStage->Win();
-		//		}
-
-		//		App->sceneBeachStage->ScoreRound(2);
-		//		//App->sceneBeachStage->EndRound(2);
-		//	}
-		//	else {
-		//		App->player->score += 3;
-		//		//arbitro = 2;
-		//		if (App->sceneBeachStage->suddenDeath) {
-		//			App->sceneBeachStage->Win();
-		//		}
-		//		App->sceneBeachStage->ScoreRound(2);
-		//		//App->sceneBeachStage->EndRound(2);
-		//	}
-		//}
-
 }
 
 void ModuleFrisbee::limitesFrisbee() {
@@ -522,10 +492,6 @@ void ModuleFrisbee::limitesFrisbee() {
 		
 	}
 
-
-
-
-
 }
 
 
@@ -536,8 +502,6 @@ void ModuleFrisbee::timerF() {
 		estadoTF = estadoTimerF::FIN;
 	}
 }
-
-
 
 void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
 
@@ -553,16 +517,16 @@ void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
 
 void ModuleFrisbee::anguloSupershot() {
 
-	if (angulo <= 180 && limiteAngulo) {
+	if (angulo <= 180 && contador_Angulo_SuperShot) { 
 		angulo -= 0.15;
 		if (angulo == 0) {
-			limiteAngulo = false;
+			contador_Angulo_SuperShot = false;
 		}
 	}
-	else if (angulo >= 0 && !limiteAngulo) {
+	else if (angulo >= 0 && !contador_Angulo_SuperShot) {
 		angulo += 0.15;
 		if (angulo == 180) {
-			limiteAngulo = true;
+			contador_Angulo_SuperShot = true;
 		}
 	}
 

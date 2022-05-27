@@ -135,7 +135,10 @@ public:
 
 	void anguloSupershot();
 	float angulo;
-	bool limiteAngulo;
+	int contadorYooSuperShot;
+	bool yooDirec;
+	bool contador_Angulo_SuperShot; //contador utilizado tanto para el angulo del supershot de la Mito como para el supershot de Yoo
+	
 
 };
 
