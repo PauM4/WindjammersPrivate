@@ -152,7 +152,7 @@ bool ModulePlayer::Start()
 	destroyed = false;
 	speed = 2;
 
-	collider = App->collisions->AddCollider({ position.x, position.y, 27, 31 }, Collider::Type::PLAYER, this);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 27, 31 }, Collider::Type::PLAYER, this);
 
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);
@@ -568,8 +568,9 @@ void ModulePlayer::lanzamientoPlayer() {
 		p1Char = 0;
 		if (p1Char == 0) { //japo
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
+				App->frisbee->angulo = 0;
 				App->frisbee->xspeed = 5;
 				App->frisbee->yspeed = -5;
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::SUPERSHOT;
@@ -581,17 +582,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 			}
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1) {
 
-				App->frisbee->xspeed = 5;
-				App->frisbee->yspeed = 5;
-				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::SUPERSHOT;
-				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
-				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::MAX;
-				App->frisbee->tipoSupershot = ModuleFrisbee::tipoSupershot::MITA_SUPERSHOT;
-				estadoP1 = estadoPlayer::MOVIMIENTO;
-				break;
-			}
 			
 			//position.x += xspeed * calculameElAngulo();
 		}

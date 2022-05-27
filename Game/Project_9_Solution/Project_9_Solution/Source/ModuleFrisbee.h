@@ -34,7 +34,7 @@ public:
 
 public:
 	// Position of the player in the map
-	iPoint position;
+	fPoint position;
 
 	// The speed in which we move the player (pixels per frame)
 	float speed;
@@ -134,7 +134,8 @@ public:
 	int limiteWesselSupershot;
 
 	void anguloSupershot();
-	int angulo;
+	float angulo;
+	bool limiteAngulo;
 
 };
 

@@ -315,7 +315,7 @@ Update_Status SceneBeachStage::PostUpdate()
 		// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
 		// Si no es fan servir variables, comentar aquesta linia
 
-		sprintf_s(debugText, 10, "%2d", App->frisbee->position.x - (App->player->position.x + 20));
+		sprintf_s(debugText, 10, "%2d", (int)App->frisbee->position.x - ((int)App->player->position.x + 20));
 		//sprintf_s(debugText2, 10, "%2d", App->frisbee->position.y);
 		sprintf_s(debugText2, 10, "%2d", App->player->bea);
 		

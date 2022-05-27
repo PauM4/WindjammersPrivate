@@ -156,7 +156,7 @@ bool ModulePlayer2::Start()
 	destroyed = false;
 	disco = false;
 
-	collider = App->collisions->AddCollider({ position.x, position.y, 27, 31 }, Collider::Type::PLAYER, this);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 27, 31 }, Collider::Type::PLAYER, this);
 
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);

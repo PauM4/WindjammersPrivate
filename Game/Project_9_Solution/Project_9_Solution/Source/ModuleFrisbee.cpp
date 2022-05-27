@@ -11,6 +11,7 @@
 #include "ModulePlayer2.h"
 #include "SDL/include/SDL.h"
 #include "SceneBeachStage.h"
+#include <math.h>
 
 ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 {
@@ -77,12 +78,13 @@ bool ModuleFrisbee::Start()
 
 	destroyed = false;
 
-	collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
 	estadoF = ARBITROF;
 	lanzamientoF = ARBITRO;
 	estadoTF = INICIO;
 	blockSuperShot = true;
 	contadorBlock = 0;
+	limiteAngulo = false;
 	return ret;
 }
 
@@ -194,7 +196,7 @@ Update_Status ModuleFrisbee::Update()
 		else if (estadoTF == FIN) {
 			estadoTF = INICIO;
 			currentAnimation2 = &stop;
-				collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
+				collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16,16 }, Collider::Type::FRISBEE, this);
 				blockSuperShot = true;
 				
 				estadoF = SUELO;
@@ -376,7 +378,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			position.x += xspeed;
 		}
 		else {
-			collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this); 
+			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
 			estadoF = SUELO;
 
 		}
@@ -389,6 +391,11 @@ void ModuleFrisbee :: movimientoFrisbee() {
 	else if (lanzamientoF == SUPERSHOT) {
 		
 		if (tipoSupershot == MITA_SUPERSHOT) {
+
+			anguloSupershot();
+			position.x += xspeed * sin(angulo)+1.5;
+			position.y += yspeed * cos(angulo);
+
 
 		} else if (tipoSupershot == YOO_SUPERSHOT) {
 
@@ -546,6 +553,18 @@ void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
 
 void ModuleFrisbee::anguloSupershot() {
 
+	if (angulo <= 180 && limiteAngulo) {
+		angulo -= 0.15;
+		if (angulo == 0) {
+			limiteAngulo = false;
+		}
+	}
+	else if (angulo >= 0 && !limiteAngulo) {
+		angulo += 0.15;
+		if (angulo == 180) {
+			limiteAngulo = true;
+		}
+	}
 
 
 
