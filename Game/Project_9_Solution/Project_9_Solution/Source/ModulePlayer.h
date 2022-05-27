@@ -115,6 +115,8 @@ public:
 	int round;
 	int bea;
 	float pepe;
+	int p1Char;
+	
 
 	
 

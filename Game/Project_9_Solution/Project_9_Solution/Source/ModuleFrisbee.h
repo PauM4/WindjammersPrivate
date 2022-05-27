@@ -94,6 +94,14 @@ public:
 		BLOCKPLAYER2
 	};
 	int lanzamientoF;
+
+	enum tipoSupershot {
+		MITA_SUPERSHOT,
+		YOO_SUPERSHOT,
+		WESSEL_SUPERSHOT,
+		NONE
+	};
+	int tipoSupershot;
 	
 	enum direccionFrisbeePlayer {
 		DARRIBA,
@@ -122,6 +130,11 @@ public:
 	void vel_parabola(int pos_Player, int pos_final_frisbee);
 
 	bool blockSuperShot;
+
+	int limiteWesselSupershot;
+
+	void anguloSupershot();
+	int angulo;
 
 };
 

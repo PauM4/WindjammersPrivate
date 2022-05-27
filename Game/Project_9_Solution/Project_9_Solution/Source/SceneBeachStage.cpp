@@ -406,7 +406,25 @@ Update_Status SceneBeachStage::PostUpdate()
 			App->fonts->BlitText(110, 180, debugFont, "S.FINAL");
 		}
 
+		if (App->frisbee->lanzamientoF == 0) {
 
+			App->fonts->BlitText(110, 120, debugFont, "NORMAL");
+
+		} else if (App->frisbee->lanzamientoF == 1) {
+			App->fonts->BlitText(110, 120, debugFont, "PARABOLA");
+		}
+		else if (App->frisbee->lanzamientoF == 2) {
+			App->fonts->BlitText(110, 120, debugFont, "ARBITRO");
+		}
+		else if (App->frisbee->lanzamientoF == 3) {
+			App->fonts->BlitText(110, 120, debugFont, "SUPERSHOT");
+		}
+		else if (App->frisbee->lanzamientoF == 4) {
+			App->fonts->BlitText(110, 120, debugFont, "BLOCKPLAYER1");
+		}
+		else if (App->frisbee->lanzamientoF == 5) {
+			App->fonts->BlitText(110, 120, debugFont, "BLOCKPLAYER2");
+		}
 
 		App->fonts->BlitText(110, 110, debugFont, debugText);
 		App->fonts->BlitText(165, 110, debugFont, debugText2);

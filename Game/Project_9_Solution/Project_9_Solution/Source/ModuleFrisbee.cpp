@@ -100,8 +100,8 @@ Update_Status ModuleFrisbee::Update()
 		break;
 
 	case MOVIMIENTO:
-		limitesFrisbee();
 		movimientoFrisbee();
+		limitesFrisbee();
 		break;	
 
 	case WITHPLAYER:
@@ -355,8 +355,6 @@ void ModuleFrisbee :: movimientoFrisbee() {
 	
 
  	if (lanzamientoF == NORMAL) {
-		
-
 		if (direccionF == DARRIBA) {
 			position.x += xspeed;
 			position.y += yspeed;
@@ -371,12 +369,9 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		}
 
 	}
-	else if (lanzamientoF == PARABOLA) { //TO DO límite parabola
+	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
 	
 		currentAnimation2 = &projectile;
-		//solo haremos que la parabola se pueda lanzar horizontalmente
-	
-
 		if (35 < position.x && 250 > position.x) {
 			position.x += xspeed;
 		}
@@ -385,16 +380,28 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			estadoF = SUELO;
 
 		}
-		
-
 	}
-	else if(lanzamientoF == ARBITRO){
+	else if (lanzamientoF == ARBITRO) {
 		position.x += xspeed;
 		position.y += yspeed;
 	}
+
 	else if (lanzamientoF == SUPERSHOT) {
-		//TODO
+		
+		if (tipoSupershot == MITA_SUPERSHOT) {
+
+		} else if (tipoSupershot == YOO_SUPERSHOT) {
+
+		}
+		else if (tipoSupershot == WESSEL_SUPERSHOT) {
+			if (position.x < limiteWesselSupershot ) {
+				position.x += xspeed;
+			} else if (position.x >= limiteWesselSupershot){
+				position.y += yspeed;
+			}
+		}
 	}
+
 
 
 	
@@ -471,7 +478,30 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 void ModuleFrisbee::limitesFrisbee() {
 
-	if (lanzamientoF != ARBITRO) {
+	if (position.x < 19 || position.x >276) {
+
+		//funsion score
+		estadoF = ARBITROF;
+		App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
+		App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+		App->sceneBeachStage->Score();
+		tipoSupershot = NONE;
+
+	}
+
+	if (tipoSupershot == WESSEL_SUPERSHOT) {
+		
+		if (position.y <= 50) {
+			position.x += xspeed;
+			yspeed = 0;
+		}
+		else if (position.y >= 170) {
+			position.x += xspeed;
+			yspeed = 0;
+		}
+
+	}
+	else if (lanzamientoF != ARBITRO && lanzamientoF != SUPERSHOT) {
 		if (position.x >= 19 && position.x <= 276) {
 
 			if (position.y <= 50) {
@@ -482,15 +512,7 @@ void ModuleFrisbee::limitesFrisbee() {
 			}
 		}
 
-		else if (position.x < 19 || position.x >276) {
-
-			//funsion score
-			estadoF = ARBITROF;
-			App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
-			App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
-			App->sceneBeachStage->Score();
-
-		}
+		
 	}
 
 
@@ -519,5 +541,12 @@ void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
 	else if (35) { //este 35 va en el player2
 		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed);
 	}
+
+}
+
+void ModuleFrisbee::anguloSupershot() {
+
+
+
 
 }
