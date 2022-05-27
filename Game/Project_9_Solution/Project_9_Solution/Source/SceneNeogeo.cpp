@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "SDL/include/SDL.h"
 
 #include "SceneNeogeo.h"
 
@@ -10,8 +9,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 
-
-
+#include "SDL/include/SDL.h"
 
 SceneNeogeo::SceneNeogeo(bool startEnabled) : Module(startEnabled)
 {
@@ -30,11 +28,11 @@ bool SceneNeogeo::Start()
 	LOG("Loading background assets");
 
 	bool ret = true;
-	char s[128];
+	char x[128];
 
 	for (int i = 0; i < NUM_IMAGES; ++i) {
-		sprintf_s(s, "Assets/Sprites/UI/Neogeo/neogeo%d.png", i + 1);
-		bgTexture[i] = App->textures->Load(s);
+		sprintf_s(x, "Assets/Sprites/UI/Neogeo/neogeo%d.png", i + 1);
+		bgTexture[i] = App->textures->Load(x);
 	}
 	frame = 0;
 	timer = 0;
@@ -53,7 +51,6 @@ bool SceneNeogeo::Start()
 
 Update_Status SceneNeogeo::Update()
 {
-	
 	if (timer == 2) {
 		if (frame < NUM_IMAGES - 1) {
 			frame++;
@@ -62,11 +59,11 @@ Update_Status SceneNeogeo::Update()
 	}
 	timer++;
 
-	if (next < 300)
+	if (next < 360)
 	{
 		next++;
 	}
-	else if (next == 300)
+	else if (next == 360)
 	{
 		scape = true;
 	}
