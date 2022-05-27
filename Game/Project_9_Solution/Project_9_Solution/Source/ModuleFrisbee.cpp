@@ -202,6 +202,7 @@ Update_Status ModuleFrisbee::Update()
 		break;
 
 	case SUELO:
+		currentAnimation2 = &stop;
 		if (estadoTF == INICIO) {
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
@@ -351,6 +352,7 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 
 void ModuleFrisbee :: movimientoFrisbee() {
 	currentAnimation2 = &moving;
+	
 
  	if (lanzamientoF == NORMAL) {
 		
@@ -371,9 +373,11 @@ void ModuleFrisbee :: movimientoFrisbee() {
 	}
 	else if (lanzamientoF == PARABOLA) { //TO DO límite parabola
 	
+		currentAnimation2 = &projectile;
 		//solo haremos que la parabola se pueda lanzar horizontalmente
+	
 
-		if (35 < position.x && 260 > position.x) {
+		if (35 < position.x && 250 > position.x) {
 			position.x += xspeed;
 		}
 		else {
@@ -381,6 +385,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			estadoF = SUELO;
 
 		}
+		
 
 	}
 	else if(lanzamientoF == ARBITRO){
@@ -505,3 +510,14 @@ void ModuleFrisbee::timerF() {
 
 
 
+void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
+
+	if (pos_final_frisbee == 260) {
+		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed) * 0.2f;
+			
+	}
+	else if (35) { //este 35 va en el player2
+		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed);
+	}
+
+}

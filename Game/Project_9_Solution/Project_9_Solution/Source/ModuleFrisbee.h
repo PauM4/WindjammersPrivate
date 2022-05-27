@@ -119,6 +119,8 @@ public:
 	int currentTimeF;
 	int timeLimitF;
 
+	void vel_parabola(int pos_Player, int pos_final_frisbee);
+
 	bool blockSuperShot;
 
 };

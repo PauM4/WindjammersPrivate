@@ -12,6 +12,7 @@
 #include "ModuleFrisbee.h"
 #include "SceneBeachStage.h"
 #include "ModulePlayer2.h"
+#include "ModuleFrisbee.h"
 
 #include <stdio.h>
 #include "SDL/include/SDL.h"
@@ -469,11 +470,16 @@ void ModulePlayer::movimientoPlayer(){
 
 void ModulePlayer::lanzamientoPlayer() {
 	
+	pepe = (float)bea + 1;
+	if (pepe > 1.5) {
+		pepe = 1.5;
+	}
+
 	for (int i = 0; i < 1; i++) {
 		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
 		{
-			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = -4;
+			App->frisbee->xspeed = 4/pepe; 
+			App->frisbee->yspeed = -4/pepe;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;			
@@ -487,8 +493,8 @@ void ModulePlayer::lanzamientoPlayer() {
 		{
 			
 
-			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = 4;
+			App->frisbee->xspeed = 4/pepe;
+			App->frisbee->yspeed = 4 / pepe;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
@@ -502,10 +508,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		{
 
 			//Pepe y bea sirven para modificar la velocidad del disco en funcion del tiempo que la haya tenido el player1.
-			pepe = (float)bea + 1;
-			if (pepe > 1.5) {
-				pepe = 1.5;
-			}
+
 
 			App->frisbee->xspeed = 4 / pepe;
 			App->frisbee->yspeed = 0;
@@ -519,11 +522,11 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
-		//LANZAMIENTO PARABOLA
-		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
+		//LANZAMIENTO PARABOLA: Dejamos que parábola se haga únicamente horizontalmente
+	/*	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
 		{
-			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = 4;
+			App->frisbee->xspeed = 4 / pepe;
+			App->frisbee->yspeed = 4 / pepe;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
@@ -534,22 +537,24 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)
 		{
-			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = -4;
+			App->frisbee->xspeed = 4 / pepe;
+			App->frisbee->yspeed = -4 / pepe;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 			estadoP1 = estadoPlayer::MOVIMIENTO;
 			break;
 
-		}
+		}*/
 
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
+			
 			App->collisions->RemoveCollider(App->frisbee->collider);
 
-			App->frisbee->xspeed = 4;
+			App->frisbee->xspeed = 3;
 			App->frisbee->yspeed = 0;
+			App->frisbee->vel_parabola(position.x, 260);
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
