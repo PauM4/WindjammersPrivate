@@ -12,6 +12,7 @@
 #include "ModuleFrisbee.h"
 #include "ModuleFonts.h"
 #include "SceneCharacterPresent.h"
+#include "SceneStageSelect.h"
 #include "ModuleIngameUI.h"
 
 #include "SDL/include/SDL.h"
@@ -61,12 +62,33 @@ bool SceneBeachStage::Start()
 	//FX de rounds
 	round1FX = App->audio->LoadFx("Assets/Fx/round1.wav");
 
+	//Canviar musica depenent de l'escenari
+	switch (App->sceneStageSelect->sceneSelected)
+	{
+	case Beach:
+		bgBeachTexture = App->textures->Load("Assets/Sprites/Levels/bgBeachSpriteSheet.png");
 
-	//beachTexture = App->textures->Load("Assets/Sprites/Levels/PH_Beach.png");
-	bgBeachTexture = App->textures->Load("Assets/Sprites/Levels/bgBeachSpriteSheet.png");
-	currentBeachAnim = &bgBeachAnim;
+		currentBgAnim = &bgBeachAnim;
 
-	App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
+		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
+		break;
+	case Lawn:
+		bgLawnTexture = App->textures->Load("Assets/Sprites/Levels/PH_Lawn.png");
+
+		currentBgAnim = &bgLawnAnim;
+
+		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
+		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
+		break;
+	case Concrete:
+		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/PH_Concrete.png");
+
+		currentBgAnim = &bgConcreteAnim;
+
+		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
+		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
+		break;
+	}
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -183,34 +205,6 @@ Update_Status SceneBeachStage::Update()
 		break;
 	}
 
-
-
-
-
-	////240 == 4s
-	//if (initialTime < 240)
-	//{
-	//	initialTime++;
-	//}
-	//else if (initialTime == 240)
-	//{
-	//	startTheGame = true;
-	//	App->audio->PlayFx(round1FX, 0);
-	//	//EndRound(1);
-	//}
-
-	//if (startTheGame)
-	//{
-	//	if (time <= 1860)
-	//	{
-	//		time++;
-	//	}
-	//	currentTimerAnim->Update();
-	//	currentTimerAnim->Update();
-	//}
-
-	//currentBeachAnim->Update();
-
 	// DEBUG INSTANT WIN
 	if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
 	{
@@ -238,6 +232,8 @@ Update_Status SceneBeachStage::Update()
 		}
 	}
 
+	currentBgAnim->Update();
+
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -245,11 +241,28 @@ Update_Status SceneBeachStage::Update()
 Update_Status SceneBeachStage::PostUpdate()
 {
 
-	// Draw everything --------------------------------------
-		//App->render->Blit(beachTexture, 0, 0, NULL);
-		//Beach background
-	SDL_Rect rectBeach = currentBeachAnim->GetCurrentFrame();
-	App->render->Blit(bgBeachTexture, 0, 0, &rectBeach);
+	backgroundAnimationRect = currentBgAnim->GetCurrentFrame();
+
+	switch (App->sceneStageSelect->sceneSelected)
+	{
+	case Beach:
+		App->render->Blit(bgBeachTexture, 0, 0, &backgroundAnimationRect);
+
+		break;
+	case Lawn:
+		App->render->Blit(bgLawnTexture, 0, 0, NULL);
+
+		break;
+	case Concrete:
+		App->render->Blit(bgConcreteTexture, 0, 0, NULL);
+
+
+		break;
+	}
+
+	//Beach background
+	
+	
 
 	//if (winState == 4) {
 	//	App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
@@ -431,6 +444,8 @@ void SceneBeachStage::Win() { //AQUI SE TENDR�A QUE CAMBIAR EL ESTADO EN SWITC
 }
 
 void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MARCARPUNTO, en cada momento en que se meten puntos para que se realicen las animaciones 
+	
+	//Gols en concrete i els altres escenaris son diferents
 	//Score esquerra
 	if (App->frisbee->position.x <= 19) {
 		//5 punts
@@ -445,14 +460,14 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			estadoGolScore = MIDLEFT;
 		}
 		//3 punts adalt
-		else if(App->frisbee->position.y < 94)
+		else if (App->frisbee->position.y < 94)
 		{
 			App->player2->score += 3;
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
-			arbitroFinalRonda = 1;	
+			arbitroFinalRonda = 1;
 			estadoGolScore = UPLEFT;
 		}
 		//3 punts abaix
@@ -478,7 +493,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			estadoGolScore = MIDRIGHT;
 		}
 		// 3 punts UP
-		else if(App->frisbee->position.y < 94)
+		else if (App->frisbee->position.y < 94)
 		{
 			App->player->score += 3;
 			//Just despres d'afegir score, UI Textura d'on ha marcat
@@ -499,12 +514,12 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		}
 	}
 	else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
-			App->player2->score += 2;
-			if (suddenDeath) {
-				Win();
-			}
-			Round();
-			Arbitro(1);
+		App->player2->score += 2;
+		if (suddenDeath) {
+			Win();
+		}
+		Round();
+		Arbitro(1);
 
 	}
 	else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {

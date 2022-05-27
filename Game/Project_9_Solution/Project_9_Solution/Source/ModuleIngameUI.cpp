@@ -13,6 +13,7 @@
 #include "ModuleFonts.h"
 #include "SceneBeachStage.h"
 #include "SceneCharacterSelect.h"
+#include "SceneStageSelect.h"
 
 #include "SDL/include/SDL.h"
 
@@ -183,15 +184,31 @@ Update_Status ModuleInGameUI::PostUpdate()
 		rectNormes = { 207, 11, 151, 15 };
 		App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
 
-		//puntuació tots gols L
-		App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-		App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
-		App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
+		//Diferents puntuacions
+		if (App->sceneStageSelect->sceneSelected == Concrete)
+		{
+			//puntuació tots gols L
+			App->render->Blit(uiSpriteTexture, 12, 26, &cincPuntsL);
+			App->render->Blit(uiSpriteTexture, 12, 92, &tresPuntsL);
+			App->render->Blit(uiSpriteTexture, 12, 158, &cincPuntsL);
 
-		//puntuació tots gols R
-		App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
-		App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
-		App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
+			//puntuació tots gols R
+			App->render->Blit(uiSpriteTexture, 232, 26, &cincPuntsR);
+			App->render->Blit(uiSpriteTexture, 232, 92, &tresPuntsR);
+			App->render->Blit(uiSpriteTexture, 232, 158, &cincPuntsR);
+		}
+		else
+		{
+			//puntuació tots gols L
+			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
+			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
+			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
+
+			//puntuació tots gols R
+			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
+			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
+			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
+		}
 
 		//Set1
 		set1Rect = { 160, 300, 160, 56 };
@@ -270,28 +287,84 @@ Update_Status ModuleInGameUI::PostUpdate()
 		App->fonts->BlitText(72, 190, debugFont, debugText);
 	}
 
-	switch (App->sceneBeachStage->estadoGolScore)
+	//Depenent de quin stage is selected (punts gol posicions)
+	if (App->sceneStageSelect->sceneSelected == Beach)
 	{
-	case (0):
-		App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-		break;
-	case(1):
-		App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
-		break;
-	case(2):
-		App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
-		break;
-	case(3):
-		App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
-		break;
-	case(4):
-		App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
-		break;
-	case(5):
-		App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
-		break;
-	case(6):
-		break;
+		switch (App->sceneBeachStage->estadoGolScore)
+		{
+		case (0):
+			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
+			break;
+		case(1):
+			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
+			break;
+		case(2):
+			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
+			break;
+		case(3):
+			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
+			break;
+		case(4):
+			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
+			break;
+		case(5):
+			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
+			break;
+		case(6):
+			break;
+		}
+	}
+	else if (App->sceneStageSelect->sceneSelected == Lawn)
+	{
+		switch (App->sceneBeachStage->estadoGolScore)
+		{
+		case (0):
+			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
+			break;
+		case(1):
+			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
+			break;
+		case(2):
+			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
+			break;
+		case(3):
+			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
+			break;
+		case(4):
+			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
+			break;
+		case(5):
+			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
+			break;
+		case(6):
+			break;
+		}
+	}
+	else
+	{
+		switch (App->sceneBeachStage->estadoGolScore)
+		{
+		case (0):
+			App->render->Blit(uiSpriteTexture, 12, 26, &cincPuntsL);
+			break;
+		case(1):
+			App->render->Blit(uiSpriteTexture, 12, 92, &tresPuntsL);
+			break;
+		case(2):
+			App->render->Blit(uiSpriteTexture, 12, 158, &cincPuntsL);
+			break;
+		case(3):
+			App->render->Blit(uiSpriteTexture, 236, 44, &cincPuntsR);
+			break;
+		case(4):
+			App->render->Blit(uiSpriteTexture, 236, 92, &tresPuntsR);
+			break;
+		case(5):
+			App->render->Blit(uiSpriteTexture, 236, 158, &cincPuntsR);
+			break;
+		case(6):
+			break;
+		}
 	}
 
 	if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->FINGOL)

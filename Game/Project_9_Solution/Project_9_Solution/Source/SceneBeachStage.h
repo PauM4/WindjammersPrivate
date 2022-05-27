@@ -35,6 +35,8 @@ public:
 	//The scene sprite sheet loaded into an SDL_Texture
 	//SDL_Texture* beachTexture = nullptr;
 	SDL_Texture* bgBeachTexture = nullptr;
+	SDL_Texture* bgLawnTexture = nullptr;
+	SDL_Texture* bgConcreteTexture = nullptr;
 	SDL_Texture* timerTexture = nullptr;
 	SDL_Texture* uiSpriteTexture = nullptr;
 	SDL_Texture* Winn;
@@ -42,7 +44,9 @@ public:
 	Animation timerAnim;
 	Animation* currentTimerAnim = nullptr;
 	Animation bgBeachAnim;
-	Animation* currentBeachAnim = nullptr;
+	Animation bgLawnAnim;
+	Animation bgConcreteAnim;
+	Animation* currentBgAnim = nullptr;
 
 	// Sound effects indices
 	uint round1FX;
@@ -133,6 +137,8 @@ public:
 	SDL_Rect tresPuntsR;
 	SDL_Rect cincPuntsR;
 	SDL_Rect set1Rect;
+
+	SDL_Rect backgroundAnimationRect;
 
 	//Font Debug vars
 	int debugFont;
