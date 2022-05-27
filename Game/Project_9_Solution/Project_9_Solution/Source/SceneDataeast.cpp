@@ -75,12 +75,12 @@ Update_Status SceneDataeast::Update()
 	
 	if (scape)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 30);
+		App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 1);
 	}
 	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
 	{
 		//App->audio->PlayFx(selectFx);
-		App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 30);
+		App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 1);
 	}
 
 	//currentAnimation->Update();

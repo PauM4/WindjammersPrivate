@@ -30,7 +30,7 @@ bool SceneNeogeo::Start()
 	bool ret = true;
 	char x[128];
 
-	for (int i = 0; i < NUM_IMAGES; ++i) {
+	for (int i = 0; i < NUM_IMAGES; i++) {
 		sprintf_s(x, "Assets/Sprites/UI/Neogeo/neogeo%d.png", i + 1);
 		bgTexture[i] = App->textures->Load(x);
 	}
