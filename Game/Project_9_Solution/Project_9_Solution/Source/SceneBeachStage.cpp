@@ -481,10 +481,17 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			arbitroFinalRonda = 1;
 			estadoGolScore = DOWNLEFT;
 		}
-	}
+	} //Score dreta
 	else if (App->frisbee->position.x >= 276) {
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
-			App->player->score += 5;
+			if (App->sceneStageSelect->sceneSelected == Concrete)
+			{
+				App->player->score += 3;
+			}
+			else
+			{
+				App->player->score += 5;
+			}
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -495,7 +502,14 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		// 3 punts UP
 		else if (App->frisbee->position.y < 94)
 		{
-			App->player->score += 3;
+			if (App->sceneStageSelect->sceneSelected == Concrete)
+			{
+				App->player->score += 5;
+			}
+			else
+			{
+				App->player->score += 3;
+			}
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -505,6 +519,14 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		}
 		else if (App->frisbee->position.y > 144)
 		{
+			if (App->sceneStageSelect->sceneSelected == Concrete)
+			{
+				App->player->score += 5;
+			}
+			else
+			{
+				App->player->score += 3;
+			}
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
