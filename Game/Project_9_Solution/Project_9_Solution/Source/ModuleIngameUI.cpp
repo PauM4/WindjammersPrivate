@@ -221,6 +221,11 @@ Update_Status ModuleInGameUI::PostUpdate()
 		
 		App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
 
+		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		/*App->render->Blit(uiSpriteTexture, 72, 80, &set2Rect);
+		App->render->Blit(uiSpriteTexture, 72, 80, &setFinalRect);
+		App->render->Blit(uiSpriteTexture, 17, 95, &suddenRect);*/
+
 		//Time88
 		
 		App->render->Blit(timerTexture, 144, 13, &rectTimer88);
