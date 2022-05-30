@@ -78,7 +78,7 @@ bool SceneBeachStage::Start()
 		currentBgAnim = &bgLawnAnim;
 
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
-		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
+		App->audio->PlayMusic("Assets/Music/05_Windjammers (Lawn Court).ogg", 1.0f);
 		break;
 	case Concrete:
 		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/PH_Concrete.png");
@@ -86,7 +86,7 @@ bool SceneBeachStage::Start()
 		currentBgAnim = &bgConcreteAnim;
 
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
-		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
+		App->audio->PlayMusic("Assets/Music/04_You-got-a-power-_Concrete_.ogg", 1.0f);
 		break;
 	}
 
