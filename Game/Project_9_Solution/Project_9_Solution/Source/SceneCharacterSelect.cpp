@@ -47,8 +47,8 @@ bool SceneCharacterSelect::Start()
 
 	App->audio->PlayMusic("Assets/Music/01_Get Ready (Select Screen).ogg", 0.0f);
 	hiromiSelected = App->audio->LoadFx("Assets/Fx/HiromiSelected.wav");
-	//yooSelected = App->audio->LoadFx("...");
-	//wesselSelected = App->audio->LoadFx("...");
+	yooSelected = App->audio->LoadFx("Assets/Fx/B.YooSelect.wav");
+	wesselSelected = App->audio->LoadFx("Assets/Fx/KlaussSelected.wav");
 	moveFx = App->audio->LoadFx("Assets/FX/MoveMenu.wav");
 
 	App->render->camera.x = 0;
