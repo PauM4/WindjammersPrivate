@@ -66,6 +66,8 @@ bool SceneBeachStage::Start()
 	threePointsFX = App->audio->LoadFx("Assets/Fx/3Pts.wav");
 	fivePointsFX = App->audio->LoadFx("Assets/Fx/5Pts.wav");
 
+	applauseFX = App->audio->LoadFx("Assets/Fx/Applause.wav");
+
 	//Canviar musica depenent de l'escenari
 	switch (App->sceneStageSelect->sceneSelected)
 	{
@@ -465,6 +467,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 				App->audio->PlayFx(fivePointsFX);
 			}
 
+			App->audio->PlayFx(applauseFX);
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -485,6 +488,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 				App->player->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
+			App->audio->PlayFx(applauseFX);
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -505,6 +509,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 				App->player->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
+			App->audio->PlayFx(applauseFX);
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -525,6 +530,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
 			}
+			App->audio->PlayFx(applauseFX);
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -545,6 +551,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 				App->player->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
+			App->audio->PlayFx(applauseFX);
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -564,6 +571,7 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 				App->player->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
+			App->audio->PlayFx(applauseFX);
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
