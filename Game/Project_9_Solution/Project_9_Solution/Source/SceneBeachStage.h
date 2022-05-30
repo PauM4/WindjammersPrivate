@@ -50,6 +50,9 @@ public:
 
 	// Sound effects indices
 	uint round1FX;
+	uint twoPointsFX;
+	uint threePointsFX;
+	uint fivePointsFX;
 
 	//uint winFx = 0;
 

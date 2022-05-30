@@ -62,6 +62,10 @@ bool SceneBeachStage::Start()
 	//FX de rounds
 	round1FX = App->audio->LoadFx("Assets/Fx/round1.wav");
 
+	twoPointsFX = App->audio->LoadFx("Assets/Fx/2Pts.wav");
+	threePointsFX = App->audio->LoadFx("Assets/Fx/3Pts.wav");
+	fivePointsFX = App->audio->LoadFx("Assets/Fx/5Pts.wav");
+
 	//Canviar musica depenent de l'escenari
 	switch (App->sceneStageSelect->sceneSelected)
 	{
@@ -447,9 +451,19 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 	//Gols en concrete i els altres escenaris son diferents
 	//Score esquerra
 	if (App->frisbee->position.x <= 19) {
-		//5 punts
+		//mid
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
-			App->player2->score += 5;
+			
+			if (App->sceneStageSelect->sceneSelected == Concrete)
+			{
+				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
+			}
+			else
+			{
+				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
+			}
 
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
@@ -461,7 +475,16 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		//3 punts adalt
 		else if (App->frisbee->position.y < 94)
 		{
-			App->player2->score += 3;
+			if (App->sceneStageSelect->sceneSelected == Concrete)
+			{
+				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
+			}
+			else
+			{
+				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
+			}
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -472,7 +495,16 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		//3 punts abaix
 		else if (App->frisbee->position.y > 144)
 		{
-			App->player2->score += 3;
+			if (App->sceneStageSelect->sceneSelected == Concrete)
+			{
+				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
+			}
+			else
+			{
+				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
+			}
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
@@ -486,10 +518,12 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
 				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
 			}
 			else
 			{
 				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
 			}
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
@@ -504,10 +538,12 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
 				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
 			}
 			else
 			{
 				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
 			}
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
@@ -521,10 +557,12 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
 				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
 			}
 			else
 			{
 				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
 			}
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			initialTimeGol = SDL_GetTicks();
