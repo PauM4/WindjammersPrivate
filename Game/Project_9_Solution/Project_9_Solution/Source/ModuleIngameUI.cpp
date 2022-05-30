@@ -367,22 +367,26 @@ Update_Status ModuleInGameUI::PostUpdate()
 		}
 	}
 
-	if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->FINGOL)
+	if (isDebugAppear)
 	{
-		App->fonts->BlitText(72, 200, debugFont, "FINGOL");
+		if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->FINGOL)
+		{
+			App->fonts->BlitText(72, 200, debugFont, "FINGOL");
+		}
+		if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->EJECUTANDOGOL)
+		{
+			App->fonts->BlitText(72, 200, debugFont, "EJECUTANDOGOL");
+		}
+		if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->INICIOGOL)
+		{
+			App->fonts->BlitText(72, 200, debugFont, "INICIOGOL");
+		}
+		sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->timeLimitGol);
+		App->fonts->BlitText(72, 210, debugFont, debugText);
+		sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->currentTimeGol);
+		App->fonts->BlitText(112, 210, debugFont, debugText);
 	}
-	if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->EJECUTANDOGOL)
-	{
-		App->fonts->BlitText(72, 200, debugFont, "EJECUTANDOGOL");
-	}
-	if (App->sceneBeachStage->estadoTGol == App->sceneBeachStage->INICIOGOL)
-	{
-		App->fonts->BlitText(72, 200, debugFont, "INICIOGOL");
-	}
-	sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->timeLimitGol);
-	App->fonts->BlitText(72, 210, debugFont, debugText);
-	sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->currentTimeGol);
-	App->fonts->BlitText(112, 210, debugFont, debugText);
+	
 
 	return Update_Status::UPDATE_CONTINUE;
 }
