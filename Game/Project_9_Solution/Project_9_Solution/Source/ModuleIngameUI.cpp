@@ -60,6 +60,14 @@ bool ModuleInGameUI::Start()
 	tresPuntsR = { 112, 120, 63, 34 };
 	cincPuntsR = { 74, 224, 63, 35 };
 
+	set1Rect = { 160, 300, 160, 56 };
+	set2Rect = { 320, 300, 160, 56 };
+	suddenRect = { 179, 258, 270, 42 };
+	setFinalRect = { 0, 300, 160, 56 };
+	rectTimer88 = { 0, 0, 15, 15 };
+
+	rectNormes = { 207, 11, 151, 15 };
+
 	p1Rect = { 359, 0, 15, 8 };
 	p2Rect = { 374, 0, 16, 8 };
 
@@ -181,7 +189,6 @@ Update_Status ModuleInGameUI::PostUpdate()
 		//App->render->Blit(timerTexture, 144, 13, &rectTimer);
 
 		//12 points / 30 sec
-		rectNormes = { 207, 11, 151, 15 };
 		App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
 
 		//Diferents puntuacions
@@ -211,11 +218,11 @@ Update_Status ModuleInGameUI::PostUpdate()
 		}
 
 		//Set1
-		set1Rect = { 160, 300, 160, 56 };
+		
 		App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
 
 		//Time88
-		rectTimer88 = { 0, 0, 15, 15 };
+		
 		App->render->Blit(timerTexture, 144, 13, &rectTimer88);
 
 		//Score 00-00 preGame

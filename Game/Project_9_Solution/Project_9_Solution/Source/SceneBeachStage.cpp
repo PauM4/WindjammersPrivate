@@ -232,6 +232,13 @@ Update_Status SceneBeachStage::Update()
 		}
 	}
 
+	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
+	{
+		if (!isDebugAppear)
+			isDebugAppear = true;
+		else isDebugAppear = false;
+	}
+
 	currentBgAnim->Update();
 
 	return Update_Status::UPDATE_CONTINUE;
@@ -269,14 +276,6 @@ Update_Status SceneBeachStage::PostUpdate()
 	//}
 
 	/*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*//*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*//*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*/
-
-
-	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
-	{
-		if (!isDebugAppear)
-			isDebugAppear = true;
-		else isDebugAppear = false;
-	}
 
 	if (isDebugAppear)
 	{

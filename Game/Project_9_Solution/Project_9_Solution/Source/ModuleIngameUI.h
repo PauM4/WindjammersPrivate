@@ -73,6 +73,9 @@ public:
 	SDL_Rect tresPuntsR;
 	SDL_Rect cincPuntsR;
 	SDL_Rect set1Rect;
+	SDL_Rect set2Rect;
+	SDL_Rect setFinalRect;
+	SDL_Rect suddenRect;
 
 	SDL_Rect rectTimer;
 
