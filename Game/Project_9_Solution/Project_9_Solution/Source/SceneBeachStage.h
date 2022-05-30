@@ -54,6 +54,7 @@ public:
 	uint threePointsFX;
 	uint fivePointsFX;
 	uint applauseFX;
+	uint whistleFX;
 
 	//uint winFx = 0;
 

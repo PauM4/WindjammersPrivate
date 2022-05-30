@@ -68,6 +68,8 @@ bool SceneBeachStage::Start()
 
 	applauseFX = App->audio->LoadFx("Assets/Fx/Applause.wav");
 
+	whistleFX = App->audio->LoadFx("Assets/Fx/Whistle.wav");
+
 	//Canviar musica depenent de l'escenari
 	switch (App->sceneStageSelect->sceneSelected)
 	{
@@ -127,6 +129,7 @@ Update_Status SceneBeachStage::Update()
 		//bullshit animaciones texturas etc - inicio partida, primer momento, solo ocurre una vez en cada partida
 		if (estadoTS == INICIOT)
 		{
+			App->audio->PlayFx(round1FX);
 			initialTimeS = SDL_GetTicks();
 			timeLimitS = 4 * 1000;
 			estadoTS = EJECUTANDO;
@@ -143,8 +146,8 @@ Update_Status SceneBeachStage::Update()
 		//Iniciar ronda (round 2, final o suddendeath)
 	case (INICIORONDA):
 		//Animacion Ronda 1.
-		
 		estadoTS = estadoTimerS::INICIOT;
+		App->audio->PlayFx(whistleFX);
 		App->ingameUI->timerAnim.Reset();
 		App->player->score = 0;
 		App->player2->score = 0;
