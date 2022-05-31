@@ -37,6 +37,9 @@ public:
 	SDL_Texture* bgBeachTexture = nullptr;
 	SDL_Texture* bgLawnTexture = nullptr;
 	SDL_Texture* bgConcreteTexture = nullptr;
+	SDL_Texture* bgBeachObstacles = nullptr;
+	SDL_Texture* bgLawnObstacles = nullptr;
+	SDL_Texture* bgConcreteObstacles = nullptr;
 	SDL_Texture* timerTexture = nullptr;
 	SDL_Texture* uiSpriteTexture = nullptr;
 	SDL_Texture* Winn;

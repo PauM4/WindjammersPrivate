@@ -87,13 +87,14 @@ bool SceneBeachStage::Start()
 	{
 	case Beach:
 		bgBeachTexture = App->textures->Load("Assets/Sprites/Levels/bgBeachSpriteSheet.png");
-
+		bgBeachObstacles = App->textures->Load("Assets/Sprites/Levels/bgBeachObstacles.png");
 		currentBgAnim = &bgBeachAnim;
 
 		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
 		break;
 	case Lawn:
 		bgLawnTexture = App->textures->Load("Assets/Sprites/Levels/bgLawnSpriteSheet.png");
+		bgLawnObstacles = App->textures->Load("Assets/Sprites/Levels/bgLawnObstacles.png");
 
 		currentBgAnim = &bgLawnAnim;
 
@@ -102,6 +103,7 @@ bool SceneBeachStage::Start()
 		break;
 	case Concrete:
 		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/bgConcreteSpriteSheet.png");
+		bgConcreteObstacles = App->textures->Load("Assets/Sprites/Levels/bgConcreteObstacles.png");
 
 		currentBgAnim = &bgConcreteAnim;
 
@@ -275,14 +277,17 @@ Update_Status SceneBeachStage::PostUpdate()
 	{
 	case Beach:
 		App->render->Blit(bgBeachTexture, 0, 0, &backgroundAnimationRect);
-
+		App->render->Blit(bgBeachObstacles, 0, 0, NULL);
+		
 		break;
 	case Lawn:
 		App->render->Blit(bgLawnTexture, 0, 0, &backgroundAnimationRect);
+		App->render->Blit(bgLawnObstacles, 0, 0, NULL);
 
 		break;
 	case Concrete:
 		App->render->Blit(bgConcreteTexture, 0, 0, &backgroundAnimationRect);
+		App->render->Blit(bgConcreteObstacles, 0, 0, NULL);
 
 
 		break;
