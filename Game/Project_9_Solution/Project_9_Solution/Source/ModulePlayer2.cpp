@@ -190,46 +190,6 @@ Update_Status ModulePlayer2::Update()
 	}
 
 
-	//if (App->sceneBeachStage->startTheGame) {
-
-	//	if (FrisbeeTime < 120 && App->frisbee->posesion == 2)
-	//	{
-	//		FrisbeeTime++;
-	//	}
-
-		////LANZAMIENTO DE DISCO PARÁBOLA
-		//for (int i = 0; i < 1; i++) {
-		//	if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && disco)
-		//	{
-
-		//		
-		//		break;
-		//	}
-
-
-		//	if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && disco)
-		//	{
-		//		
-		//		break;
-
-		//	}
-
-		//	if (App->input->keys[SDL_SCANCODE_P] == Key_State::KEY_DOWN && disco && App->frisbee->posesion == 2)
-		//	{
-		//		App->frisbee->mov = 2;
-		//		disco = false;
-		//		App->frisbee->posesion = 0;
-		//		App->frisbee->currentAnimation2 = &App->frisbee->projectile;
-		//		App->audio->PlayFx(tossFx);
-		//		FrisbeeTime = 0;
-		//		App->frisbee->projectil = 2;
-		//		App->frisbee->PosTemp = 30;
-		//		App->collisions->RemoveCollider(App->frisbee->collider);
-
-		//		break;
-		//	}
-
-
 	
 	collider->SetPos(position.x, position.y);		
 	currentAnimation->Update();

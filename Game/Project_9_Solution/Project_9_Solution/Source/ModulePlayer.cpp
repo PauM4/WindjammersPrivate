@@ -204,48 +204,6 @@ Update_Status ModulePlayer::Update()
 
 	}
 
-	
-
-
-	//if (App->sceneBeachStage->startTheGame)
-	//{
-	//	if (FrisbeeTime < 120 && App->frisbee->posesion == 1) //Esto es para que se tire el disco en cuanto hayan pasado los 2 segundos
-	//	{
-	//		FrisbeeTime++;
-	//	}
-	//	
-
-	
-	//	////LANZAMIENTO DE DISCO PARÁBOLA
-	//	//for (int i = 0; i < 1; i++) {
-	//	//	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && disco)
-	//	//	{
-	//	//		
-	//	//	}
-
-
-	//	//	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && disco)
-	//	//	{
-	//	//		
-
-	//	//	}
-
-	//	//	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && disco && App->frisbee->posesion ==1)
-	//	//	{
-	//	//		App->frisbee->mov = 2;
-	//	//		disco = false;
-	//	//		App->frisbee->posesion = 0;
-	//	//		App->frisbee->currentAnimation2 = &App->frisbee->projectile;
-	//	//		App->audio->PlayFx(tossFx);
-	//	//		FrisbeeTime = 0;
-	//	//		App->frisbee->projectil = 2;
-	//	//		App->frisbee->PosTemp = 180;
-	//	//		App->collisions->RemoveCollider(App->frisbee->collider);
-	//	//		
-	//	//		break;
-	//	//	}
-	//	//}
-
 	collider->SetPos(position.x, position.y);
 	currentAnimation->Update();
 	dustAnimation->Update();
@@ -550,31 +508,6 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
-		//LANZAMIENTO PARABOLA: Dejamos que parábola se haga únicamente horizontalmente
-	/*	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
-		{
-			App->frisbee->xspeed = 4 / pepe;
-			App->frisbee->yspeed = 4 / pepe;
-			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
-			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
-			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
-			estadoP1 = estadoPlayer::MOVIMIENTO;
-			break;
-		}
-
-
-		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)
-		{
-			App->frisbee->xspeed = 4 / pepe;
-			App->frisbee->yspeed = -4 / pepe;
-			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
-			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
-			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
-			estadoP1 = estadoPlayer::MOVIMIENTO;
-			break;
-
-		}*/
-
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
 			
@@ -668,43 +601,3 @@ void ModulePlayer::timerP() {
 		estadoTP = estadoTimerP::FIN;
 	}
 }
-
-
-
-//
-//Update_Status ModulePlayer::Update()
-//{
-//	if (dashtimer == 0) {
-//
-//		dashup = false;
-//	}
-//
-//	if (dashtimer > 0) {
-//		dashtimer--;
-//	}
-//
-//
-//	if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 6)
-//	{
-//		position.x -= speed;
-//		if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN && dashup == true) {
-//			dashtimer = 15;
-//
-//		}
-//		if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_REPEAT && dashup == true)
-//		{
-//			position.x -= 3 * speed;
-//
-//			currentAnimation = &leftAnim;
-//		}
-//
-//		if (currentAnimation != &leftAnim) {
-//			leftAnim.Reset();
-//			currentAnimation = &leftAnim;
-//		}
-//
-//	}
-//
-//
-//
-//}

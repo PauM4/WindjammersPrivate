@@ -13,12 +13,7 @@
 
 SceneTitle::SceneTitle(bool startEnabled) : Module(startEnabled)
 {
-	/*for (int i = 0; i < 27; i++)
-	{
-		title.PushBack({ i * 304, 0, 304, 224 });
-	}
-	title.loop = false;
-	title.speed = 0.35f;*/
+
 }
 
 SceneTitle::~SceneTitle()
@@ -45,8 +40,6 @@ bool SceneTitle::Start()
 	frame = 0;
 	timer = 0;
 
-	/*bgTexture = App->textures->Load("Assets/Sprites/UI/titleScreen.png");
-	currentAnimation = &title;*/
 	//SILENT AUDIO per aturar la música de IntroScreen
 	/*App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 	selectFx = App->audio->LoadFx("Assets/FX/Select.wav");*/

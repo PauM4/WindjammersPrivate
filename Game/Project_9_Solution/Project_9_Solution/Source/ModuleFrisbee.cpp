@@ -119,59 +119,6 @@ Update_Status ModuleFrisbee::Update()
 			position.y = App->player2->position.y;
 		}
 		break;
-	
-	//case BLOCK:
-
-	//	//animaciones del disco volando
-	//	if (estadoTF == INICIO) {
-	//		initialTimeF = SDL_GetTicks();
-	//		
-	//		if (contadorBlock == 0) {
-	//			if (lanzamientoF == BLOCKPLAYER1) {
-	//				position.x = App->player->position.x + 35;
-	//			} 
-	//			else if (lanzamientoF == BLOCKPLAYER2) {
-	//				position.x = App->player2->position.x - 25;
-	//			}
-
-	//			timeLimitF = 2 * 1000;
-	//			currentAnimation2 = &projectile;
-	//			App->collisions->RemoveCollider(App->frisbee->collider);
-	//			
-	//		}
-	//		else if (contadorBlock == 1) {
-	//			timeLimitF = 1 * 1000;
-	//			currentAnimation2 = &stop;
-	//			
-	//		}
-	//		contadorBlock++;
-	//		estadoTF = EJECUTANDO;
-	//		
-	//	
-	//	}
-	//	else if (estadoTF == EJECUTANDO) {
-	//		timerF();
-	//	}
-	//	else if (estadoTF == FIN) {
-
-	//		if (contadorBlock == 1){
-	//			collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
-	//			blockSuperShot = true;
-	//			estadoTF = INICIO;
-	//		}
-
-	//		if (contadorBlock == 2) {
-	//			contadorBlock = 0;
-	//			estadoTF = INICIO;
-	//			currentAnimation2 = &desaparece;
-	//			App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
-	//			App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
-	//			App->sceneBeachStage->Score();
-	//			
-	//		}
-	//		
-	//	}
-	//	break;
 
 	case BLOCK:
 

@@ -304,9 +304,6 @@ Update_Status SceneBeachStage::Update()
 Update_Status SceneBeachStage::PostUpdate()
 {
 
-	// Draw everything --------------------------------------
-		//App->render->Blit(beachTexture, 0, 0, NULL);
-		//Beach background
 
 	backgroundAnimationRect = currentBgAnim->GetCurrentFrame();
 
@@ -330,14 +327,9 @@ Update_Status SceneBeachStage::PostUpdate()
 		break;
 	}
 
-	/*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*//*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*//*WIIIIIIIIIIIIIIIIIIIIIIN Y LOSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*/
 
 	if (isDebugAppear)
 	{
-		// Despres de qualsevol blit perque estigui per sobre de tot
-		// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
-		// Si no es fan servir variables, comentar aquesta linia
-
 		sprintf_s(debugText, 10, "%2d", (int)App->frisbee->position.x - ((int)App->player->position.x + 20));
 		//sprintf_s(debugText2, 10, "%2d", App->frisbee->position.y);
 		sprintf_s(debugText2, 10, "%2d", (int)App->frisbee->position.y);
@@ -389,12 +381,7 @@ Update_Status SceneBeachStage::PostUpdate()
 			App->fonts->BlitText(110, 100, debugFont, "SUELO");
 		}
 
-
-		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,       
-		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
-
 		//DEBUG ESTADO TIMER SCENE BEACH STAGE
-
 
 		if (estadoTS == 0) {
 			App->fonts->BlitText(95, 33, debugFont, "TS.INICIOT");
@@ -405,13 +392,6 @@ Update_Status SceneBeachStage::PostUpdate()
 		else if (estadoTS == 2) {
 			App->fonts->BlitText(95, 33, debugFont, "TS.FIN");
 		}
-
-		//INICIO, //Inicio
-		//	INICIORONDA, //Animaciones de inicio de ronda
-		//	RONDA, //durante el juego
-		//	FINALRONDA, //animaciones/texturas fin de ronda
-		//	FINAL
-
 
 		if (estadoS == 0){
 			App->fonts->BlitText(110, 180, debugFont, "S.INICIO");
@@ -463,8 +443,6 @@ Update_Status SceneBeachStage::PostUpdate()
 		App->fonts->BlitText(110, 110, debugFont, debugText);
 		App->fonts->BlitText(165, 110, debugFont, debugText2);
 		
-
-
 	}
 
 	//BLIT 5 punts a ModuleInGameUI.cpp
@@ -483,10 +461,7 @@ bool SceneBeachStage::CleanUp()
 	return true;
 }
 
-//En cuanto mete un jugador un gol, se llama a esto y se determina el valor de arbitro. Lo ponemos aqui como funcion externa en vez de dentro del update de frisbee
-//Ya que en este .cpp tambi�n llamaremos a esta funci�n en funci�n de las rondas/sets ganados~
-
-void SceneBeachStage::Arbitro(int arbitro) {  //cambiar esta funcion a arbitro
+void SceneBeachStage::Arbitro(int arbitro) { 
 	App->player->position.x = 20;
 	App->player->position.y = 100;
 	App->player2->position.x = 259;
@@ -587,7 +562,7 @@ void SceneBeachStage::Round() {
 	
 }
 
-void SceneBeachStage::Win() { //AQUI SE TENDR�A QUE CAMBIAR EL ESTADO EN SWITCH FINAL PARA QUE SE EJECUTEN LAS ANIMACIONES/TEXTURAS CONCRETAS ~ ~~ o ponerlas aquid riectamente las anim/text
+void SceneBeachStage::Win() { 
 
 	if (App->player->round == App->player2->round && App->player->round == 2 && App->player2->round ==2 && !suddenDeath) {
 		suddenDeath = true;
@@ -596,14 +571,12 @@ void SceneBeachStage::Win() { //AQUI SE TENDR�A QUE CAMBIAR EL ESTADO EN SWITC
 	} 
 	else if (App->player->score != 0 && suddenDeath) {
 		//llamar animaci�n y texturas de que ha ganado el primer jugador la partida
-		//SDL Delay
 		winState = 1;
 		estadoS = FINAL;
 
 	}
 	else if (App->player2->score != 0 && suddenDeath) {
 		//llamar animaci�n y texturas de que ha ganado el segundo jugador la partida
-		//SDL Delay
 		winState = 2;
 		estadoS = FINAL;
 		
@@ -616,14 +589,12 @@ void SceneBeachStage::Win() { //AQUI SE TENDR�A QUE CAMBIAR EL ESTADO EN SWITC
 		}
 	else if ((App->player2->round == 2 &&!suddenDeath) || debugwinP2) {
 		//llamar animaci�n y texturas de que ha ganado el segundo jugador la partida
-			//SDL Delay
 		winState = 2;
 		estadoS = FINAL;
 
 	}
 	else if (suddenDeath && App->player->score == App->player2->score) {
 		//Animacion y texturas de que los dos han perdido
-		//SDL Delay
 		winState = 3;
 		estadoS = FINAL;
 
@@ -634,8 +605,7 @@ void SceneBeachStage::Win() { //AQUI SE TENDR�A QUE CAMBIAR EL ESTADO EN SWITC
 
 }
 
-void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MARCARPUNTO, en cada momento en que se meten puntos para que se realicen las animaciones 
-	//Score esquerra
+void SceneBeachStage::Score(){
 	App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
 	App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
 	if (App->frisbee->position.x <= 19) {
@@ -679,8 +649,6 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 				App->audio->PlayFx(threePointsFX);
 			}
 			App->audio->PlayFx(applauseFX);
-
-
 
 			//Just despres d'afegir score, UI Textura d'on ha marcat
 			if (suddenDeath) {

@@ -245,37 +245,6 @@ Update_Status ModuleInGameUI::PostUpdate()
 		rectTimer = currentTimerAnim->GetCurrentFrame();
 		App->render->Blit(timerTexture, 144, 13, &rectTimer);
 
-		////12 points / 30 sec
-		//SDL_Rect rectNormes = { 207, 11, 151, 15 };
-		//App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
-
-		////puntuació tots gols L
-		//SDL_Rect tresPuntsL = { 0, 188, 63, 34 };
-		//SDL_Rect cincPuntsL = { 76, 258, 63, 35 };
-		//App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-		//App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
-		//App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
-
-		////puntuació tots gols R
-		//SDL_Rect tresPuntsR = { 112, 120, 63, 34 };
-		//SDL_Rect cincPuntsR = { 74,	224, 63, 35 };
-		//App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
-		//App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
-		//App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
-
-		////Set1
-		//SDL_Rect set1Rect = { 160, 300, 160, 56 };
-		//App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
-
-		////Time88
-		//SDL_Rect rectTimer88 = { 0, 0, 15, 15 };
-		//App->render->Blit(timerTexture, 144, 13, &rectTimer88);
-
-		////Score 00-00
-		//App->fonts->BlitText(155, 16, App->player->scoreFont, App->player->scoreText);
-
-		////App->fonts->BlitText(115, 16, scoreFont, scoreText);
-
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
