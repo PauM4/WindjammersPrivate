@@ -113,6 +113,21 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	idleDisk.loop = true;
 	idleDisk.speed = 0.1f;
 
+	//Dust particles
+	polvo.PushBack({ 5, 108, 14, 14 });
+	polvo.PushBack({ 26, 108, 14, 14 });
+	polvo.PushBack({ 47, 108, 15, 14 });
+	polvo.PushBack({ 69, 108, 15, 14 });
+	polvo.PushBack({ 94, 108, 12, 13 });
+	polvo.PushBack({ 113, 108, 12, 13 });
+	polvo.PushBack({ 130, 108, 12, 13 });
+	polvo.PushBack({ 143, 108, 12, 13 });
+	idleDisk.loop = false;
+	idleDisk.speed = 0.3f;
+
+	pols = false;
+	
+
 	//TO DO SWITCH PARA ELEGIR CHARACTERS + ESCENARIOS
 	destroyed = false;
 
@@ -141,6 +156,9 @@ bool ModulePlayer::Start()
 
 	texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
 	currentAnimation = &idleRAnim;
+
+	dust_texture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
+	dustAnimation = &polvo;
 
 	//SFX
 	tossFx = App->audio->LoadFx("Assets/Fx/Toss.wav");
@@ -230,6 +248,7 @@ Update_Status ModulePlayer::Update()
 
 	collider->SetPos(position.x, position.y);
 	currentAnimation->Update();
+	dustAnimation->Update();
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -240,6 +259,12 @@ Update_Status ModulePlayer::PostUpdate()
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &rect);
+
+		if (pols) {
+			SDL_Rect rect2 = dustAnimation->GetCurrentFrame();
+			App->render->Blit(dust_texture, position.x, position.y, &rect2); //ARREGLAR LA POSICION
+		}
+		pols = false;
 	}
 
 	// Draw UI (score) --------------------------------------
@@ -315,6 +340,7 @@ void ModulePlayer::movimientoPlayer(){
 				timerP();
 				position.x += 1, 5 * speed;
 				currentAnimation = &rightAnim;
+				pols = true;
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -350,6 +376,7 @@ void ModulePlayer::movimientoPlayer(){
 				timerP();
 				position.x -= 1, 5 * speed;
 				currentAnimation = &leftAnim;
+				pols = true;
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -388,7 +415,7 @@ void ModulePlayer::movimientoPlayer(){
 			{
 				timerP();
 				position.y -= 1, 5 * speed;
-
+				pols = true;
 				currentAnimation = &rightAnim;
 			}
 			else if (estadoTP == FIN) {
@@ -418,7 +445,7 @@ void ModulePlayer::movimientoPlayer(){
 
 
 			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
-
+				pols = true;
 				initialTimeP = SDL_GetTicks();
 				timeLimitP = 2 * 1000;
 				estadoTP = EJECUTANDO;
