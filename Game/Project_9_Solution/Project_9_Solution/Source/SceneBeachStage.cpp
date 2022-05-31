@@ -24,12 +24,24 @@ SceneBeachStage::SceneBeachStage(bool startEnabled) : Module(startEnabled)
 {
 	//Load beach bg animation
 	bgBeachAnim.PushBack({ 0, 0, 304, 224 });
-	bgBeachAnim.PushBack({ 304, 0, 304, 224 });
-	bgBeachAnim.PushBack({ 608, 0, 304, 224 });
 	bgBeachAnim.PushBack({ 0, 224, 304, 224 });
-	//bgBeachAnim.PushBack({ 304, 224, 304, 224 });
+	bgBeachAnim.PushBack({ 0, 448, 304, 224 });
+	bgBeachAnim.PushBack({ 0, 672, 304, 224 });
 	bgBeachAnim.speed = 0.2f;
 
+	//Load lawn bg animation
+	bgLawnAnim.PushBack({ 0, 0, 304, 224 });
+	bgLawnAnim.PushBack({ 0, 224, 304, 224 });
+	bgLawnAnim.PushBack({ 0, 448, 304, 224 });
+	bgLawnAnim.PushBack({ 0, 672, 304, 224 });
+	bgLawnAnim.speed = 0.2f;
+
+	//Load concrete bg animation
+	bgConcreteAnim.PushBack({ 0, 0, 304, 224 });
+	bgConcreteAnim.PushBack({ 0, 224, 304, 224 });
+	bgConcreteAnim.PushBack({ 0, 448, 304, 224 });
+	bgConcreteAnim.PushBack({ 0, 672, 304, 224 });
+	bgConcreteAnim.speed = 0.2f;
 	
 
 }
@@ -81,7 +93,7 @@ bool SceneBeachStage::Start()
 		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
 		break;
 	case Lawn:
-		bgLawnTexture = App->textures->Load("Assets/Sprites/Levels/PH_Lawn.png");
+		bgLawnTexture = App->textures->Load("Assets/Sprites/Levels/bgLawnSpriteSheet.png");
 
 		currentBgAnim = &bgLawnAnim;
 
@@ -89,7 +101,7 @@ bool SceneBeachStage::Start()
 		App->audio->PlayMusic("Assets/Music/05_Windjammers (Lawn Court).ogg", 1.0f);
 		break;
 	case Concrete:
-		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/PH_Concrete.png");
+		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/bgConcreteSpriteSheet.png");
 
 		currentBgAnim = &bgConcreteAnim;
 
@@ -266,11 +278,11 @@ Update_Status SceneBeachStage::PostUpdate()
 
 		break;
 	case Lawn:
-		App->render->Blit(bgLawnTexture, 0, 0, NULL);
+		App->render->Blit(bgLawnTexture, 0, 0, &backgroundAnimationRect);
 
 		break;
 	case Concrete:
-		App->render->Blit(bgConcreteTexture, 0, 0, NULL);
+		App->render->Blit(bgConcreteTexture, 0, 0, &backgroundAnimationRect);
 
 
 		break;
