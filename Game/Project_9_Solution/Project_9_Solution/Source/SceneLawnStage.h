@@ -1,19 +1,19 @@
-#ifndef __SCENE_BEACH_STAGE_H__
-#define __SCENE_BEACH_STAGE_H__
+#ifndef __SCENE_LAWN_STAGE_H__
+#define __SCENE_LAWN_STAGE_H__
 
 #include "Module.h"
 #include "Animation.h"
 
 struct SDL_Texture;
 
-class SceneBeachStage : public Module
+class SceneLawnStage : public Module
 {
 public:
 	//Constructor
-	SceneBeachStage(bool startEnabled);
+	SceneLawnStage(bool startEnabled);
 
 	//Destructor
-	~SceneBeachStage();
+	~SceneLawnStage();
 
 	// Called when the module is activated
 	// Loads the necessary textures for the map background
@@ -33,49 +33,37 @@ public:
 public:
 
 	//The scene sprite sheet loaded into an SDL_Texture
-	//SDL_Texture* beachTexture = nullptr;
-	SDL_Texture* bgBeachTexture = nullptr;
+	//SDL_Texture* lawnTexture = nullptr;
 	SDL_Texture* bgLawnTexture = nullptr;
-	SDL_Texture* bgConcreteTexture = nullptr;
-	SDL_Texture* bgBeachObstacles = nullptr;
-	SDL_Texture* bgLawnObstacles = nullptr;
-	SDL_Texture* bgConcreteObstacles = nullptr;
 	SDL_Texture* timerTexture = nullptr;
 	SDL_Texture* uiSpriteTexture = nullptr;
 	SDL_Texture* Winn;
 
 	Animation timerAnim;
 	Animation* currentTimerAnim = nullptr;
-	Animation bgBeachAnim;
 	Animation bgLawnAnim;
-	Animation bgConcreteAnim;
-	Animation* currentBgAnim = nullptr;
+	Animation* currentLawnAnim = nullptr;
 
 	// Sound effects indices
 	uint round1FX;
-	uint twoPointsFX;
-	uint threePointsFX;
-	uint fivePointsFX;
-	uint applauseFX;
-	uint whistleFX;
 
 	//uint winFx = 0;
 
 	void Arbitro(int arbitro);
 	void Round();
 	void Score();
-	
-	
+
+
 	void Win();
 	bool suddenDeath;
 
-	
+
 	int time;
 	int initialTime;
 	bool startTheGame;
 	bool debugwinP1;
 	bool debugwinP2;
-	
+
 
 	int winState;
 
@@ -132,7 +120,7 @@ public:
 
 	void TimerS();
 	void TimerGol();
-	
+
 	//Rectangulet esquerra
 	SDL_Rect rectanguletL = { 0, 357, 29, 3 };
 	//Rectangulet dreta
@@ -146,14 +134,13 @@ public:
 	SDL_Rect cincPuntsR;
 	SDL_Rect set1Rect;
 
-	SDL_Rect backgroundAnimationRect;
+	SDL_Rect rectLawn;
 
 	//Font Debug vars
 	int debugFont;
 	char debugText[10] = { "\0" };
-	char debugText2[10] = { "\0" };
 	bool isDebugAppear;
-	
+
 };
 
 #endif

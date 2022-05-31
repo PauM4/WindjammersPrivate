@@ -55,12 +55,20 @@ public:
 
 	SDL_Rect selectSquare;
 
+	//Scene selected
+	int sceneSelected;
+
 	// Sound effects indices
 	uint selectFx;
 	uint moveFx;
 
 	//Coordinates
-	int yMove, x1, x2, x3, x4, x5, x6;
+	int yMove, x1, x2, x3;
+
+	//Font Debug vars
+	int debugFont;
+	char debugText[10] = { "\0" };
+	bool isDebugAppear;
 };
 
 #endif

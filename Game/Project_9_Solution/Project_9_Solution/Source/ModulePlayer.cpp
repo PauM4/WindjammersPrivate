@@ -216,7 +216,7 @@ Update_Status ModulePlayer::Update()
 	//	
 
 	
-	//	////LANZAMIENTO DE DISCO PARÁBOLA
+	//	////LANZAMIENTO DE DISCO PARï¿½BOLA
 	//	//for (int i = 0; i < 1; i++) {
 	//	//	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && disco)
 	//	//	{
@@ -288,10 +288,12 @@ Update_Status ModulePlayer::PostUpdate()
 	if (isDebugAppear)
 	{
 		sprintf_s(debugText, 10, "%2d", round);
-		App->fonts->BlitText(80, 20, debugFont, debugText);
+		App->fonts->BlitText(90, 20, debugFont, debugText);
+
+		sprintf_s(debugText, 10, "%2d", estadoP1);
+		App->fonts->BlitText(110, 30, debugFont, debugText);
 	}
 	
-
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -361,7 +363,7 @@ void ModulePlayer::movimientoPlayer(){
 				leftAnim.Reset();
 				currentAnimation = &leftAnim;
 			}
-			last1 = 0; //TO DO: REVISAR NOMBRE Y SU FUNCIÓN DE TODOS LOS LAST1
+			last1 = 0; //TO DO: REVISAR NOMBRE Y SU FUNCIï¿½N DE TODOS LOS LAST1
 
 
 			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
@@ -550,7 +552,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
-		//LANZAMIENTO PARABOLA: Dejamos que parábola se haga únicamente horizontalmente
+		//LANZAMIENTO PARABOLA: Dejamos que parï¿½bola se haga ï¿½nicamente horizontalmente
 	/*	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
 		{
 			App->frisbee->xspeed = 4 / pepe;

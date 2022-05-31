@@ -73,6 +73,9 @@ public:
 	SDL_Rect tresPuntsR;
 	SDL_Rect cincPuntsR;
 	SDL_Rect set1Rect;
+	SDL_Rect set2Rect;
+	SDL_Rect setFinalRect;
+	SDL_Rect suddenRect;
 
 	SDL_Rect rectTimer;
 
@@ -82,6 +85,14 @@ public:
 	SDL_Rect LoseUILeft;
 
 	SDL_Rect rectTimer88;
+
+	SDL_Rect p1Rect;
+	SDL_Rect p2Rect;
+	SDL_Rect japanFlagRect;
+	SDL_Rect koreanFlagRect;
+	SDL_Rect germanyFlagRect;
+
+	SDL_Rect rounds;
 
 	SDL_Texture* bothCharactersTexture;
 
