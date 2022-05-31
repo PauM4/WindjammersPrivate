@@ -38,6 +38,8 @@ public:
 	SDL_Texture* leftNameTxt = nullptr;
 	SDL_Texture* rightNameTxt = nullptr;
 
+	SDL_Rect rectBg;
+
 	Animation* currentAnimation = nullptr;
 
 	// Sound effects indices

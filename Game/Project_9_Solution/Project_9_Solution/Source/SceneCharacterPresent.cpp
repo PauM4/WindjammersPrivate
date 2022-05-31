@@ -8,6 +8,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleFonts.h"
 #include "SceneStageSelect.h"
+#include "SceneCharacterSelect.h"
 
 #include "SDL/include/SDL.h"
 
@@ -41,6 +42,43 @@ bool SceneCharacterPresent::Start()
 	bgTexture = App->textures->Load("Assets/Sprites/UI/bgEffect_SpriteSheet.png");
 
 	charactersPresentTexture = App->textures->Load("Assets/Sprites/UI/charactersPresent.png");
+	
+	//P1 Left
+	switch (App->sceneCharacterSelect->p1Char)
+	{
+	case Mita:
+		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/mitaLeft.png");
+		leftNameTxt = App->textures->Load("Assets/Sprites/UI/Faces/japanNameSprite.png");
+		break;
+	case Yoo:
+		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/yooLeft.png");
+		leftNameTxt = App->textures->Load("Assets/Sprites/UI/Faces/koreaNameSprite.png");
+		break;
+	case Wessel:
+		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/wesselLeft.png");
+		leftNameTxt = App->textures->Load("Assets/Sprites/UI/Faces/germanyNameSprite.png");
+		break;
+	}
+	
+	//P2 Right
+	switch (App->sceneCharacterSelect->p2Char)
+	{
+	case Mita:
+		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/mitaRight.png");
+		rightNameTxt = App->textures->Load("Assets/Sprites/UI/Faces/japanNameSprite.png");
+		break;
+	case Yoo:
+		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/yooRight.png");
+		rightNameTxt = App->textures->Load("Assets/Sprites/UI/Faces/koreaNameSprite.png");
+		break;
+	case Wessel:
+		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/wesselRight.png");
+		rightNameTxt = App->textures->Load("Assets/Sprites/UI/Faces/germanyNameSprite.png");
+		break;
+	}
+
+	vsTextureTxt = App->textures->Load("Assets/Sprites/UI/Faces/vsSprite.png");
+
 	App->audio->PlayMusic("Assets/Music/02_Go for Broke! (Round Start).ogg", 0.1f);
 	//App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 
@@ -93,9 +131,16 @@ Update_Status SceneCharacterPresent::Update()
 Update_Status SceneCharacterPresent::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	App->render->Blit(bgTexture, 0, 0, &rect);
-	App->render->Blit(charactersPresentTexture, 0, 0, NULL);
+	rectBg = currentAnimation->GetCurrentFrame();
+	App->render->Blit(bgTexture, 0, 0, &rectBg);
+	//App->render->Blit(charactersPresentTexture, 0, 0, NULL);
+
+	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	App->render->Blit(leftCharTxt, 0, 0, NULL);
+	App->render->Blit(rightCharTxt, 0, 0, NULL);
+	App->render->Blit(leftNameTxt, 0, 0, NULL);
+	App->render->Blit(rightNameTxt, 0, 0, NULL);
+	App->render->Blit(vsTextureTxt, 0, 0, NULL);
 
 	//DEBUG QUIN ESCENARI
 	if (isDebugAppear)
