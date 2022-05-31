@@ -340,7 +340,7 @@ Update_Status SceneBeachStage::PostUpdate()
 
 		sprintf_s(debugText, 10, "%2d", (int)App->frisbee->position.x - ((int)App->player->position.x + 20));
 		//sprintf_s(debugText2, 10, "%2d", App->frisbee->position.y);
-		sprintf_s(debugText2, 10, "%2d", App->player->bea);
+		sprintf_s(debugText2, 10, "%2d", (int)App->frisbee->position.y);
 		
 		//DEBUGG ESTADO PLAYER1
 		if (App->player->estadoP1 == 0) {
@@ -449,10 +449,22 @@ Update_Status SceneBeachStage::PostUpdate()
 			App->fonts->BlitText(110, 120, debugFont, "BLOCKPLAYER2");
 		}
 
+		if(App->frisbee->estadoTF == 0) {
+			App->fonts->BlitText(110, 150, debugFont, "INICIO");
+
+		}
+		else if (App->frisbee->estadoTF == 1) {
+			App->fonts->BlitText(110, 150, debugFont, "EJECUTANDO");
+		}
+		else if (App->frisbee->estadoTF == 2) {
+			App->fonts->BlitText(110, 150, debugFont, "FIN");
+		}
+
 		App->fonts->BlitText(110, 110, debugFont, debugText);
 		App->fonts->BlitText(165, 110, debugFont, debugText2);
 		
-	
+
+
 	}
 
 	//BLIT 5 punts a ModuleInGameUI.cpp

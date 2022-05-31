@@ -262,7 +262,7 @@ Update_Status ModulePlayer::PostUpdate()
 
 		if (pols) {
 			SDL_Rect rect2 = dustAnimation->GetCurrentFrame();
-			App->render->Blit(dust_texture, position.x, position.y, &rect2); //ARREGLAR LA POSICION
+			App->render->Blit(dust_texture, position.x-5, position.y+27, &rect2); //ARREGLAR LA POSICION
 		}
 		pols = false;
 	}
@@ -455,7 +455,7 @@ void ModulePlayer::movimientoPlayer(){
 			{
 				timerP();
 				position.y += 1, 5 * speed;
-
+				pols = true;
 				currentAnimation = &rightAnim;
 			}
 			else if (estadoTP == FIN) {
