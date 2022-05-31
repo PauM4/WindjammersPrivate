@@ -122,8 +122,8 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	polvo.PushBack({ 113, 108, 12, 13 });
 	polvo.PushBack({ 130, 108, 12, 13 });
 	polvo.PushBack({ 143, 108, 12, 13 });
-	idleDisk.loop = false;
-	idleDisk.speed = 0.3f;
+	polvo.loop = false;
+	polvo.speed = 0.3f;
 
 	pols = false;
 	
