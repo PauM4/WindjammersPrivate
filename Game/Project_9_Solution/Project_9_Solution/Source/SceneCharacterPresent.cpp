@@ -136,11 +136,11 @@ Update_Status SceneCharacterPresent::PostUpdate()
 	//App->render->Blit(charactersPresentTexture, 0, 0, NULL);
 
 	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	App->render->Blit(leftCharTxt, 0, 0, NULL);
-	App->render->Blit(rightCharTxt, 0, 0, NULL);
-	App->render->Blit(leftNameTxt, 0, 0, NULL);
-	App->render->Blit(rightNameTxt, 0, 0, NULL);
-	App->render->Blit(vsTextureTxt, 0, 0, NULL);
+	App->render->Blit(leftCharTxt, 22, 53, NULL);
+	App->render->Blit(rightCharTxt, 156, 53, NULL);
+	App->render->Blit(leftNameTxt, 72, 152, NULL);
+	App->render->Blit(rightNameTxt, 182, 152, NULL);
+	App->render->Blit(vsTextureTxt, 144, 158, NULL);
 
 	//DEBUG QUIN ESCENARI
 	if (isDebugAppear)
