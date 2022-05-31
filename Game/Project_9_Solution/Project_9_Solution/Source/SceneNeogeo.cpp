@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "SceneNeogeo.h"
 
 #include "Application.h"
@@ -12,12 +14,6 @@
 SceneNeogeo::SceneNeogeo(bool startEnabled) : Module(startEnabled)
 {
 	
-	for (int i = 0; i < 50; i++)
-	{
-		neogeo.PushBack({ i * 304, 0, 304, 224 });
-	}
-	neogeo.loop = false;
-	neogeo.speed = 0.3f;
 }
 
 SceneNeogeo::~SceneNeogeo()
@@ -32,12 +28,20 @@ bool SceneNeogeo::Start()
 	LOG("Loading background assets");
 
 	bool ret = true;
+	char x[128];
 
-	bgTexture = App->textures->Load("Assets/Sprites/UI/neogeo.png");
-	currentAnimation = &neogeo;
-	//SILENT AUDIO per aturar la música de IntroScreen
-	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-	//selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
+	for (int i = 0; i < NUM_IMAGES; i++) {
+		sprintf_s(x, "Assets/Sprites/UI/Neogeo/neogeo%d.png", i + 1);
+		bgTexture[i] = App->textures->Load(x);
+	}
+	frame = 0;
+	timer = 0;
+
+	//bgTexture = App->textures->Load("Assets/Sprites/UI/neogeo.png");
+	//currentAnimation = &neogeo;
+	////SILENT AUDIO per aturar la música de IntroScreen
+	//App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+	////selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -47,13 +51,34 @@ bool SceneNeogeo::Start()
 
 Update_Status SceneNeogeo::Update()
 {
+	if (timer == 2) {
+		if (frame < NUM_IMAGES - 1) {
+			frame++;
+			timer = 0;
+		}
+	}
+	timer++;
+
+	if (next < 360)
+	{
+		next++;
+	}
+	else if (next == 360)
+	{
+		scape = true;
+	}
+
+	if (scape)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sceneDataeast, 30);
+	}
 	if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
 	{
-		App->audio->PlayFx(selectFx);
+		//App->audio->PlayFx(selectFx);
 		App->fade->FadeToBlack(this, (Module*)App->sceneDataeast, 30);
 	}
 
-	currentAnimation->Update();
+	//currentAnimation->Update();
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -62,8 +87,8 @@ Update_Status SceneNeogeo::Update()
 Update_Status SceneNeogeo::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	App->render->Blit(bgTexture, 0, 0, &rect);
+	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	App->render->Blit(bgTexture[frame], 0, 0, NULL);
 	//App->render->Blit(bgTexture, 0, 0, NULL);
 
 	return Update_Status::UPDATE_CONTINUE;
