@@ -43,9 +43,9 @@ public:
 	{
 		INICIO, //Inicio
 		INICIORONDA, //Animaciones de inicio de ronda
-		RONDA, //durante el juego
-		FINALRONDA, //animaciones/texturas fin de ronda
-		FINAL //fin de partida
+		RONDA, //Durante el juego
+		FINALRONDA, //Animaciones/texturas fin de ronda
+		FINAL //Fin de partida
 
 	};
 	int estadoS;
