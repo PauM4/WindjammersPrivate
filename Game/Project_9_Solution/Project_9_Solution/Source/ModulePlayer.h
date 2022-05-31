@@ -34,7 +34,7 @@ public:
 
 public:
 	// Position of the player in the map
-	iPoint position;
+	fPoint position;
 
 	// The speed in which we move the player (pixels per frame)
 	int speed;
@@ -42,9 +42,14 @@ public:
 	// The player spritesheet loaded into an SDL_Texture
 	SDL_Texture* texture = nullptr;
 
+	//The dust particle spritesheet loaded into an SDL_Texture
+	SDL_Texture* dust_texture = nullptr;
+
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnimation = nullptr;
+
+	Animation* dustAnimation = nullptr;
 
 	// A set of animations
 	Animation idleRAnim;
@@ -56,6 +61,7 @@ public:
 	Animation downRAnim;
 	Animation rightAnim;
 	Animation leftAnim;
+	Animation polvo;
 
 	enum estadoPlayer
 	{
@@ -113,6 +119,12 @@ public:
 
 	//Numero de rondas ganadas
 	int round;
+	int bea;
+	float pepe;
+	int p1Char;
+	
+	bool pols;
+	
 
 };
 

@@ -12,8 +12,10 @@
 #include "ModuleFrisbee.h"
 #include "SceneBeachStage.h"
 #include "ModulePlayer2.h"
+#include "ModuleFrisbee.h"
 
 #include <stdio.h>
+
 #include "SDL/include/SDL.h"
 
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
@@ -111,6 +113,21 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	idleDisk.loop = true;
 	idleDisk.speed = 0.1f;
 
+	//Dust particles
+	polvo.PushBack({ 5, 108, 14, 14 });
+	polvo.PushBack({ 26, 108, 14, 14 });
+	polvo.PushBack({ 47, 108, 15, 14 });
+	polvo.PushBack({ 69, 108, 15, 14 });
+	polvo.PushBack({ 94, 108, 12, 13 });
+	polvo.PushBack({ 113, 108, 12, 13 });
+	polvo.PushBack({ 130, 108, 12, 13 });
+	polvo.PushBack({ 143, 108, 12, 13 });
+	idleDisk.loop = false;
+	idleDisk.speed = 0.3f;
+
+	pols = false;
+	
+
 	//TO DO SWITCH PARA ELEGIR CHARACTERS + ESCENARIOS
 	destroyed = false;
 
@@ -140,6 +157,9 @@ bool ModulePlayer::Start()
 	texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
 	currentAnimation = &idleRAnim;
 
+	dust_texture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
+	dustAnimation = &polvo;
+
 	//SFX
 	tossFx = App->audio->LoadFx("Assets/Fx/Toss.wav");
 	lobFx = App->audio->LoadFx("Assets/Fx/Lob.wav");
@@ -150,7 +170,7 @@ bool ModulePlayer::Start()
 	destroyed = false;
 	speed = 2;
 
-	collider = App->collisions->AddCollider({ position.x, position.y, 27, 31 }, Collider::Type::PLAYER, this);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 27, 31 }, Collider::Type::PLAYER, this);
 
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);
@@ -178,10 +198,13 @@ Update_Status ModulePlayer::Update()
 
 	case (WITHFRISBEE): 
 		timerP();
+		bea = (currentTimeP - initialTimeP) / 1000;
 		lanzamientoPlayer();
 		break;
 
 	}
+
+	
 
 
 	//if (App->sceneBeachStage->startTheGame)
@@ -225,6 +248,7 @@ Update_Status ModulePlayer::Update()
 
 	collider->SetPos(position.x, position.y);
 	currentAnimation->Update();
+	dustAnimation->Update();
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -235,6 +259,12 @@ Update_Status ModulePlayer::PostUpdate()
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &rect);
+
+		if (pols) {
+			SDL_Rect rect2 = dustAnimation->GetCurrentFrame();
+			App->render->Blit(dust_texture, position.x, position.y, &rect2); //ARREGLAR LA POSICION
+		}
+		pols = false;
 	}
 
 	// Draw UI (score) --------------------------------------
@@ -258,11 +288,8 @@ Update_Status ModulePlayer::PostUpdate()
 	if (isDebugAppear)
 	{
 		sprintf_s(debugText, 10, "%2d", round);
-		App->fonts->BlitText(90, 20, debugFont, debugText);
+		App->fonts->BlitText(80, 20, debugFont, debugText);
 	}
-	
-	sprintf_s(debugText, 10, "%2d", estadoP1);
-	App->fonts->BlitText(110, 30, debugFont, debugText);
 	
 
 	return Update_Status::UPDATE_CONTINUE;
@@ -313,6 +340,7 @@ void ModulePlayer::movimientoPlayer(){
 				timerP();
 				position.x += 1, 5 * speed;
 				currentAnimation = &rightAnim;
+				pols = true;
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -348,6 +376,7 @@ void ModulePlayer::movimientoPlayer(){
 				timerP();
 				position.x -= 1, 5 * speed;
 				currentAnimation = &leftAnim;
+				pols = true;
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -386,7 +415,7 @@ void ModulePlayer::movimientoPlayer(){
 			{
 				timerP();
 				position.y -= 1, 5 * speed;
-
+				pols = true;
 				currentAnimation = &rightAnim;
 			}
 			else if (estadoTP == FIN) {
@@ -416,7 +445,7 @@ void ModulePlayer::movimientoPlayer(){
 
 
 			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
-
+				pols = true;
 				initialTimeP = SDL_GetTicks();
 				timeLimitP = 2 * 1000;
 				estadoTP = EJECUTANDO;
@@ -469,11 +498,16 @@ void ModulePlayer::movimientoPlayer(){
 
 void ModulePlayer::lanzamientoPlayer() {
 	
+	pepe = (float)bea + 1;
+	if (pepe > 1.5) {
+		pepe = 1.5;
+	}
+
 	for (int i = 0; i < 1; i++) {
 		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
 		{
-			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = -4;
+			App->frisbee->xspeed = 4/pepe; 
+			App->frisbee->yspeed = -4/pepe;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;			
@@ -487,8 +521,8 @@ void ModulePlayer::lanzamientoPlayer() {
 		{
 			
 
-			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = 4;
+			App->frisbee->xspeed = 4/pepe;
+			App->frisbee->yspeed = 4 / pepe;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
@@ -500,7 +534,11 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN || estadoTP == FIN)
 		{
-			App->frisbee->xspeed = 4;
+
+			//Pepe y bea sirven para modificar la velocidad del disco en funcion del tiempo que la haya tenido el player1.
+
+
+			App->frisbee->xspeed = 4 / pepe;
 			App->frisbee->yspeed = 0;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
@@ -512,10 +550,11 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
-		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
+		//LANZAMIENTO PARABOLA: Dejamos que parábola se haga únicamente horizontalmente
+	/*	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
 		{
-			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = 4;
+			App->frisbee->xspeed = 4 / pepe;
+			App->frisbee->yspeed = 4 / pepe;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
@@ -526,21 +565,24 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)
 		{
-			App->frisbee->xspeed = 4;
-			App->frisbee->yspeed = -4;
+			App->frisbee->xspeed = 4 / pepe;
+			App->frisbee->yspeed = -4 / pepe;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 			estadoP1 = estadoPlayer::MOVIMIENTO;
 			break;
 
-		}
+		}*/
 
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
+			
+			App->collisions->RemoveCollider(App->frisbee->collider);
 
-			App->frisbee->xspeed = 4;
+			App->frisbee->xspeed = 3;
 			App->frisbee->yspeed = 0;
+			App->frisbee->vel_parabola(position.x, 260);
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
@@ -549,7 +591,73 @@ void ModulePlayer::lanzamientoPlayer() {
 			break;
 		}
 
+		//LANZAMIENTO SUPERSHOT
+		p1Char = 1;
+		if (p1Char == 0) { //japo
 
+			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			{
+				App->frisbee->angulo = 0;
+				App->frisbee->xspeed = 5;
+				App->frisbee->yspeed = -5;
+				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::SUPERSHOT;
+				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::MAX;
+				App->frisbee->tipoSupershot = ModuleFrisbee::tipoSupershot::MITA_SUPERSHOT;
+				estadoP1 = estadoPlayer::MOVIMIENTO;
+				break;
+
+			}
+
+		}
+		else if (p1Char == 1) { //coreano
+
+			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			{
+				App->frisbee->xspeed = 5;
+				App->frisbee->yspeed = -5;
+				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::SUPERSHOT;
+				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::MAX;
+				App->frisbee->tipoSupershot = ModuleFrisbee::tipoSupershot::YOO_SUPERSHOT;
+				estadoP1 = estadoPlayer::MOVIMIENTO;
+				break;
+
+			}
+
+		}
+		else if (p1Char == 2) { //aleman
+
+			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			{
+				App->frisbee->limiteWesselSupershot = 120;
+				App->frisbee->xspeed = 5;
+				App->frisbee->yspeed = -5;
+				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::SUPERSHOT;
+				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::MAX;
+				App->frisbee->tipoSupershot = ModuleFrisbee::tipoSupershot::WESSEL_SUPERSHOT;
+				estadoP1 = estadoPlayer::MOVIMIENTO;
+				break;
+
+			}
+
+			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			{
+				App->frisbee->limiteWesselSupershot = 120;
+				App->frisbee->xspeed = 5;
+				App->frisbee->yspeed = 5;
+				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::SUPERSHOT;
+				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::MAX;
+				App->frisbee->tipoSupershot = ModuleFrisbee::tipoSupershot::WESSEL_SUPERSHOT;
+				estadoP1 = estadoPlayer::MOVIMIENTO;
+				break;
+
+			}
+
+		}
+	
 	}
 }
 

@@ -34,12 +34,12 @@ public:
 
 public:
 	// Position of the player in the map
-	iPoint position;
+	fPoint position;
 
 	// The speed in which we move the player (pixels per frame)
-	int speed;
-	int xspeed;
-	int yspeed;
+	float speed;
+	float xspeed;
+	float yspeed;
 	int mov;
 	int arbitro;
 
@@ -94,6 +94,14 @@ public:
 		BLOCKPLAYER2
 	};
 	int lanzamientoF;
+
+	enum tipoSupershot {
+		MITA_SUPERSHOT,
+		YOO_SUPERSHOT,
+		WESSEL_SUPERSHOT,
+		NONE
+	};
+	int tipoSupershot;
 	
 	enum direccionFrisbeePlayer {
 		DARRIBA,
@@ -119,7 +127,18 @@ public:
 	int currentTimeF;
 	int timeLimitF;
 
+	void vel_parabola(int pos_Player, int pos_final_frisbee);
+
 	bool blockSuperShot;
+
+	int limiteWesselSupershot;
+
+	void anguloSupershot();
+	float angulo;
+	int contadorYooSuperShot;
+	bool yooDirec;
+	bool contador_Angulo_SuperShot; //contador utilizado tanto para el angulo del supershot de la Mito como para el supershot de Yoo
+	
 
 };
 

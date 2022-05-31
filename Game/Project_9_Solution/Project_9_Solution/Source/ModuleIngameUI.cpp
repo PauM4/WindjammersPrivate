@@ -120,7 +120,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 		else if (App->sceneBeachStage->winState == 3) {
 
 			App->render->Blit(bothCharactersTexture, 0, 0, NULL);
-			App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
+			App->render->Blit(uiSpriteTexture, 180, 48, &LoseUIRight);
 			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
 			//winState = 4;
 		}
@@ -229,19 +229,19 @@ Update_Status ModuleInGameUI::PostUpdate()
 		else isDebugAppear = false;
 	}
 
-	if (isDebugAppear)
-	{
-		// Despres de qualsevol blit perque estigui per sobre de tot
-		// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
-		// Si no es fan servir variables, comentar aquesta linia
+	//if (isDebugAppear)
+	//{
+	//	// Despres de qualsevol blit perque estigui per sobre de tot
+	//	// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
+	//	// Si no es fan servir variables, comentar aquesta linia
 
-		sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->initialTimeS);
+	//	sprintf_s(debugText, 10, "%2d", App->sceneBeachStage->initialTimeS);
 
-		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
-		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
+	//	// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
+	//	// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
 
-		App->fonts->BlitText(72, 190, debugFont, debugText);
-	}
+	//	App->fonts->BlitText(172, 190, debugFont, debugText);
+	//}
 
 	switch (App->sceneBeachStage->estadoGolScore)
 	{

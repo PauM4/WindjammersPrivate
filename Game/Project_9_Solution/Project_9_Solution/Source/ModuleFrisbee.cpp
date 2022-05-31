@@ -11,6 +11,7 @@
 #include "ModulePlayer2.h"
 #include "SDL/include/SDL.h"
 #include "SceneBeachStage.h"
+#include <math.h>
 
 ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 {
@@ -77,12 +78,15 @@ bool ModuleFrisbee::Start()
 
 	destroyed = false;
 
-	collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
 	estadoF = ARBITROF;
 	lanzamientoF = ARBITRO;
 	estadoTF = INICIO;
 	blockSuperShot = true;
 	contadorBlock = 0;
+	contador_Angulo_SuperShot = true;
+	contadorYooSuperShot = 0;
+	yooDirec = true;
 	return ret;
 }
 
@@ -94,13 +98,14 @@ Update_Status ModuleFrisbee::Update()
 	case ARBITROF:
 		currentAnimation2 = &desaparece;
 		break;
+
 	case STOP:
 		currentAnimation2 = &stop;
 		break;
 
 	case MOVIMIENTO:
-		limitesFrisbee();
 		movimientoFrisbee();
+		limitesFrisbee();
 		break;	
 
 	case WITHPLAYER:
@@ -193,7 +198,7 @@ Update_Status ModuleFrisbee::Update()
 		else if (estadoTF == FIN) {
 			estadoTF = INICIO;
 			currentAnimation2 = &stop;
-				collider = App->collisions->AddCollider({ position.x, position.y, 16,16 }, Collider::Type::FRISBEE, this);
+				collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16,16 }, Collider::Type::FRISBEE, this);
 				blockSuperShot = true;
 				
 				estadoF = SUELO;
@@ -201,6 +206,7 @@ Update_Status ModuleFrisbee::Update()
 		break;
 
 	case SUELO:
+		currentAnimation2 = &stop;
 		if (estadoTF == INICIO) {
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
@@ -212,6 +218,7 @@ Update_Status ModuleFrisbee::Update()
 		}
 		else if (estadoTF == FIN) {
 			estadoTF = INICIO;
+			estadoF = ARBITROF;
 			App->sceneBeachStage->Score();
 		}
 		break;
@@ -349,10 +356,9 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 
 void ModuleFrisbee :: movimientoFrisbee() {
 	currentAnimation2 = &moving;
+	
 
  	if (lanzamientoF == NORMAL) {
-		
-
 		if (direccionF == DARRIBA) {
 			position.x += xspeed;
 			position.y += yspeed;
@@ -367,102 +373,112 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		}
 
 	}
-	else if (lanzamientoF == PARABOLA) { //TO DO límite parabola
-		if (direccionF == DARRIBA) {
-			
-
-		}
-		else if (direccionF  == DABAJO) {
-
-		}
-		else if (HORIZONTAL) {
-
-		}
-	}
-	else if(lanzamientoF == ARBITRO){
-		position.x += xspeed;
-		position.y += yspeed;
-	}
-	else if (lanzamientoF == SUPERSHOT) {
-		//TODO
-	}
-
-
+	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
 	
-	/*if (projectil == 2) {
-
-		if (PosTemp < position.x || PosTemp > position.x) {
+		currentAnimation2 = &projectile;
+		if (35 < position.x && 250 > position.x) {
 			position.x += xspeed;
 		}
 		else {
-			currentAnimation2 = &stop;
-			mov = 0;
-			projectil = 0;
-			posesion = 0;
-			collider = App->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::FRISBEE, this);
+			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
+			estadoF = SUELO;
+
 		}
+	}
+	else if (lanzamientoF == ARBITRO) {
+		position.x += xspeed;
+		position.y += yspeed;
+	}
+
+	else if (lanzamientoF == SUPERSHOT) {
+		
+		if (tipoSupershot == MITA_SUPERSHOT) {
+
+			anguloSupershot();
+			position.x += xspeed * sin(angulo)+1.5; //este 1,5 deberá sernegativo para el player2
+			position.y += yspeed * cos(angulo);
 
 
-	}*/
+		} else if (tipoSupershot == YOO_SUPERSHOT) {
+
+			if (contadorYooSuperShot <= 8 && contador_Angulo_SuperShot) {
+				position.x += xspeed;
+				contadorYooSuperShot++;
+
+				if (contadorYooSuperShot == 8) {
+					contador_Angulo_SuperShot = false;
+					if (yooDirec) {
+						contadorYooSuperShot = 0;
+					}
+					
+					
+				}
+			}
+			else if (!contador_Angulo_SuperShot) {
+
+				if (yooDirec) {
+					position.y += yspeed;
+					contadorYooSuperShot++;
+
+					if (contadorYooSuperShot >= 4) {
+						contador_Angulo_SuperShot = true;
+						contadorYooSuperShot = 0;
+						yooDirec = false;
+					}
+
+				}
+				else if (!yooDirec) {
+					position.y -= yspeed;
+					contadorYooSuperShot--;
+
+					if (contadorYooSuperShot <= 0) {
+						contador_Angulo_SuperShot = true;
+						yooDirec = true;
+					}
+				}
+			}
+
+		}
+		else if (tipoSupershot == WESSEL_SUPERSHOT) {
+			if (position.x < limiteWesselSupershot ) {
+				position.x += xspeed;
+			} else if (position.x >= limiteWesselSupershot){
+				position.y += yspeed;
+			}
+		}
+	}
 
 
 
-	//MOV FRISBE PROJECTIL HACIA DELANTE
-
-
-	//if (position.x <= 19 || position.x >= 276) {
-	//	mov = 0;
-
-		////aqui tendremos que llamar la accion del arbitro que envia el disco al player 1
-
-		//if (position.x <= 19) {
-		//	if (position.y >= 94 && position.y <= 144) {
-		//		App->player2->score += 5;
-		//		//arbitro = 1;
-		//		if (App->sceneBeachStage->suddenDeath) {
-		//			App->sceneBeachStage->Win();
-		//		}
-		//		App->sceneBeachStage->ScoreRound(1);
-		//		//App->sceneBeachStage->EndRound(1);
-
-		//	}
-		//	else {
-		//		App->player2->score += 3;
-		//		//arbitro = 1;
-		//		if (App->sceneBeachStage->suddenDeath) {
-		//			App->sceneBeachStage->Win();
-		//		}
-		//		App->sceneBeachStage->ScoreRound(1);
-		//		//App->sceneBeachStage->EndRound(1);
-		//	}
-		//}
-		//if (position.x >= 276) {
-		//	if (position.y >= 94 && position.y <= 144) {
-		//		App->player->score += 5;
-		//		//arbitro = 2;
-		//		if (App->sceneBeachStage->suddenDeath) {
-		//			App->sceneBeachStage->Win();
-		//		}
-
-		//		App->sceneBeachStage->ScoreRound(2);
-		//		//App->sceneBeachStage->EndRound(2);
-		//	}
-		//	else {
-		//		App->player->score += 3;
-		//		//arbitro = 2;
-		//		if (App->sceneBeachStage->suddenDeath) {
-		//			App->sceneBeachStage->Win();
-		//		}
-		//		App->sceneBeachStage->ScoreRound(2);
-		//		//App->sceneBeachStage->EndRound(2);
-		//	}
-		//}
-
+	
 }
 
 void ModuleFrisbee::limitesFrisbee() {
 
-	if (lanzamientoF != ARBITRO) {
+	if (position.x < 19 || position.x >276) {
+
+		//funsion score
+		estadoF = ARBITROF;
+		App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
+		App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+		App->sceneBeachStage->Score();
+		tipoSupershot = NONE;
+
+	}
+
+	if (tipoSupershot == WESSEL_SUPERSHOT) {
+		
+		if (position.y <= 50) {
+			position.x += xspeed;
+			yspeed = 0;
+		}
+		else if (position.y >= 170) {
+			position.x += xspeed;
+			yspeed = 0;
+		}
+
+	}
+	else if (lanzamientoF != ARBITRO && lanzamientoF != SUPERSHOT) {
 		if (position.x >= 19 && position.x <= 276) {
 
 			if (position.y <= 50) {
@@ -473,20 +489,8 @@ void ModuleFrisbee::limitesFrisbee() {
 			}
 		}
 
-		else if (position.x < 19 || position.x >276) {
-
-			//funsion score
-			estadoF = ARBITROF;
-			App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
-			App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
-			App->sceneBeachStage->Score();
-
-		}
+		
 	}
-
-
-
-
 
 }
 
@@ -499,5 +503,33 @@ void ModuleFrisbee::timerF() {
 	}
 }
 
+void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
+
+	if (pos_final_frisbee == 260) {
+		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed) * 0.2f;
+			
+	}
+	else if (35) { //este 35 va en el player2
+		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed);
+	}
+
+}
+
+void ModuleFrisbee::anguloSupershot() {
+
+	if (angulo <= 180 && contador_Angulo_SuperShot) { 
+		angulo -= 0.15;
+		if (angulo == 0) {
+			contador_Angulo_SuperShot = false;
+		}
+	}
+	else if (angulo >= 0 && !contador_Angulo_SuperShot) {
+		angulo += 0.15;
+		if (angulo == 180) {
+			contador_Angulo_SuperShot = true;
+		}
+	}
 
 
+
+}

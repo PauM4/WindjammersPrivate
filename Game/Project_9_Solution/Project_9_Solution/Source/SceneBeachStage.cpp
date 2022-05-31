@@ -82,6 +82,7 @@ bool SceneBeachStage::Start()
 	winState = 0;
 	godMode = false;
 	estadoS = INICIO; 
+	estadoTS = INICIOT;
 	estadoTGol == INICIOGOL;
 	arbitroFinalRonda = 1;
 	
@@ -101,38 +102,54 @@ Update_Status SceneBeachStage::Update()
 		{
 			initialTimeS = SDL_GetTicks();
 			timeLimitS = 4 * 1000;
-			estadoTS = EJECUTANDO;
+			estadoTS = EJECUTANDO;		
 		}
-		
-		TimerS();
-		if(estadoTS == FIN)
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+		}
+		else if(estadoTS == FIN)
 		{
     		//SceneBeachStage::Arbitro(1);
+			estadoTS = INICIOT;
 			estadoS = INICIORONDA;
 		}
 		break;
 
+
+
 		//Iniciar ronda (round 2, final o suddendeath)
 	case (INICIORONDA):
 		//Animacion Ronda 1.
-		
-		estadoTS = estadoTimerS::INICIOT;
-		App->ingameUI->timerAnim.Reset();
 		App->player->score = 0;
 		App->player2->score = 0;
-		initialTimeS = SDL_GetTicks();
-		timeLimitS = 30 * 1000;
-		Arbitro(arbitroFinalRonda);
-		estadoS = RONDA;
+
+		if (estadoTS == INICIOT)
+		{
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 2 * 1000;
+			estadoTS = EJECUTANDO;
+		}
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+		}
+		else if (estadoTS == FIN)
+		{
+			Arbitro(arbitroFinalRonda);
+			estadoS = RONDA;
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 30 * 1000;
+			estadoTS = EJECUTANDO;
+			App->ingameUI->timerAnim.Reset();
+		}  
+
 		break;
 
 		//INGAME Gemplei 
 	case (RONDA):
-		TimerS();
-		Round();
 		App->ingameUI->currentTimerAnim->Update();
+		//if (estadoTGol == INICIOGOL) {
 
-		//Tendremos que poner una condicion para cuando se marquen puntosq ue aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
+		//}//Tendremos que poner una condicion para cuando se marquen puntos que aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 		if (estadoTGol == EJECUTANDOGOL)
 		{
 			TimerGol();
@@ -144,10 +161,19 @@ Update_Status SceneBeachStage::Update()
 			}
 			estadoTGol = INICIOGOL;
 			Round();
-			Arbitro(arbitroFinalRonda);
+			if(estadoS != FINALRONDA){
+			 Arbitro(arbitroFinalRonda);
+			}
 		}
-		
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+			
+		}
+		else if (estadoTS == FIN) {
+			Round();
+			estadoTS = INICIOT;
 
+		} 
 		break;
 
 		//Animacions qui ha guanyat bailecito chingon
@@ -157,7 +183,20 @@ Update_Status SceneBeachStage::Update()
 		//App->player2->estadoP2 = App->player2->STOP;
 		Win();
 
-		
+		if (estadoTS == INICIOT)
+		{
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 4 * 1000;
+			estadoTS = EJECUTANDO;
+		}
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+		}
+		else if (estadoTS == FIN)
+		{
+			estadoS = INICIORONDA;
+			estadoTS = INICIOT; 
+		}
 		break;
 
 		//Animacions qui ha guanyat bailecito chingon i reiniciar
@@ -248,8 +287,13 @@ Update_Status SceneBeachStage::PostUpdate()
 	// Draw everything --------------------------------------
 		//App->render->Blit(beachTexture, 0, 0, NULL);
 		//Beach background
+
+
+
 	SDL_Rect rectBeach = currentBeachAnim->GetCurrentFrame();
 	App->render->Blit(bgBeachTexture, 0, 0, &rectBeach);
+
+
 
 	//if (winState == 4) {
 	//	App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
@@ -271,12 +315,121 @@ Update_Status SceneBeachStage::PostUpdate()
 		// En "", posar la variable que es vulgui imprimir per pantalla (scoreExemple)
 		// Si no es fan servir variables, comentar aquesta linia
 
-		sprintf_s(debugText, 10, "%2d", App->frisbee->position.x - (App->player->position.x + 20));
+		sprintf_s(debugText, 10, "%2d", (int)App->frisbee->position.x - ((int)App->player->position.x + 20));
+		//sprintf_s(debugText2, 10, "%2d", App->frisbee->position.y);
+		sprintf_s(debugText2, 10, "%2d", App->player->bea);
+		
+		//DEBUGG ESTADO PLAYER1
+		if (App->player->estadoP1 == 0) {
+			App->fonts->BlitText(30, 50, debugFont, "P1.STOP");
+		}
+		else if (App->player->estadoP1 == 1) {
+			App->fonts->BlitText(30, 50, debugFont, "P1.MOVIMIENTO");
+		}
+		else if (App->player->estadoP1 == 2) {
+			App->fonts->BlitText(30, 50, debugFont, "P1.WIITHFRISBEE");
+		}
 
-		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,
+		//DEBUGG ESTADO PLAYER2
+		if (App->player2->estadoP2 == 0) {
+			App->fonts->BlitText(160, 50, debugFont, "P2.STOP");
+		}
+		else if (App->player2->estadoP2 == 1) {
+			App->fonts->BlitText(160, 50, debugFont, "P2.MOVIMIENTO");
+		}
+		else if (App->player2->estadoP2 == 2) {
+			App->fonts->BlitText(160, 50, debugFont, "P2.WIITHFRISBEE");
+		}
+
+		//DEBUGG ESTADO FRISBEE
+
+	
+		if (App->frisbee->estadoF == 0) {
+			App->fonts->BlitText(110,100, debugFont, "ARBITROF");
+		}
+		else if (App->frisbee->estadoF == 1) {
+			App->fonts->BlitText(110, 100, debugFont, "STOP");
+		}
+		else if (App->frisbee->estadoF == 2) {
+			App->fonts->BlitText(110, 100, debugFont, "MOVIMIENTO");
+		}
+		else if (App->frisbee->estadoF == 3) {
+			App->fonts->BlitText(110, 100, debugFont, "PRUEBA");
+		}
+		else if (App->frisbee->estadoF == 4) {
+			App->fonts->BlitText(110, 100, debugFont, "WITHPLAYER");
+		}
+		else if (App->frisbee->estadoF == 5) {
+			App->fonts->BlitText(110, 100, debugFont, "BLOCK");
+		}
+		else if (App->frisbee->estadoF == 6) {
+			App->fonts->BlitText(110, 100, debugFont, "SUELO");
+		}
+
+
+		// A "TEST TEXT", escriure el que es vulgui: una string (igual que l'exempel) o la variable debugText,       
 		// que correspon a la variable que s'hagi posat al quart parametre de sprintf_s, "".
 
-		App->fonts->BlitText(72, 190, debugFont, debugText);
+		//DEBUG ESTADO TIMER SCENE BEACH STAGE
+
+
+		if (estadoTS == 0) {
+			App->fonts->BlitText(95, 33, debugFont, "TS.INICIOT");
+		}
+		else if (estadoTS == 1) {
+			App->fonts->BlitText(95, 33, debugFont, "TS.EJECUTANDO");
+		}
+		else if (estadoTS == 2) {
+			App->fonts->BlitText(95, 33, debugFont, "TS.FIN");
+		}
+
+		//INICIO, //Inicio
+		//	INICIORONDA, //Animaciones de inicio de ronda
+		//	RONDA, //durante el juego
+		//	FINALRONDA, //animaciones/texturas fin de ronda
+		//	FINAL
+
+
+		if (estadoS == 0){
+			App->fonts->BlitText(110, 180, debugFont, "S.INICIO");
+		}
+		if (estadoS == 1) {
+			App->fonts->BlitText(110, 180, debugFont, "S.INICIORONDA");
+		}
+		if (estadoS == 2) {
+			App->fonts->BlitText(110, 180, debugFont, "S.RONDA");
+		}
+		if (estadoS == 3) {
+			App->fonts->BlitText(110, 180, debugFont, "S.FINALRONDA");
+		}
+		if (estadoS == 4) {
+			App->fonts->BlitText(110, 180, debugFont, "S.FINAL");
+		}
+
+		if (App->frisbee->lanzamientoF == 0) {
+
+			App->fonts->BlitText(110, 120, debugFont, "NORMAL");
+
+		} else if (App->frisbee->lanzamientoF == 1) {
+			App->fonts->BlitText(110, 120, debugFont, "PARABOLA");
+		}
+		else if (App->frisbee->lanzamientoF == 2) {
+			App->fonts->BlitText(110, 120, debugFont, "ARBITRO");
+		}
+		else if (App->frisbee->lanzamientoF == 3) {
+			App->fonts->BlitText(110, 120, debugFont, "SUPERSHOT");
+		}
+		else if (App->frisbee->lanzamientoF == 4) {
+			App->fonts->BlitText(110, 120, debugFont, "BLOCKPLAYER1");
+		}
+		else if (App->frisbee->lanzamientoF == 5) {
+			App->fonts->BlitText(110, 120, debugFont, "BLOCKPLAYER2");
+		}
+
+		App->fonts->BlitText(110, 110, debugFont, debugText);
+		App->fonts->BlitText(165, 110, debugFont, debugText2);
+		
+	
 	}
 
 	//BLIT 5 punts a ModuleInGameUI.cpp
@@ -334,7 +487,10 @@ void SceneBeachStage::Round() {
 				//Llamar animaci�n de jugador ganador 1 y las texturas
 				App->player->score = 0;
 				App->player2->score = 0;
+				arbitroFinalRonda = 2;
+				estadoTS = INICIOT;
 				estadoS = FINALRONDA;
+				
 			}
 
 			if (App->player2->score > App->player->score + 2) {
@@ -343,17 +499,26 @@ void SceneBeachStage::Round() {
 				//Llamar animaci�n de jugador ganador 2 y las texturas
 				App->player->score = 0;
 				App->player2->score = 0;
+				arbitroFinalRonda = 1;
 				estadoS = FINALRONDA;
 			}
 
 		}
 		else if (estadoTS == FIN && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::WITHPLAYER)) { //FALTA TIMER
 
+			App->frisbee->position.x = 150;
+			App->frisbee->position.y = 200;
+			App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
+			App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::ARBITROF;
+
 
 			if (App->player->score > App->player2->score) {
 				App->player->round += 1;
 
-				//Llamar animaci�n de jugador ganador 1 y las texturas
+				//Llamar animacion de jugador ganador 1 y las texturas
+				App->player->score = 0;
+				App->player2->score = 0;
 				arbitroFinalRonda = 2;
 				estadoS = FINALRONDA;
 
@@ -362,6 +527,8 @@ void SceneBeachStage::Round() {
 				App->player2->round += 1;
 
 				//Llamar animaci�n de jugador ganador 2 y las texturas
+				App->player->score = 0;
+				App->player2->score = 0;
 				arbitroFinalRonda = 1;
 				estadoS = FINALRONDA;
 
@@ -370,6 +537,8 @@ void SceneBeachStage::Round() {
 				App->player->round += 1;
 				App->player2->round += 1;
 
+				App->player->score = 0;
+				App->player2->score = 0;
 				arbitroFinalRonda = 1;
 				estadoS = FINALRONDA;
 
@@ -425,19 +594,24 @@ void SceneBeachStage::Win() { //AQUI SE TENDR�A QUE CAMBIAR EL ESTADO EN SWITC
 
 	}
 	else if(!godMode) {
-		estadoS = INICIORONDA;
+		//estadoS = INICIORONDA;
 	}
 
 }
 
 void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MARCARPUNTO, en cada momento en que se meten puntos para que se realicen las animaciones 
 	//Score esquerra
+	App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
+	App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
 	if (App->frisbee->position.x <= 19) {
 		//5 punts
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 			App->player2->score += 5;
 
 			//Just despres d'afegir score, UI Textura d'on ha marcat
+			if (suddenDeath) {
+				Win();
+			}
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
@@ -449,6 +623,9 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		{
 			App->player2->score += 3;
 			//Just despres d'afegir score, UI Textura d'on ha marcat
+			if (suddenDeath) {
+				Win();
+			}
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
@@ -460,6 +637,9 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		{
 			App->player2->score += 3;
 			//Just despres d'afegir score, UI Textura d'on ha marcat
+			if (suddenDeath) {
+				Win();
+			}
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
@@ -471,6 +651,9 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 			App->player->score += 5;
 			//Just despres d'afegir score, UI Textura d'on ha marcat
+			if (suddenDeath) {
+				Win();
+			}
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
@@ -482,6 +665,9 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		{
 			App->player->score += 3;
 			//Just despres d'afegir score, UI Textura d'on ha marcat
+			if (suddenDeath) {
+				Win();
+			}
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
@@ -490,7 +676,11 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		}
 		else if (App->frisbee->position.y > 144)
 		{
+			App->player->score += 3;
 			//Just despres d'afegir score, UI Textura d'on ha marcat
+			if (suddenDeath) {
+				Win();
+			}
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
@@ -503,8 +693,12 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 			if (suddenDeath) {
 				Win();
 			}
-			Round();
-			Arbitro(1);
+
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 1;
+			estadoGolScore = DOWNRIGHT; //aqui meter el miss
 
 	}
 	else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
@@ -512,11 +706,12 @@ void SceneBeachStage::Score(){ //Tendremos que cambiar estado en el switch - MAR
 		if (suddenDeath) {
 			Win();
 		}
-		Round();
-		Arbitro(2);
+		initialTimeGol = SDL_GetTicks();
+		timeLimitGol = 2 * 1000;
+		estadoTGol = EJECUTANDOGOL;
+		arbitroFinalRonda = 2;
+		estadoGolScore = DOWNRIGHT; //aqui meter el miss
 	}
-
-
 
 	App->frisbee->position.x = 150;
 	App->frisbee->position.y = 200;
