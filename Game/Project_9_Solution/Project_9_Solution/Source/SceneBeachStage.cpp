@@ -789,7 +789,7 @@ void SceneBeachStage::Score() {
 		timeLimitGol = 2 * 1000;
 		estadoTGol = EJECUTANDOGOL;
 		arbitroFinalRonda = 1;
-		estadoGolScore = DOWNRIGHT; //aqui meter el miss
+		estadoGolScore = MISSL; //aqui meter el miss
 
 	}
 	else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
@@ -801,7 +801,7 @@ void SceneBeachStage::Score() {
 		timeLimitGol = 2 * 1000;
 		estadoTGol = EJECUTANDOGOL;
 		arbitroFinalRonda = 2;
-		estadoGolScore = DOWNRIGHT; //aqui meter el miss
+		estadoGolScore = MISSR; //aqui meter el miss
 	}
 
 	App->frisbee->position.x = 150;

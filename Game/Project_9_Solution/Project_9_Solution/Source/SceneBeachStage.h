@@ -93,6 +93,8 @@ public:
 		UPRIGHT,
 		MIDRIGHT,
 		DOWNRIGHT,
+		MISSL,
+		MISSR,
 		CLEAR
 	};
 	int estadoGolScore;

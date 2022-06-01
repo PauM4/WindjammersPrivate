@@ -60,6 +60,8 @@ bool ModuleInGameUI::Start()
 	tresPuntsR = { 112, 120, 63, 34 };
 	cincPuntsR = { 74, 224, 63, 35 };
 
+	dosPunts = { 139, 258, 40, 41 };
+
 	set1Rect = { 160, 300, 160, 56 };
 	set2Rect = { 320, 300, 160, 56 };
 	suddenRect = { 179, 258, 270, 42 };
@@ -192,11 +194,6 @@ Update_Status ModuleInGameUI::PostUpdate()
 	//INICI PARTIDA
 	if (App->sceneBeachStage->estadoS == App->sceneBeachStage->INICIO)
 	{
-
-		////Timer
-		//SDL_Rect rectTimer = currentTimerAnim->GetCurrentFrame();
-		//App->render->Blit(timerTexture, 144, 13, &rectTimer);
-
 		//12 points / 30 sec
 		App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
 
@@ -227,16 +224,9 @@ Update_Status ModuleInGameUI::PostUpdate()
 		}
 
 		//Set1
-
 		App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
 
-		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-		/*App->render->Blit(uiSpriteTexture, 72, 80, &set2Rect);
-		App->render->Blit(uiSpriteTexture, 72, 80, &setFinalRect);
-		App->render->Blit(uiSpriteTexture, 17, 95, &suddenRect);*/
-
 		//Time88
-
 		App->render->Blit(timerTexture, 144, 13, &rectTimer88);
 
 		//Score 00-00 preGame
@@ -245,7 +235,6 @@ Update_Status ModuleInGameUI::PostUpdate()
 		App->fonts->BlitText(162, 17, App->player->scoreFont, "0");
 		App->fonts->BlitText(178, 17, App->player->scoreFont, "0");
 
-		//App->fonts->BlitText(115, 16, scoreFont, scoreText);
 	}
 	//COMENÇA PARTIDA
 	else if (App->sceneBeachStage->estadoS == App->sceneBeachStage->RONDA)
@@ -371,6 +360,10 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 			break;
 		case(6):
+			App->render->Blit(uiSpriteTexture, 72, 58,&dosPunts);
+			break;
+		case(7):
+			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
 			break;
 		}
 	}
