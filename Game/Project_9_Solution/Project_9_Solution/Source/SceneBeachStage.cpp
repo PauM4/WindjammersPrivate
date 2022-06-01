@@ -622,109 +622,270 @@ void SceneBeachStage::Win() {
 	else if (!godMode) {
 		//estadoS = INICIORONDA;
 	}
-
 }
 
 void SceneBeachStage::Score(){
 	App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
 	App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+	
+	if (App->sceneStageSelect->sceneSelected == Concrete)
+	{
+		//Score de Concrete
+		//Esquerra
+		if (App->frisbee->position.x <= 19) {
+			//Mid left
+			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
+				App->player2->score += 3;
+				App->audio->PlayFx(threePointsFX);
+				App->audio->PlayFx(applauseFX);
+
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 1;
+				estadoGolScore = MIDLEFT;
+			}
+			//Upleft
+			else if (App->frisbee->position.y < 71)
+			{
+				App->player2->score += 5;
+				App->audio->PlayFx(fivePointsFX);
+				App->audio->PlayFx(applauseFX);
+
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 1;
+				estadoGolScore = UPLEFT;
+			}
+			//down left
+			else if (App->frisbee->position.y > 184)
+			{
+				App->player2->score += 5;
+				App->audio->PlayFx(fivePointsFX);
+				App->audio->PlayFx(applauseFX);
+
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 1;
+				estadoGolScore = DOWNLEFT;
+			}
+		}
+		//Dreta
+		else if (App->frisbee->position.x >= 276) {
+			//mid right
+			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
+				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
+				App->audio->PlayFx(applauseFX);
+
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 2;
+				estadoGolScore = MIDRIGHT;
+			}
+			// upright
+			else if (App->frisbee->position.y < 71)
+			{
+				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
+				App->audio->PlayFx(applauseFX);
+
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 2;
+				estadoGolScore = UPRIGHT;
+			}
+			//down right
+			else if (App->frisbee->position.y > 184)
+			{
+				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
+				App->audio->PlayFx(applauseFX);
+
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 2;
+				estadoGolScore = DOWNRIGHT;
+			}
+		}
+		// miss
+		else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
+			App->player2->score += 2;
+			if (suddenDeath) {
+				Win();
+			}
+
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 1;
+			estadoGolScore = MISSL;
+		}
+		else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
+			App->player->score += 2;
+			if (suddenDeath) {
+				Win();
+			}
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 2;
+			estadoGolScore = MISSR;
+		}
+	}
+	else
+	{
+		//Score de Beach i Lawn
 	//Esquerra
-	if (App->frisbee->position.x <= 19) {
-		//5 punts
-		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
+		if (App->frisbee->position.x <= 19) {
+			//Mid left
+			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
+				App->player2->score += 5;
+				App->audio->PlayFx(fivePointsFX);
+				App->audio->PlayFx(applauseFX);
 
-			if (App->sceneStageSelect->sceneSelected == Concrete)
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 1;
+				estadoGolScore = MIDLEFT;
+			}
+			//Upleft
+			else if (App->frisbee->position.y < 94)
 			{
 				App->player2->score += 3;
 				App->audio->PlayFx(threePointsFX);
-			}
-			else
-			{
-				App->player2->score += 5;
-				App->audio->PlayFx(fivePointsFX);
-			}
-			App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(applauseFX);
 
-			//Just despres d'afegir score, UI Textura d'on ha marcat
-			if (suddenDeath) {
-				Win();
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 1;
+				estadoGolScore = UPLEFT;
 			}
-			initialTimeGol = SDL_GetTicks();
-			timeLimitGol = 2 * 1000;
-			estadoTGol = EJECUTANDOGOL;
-			arbitroFinalRonda = 1;
-			estadoGolScore = MIDLEFT;
-		}
-		//3 punts adalt
-		else if (App->frisbee->position.y < 94)
-		{
-
-			if (App->sceneStageSelect->sceneSelected == Concrete)
-			{
-				App->player2->score += 5;
-				App->audio->PlayFx(fivePointsFX);
-			}
-			else
+			//down left
+			else if (App->frisbee->position.y > 144)
 			{
 				App->player2->score += 3;
 				App->audio->PlayFx(threePointsFX);
-			}
-			App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(applauseFX);
 
-			//Just despres d'afegir score, UI Textura d'on ha marcat
-			if (suddenDeath) {
-				Win();
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 1;
+				estadoGolScore = DOWNLEFT;
 			}
-			initialTimeGol = SDL_GetTicks();
-			timeLimitGol = 2 * 1000;
-			estadoTGol = EJECUTANDOGOL;
-			arbitroFinalRonda = 1;
-			estadoGolScore = UPLEFT;
 		}
-		//3 punts abaix
-		else if (App->frisbee->position.y > 144)
-		{
-
-			if (App->sceneStageSelect->sceneSelected == Concrete)
-			{
-				App->player2->score += 5;
+		//Dreta
+		else if (App->frisbee->position.x >= 276) {
+			//mid right
+			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
+				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-			}
-			else
-			{
-				App->player2->score += 3;
-				App->audio->PlayFx(threePointsFX);
-			}
-			App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(applauseFX);
 
-			//Just despres d'afegir score, UI Textura d'on ha marcat
-			if (suddenDeath) {
-				Win();
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 2;
+				estadoGolScore = MIDRIGHT;
 			}
-			initialTimeGol = SDL_GetTicks();
-			timeLimitGol = 2 * 1000;
-			estadoTGol = EJECUTANDOGOL;
-			arbitroFinalRonda = 1;
-			estadoGolScore = DOWNLEFT;
-		}
-	}
-	//Dreta
-	else if (App->frisbee->position.x >= 276) {
-		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
-
-			if (App->sceneStageSelect->sceneSelected == Concrete)
-			{
-				App->player->score += 3;
-				App->audio->PlayFx(threePointsFX);
-			}
-			else
+			// upright
+			else if (App->frisbee->position.y < 94)
 			{
 				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-			}
-			App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(applauseFX);
 
-			//Just despres d'afegir score, UI Textura d'on ha marcat
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 2;
+				estadoGolScore = UPRIGHT;
+			}
+			//down right
+			else if (App->frisbee->position.y > 144)
+			{
+				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
+				App->audio->PlayFx(applauseFX);
+
+				//Just despres d'afegir score, UI Textura d'on ha marcat
+				if (suddenDeath) {
+					Win();
+				}
+				initialTimeGol = SDL_GetTicks();
+				timeLimitGol = 2 * 1000;
+				estadoTGol = EJECUTANDOGOL;
+				arbitroFinalRonda = 2;
+				estadoGolScore = DOWNRIGHT;
+			}
+		}
+		// miss
+		else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
+			App->player2->score += 2;
+			if (suddenDeath) {
+				Win();
+			}
+
+			initialTimeGol = SDL_GetTicks();
+			timeLimitGol = 2 * 1000;
+			estadoTGol = EJECUTANDOGOL;
+			arbitroFinalRonda = 1;
+			estadoGolScore = MISSL;
+		}
+		else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
+			App->player->score += 2;
 			if (suddenDeath) {
 				Win();
 			}
@@ -732,83 +893,8 @@ void SceneBeachStage::Score(){
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
 			arbitroFinalRonda = 2;
-			estadoGolScore = MIDRIGHT;
+			estadoGolScore = MISSR;
 		}
-		// 3 punts UP
-		else if (App->frisbee->position.y < 94)
-		{
-
-			if (App->sceneStageSelect->sceneSelected == Concrete)
-			{
-				App->player->score += 3;
-				App->audio->PlayFx(threePointsFX);
-			}
-			else
-			{
-				App->player->score += 5;
-				App->audio->PlayFx(fivePointsFX);
-			}
-			App->audio->PlayFx(applauseFX);
-
-			//Just despres d'afegir score, UI Textura d'on ha marcat
-			if (suddenDeath) {
-				Win();
-			}
-			initialTimeGol = SDL_GetTicks();
-			timeLimitGol = 2 * 1000;
-			estadoTGol = EJECUTANDOGOL;
-			arbitroFinalRonda = 2;
-			estadoGolScore = UPRIGHT;
-		}
-		else if (App->frisbee->position.y > 144)
-		{
-
-			if (App->sceneStageSelect->sceneSelected == Concrete)
-			{
-				App->player->score += 5;
-				App->audio->PlayFx(fivePointsFX);
-			}
-			else
-			{
-				App->player->score += 3;
-				App->audio->PlayFx(threePointsFX);
-			}
-			App->audio->PlayFx(applauseFX);
-
-			//Just despres d'afegir score, UI Textura d'on ha marcat
-			if (suddenDeath) {
-				Win();
-			}
-			initialTimeGol = SDL_GetTicks();
-			timeLimitGol = 2 * 1000;
-			estadoTGol = EJECUTANDOGOL;
-			arbitroFinalRonda = 2;
-			estadoGolScore = DOWNRIGHT;
-		}
-	}
-	else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
-		App->player2->score += 2;
-		if (suddenDeath) {
-			Win();
-		}
-
-		initialTimeGol = SDL_GetTicks();
-		timeLimitGol = 2 * 1000;
-		estadoTGol = EJECUTANDOGOL;
-		arbitroFinalRonda = 1;
-		estadoGolScore = MISSL; //aqui meter el miss
-
-	}
-	else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
-		App->player->score += 2;
-		if (suddenDeath) {
-			Win();
-		}
-		initialTimeGol = SDL_GetTicks();
-		timeLimitGol = 2 * 1000;
-		estadoTGol = EJECUTANDOGOL;
-		arbitroFinalRonda = 2;
-		estadoGolScore = MISSR; //aqui meter el miss
 	}
 
 	App->frisbee->position.x = 150;

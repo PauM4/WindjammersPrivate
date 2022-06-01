@@ -87,6 +87,9 @@ bool ModuleInGameUI::Start()
 
 	rounds = { 0,0,0,0 };
 
+	ambQuadradet = true;
+	verticalPos = 107;
+
 	//Debug Font
 	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
@@ -185,6 +188,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(rightCharTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 18, 48, &winUILeft);
 			App->render->Blit(uiSpriteTexture, 175, 54, &LoseUIRight);
+			ShowSetCount(!ambQuadradet);
 			//winState = 4;
 
 		}
@@ -194,6 +198,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(rightCharTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 176, 48, &winUIRight);
 			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
+			ShowSetCount(!ambQuadradet);
 			//winState = 4;
 
 		}
@@ -202,6 +207,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(leftCharTxt, 24, 78, NULL);
 			App->render->Blit(rightCharTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 46, 36, &drawGameRect);
+			ShowSetCount(!ambQuadradet);
 			//App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
 			//App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
 			//winState = 4;
@@ -307,45 +313,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 	//Entre Rondes indicar quants sets porta cadasc�
 	if (App->sceneBeachStage->setsSpriteAppear == true)
 	{
-		App->render->Blit(rectanguletLila, 64, 89, NULL);
-		App->render->Blit(uiSpriteTexture, 113, 107, &setCountRect);
-
-		//Num of sets P1
-		if (App->player->round == 0)
-		{
-			App->render->Blit(uiSpriteTexture, 50, 107, &setNum0);
-		}
-		else if (App->player->round == 1)
-		{
-			App->render->Blit(uiSpriteTexture, 50, 107, &setNum1);
-		}
-		else if (App->player->round == 2)
-		{
-			App->render->Blit(uiSpriteTexture, 50, 107, &setNum2);
-		}
-		else if (App->player->round == 3)
-		{
-			App->render->Blit(uiSpriteTexture, 50, 107, &setNum3);
-		}
-
-		//Num of sets P2
-		if (App->player2->round == 0)
-		{
-			App->render->Blit(uiSpriteTexture, 210, 107, &setNum0);
-		}
-		else if (App->player2->round == 1)
-		{
-			App->render->Blit(uiSpriteTexture, 210, 107, &setNum1);
-		}
-		else if (App->player2->round == 2)
-		{
-			App->render->Blit(uiSpriteTexture, 210, 107, &setNum2);
-		}
-		else if (App->player2->round == 3)
-		{
-			App->render->Blit(uiSpriteTexture, 210, 107, &setNum3);
-		}
-
+		ShowSetCount(ambQuadradet);
 	}
 
 
@@ -491,5 +459,56 @@ void ModuleInGameUI::TimerS() {
 
 	if (currentTimeS - initialTimeS >= timeLimitS) {
 		estadoTS = estadoTimerS::FIN;
+	}
+}
+
+void ModuleInGameUI::ShowSetCount(bool ambQuadradet)
+{
+	if (ambQuadradet)
+	{
+		App->render->Blit(rectanguletLila, 64, 89, NULL);
+		verticalPos = 107;
+	}
+	else
+	{
+		verticalPos = 157;
+	}
+
+	App->render->Blit(uiSpriteTexture, 113, verticalPos, &setCountRect);
+
+	//Num of sets P1
+	if (App->player->round == 0)
+	{
+		App->render->Blit(uiSpriteTexture, 50, verticalPos, &setNum0);
+	}
+	else if (App->player->round == 1)
+	{
+		App->render->Blit(uiSpriteTexture, 50, verticalPos, &setNum1);
+	}
+	else if (App->player->round == 2)
+	{
+		App->render->Blit(uiSpriteTexture, 50, verticalPos, &setNum2);
+	}
+	else if (App->player->round == 3)
+	{
+		App->render->Blit(uiSpriteTexture, 50, verticalPos, &setNum3);
+	}
+
+	//Num of sets P2
+	if (App->player2->round == 0)
+	{
+		App->render->Blit(uiSpriteTexture, 210, verticalPos, &setNum0);
+	}
+	else if (App->player2->round == 1)
+	{
+		App->render->Blit(uiSpriteTexture, 210, verticalPos, &setNum1);
+	}
+	else if (App->player2->round == 2)
+	{
+		App->render->Blit(uiSpriteTexture, 210, verticalPos, &setNum2);
+	}
+	else if (App->player2->round == 3)
+	{
+		App->render->Blit(uiSpriteTexture, 210, verticalPos, &setNum3);
 	}
 }

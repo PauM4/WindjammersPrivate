@@ -69,6 +69,10 @@ public:
 	int timeLimitS;
 
 	void TimerS();
+	void ShowSetCount(bool ambQuadradet);
+
+	bool ambQuadradet;
+	int verticalPos;
 
 	//Rectangulet esquerra
 	SDL_Rect rectanguletL;
