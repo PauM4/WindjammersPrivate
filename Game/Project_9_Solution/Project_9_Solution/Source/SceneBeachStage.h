@@ -154,8 +154,6 @@ public:
 	char debugText[10] = { "\0" };
 	char debugText2[10] = { "\0" };
 	bool isDebugAppear;
-
-	bool roundSpriteAppear;
 	
 };
 
