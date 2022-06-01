@@ -614,18 +614,19 @@ void SceneBeachStage::Win() {
 void SceneBeachStage::Score() {
 	App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
 	App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+	//Esquerra
 	if (App->frisbee->position.x <= 19) {
 		//5 punts
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
-				App->player->score += 3;
+				App->player2->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
 			else
 			{
-				App->player->score += 5;
+				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
 			}
 			App->audio->PlayFx(applauseFX);
@@ -646,12 +647,12 @@ void SceneBeachStage::Score() {
 
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
-				App->player->score += 5;
+				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
 			}
 			else
 			{
-				App->player->score += 3;
+				App->player2->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
 			App->audio->PlayFx(applauseFX);
@@ -672,12 +673,12 @@ void SceneBeachStage::Score() {
 
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
-				App->player->score += 5;
+				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
 			}
 			else
 			{
-				App->player->score += 3;
+				App->player2->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
 			App->audio->PlayFx(applauseFX);
@@ -693,6 +694,7 @@ void SceneBeachStage::Score() {
 			estadoGolScore = DOWNLEFT;
 		}
 	}
+	//Dreta
 	else if (App->frisbee->position.x >= 276) {
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 
