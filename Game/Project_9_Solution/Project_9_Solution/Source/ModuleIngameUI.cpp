@@ -103,6 +103,34 @@ bool ModuleInGameUI::Start()
 	// Load rectangulet Lila per set count
 	rectanguletLila = App->textures->Load("Assets/Sprites/UI/rectanguletLila.png");
 
+	//P1 Left
+	switch (App->sceneCharacterSelect->p1Char)
+	{
+	case Mita:
+		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/mitaLeft.png");
+		break;
+	case Yoo:
+		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/yooLeft.png");
+		break;
+	case Wessel:
+		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/wesselLeft.png");
+		break;
+	}
+
+	//P2 Right
+	switch (App->sceneCharacterSelect->p2Char)
+	{
+	case Mita:
+		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/mitaRight.png");
+		break;
+	case Yoo:
+		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/yooRight.png");
+		break;
+	case Wessel:
+		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/wesselRight.png");
+		break;
+	}
+
 	return ret;
 }
 
@@ -153,7 +181,8 @@ Update_Status ModuleInGameUI::PostUpdate()
 	{
 		if (App->sceneBeachStage->winState == 1) {
 
-			App->render->Blit(bothCharactersTexture, 0, 0, NULL);
+			App->render->Blit(leftCharTxt, 22, 78, NULL);
+			App->render->Blit(rightCharTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 18, 48, &winUILeft);
 			App->render->Blit(uiSpriteTexture, 175, 54, &LoseUIRight);
 			//winState = 4;
@@ -161,7 +190,8 @@ Update_Status ModuleInGameUI::PostUpdate()
 		}
 		else if (App->sceneBeachStage->winState == 2) {
 
-			App->render->Blit(bothCharactersTexture, 0, 0, NULL);
+			App->render->Blit(leftCharTxt, 22, 78, NULL);
+			App->render->Blit(rightCharTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 176, 48, &winUIRight);
 			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
 			//winState = 4;
@@ -169,7 +199,8 @@ Update_Status ModuleInGameUI::PostUpdate()
 		}
 		else if (App->sceneBeachStage->winState == 3) {
 
-			App->render->Blit(bothCharactersTexture, 0, 0, NULL);
+			App->render->Blit(leftCharTxt, 24, 78, NULL);
+			App->render->Blit(rightCharTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 46, 36, &drawGameRect);
 			//App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
 			//App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);

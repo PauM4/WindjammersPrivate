@@ -37,6 +37,12 @@ public:
 	SDL_Texture* timerTexture = nullptr;
 	SDL_Texture* rectanguletLila = nullptr;
 
+	SDL_Texture* leftCharTxt = nullptr;
+	SDL_Texture* rightCharTxt = nullptr;
+	SDL_Texture* vsTextureTxt = nullptr;
+	SDL_Texture* leftNameTxt = nullptr;
+	SDL_Texture* rightNameTxt = nullptr;
+
 	Animation* currentTimerAnim = nullptr;
 	Animation timerAnim;
 
