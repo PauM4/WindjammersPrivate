@@ -120,6 +120,8 @@ bool SceneBeachStage::Start()
 	App->collisions->Enable();
 	App->ingameUI->Enable();
 
+	roundSpriteAppear = false;
+
 	debugwinP1 = false;
 	debugwinP2 = false;
 	winState = 0;
@@ -170,10 +172,12 @@ Update_Status SceneBeachStage::Update()
 			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
+			roundSpriteAppear = true;
 			TimerS();
 		}
 		else if (estadoTS == FIN)
 		{
+			roundSpriteAppear = false;
 			Arbitro(arbitroFinalRonda);
 			estadoS = RONDA;
 			initialTimeS = SDL_GetTicks();

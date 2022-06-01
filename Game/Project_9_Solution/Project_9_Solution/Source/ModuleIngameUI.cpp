@@ -245,6 +245,32 @@ Update_Status ModuleInGameUI::PostUpdate()
 		rectTimer = currentTimerAnim->GetCurrentFrame();
 		App->render->Blit(timerTexture, 144, 13, &rectTimer);
 	}
+
+	//ENTRE RONDES BLIT DE QUINA RONDA ES
+	if (App->sceneBeachStage->roundSpriteAppear == true)
+	{
+		//1 a 0 __ 0 a 1 SET 2
+		if ((App->player->round == 1 && App->player2->round == 0) || (App->player->round == 0 && App->player2->round == 1))
+		{
+			App->render->Blit(uiSpriteTexture, 72, 80, &set2Rect);
+		}
+		//1 a 2 __ 2 a 1 __ 1 a 1 SET FINAL
+		else if ((App->player->round == 1 && App->player2->round == 2) || (App->player->round == 2 && App->player2->round == 1)
+			|| (App->player->round == 1 && App->player2->round == 1))
+		{
+			App->render->Blit(uiSpriteTexture, 72, 80, &setFinalRect);
+		}
+		//2 a 2 SET SUDDENDEATH
+		else if ((App->player->round == 2 && App->player2->round == 2))
+		{
+			App->render->Blit(uiSpriteTexture, 17, 94, &suddenRect);
+		}
+		//3 a 3 DRAW GAME
+		else if ((App->player->round == 3 && App->player2->round == 3))
+		{
+			//DRAW GAME
+		}
+	}
 	
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
 	{
