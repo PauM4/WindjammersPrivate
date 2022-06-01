@@ -24,26 +24,26 @@ ModulePlayer2::ModulePlayer2(bool startEnabled) : Module(startEnabled)
 
 
 	// Idle Left Animation
-	idleLAnim.PushBack({ 393, 359, 23, 36 });
-	idleLAnim.PushBack({ 370, 359, 23, 35 });
-	idleLAnim.PushBack({ 347, 359, 23, 36 });
-	idleLAnim.PushBack({ 323, 359, 24, 36 });
-	idleLAnim.PushBack({ 299, 359, 24, 35 });
-	idleLAnim.PushBack({ 275, 359, 24, 36 });
-	idleLAnim.PushBack({ 251, 359, 23, 39 });
-	idleLAnim.PushBack({ 227, 359, 23, 37 });
+	idleLAnim.PushBack({ 211, 341, 53, 57 });
+	idleLAnim.PushBack({ 264, 341, 53, 57 });
+	idleLAnim.PushBack({ 317, 341, 53, 57 });
+	idleLAnim.PushBack({ 370, 341, 53, 57 });
+	idleLAnim.PushBack({ 423, 341, 53, 57 });
+	idleLAnim.PushBack({ 476, 341, 53, 57 });
+	idleLAnim.PushBack({ 529, 341, 53, 57 });
+	idleLAnim.PushBack({ 582, 341, 53, 57 });
 	idleLAnim.loop = true;
 	idleLAnim.speed = 0.1f;
 
 	// Idle Right Animation
-	idleRAnim.PushBack({ 393, 103, 23, 36 });
-	idleRAnim.PushBack({ 370, 103, 23, 35 });
-	idleRAnim.PushBack({ 347, 103, 23, 36 });
-	idleRAnim.PushBack({ 323, 103, 24, 36 });
-	idleRAnim.PushBack({ 299, 103, 24, 35 });
-	idleRAnim.PushBack({ 275, 103, 24, 36 });
-	idleRAnim.PushBack({ 251, 103, 23, 39 });
-	idleRAnim.PushBack({ 227, 103, 23, 37 });
+	idleRAnim.PushBack({ 105, 0, 53, 57 });
+	idleRAnim.PushBack({ 158, 0, 53, 57 });
+	idleRAnim.PushBack({ 211, 0, 53, 57 });
+	idleRAnim.PushBack({ 264, 0, 53, 57 });
+	idleRAnim.PushBack({ 317, 0, 53, 57 });
+	idleRAnim.PushBack({ 370, 0, 53, 57 });
+	idleRAnim.PushBack({ 423, 0, 53, 57 });
+	idleRAnim.PushBack({ 476, 0, 53, 57 });
 	idleRAnim.loop = true;
 	idleRAnim.speed = 0.1f;
 
@@ -143,7 +143,7 @@ bool ModulePlayer2::Start()
 
 	bool ret = true;
 
-	texture = App->textures->Load("Assets/Sprites/Characters/Jap2.png");
+	texture = App->textures->Load("Assets/Sprites/Characters/JapR.png");
 	currentAnimation = &idleLAnim;
 
 	//SFX
