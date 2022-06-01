@@ -140,14 +140,11 @@ ModulePlayer::~ModulePlayer()
 
 bool ModulePlayer::Start()
 {
+	speed = 2;
 	last1 = 1;
-	explosionFx = 0;
-	tossFx = 0;
-	lobFx = 0;
 	score = 000;
 	scoreFont = -1;
 	destroyed = false;
-	disco = false;
 	round = 0;
 
 	LOG("Loading player textures");
@@ -160,15 +157,8 @@ bool ModulePlayer::Start()
 	dust_texture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
 	dustAnimation = &polvo;
 
-	//SFX
-	tossFx = App->audio->LoadFx("Assets/Fx/Toss.wav");
-	lobFx = App->audio->LoadFx("Assets/Fx/Lob.wav");
-
 	position.x = 20;
 	position.y = 100;
-
-	destroyed = false;
-	speed = 2;
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 27, 31 }, Collider::Type::PLAYER, this);
 
@@ -204,48 +194,6 @@ Update_Status ModulePlayer::Update()
 
 	}
 
-	
-
-
-	//if (App->sceneBeachStage->startTheGame)
-	//{
-	//	if (FrisbeeTime < 120 && App->frisbee->posesion == 1) //Esto es para que se tire el disco en cuanto hayan pasado los 2 segundos
-	//	{
-	//		FrisbeeTime++;
-	//	}
-	//	
-
-	
-	//	////LANZAMIENTO DE DISCO PARÁBOLA
-	//	//for (int i = 0; i < 1; i++) {
-	//	//	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && disco)
-	//	//	{
-	//	//		
-	//	//	}
-
-
-	//	//	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && disco)
-	//	//	{
-	//	//		
-
-	//	//	}
-
-	//	//	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && disco && App->frisbee->posesion ==1)
-	//	//	{
-	//	//		App->frisbee->mov = 2;
-	//	//		disco = false;
-	//	//		App->frisbee->posesion = 0;
-	//	//		App->frisbee->currentAnimation2 = &App->frisbee->projectile;
-	//	//		App->audio->PlayFx(tossFx);
-	//	//		FrisbeeTime = 0;
-	//	//		App->frisbee->projectil = 2;
-	//	//		App->frisbee->PosTemp = 180;
-	//	//		App->collisions->RemoveCollider(App->frisbee->collider);
-	//	//		
-	//	//		break;
-	//	//	}
-	//	//}
-
 	collider->SetPos(position.x, position.y);
 	currentAnimation->Update();
 	dustAnimation->Update();
@@ -262,7 +210,7 @@ Update_Status ModulePlayer::PostUpdate()
 
 		if (pols) {
 			SDL_Rect rect2 = dustAnimation->GetCurrentFrame();
-			App->render->Blit(dust_texture, position.x, position.y, &rect2); //ARREGLAR LA POSICION
+			App->render->Blit(dust_texture, position.x-5, position.y+27, &rect2); //ARREGLAR LA POSICION
 		}
 		pols = false;
 	}
@@ -317,7 +265,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 void ModulePlayer::movimientoPlayer(){
 		
 		//MOVIMIENTO - DASH 
-		if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && position.x < 110)
+		if ((App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) && position.x < 110)
 		{
 			position.x += speed;
 
@@ -455,7 +403,7 @@ void ModulePlayer::movimientoPlayer(){
 			{
 				timerP();
 				position.y += 1, 5 * speed;
-
+				pols = true;
 				currentAnimation = &rightAnim;
 			}
 			else if (estadoTP == FIN) {
@@ -482,7 +430,7 @@ void ModulePlayer::movimientoPlayer(){
 			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 1)
 			currentAnimation = &idleRAnim;
 
-		if (App->input->keys[SDL_SCANCODE_C] == Key_State::KEY_DOWN &&  (App->frisbee->position.x - (position.x +20)) > 1  && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
+		if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN &&  (App->frisbee->position.x - (position.x +20)) > 1  && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
 		
 			if (App->frisbee->position.y >= position.y && App->frisbee->position.y <= (position.y +31)) {
 				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
@@ -550,30 +498,6 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
-		//LANZAMIENTO PARABOLA: Dejamos que parábola se haga únicamente horizontalmente
-	/*	if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
-		{
-			App->frisbee->xspeed = 4 / pepe;
-			App->frisbee->yspeed = 4 / pepe;
-			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
-			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
-			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
-			estadoP1 = estadoPlayer::MOVIMIENTO;
-			break;
-		}
-
-
-		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)
-		{
-			App->frisbee->xspeed = 4 / pepe;
-			App->frisbee->yspeed = -4 / pepe;
-			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
-			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
-			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
-			estadoP1 = estadoPlayer::MOVIMIENTO;
-			break;
-
-		}*/
 
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
@@ -592,10 +516,10 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 
 		//LANZAMIENTO SUPERSHOT
-		p1Char = 1;
+		p1Char = 0;
 		if (p1Char == 0) { //japo
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN /*&& (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)*/ && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
 				App->frisbee->angulo = 0;
 				App->frisbee->xspeed = 5;
@@ -612,7 +536,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 		else if (p1Char == 1) { //coreano
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN /*&& (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)*/ && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
 				App->frisbee->xspeed = 5;
 				App->frisbee->yspeed = -5;
@@ -628,7 +552,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 		else if (p1Char == 2) { //aleman
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
 				App->frisbee->limiteWesselSupershot = 120;
 				App->frisbee->xspeed = 5;
@@ -642,7 +566,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 			}
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
 				App->frisbee->limiteWesselSupershot = 120;
 				App->frisbee->xspeed = 5;
@@ -668,43 +592,3 @@ void ModulePlayer::timerP() {
 		estadoTP = estadoTimerP::FIN;
 	}
 }
-
-
-
-//
-//Update_Status ModulePlayer::Update()
-//{
-//	if (dashtimer == 0) {
-//
-//		dashup = false;
-//	}
-//
-//	if (dashtimer > 0) {
-//		dashtimer--;
-//	}
-//
-//
-//	if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 6)
-//	{
-//		position.x -= speed;
-//		if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN && dashup == true) {
-//			dashtimer = 15;
-//
-//		}
-//		if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_REPEAT && dashup == true)
-//		{
-//			position.x -= 3 * speed;
-//
-//			currentAnimation = &leftAnim;
-//		}
-//
-//		if (currentAnimation != &leftAnim) {
-//			leftAnim.Reset();
-//			currentAnimation = &leftAnim;
-//		}
-//
-//	}
-//
-//
-//
-//}

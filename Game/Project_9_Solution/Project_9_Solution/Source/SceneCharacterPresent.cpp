@@ -14,11 +14,8 @@
 SceneCharacterPresent::SceneCharacterPresent(bool startEnabled) : Module(startEnabled)
 {
 	bgEffectAnim.PushBack({ 0, 0, 304, 224 });
-	//bgEffectAnim.PushBack({ 0, 448, 304, 224 });
 	bgEffectAnim.PushBack({ 0, 224, 304, 224 });
-	//bgEffectAnim.PushBack({ 0, 448, 304, 224 });
 	bgEffectAnim.PushBack({ 0, 672, 304, 224 });
-	//bgEffectAnim.PushBack({ 0, 448, 304, 224 });
 	bgEffectAnim.loop = true;
 	bgEffectAnim.pingpong = false;
 	bgEffectAnim.speed = 0.8f;

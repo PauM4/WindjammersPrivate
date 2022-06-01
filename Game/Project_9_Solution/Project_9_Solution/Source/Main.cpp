@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Globals.h"
 #include "MemLeaks.h"
+#include <conio.h>
 
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib")
@@ -27,6 +28,7 @@ int main(int argc, char* argv[])
 
 	while (state != Main_States::MAIN_EXIT)
 	{
+
 		switch (state)
 		{
 			case Main_States::MAIN_CREATION:

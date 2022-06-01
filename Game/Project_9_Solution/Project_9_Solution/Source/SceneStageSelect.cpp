@@ -125,12 +125,6 @@ Update_Status SceneStageSelect::Update()
 		}
 	}
 
-	//if (App->input->keys[SDL_SCANCODE_SPACE] == Key_State::KEY_DOWN)
-	//{		
-	//	App->audio->PlayFx(selectFx);
-	//	App->fade->FadeToBlack(this, (Module*)App->sceneCharacterPresent, 15);
-	//}
-
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
 	{
 		if (!isDebugAppear)
