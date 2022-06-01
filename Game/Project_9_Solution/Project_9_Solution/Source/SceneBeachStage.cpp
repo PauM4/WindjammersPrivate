@@ -580,6 +580,7 @@ void SceneBeachStage::Win() {
 		suddenDeath = true;
 		estadoS = INICIORONDA;
 
+
 	}
 	else if (App->player->score != 0 && suddenDeath) {
 		//llamar animaci�n y texturas de que ha ganado el primer jugador la partida

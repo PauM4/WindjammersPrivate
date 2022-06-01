@@ -35,6 +35,7 @@ public:
 
 	SDL_Texture* uiSpriteTexture = nullptr;
 	SDL_Texture* timerTexture = nullptr;
+	SDL_Texture* rectanguletLila = nullptr;
 
 	Animation* currentTimerAnim = nullptr;
 	Animation timerAnim;

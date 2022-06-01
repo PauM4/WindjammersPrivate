@@ -96,6 +96,9 @@ bool ModuleInGameUI::Start()
 	timerTexture = App->textures->Load("Assets/Sprites/UI/Fonts/timerSpriteSheet.png");
 	currentTimerAnim = &timerAnim;
 
+	// Load rectangulet Lila per set count
+	rectanguletLila = App->textures->Load("Assets/Sprites/UI/rectanguletLila.png");
+
 	return ret;
 }
 
@@ -281,42 +284,43 @@ Update_Status ModuleInGameUI::PostUpdate()
 	//Entre Rondes indicar quants sets porta cadascú
 	if (App->sceneBeachStage->setsSpriteAppear == true)
 	{
-		App->render->Blit(uiSpriteTexture, 113, 124, &setCountRect);
+		App->render->Blit(rectanguletLila, 64, 89, NULL);
+		App->render->Blit(uiSpriteTexture, 113, 107, &setCountRect);
 
 		//Num of sets P1
 		if (App->player->round == 0)
 		{
-			App->render->Blit(uiSpriteTexture, 50, 124, &setNum0);
+			App->render->Blit(uiSpriteTexture, 50, 107, &setNum0);
 		}
 		else if (App->player->round == 1)
 		{
-			App->render->Blit(uiSpriteTexture, 50, 124, &setNum1);
+			App->render->Blit(uiSpriteTexture, 50, 107, &setNum1);
 		}
 		else if (App->player->round == 2)
 		{
-			App->render->Blit(uiSpriteTexture, 50, 124, &setNum2);
+			App->render->Blit(uiSpriteTexture, 50, 107, &setNum2);
 		}
 		else if (App->player->round == 3)
 		{
-			App->render->Blit(uiSpriteTexture, 50, 124, &setNum3);
+			App->render->Blit(uiSpriteTexture, 50, 107, &setNum3);
 		}
 
 		//Num of sets P2
 		if (App->player2->round == 0)
 		{
-			App->render->Blit(uiSpriteTexture, 210, 124, &setNum0);
+			App->render->Blit(uiSpriteTexture, 210, 107, &setNum0);
 		}
 		else if (App->player2->round == 1)
 		{
-			App->render->Blit(uiSpriteTexture, 210, 124, &setNum1);
+			App->render->Blit(uiSpriteTexture, 210, 107, &setNum1);
 		}
 		else if (App->player2->round == 2)
 		{
-			App->render->Blit(uiSpriteTexture, 210, 124, &setNum2);
+			App->render->Blit(uiSpriteTexture, 210, 107, &setNum2);
 		}
 		else if (App->player2->round == 3)
 		{
-			App->render->Blit(uiSpriteTexture, 210, 124, &setNum3);
+			App->render->Blit(uiSpriteTexture, 210, 107, &setNum3);
 		}
 
 	}
