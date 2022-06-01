@@ -18,6 +18,7 @@
 #include "SDL/include/SDL.h"
 
 #include <stdio.h>
+#include <conio.h>
 
 
 SceneBeachStage::SceneBeachStage(bool startEnabled) : Module(startEnabled)
@@ -134,6 +135,10 @@ bool SceneBeachStage::Start()
 
 Update_Status SceneBeachStage::Update()
 {
+
+	/*if (_kbhit() && _getch() == 27)
+		return Update_Status::UPDATE_STOP;*/
+	
 	switch (estadoS) {
 		//4 segons inicicials (puntuacions, ui general)
 	case (INICIO):
@@ -294,6 +299,8 @@ Update_Status SceneBeachStage::Update()
 			isDebugAppear = true;
 		else isDebugAppear = false;
 	}
+
+
 
 	currentBgAnim->Update(); 
 
@@ -510,6 +517,7 @@ void SceneBeachStage::Round() {
 				App->player->score = 0;
 				App->player2->score = 0;
 				arbitroFinalRonda = 1;
+				estadoTS = INICIOT;
 				estadoS = FINALRONDA;
 			}
 

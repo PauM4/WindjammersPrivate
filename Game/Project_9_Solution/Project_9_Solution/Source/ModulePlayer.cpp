@@ -265,7 +265,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 void ModulePlayer::movimientoPlayer(){
 		
 		//MOVIMIENTO - DASH 
-		if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && position.x < 110)
+		if ((App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) && position.x < 110)
 		{
 			position.x += speed;
 
