@@ -140,14 +140,11 @@ ModulePlayer::~ModulePlayer()
 
 bool ModulePlayer::Start()
 {
+	speed = 2;
 	last1 = 1;
-	explosionFx = 0;
-	tossFx = 0;
-	lobFx = 0;
 	score = 000;
 	scoreFont = -1;
 	destroyed = false;
-	disco = false;
 	round = 0;
 
 	LOG("Loading player textures");
@@ -160,15 +157,8 @@ bool ModulePlayer::Start()
 	dust_texture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
 	dustAnimation = &polvo;
 
-	//SFX
-	tossFx = App->audio->LoadFx("Assets/Fx/Toss.wav");
-	lobFx = App->audio->LoadFx("Assets/Fx/Lob.wav");
-
 	position.x = 20;
 	position.y = 100;
-
-	destroyed = false;
-	speed = 2;
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 27, 31 }, Collider::Type::PLAYER, this);
 
@@ -440,7 +430,7 @@ void ModulePlayer::movimientoPlayer(){
 			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 1)
 			currentAnimation = &idleRAnim;
 
-		if (App->input->keys[SDL_SCANCODE_C] == Key_State::KEY_DOWN &&  (App->frisbee->position.x - (position.x +20)) > 1  && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
+		if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN &&  (App->frisbee->position.x - (position.x +20)) > 1  && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
 		
 			if (App->frisbee->position.y >= position.y && App->frisbee->position.y <= (position.y +31)) {
 				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
@@ -508,6 +498,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
+
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
 			
@@ -525,10 +516,10 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 
 		//LANZAMIENTO SUPERSHOT
-		p1Char = 1;
+		p1Char = 0;
 		if (p1Char == 0) { //japo
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN /*&& (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)*/ && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
 				App->frisbee->angulo = 0;
 				App->frisbee->xspeed = 5;
@@ -545,7 +536,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 		else if (p1Char == 1) { //coreano
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN /*&& (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)*/ && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
 				App->frisbee->xspeed = 5;
 				App->frisbee->yspeed = -5;
@@ -561,7 +552,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 		else if (p1Char == 2) { //aleman
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
 				App->frisbee->limiteWesselSupershot = 120;
 				App->frisbee->xspeed = 5;
@@ -575,7 +566,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 			}
 
-			if (App->input->keys[SDL_SCANCODE_G] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
 				App->frisbee->limiteWesselSupershot = 120;
 				App->frisbee->xspeed = 5;

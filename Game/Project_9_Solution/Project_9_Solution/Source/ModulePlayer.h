@@ -91,20 +91,11 @@ public:
 
 	// The player's collider
 	Collider* collider = nullptr;
-
-	// A flag to detect when the player has been destroyed
-	bool destroyed;
-
-	bool disco;
 	
 	void movimientoPlayer();
 	void lanzamientoPlayer();
 	
 
-	// Sound effects indices
-	uint explosionFx;
-	uint tossFx;
-	uint lobFx;
 	int FrisbeeTime;
 
 	// Font score index
@@ -124,6 +115,7 @@ public:
 	int p1Char;
 	
 	bool pols;
+	bool destroyed;
 	
 
 };

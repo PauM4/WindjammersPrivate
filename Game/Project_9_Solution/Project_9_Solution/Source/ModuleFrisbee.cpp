@@ -255,7 +255,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		else {
 			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
 			estadoF = SUELO;
-
+			
 		}
 	}
 	else if (lanzamientoF == ARBITRO) {
@@ -268,7 +268,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		if (tipoSupershot == MITA_SUPERSHOT) {
 
 			anguloSupershot();
-			position.x += xspeed * sin(angulo)+1.5; //este 1,5 deberá sernegativo para el player2
+			position.x += xspeed*0.8f;
 			position.y += yspeed * cos(angulo);
 
 
@@ -382,12 +382,12 @@ void ModuleFrisbee::timerF() {
 
 void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
 
-	if (pos_final_frisbee == 260) {
+	if (pos_final_frisbee >= 260) {
 		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed) * 0.2f;
 			
 	}
-	else if (35) { //este 35 va en el player2
-		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed);
+	else if (pos_final_frisbee <= 35) {
+		projectile.speed = (pos_Player - pos_final_frisbee) / ( pos_Player - pos_final_frisbee / xspeed*-1) * 0.2f;
 	}
 
 }
