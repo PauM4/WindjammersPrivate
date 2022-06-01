@@ -113,24 +113,17 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	idleDisk.loop = true;
 	idleDisk.speed = 0.1f;
 
-	//Dust particles
-	polvo.PushBack({ 5, 108, 14, 14 });
-	polvo.PushBack({ 26, 108, 14, 14 });
-	polvo.PushBack({ 47, 108, 15, 14 });
-	polvo.PushBack({ 69, 108, 15, 14 });
-	polvo.PushBack({ 94, 108, 12, 13 });
-	polvo.PushBack({ 113, 108, 12, 13 });
-	polvo.PushBack({ 130, 108, 12, 13 });
-	polvo.PushBack({ 143, 108, 12, 13 });
-	polvo.loop = false;
-	polvo.speed = 0.3f;
-
-	pols = false;
-	
-
-	//TO DO SWITCH PARA ELEGIR CHARACTERS + ESCENARIOS
-	destroyed = false;
-
+	////Dust particles
+	//polvo.PushBack({ 5, 108, 14, 14 });
+	//polvo.PushBack({ 26, 108, 14, 14 });
+	//polvo.PushBack({ 47, 108, 15, 14 });
+	//polvo.PushBack({ 69, 108, 15, 14 });
+	//polvo.PushBack({ 94, 108, 12, 13 });
+	//polvo.PushBack({ 113, 108, 12, 13 });
+	//polvo.PushBack({ 130, 108, 12, 13 });
+	//polvo.PushBack({ 143, 108, 12, 13 });
+	//polvo.loop = false;
+	//polvo.speed = 0.3f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -144,7 +137,6 @@ bool ModulePlayer::Start()
 	last1 = 1;
 	score = 000;
 	scoreFont = -1;
-	destroyed = false;
 	round = 0;
 
 	LOG("Loading player textures");
@@ -154,8 +146,8 @@ bool ModulePlayer::Start()
 	texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
 	currentAnimation = &idleRAnim;
 
-	dust_texture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
-	dustAnimation = &polvo;
+	particlesTexture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
+	/*dustAnimation = &polvo;*/
 
 	position.x = 20;
 	position.y = 100;
@@ -170,6 +162,8 @@ bool ModulePlayer::Start()
 	isDebugAppear = false;
 
 	FrisbeeTime = 0;
+
+	/*pols = false;*/
 
 	estadoP1 = STOP;
 
@@ -196,24 +190,17 @@ Update_Status ModulePlayer::Update()
 
 	collider->SetPos(position.x, position.y);
 	currentAnimation->Update();
-	dustAnimation->Update();
+
+	/*dustAnimation->Update();*/
 
 	return Update_Status::UPDATE_CONTINUE;
 }
 
 Update_Status ModulePlayer::PostUpdate()
 {
-	if (!destroyed)
-	{
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		App->render->Blit(texture, position.x, position.y, &rect);
 
-		if (pols) {
-			SDL_Rect rect2 = dustAnimation->GetCurrentFrame();
-			App->render->Blit(dust_texture, position.x-5, position.y+27, &rect2); //ARREGLAR LA POSICION
-		}
-		pols = false;
-	}
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	App->render->Blit(texture, position.x, position.y, &rect);	
 
 	// Draw UI (score) --------------------------------------
 	if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
@@ -224,6 +211,12 @@ Update_Status ModulePlayer::PostUpdate()
 
 		//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
 	}
+
+	//if (pols)
+	//{
+	//	SDL_Rect rect2 = dustAnimation->GetCurrentFrame();
+	//	App->render->Blit(dust_texture, position.x - 5, position.y + 27, &rect2); //ARREGLAR LA POSICION
+	//}
 
 	//Debug Text rounds P1
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
@@ -288,7 +281,7 @@ void ModulePlayer::movimientoPlayer(){
 				timerP();
 				position.x += 1, 5 * speed;
 				currentAnimation = &rightAnim;
-				pols = true;
+				/*pols = true;*/
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
