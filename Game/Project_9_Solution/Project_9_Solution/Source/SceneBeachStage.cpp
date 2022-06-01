@@ -122,6 +122,7 @@ bool SceneBeachStage::Start()
 
 	debugwinP1 = false;
 	debugwinP2 = false;
+	roundSpriteAppear = false;
 	winState = 0;
 	godMode = false;
 	estadoS = INICIO; 
@@ -148,6 +149,7 @@ Update_Status SceneBeachStage::Update()
 		}
 		else if (estadoTS == EJECUTANDO) {
 			/*AQUI POSAR LO DE BLIT DE RONDESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS*/
+			roundSpriteAppear = true;
 			TimerS();
 		}
 		else if(estadoTS == FIN)
@@ -171,6 +173,7 @@ Update_Status SceneBeachStage::Update()
 			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
+
 			TimerS();
 		}
 		else if (estadoTS == FIN)

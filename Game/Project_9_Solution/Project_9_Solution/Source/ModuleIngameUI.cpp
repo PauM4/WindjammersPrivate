@@ -244,40 +244,44 @@ Update_Status ModuleInGameUI::PostUpdate()
 		//Timer
 		rectTimer = currentTimerAnim->GetCurrentFrame();
 		App->render->Blit(timerTexture, 144, 13, &rectTimer);
-
-		////12 points / 30 sec
-		//SDL_Rect rectNormes = { 207, 11, 151, 15 };
-		//App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
-
-		////puntuació tots gols L
-		//SDL_Rect tresPuntsL = { 0, 188, 63, 34 };
-		//SDL_Rect cincPuntsL = { 76, 258, 63, 35 };
-		//App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-		//App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
-		//App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
-
-		////puntuació tots gols R
-		//SDL_Rect tresPuntsR = { 112, 120, 63, 34 };
-		//SDL_Rect cincPuntsR = { 74,	224, 63, 35 };
-		//App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
-		//App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
-		//App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
-
-		////Set1
-		//SDL_Rect set1Rect = { 160, 300, 160, 56 };
-		//App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
-
-		////Time88
-		//SDL_Rect rectTimer88 = { 0, 0, 15, 15 };
-		//App->render->Blit(timerTexture, 144, 13, &rectTimer88);
-
-		////Score 00-00
-		//App->fonts->BlitText(155, 16, App->player->scoreFont, App->player->scoreText);
-
-		////App->fonts->BlitText(115, 16, scoreFont, scoreText);
-
 	}
 
+	/*
+	if 1 i 0 o 0 i 1 --> Set 2
+
+if 1 i 2 o 2 i 1 o 1 i 1 --> Final
+
+if 2 i 2 --> Sudden
+
+if 3 i 3 draw
+
+App->render->Blit(uiSpriteTexture, 72, 80, &set2Rect);
+App->render->Blit(uiSpriteTexture, 72, 80, &setFinalRect);
+App->render->Blit(uiSpriteTexture, 17, 94, &suddenRect);
+	*/
+
+	//1 a 0 __ 0 a 1 SET 2
+	if ((App->player->round == 1 && App->player2->round == 0) || (App->player->round == 0 && App->player2->round == 1))
+	{
+		App->render->Blit(uiSpriteTexture, 72, 80, &set2Rect);
+	}
+	//1 a 2 __ 2 a 1 __ 1 a 1 SET FINAL
+	else if ((App->player->round == 1 && App->player2->round == 2) || (App->player->round == 2 && App->player2->round == 1)
+		|| (App->player->round == 1 && App->player2->round == 1))
+	{
+		App->render->Blit(uiSpriteTexture, 72, 80, &setFinalRect);
+	}
+	//2 a 2 SET SUDDENDEATH
+	else if ((App->player->round == 2 && App->player2->round == 2))
+	{
+		App->render->Blit(uiSpriteTexture, 17, 94, &suddenRect);
+	}
+	//3 a 3 DRAW GAME
+	else if ((App->player->round == 3 && App->player2->round == 3))
+	{
+		//DRAW GAME
+	}
+	
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
 	{
 		if (!isDebugAppear)
