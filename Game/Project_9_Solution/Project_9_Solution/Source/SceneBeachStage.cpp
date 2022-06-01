@@ -121,6 +121,7 @@ bool SceneBeachStage::Start()
 	App->ingameUI->Enable();
 
 	roundSpriteAppear = false;
+	setsSpriteAppear = false;
 
 	debugwinP1 = false;
 	debugwinP2 = false;
@@ -149,10 +150,12 @@ Update_Status SceneBeachStage::Update()
 			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
+			/*setsSpriteAppear = true;*/
 			TimerS();
 		}
 		else if (estadoTS == FIN)
 		{
+			//setsSpriteAppear = false;
 			//SceneBeachStage::Arbitro(1);
 			estadoTS = INICIOT;
 			estadoS = INICIORONDA;
@@ -234,10 +237,12 @@ Update_Status SceneBeachStage::Update()
 			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
+			setsSpriteAppear = true;
 			TimerS();
 		}
 		else if (estadoTS == FIN)
 		{
+			setsSpriteAppear = false;
 			estadoS = INICIORONDA;
 			estadoTS = INICIOT;
 		}

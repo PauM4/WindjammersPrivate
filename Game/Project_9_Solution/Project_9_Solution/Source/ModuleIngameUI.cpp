@@ -75,6 +75,12 @@ bool ModuleInGameUI::Start()
 	koreanFlagRect = { 430, 0, 15, 9 };
 	germanyFlagRect = { 445, 0, 15, 9 };
 
+	setCountRect = { 315, 27, 78, 26 };
+	setNum0 = { 135, 27, 45, 26 };
+	setNum1 = { 180, 27, 45, 26 };
+	setNum2 = { 225, 27, 45, 26 };
+	setNum3 = { 270, 27, 45, 26 };
+
 	rounds = { 0,0,0,0 };
 
 	//Debug Font
@@ -271,7 +277,51 @@ Update_Status ModuleInGameUI::PostUpdate()
 			//DRAW GAME
 		}
 	}
-	
+
+	//Entre Rondes indicar quants sets porta cadascú
+	if (App->sceneBeachStage->setsSpriteAppear == true)
+	{
+		App->render->Blit(uiSpriteTexture, 113, 124, &setCountRect);
+
+		//Num of sets P1
+		if (App->player->round == 0)
+		{
+			App->render->Blit(uiSpriteTexture, 50, 124, &setNum0);
+		}
+		else if (App->player->round == 1)
+		{
+			App->render->Blit(uiSpriteTexture, 50, 124, &setNum1);
+		}
+		else if (App->player->round == 2)
+		{
+			App->render->Blit(uiSpriteTexture, 50, 124, &setNum2);
+		}
+		else if (App->player->round == 3)
+		{
+			App->render->Blit(uiSpriteTexture, 50, 124, &setNum3);
+		}
+
+		//Num of sets P2
+		if (App->player2->round == 0)
+		{
+			App->render->Blit(uiSpriteTexture, 210, 124, &setNum0);
+		}
+		else if (App->player2->round == 1)
+		{
+			App->render->Blit(uiSpriteTexture, 210, 124, &setNum1);
+		}
+		else if (App->player2->round == 2)
+		{
+			App->render->Blit(uiSpriteTexture, 210, 124, &setNum2);
+		}
+		else if (App->player2->round == 3)
+		{
+			App->render->Blit(uiSpriteTexture, 210, 124, &setNum3);
+		}
+
+	}
+
+
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
 	{
 		if (!isDebugAppear)

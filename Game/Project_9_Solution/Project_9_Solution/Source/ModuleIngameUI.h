@@ -95,6 +95,12 @@ public:
 
 	SDL_Rect rounds;
 
+	SDL_Rect setCountRect;
+	SDL_Rect setNum0;
+	SDL_Rect setNum1;
+	SDL_Rect setNum2;
+	SDL_Rect setNum3;
+
 	SDL_Texture* bothCharactersTexture;
 
 	//Font Debug vars

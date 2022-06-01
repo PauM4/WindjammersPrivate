@@ -156,6 +156,7 @@ public:
 	bool isDebugAppear;
 
 	bool roundSpriteAppear;
+	bool setsSpriteAppear;
 	
 };
 
