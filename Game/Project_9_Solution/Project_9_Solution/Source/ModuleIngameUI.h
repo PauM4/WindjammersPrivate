@@ -35,6 +35,7 @@ public:
 
 	SDL_Texture* uiSpriteTexture = nullptr;
 	SDL_Texture* timerTexture = nullptr;
+	SDL_Texture* rectanguletLila = nullptr;
 
 	Animation* currentTimerAnim = nullptr;
 	Animation timerAnim;
@@ -73,6 +74,8 @@ public:
 	SDL_Rect cincPuntsL;
 	SDL_Rect tresPuntsR;
 	SDL_Rect cincPuntsR;
+	SDL_Rect dosPunts;
+
 	SDL_Rect set1Rect;
 	SDL_Rect set2Rect;
 	SDL_Rect setFinalRect;
@@ -84,6 +87,7 @@ public:
 	SDL_Rect LoseUIRight;
 	SDL_Rect winUILeft;
 	SDL_Rect LoseUILeft;
+	SDL_Rect drawGameRect;
 
 	SDL_Rect rectTimer88;
 
@@ -94,6 +98,12 @@ public:
 	SDL_Rect germanyFlagRect;
 
 	SDL_Rect rounds;
+
+	SDL_Rect setCountRect;
+	SDL_Rect setNum0;
+	SDL_Rect setNum1;
+	SDL_Rect setNum2;
+	SDL_Rect setNum3;
 
 	SDL_Texture* bothCharactersTexture;
 

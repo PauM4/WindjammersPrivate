@@ -54,11 +54,15 @@ bool ModuleInGameUI::Start()
 	winUILeft = { 324, 86, 112, 32 };
 	LoseUILeft = { 0, 54, 100, 27 };
 
+	drawGameRect = { 100, 54, 212, 29 };
+
 	tresPuntsL = { 0, 188, 63, 34 };
 	cincPuntsL = { 76, 258, 63, 35 };
 
 	tresPuntsR = { 112, 120, 63, 34 };
 	cincPuntsR = { 74, 224, 63, 35 };
+
+	dosPunts = { 139, 258, 40, 41 };
 
 	set1Rect = { 160, 300, 160, 56 };
 	set2Rect = { 320, 300, 160, 56 };
@@ -75,6 +79,12 @@ bool ModuleInGameUI::Start()
 	koreanFlagRect = { 430, 0, 15, 9 };
 	germanyFlagRect = { 445, 0, 15, 9 };
 
+	setCountRect = { 315, 27, 78, 26 };
+	setNum0 = { 135, 27, 45, 26 };
+	setNum1 = { 180, 27, 45, 26 };
+	setNum2 = { 225, 27, 45, 26 };
+	setNum3 = { 270, 27, 45, 26 };
+
 	rounds = { 0,0,0,0 };
 
 	//Debug Font
@@ -89,6 +99,9 @@ bool ModuleInGameUI::Start()
 	// Load timer texture
 	timerTexture = App->textures->Load("Assets/Sprites/UI/Fonts/timerSpriteSheet.png");
 	currentTimerAnim = &timerAnim;
+
+	// Load rectangulet Lila per set count
+	rectanguletLila = App->textures->Load("Assets/Sprites/UI/rectanguletLila.png");
 
 	return ret;
 }
@@ -157,8 +170,9 @@ Update_Status ModuleInGameUI::PostUpdate()
 		else if (App->sceneBeachStage->winState == 3) {
 
 			App->render->Blit(bothCharactersTexture, 0, 0, NULL);
-			App->render->Blit(uiSpriteTexture, 180, 48, &LoseUIRight);
-			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
+			App->render->Blit(uiSpriteTexture, 46, 36, &drawGameRect);
+			//App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
+			//App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
 			//winState = 4;
 		}
 	}
@@ -183,51 +197,39 @@ Update_Status ModuleInGameUI::PostUpdate()
 	//INICI PARTIDA
 	if (App->sceneBeachStage->estadoS == App->sceneBeachStage->INICIO)
 	{
-
-		////Timer
-		//SDL_Rect rectTimer = currentTimerAnim->GetCurrentFrame();
-		//App->render->Blit(timerTexture, 144, 13, &rectTimer);
-
 		//12 points / 30 sec
 		App->render->Blit(uiSpriteTexture, 77, 168, &rectNormes);
 
 		//Diferents puntuacions
 		if (App->sceneStageSelect->sceneSelected == Concrete)
 		{
-			//puntuació tots gols L
+			//puntuaciï¿½ tots gols L
 			App->render->Blit(uiSpriteTexture, 12, 26, &cincPuntsL);
 			App->render->Blit(uiSpriteTexture, 12, 92, &tresPuntsL);
 			App->render->Blit(uiSpriteTexture, 12, 158, &cincPuntsL);
 
-			//puntuació tots gols R
+			//puntuaciï¿½ tots gols R
 			App->render->Blit(uiSpriteTexture, 232, 26, &cincPuntsR);
 			App->render->Blit(uiSpriteTexture, 232, 92, &tresPuntsR);
 			App->render->Blit(uiSpriteTexture, 232, 158, &cincPuntsR);
 		}
 		else
 		{
-			//puntuació tots gols L
+			//puntuaciï¿½ tots gols L
 			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
 			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 
-			//puntuació tots gols R
+			//puntuaciï¿½ tots gols R
 			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
 			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 		}
 
 		//Set1
-
 		App->render->Blit(uiSpriteTexture, 72, 80, &set1Rect);
 
-		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-		/*App->render->Blit(uiSpriteTexture, 72, 80, &set2Rect);
-		App->render->Blit(uiSpriteTexture, 72, 80, &setFinalRect);
-		App->render->Blit(uiSpriteTexture, 17, 95, &suddenRect);*/
-
 		//Time88
-
 		App->render->Blit(timerTexture, 144, 13, &rectTimer88);
 
 		//Score 00-00 preGame
@@ -236,16 +238,85 @@ Update_Status ModuleInGameUI::PostUpdate()
 		App->fonts->BlitText(162, 17, App->player->scoreFont, "0");
 		App->fonts->BlitText(178, 17, App->player->scoreFont, "0");
 
-		//App->fonts->BlitText(115, 16, scoreFont, scoreText);
 	}
-	//COMENÇA PARTIDA
+	//COMENï¿½A PARTIDA
 	else if (App->sceneBeachStage->estadoS == App->sceneBeachStage->RONDA)
 	{
 		//Timer
 		rectTimer = currentTimerAnim->GetCurrentFrame();
 		App->render->Blit(timerTexture, 144, 13, &rectTimer);
+	}
+
+	//ENTRE RONDES BLIT DE QUINA RONDA ES
+	if (App->sceneBeachStage->roundSpriteAppear == true)
+	{
+		//1 a 0 __ 0 a 1 SET 2
+		if ((App->player->round == 1 && App->player2->round == 0) || (App->player->round == 0 && App->player2->round == 1))
+		{
+			App->render->Blit(uiSpriteTexture, 72, 80, &set2Rect);
+		}
+		//1 a 2 __ 2 a 1 __ 1 a 1 SET FINAL
+		else if ((App->player->round == 1 && App->player2->round == 2) || (App->player->round == 2 && App->player2->round == 1)
+			|| (App->player->round == 1 && App->player2->round == 1))
+		{
+			App->render->Blit(uiSpriteTexture, 72, 80, &setFinalRect);
+		}
+		//2 a 2 SET SUDDENDEATH
+		else if ((App->player->round == 2 && App->player2->round == 2))
+		{
+			App->render->Blit(uiSpriteTexture, 17, 94, &suddenRect);
+		}
+		//3 a 3 DRAW GAME
+		else if ((App->player->round == 3 && App->player2->round == 3))
+		{
+			//DRAW GAME
+		}
+	}
+
+	//Entre Rondes indicar quants sets porta cadascï¿½
+	if (App->sceneBeachStage->setsSpriteAppear == true)
+	{
+		App->render->Blit(rectanguletLila, 64, 89, NULL);
+		App->render->Blit(uiSpriteTexture, 113, 107, &setCountRect);
+
+		//Num of sets P1
+		if (App->player->round == 0)
+		{
+			App->render->Blit(uiSpriteTexture, 50, 107, &setNum0);
+		}
+		else if (App->player->round == 1)
+		{
+			App->render->Blit(uiSpriteTexture, 50, 107, &setNum1);
+		}
+		else if (App->player->round == 2)
+		{
+			App->render->Blit(uiSpriteTexture, 50, 107, &setNum2);
+		}
+		else if (App->player->round == 3)
+		{
+			App->render->Blit(uiSpriteTexture, 50, 107, &setNum3);
+		}
+
+		//Num of sets P2
+		if (App->player2->round == 0)
+		{
+			App->render->Blit(uiSpriteTexture, 210, 107, &setNum0);
+		}
+		else if (App->player2->round == 1)
+		{
+			App->render->Blit(uiSpriteTexture, 210, 107, &setNum1);
+		}
+		else if (App->player2->round == 2)
+		{
+			App->render->Blit(uiSpriteTexture, 210, 107, &setNum2);
+		}
+		else if (App->player2->round == 3)
+		{
+			App->render->Blit(uiSpriteTexture, 210, 107, &setNum3);
+		}
 
 	}
+
 
 	if (App->input->keys[SDL_SCANCODE_F5] == Key_State::KEY_DOWN)
 	{
@@ -292,6 +363,10 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 			break;
 		case(6):
+			App->render->Blit(uiSpriteTexture, 72, 58,&dosPunts);
+			break;
+		case(7):
+			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
 			break;
 		}
 	}

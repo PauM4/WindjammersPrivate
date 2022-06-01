@@ -121,11 +121,14 @@ bool SceneBeachStage::Start()
 	App->collisions->Enable();
 	App->ingameUI->Enable();
 
+	roundSpriteAppear = false;
+	setsSpriteAppear = false;
+
 	debugwinP1 = false;
 	debugwinP2 = false;
 	winState = 0;
 	godMode = false;
-	estadoS = INICIO; 
+	estadoS = INICIO;
 	estadoTS = INICIOT;
 	estadoTGol == INICIOGOL;
 	arbitroFinalRonda = 1;
@@ -149,14 +152,16 @@ Update_Status SceneBeachStage::Update()
 			App->audio->PlayFx(round1FX);
 			initialTimeS = SDL_GetTicks();
 			timeLimitS = 4 * 1000;
-			estadoTS = EJECUTANDO;		
+			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
+			/*setsSpriteAppear = true;*/
 			TimerS();
 		}
-		else if(estadoTS == FIN)
+		else if (estadoTS == FIN)
 		{
-    		//SceneBeachStage::Arbitro(1);
+			//setsSpriteAppear = false;
+			//SceneBeachStage::Arbitro(1);
 			estadoTS = INICIOT;
 			estadoS = INICIORONDA;
 		}
@@ -167,7 +172,7 @@ Update_Status SceneBeachStage::Update()
 		//Animacion Ronda 1.
 		App->player->score = 0;
 		App->player2->score = 0;
-		App->audio->PlayFx(whistleFX); 
+		App->audio->PlayFx(whistleFX);
 		if (estadoTS == INICIOT)
 		{
 			initialTimeS = SDL_GetTicks();
@@ -175,17 +180,19 @@ Update_Status SceneBeachStage::Update()
 			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
+			roundSpriteAppear = true;
 			TimerS();
 		}
 		else if (estadoTS == FIN)
 		{
+			roundSpriteAppear = false;
 			Arbitro(arbitroFinalRonda);
 			estadoS = RONDA;
 			initialTimeS = SDL_GetTicks();
 			timeLimitS = 30 * 1000;
 			estadoTS = EJECUTANDO;
 			App->ingameUI->timerAnim.Reset();
-		}  
+		}
 
 		break;
 
@@ -206,19 +213,19 @@ Update_Status SceneBeachStage::Update()
 			}
 			estadoTGol = INICIOGOL;
 			Round();
-			if(estadoS != FINALRONDA){
-			 Arbitro(arbitroFinalRonda);
+			if (estadoS != FINALRONDA) {
+				Arbitro(arbitroFinalRonda);
 			}
 		}
 		else if (estadoTS == EJECUTANDO) {
 			TimerS();
-			
+
 		}
 		else if (estadoTS == FIN) {
 			Round();
 			estadoTS = INICIOT;
 
-		} 
+		}
 		break;
 
 		//Animacions qui ha guanyat bailecito chingon
@@ -235,12 +242,14 @@ Update_Status SceneBeachStage::Update()
 			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
+			setsSpriteAppear = true;
 			TimerS();
 		}
 		else if (estadoTS == FIN)
 		{
+			setsSpriteAppear = false;
 			estadoS = INICIORONDA;
-			estadoTS = INICIOT; 
+			estadoTS = INICIOT;
 		}
 		break;
 
@@ -271,7 +280,7 @@ Update_Status SceneBeachStage::Update()
 	if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
 	{
 		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
-		
+
 		App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 		//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
 		debugwinP1 = true;
@@ -281,7 +290,7 @@ Update_Status SceneBeachStage::Update()
 	if (App->input->keys[SDL_SCANCODE_F4] == Key_State::KEY_DOWN)
 	{
 		App->audio->PlayMusic("Assets/Music/09_Lost Set.ogg", 0.0f);
-		
+
 		App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 		//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
 		debugwinP2 = true;
@@ -365,9 +374,9 @@ Update_Status SceneBeachStage::PostUpdate()
 
 		//DEBUGG ESTADO FRISBEE
 
-	
+
 		if (App->frisbee->estadoF == 0) {
-			App->fonts->BlitText(110,100, debugFont, "ARBITROF");
+			App->fonts->BlitText(110, 100, debugFont, "ARBITROF");
 		}
 		else if (App->frisbee->estadoF == 1) {
 			App->fonts->BlitText(110, 100, debugFont, "STOP");
@@ -420,7 +429,8 @@ Update_Status SceneBeachStage::PostUpdate()
 
 			App->fonts->BlitText(110, 120, debugFont, "NORMAL");
 
-		} else if (App->frisbee->lanzamientoF == 1) {
+		}
+		else if (App->frisbee->lanzamientoF == 1) {
 			App->fonts->BlitText(110, 120, debugFont, "PARABOLA");
 		}
 		else if (App->frisbee->lanzamientoF == 2) {
@@ -480,15 +490,16 @@ void SceneBeachStage::Arbitro(int arbitro) {
 
 		App->frisbee->xspeed = -3;
 		App->frisbee->yspeed = -2;
-		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
+		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 		App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::ARBITRO;
-		
 
-	} else if (arbitro == 2) {
+
+	}
+	else if (arbitro == 2) {
 
 		App->frisbee->xspeed = 3;
 		App->frisbee->yspeed = -2;
-		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO; 
+		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 		App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::ARBITRO;
 	}
 }
@@ -507,7 +518,7 @@ void SceneBeachStage::Round() {
 				arbitroFinalRonda = 2;
 				estadoTS = INICIOT;
 				estadoS = FINALRONDA;
-				
+
 			}
 
 			if (App->player2->score > App->player->score + 2) {
@@ -567,16 +578,17 @@ void SceneBeachStage::Round() {
 		}
 
 	}
-	
+
 }
 
 void SceneBeachStage::Win() { 
 
-	if (App->player->round == App->player2->round && App->player->round == 2 && App->player2->round ==2 && !suddenDeath) {
+	if (App->player->round == App->player2->round && App->player->round == 2 && App->player2->round == 2 && !suddenDeath) {
 		suddenDeath = true;
 		estadoS = INICIORONDA;
-		
-	} 
+
+
+	}
 	else if (App->player->score != 0 && suddenDeath) {
 		//llamar animaci�n y texturas de que ha ganado el primer jugador la partida
 		winState = 1;
@@ -587,15 +599,15 @@ void SceneBeachStage::Win() {
 		//llamar animaci�n y texturas de que ha ganado el segundo jugador la partida
 		winState = 2;
 		estadoS = FINAL;
-		
+
 	}
 	else if ((App->player->round == 2 && !suddenDeath) || debugwinP1) {
 		//llamar animaci�n y texturas de que ha ganado el primer jugador la partida
 		//SDL Delay
 		winState = 1;
 		estadoS = FINAL;
-		}
-	else if ((App->player2->round == 2 &&!suddenDeath) || debugwinP2) {
+	}
+	else if ((App->player2->round == 2 && !suddenDeath) || debugwinP2) {
 		//llamar animaci�n y texturas de que ha ganado el segundo jugador la partida
 		winState = 2;
 		estadoS = FINAL;
@@ -607,7 +619,7 @@ void SceneBeachStage::Win() {
 		estadoS = FINAL;
 
 	}
-	else if(!godMode) {
+	else if (!godMode) {
 		//estadoS = INICIORONDA;
 	}
 
@@ -616,18 +628,19 @@ void SceneBeachStage::Win() {
 void SceneBeachStage::Score(){
 	App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
 	App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
+	//Esquerra
 	if (App->frisbee->position.x <= 19) {
 		//5 punts
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
-			
+
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
-				App->player->score += 3;
+				App->player2->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
 			else
 			{
-				App->player->score += 5;
+				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
 			}
 			App->audio->PlayFx(applauseFX);
@@ -643,17 +656,17 @@ void SceneBeachStage::Score(){
 			estadoGolScore = MIDLEFT;
 		}
 		//3 punts adalt
-		else if(App->frisbee->position.y < 94)
+		else if (App->frisbee->position.y < 94)
 		{
 
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
-				App->player->score += 5;
+				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
 			}
 			else
 			{
-				App->player->score += 3;
+				App->player2->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
 			App->audio->PlayFx(applauseFX);
@@ -665,21 +678,21 @@ void SceneBeachStage::Score(){
 			initialTimeGol = SDL_GetTicks();
 			timeLimitGol = 2 * 1000;
 			estadoTGol = EJECUTANDOGOL;
-			arbitroFinalRonda = 1;	
+			arbitroFinalRonda = 1;
 			estadoGolScore = UPLEFT;
 		}
 		//3 punts abaix
 		else if (App->frisbee->position.y > 144)
 		{
-			
+
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
-				App->player->score += 5;
+				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
 			}
 			else
 			{
-				App->player->score += 3;
+				App->player2->score += 3;
 				App->audio->PlayFx(threePointsFX);
 			}
 			App->audio->PlayFx(applauseFX);
@@ -695,9 +708,10 @@ void SceneBeachStage::Score(){
 			estadoGolScore = DOWNLEFT;
 		}
 	}
+	//Dreta
 	else if (App->frisbee->position.x >= 276) {
 		if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
-			
+
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
 				App->player->score += 3;
@@ -721,9 +735,9 @@ void SceneBeachStage::Score(){
 			estadoGolScore = MIDRIGHT;
 		}
 		// 3 punts UP
-		else if(App->frisbee->position.y < 94)
+		else if (App->frisbee->position.y < 94)
 		{
-			
+
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
 				App->player->score += 3;
@@ -748,7 +762,7 @@ void SceneBeachStage::Score(){
 		}
 		else if (App->frisbee->position.y > 144)
 		{
-			
+
 			if (App->sceneStageSelect->sceneSelected == Concrete)
 			{
 				App->player->score += 5;
@@ -773,16 +787,16 @@ void SceneBeachStage::Score(){
 		}
 	}
 	else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
-			App->player2->score += 2;
-			if (suddenDeath) {
-				Win();
-			}
+		App->player2->score += 2;
+		if (suddenDeath) {
+			Win();
+		}
 
-			initialTimeGol = SDL_GetTicks();
-			timeLimitGol = 2 * 1000;
-			estadoTGol = EJECUTANDOGOL;
-			arbitroFinalRonda = 1;
-			estadoGolScore = DOWNRIGHT; //aqui meter el miss
+		initialTimeGol = SDL_GetTicks();
+		timeLimitGol = 2 * 1000;
+		estadoTGol = EJECUTANDOGOL;
+		arbitroFinalRonda = 1;
+		estadoGolScore = MISSL; //aqui meter el miss
 
 	}
 	else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
@@ -794,7 +808,7 @@ void SceneBeachStage::Score(){
 		timeLimitGol = 2 * 1000;
 		estadoTGol = EJECUTANDOGOL;
 		arbitroFinalRonda = 2;
-		estadoGolScore = DOWNRIGHT; //aqui meter el miss
+		estadoGolScore = MISSR; //aqui meter el miss
 	}
 
 	App->frisbee->position.x = 150;
@@ -820,3 +834,5 @@ void SceneBeachStage::TimerGol() {
 	}
 
 }
+
+
