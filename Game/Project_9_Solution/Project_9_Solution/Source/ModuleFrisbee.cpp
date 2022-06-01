@@ -11,15 +11,18 @@
 #include "ModulePlayer2.h"
 #include "SDL/include/SDL.h"
 #include "SceneBeachStage.h"
+#include "SceneStageSelect.h"
 #include <math.h>
 
 ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 {
-	// moving animation
-	moving.PushBack({ 117, 48, 16, 16 });
-	moving.PushBack({ 149, 48, 16, 16 });
-	moving.PushBack({ 181, 48, 16, 16 });
-	moving.PushBack({ 213, 48, 16, 16 });
+	moving.PushBack({ 17 +  51, 17, 16, 16 });
+	moving.PushBack({ 17 + 102, 17, 16, 16 });
+	moving.PushBack({ 17 + 153, 17, 16, 16 });
+	moving.PushBack({ 17 + 204, 17, 16, 16 });
+	moving.PushBack({ 17 + 255, 17, 16, 16 });
+	moving.PushBack({ 17 + 306, 17, 16, 16 });
+	moving.PushBack({ 17 + 357, 17, 16, 16 });
 	moving.loop = true;
 	moving.speed = 0.1f;
 
@@ -66,8 +69,7 @@ bool ModuleFrisbee::Start()
 	LOG("Loading frisbee textures");
 
 	
-
-	texture = App->textures->Load("Assets/Sprites/Levels/Beach.png");
+	texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
 
 
 	position.x = 150;
@@ -79,6 +81,10 @@ bool ModuleFrisbee::Start()
 	destroyed = false;
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
+	
+	provisional = App->collisions->AddCollider({ 145, 52, 10, 16 }, Collider::Type::DEBUGG, this);
+	provisional2 = App->collisions->AddCollider({ 145, 151, 10, 16 }, Collider::Type::DEBUGG, this);
+
 	estadoF = ARBITROF;
 	lanzamientoF = ARBITRO;
 	estadoTF = INICIO;
@@ -87,6 +93,7 @@ bool ModuleFrisbee::Start()
 	contador_Angulo_SuperShot = true;
 	contadorYooSuperShot = 0;
 	yooDirec = true;
+	limiteConcrete = false;
 	return ret;
 }
 
@@ -354,21 +361,39 @@ void ModuleFrisbee::limitesFrisbee() {
 		}
 
 	}
-
 	else if (lanzamientoF != ARBITRO && lanzamientoF != SUPERSHOT) {
 		if (position.x >= 19 && position.x <= 276) {
 
-			if (position.y <= 48) {
-				yspeed *= -1;
+			if (App->sceneStageSelect->sceneSelected == Concrete) {
+				if (position.y <= 48) {
+					yspeed *= -1;
+				}
+				else if (position.y >= 190) {
+					yspeed *= -1;
+				}
 			}
-			else if (position.y >= 170) {
+			else {
+				if (position.y <= 48) {
+					yspeed *= -1;
+				}
+				else if (position.y >= 170) {
+					yspeed *= -1;
+				}
+			}
+
+			
+		}
+	}
+
+	if (App->sceneStageSelect->sceneSelected == Concrete) {
+
+		if (position.x <= 155 && position.x >= 145) {
+			if (((position.y <= 62 && position.y >= 52) || (position.y <= 161 && position.y >= 151)) && limiteConcrete) {
+				limiteConcrete = false;
 				yspeed *= -1;
 			}
 		}
-
-		
 	}
-
 }
 
 

@@ -21,38 +21,49 @@
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
 	// Idle Left Animation
-	idleLAnim.PushBack({ 393, 359, 23, 36 });
-	idleLAnim.PushBack({ 370, 359, 23, 35 });
-	idleLAnim.PushBack({ 347, 359, 23, 36 });
-	idleLAnim.PushBack({ 323, 359, 24, 36 });
-	idleLAnim.PushBack({ 299, 359, 24, 35 });
-	idleLAnim.PushBack({ 275, 359, 24, 36 });
-	idleLAnim.PushBack({ 251, 359, 23, 39 });
-	idleLAnim.PushBack({ 227, 359, 23, 37 });
+	//idleLAnim.PushBack({ 393, 359, 23, 36 });
+	//idleLAnim.PushBack({ 370, 359, 23, 35 });
+	//idleLAnim.PushBack({ 347, 359, 23, 36 });
+	//idleLAnim.PushBack({ 323, 359, 24, 36 });
+	//idleLAnim.PushBack({ 299, 359, 24, 35 });
+	//idleLAnim.PushBack({ 275, 359, 24, 36 });
+	//idleLAnim.PushBack({ 251, 359, 23, 39 });
+	//idleLAnim.PushBack({ 227, 359, 23, 37 });
+	//idleLAnim.loop = true;
+	//idleLAnim.speed = 0.1f;
+
+	for (int i = 1; i < 9; i++) {
+		idleLAnim.PushBack({ 100+(i*50), 0, 50, 50 });
+	}
 	idleLAnim.loop = true;
 	idleLAnim.speed = 0.1f;
 
-	// Idle Right Animation
-	idleRAnim.PushBack({ 393, 103, 23, 36 });
-	idleRAnim.PushBack({ 370, 103, 23, 35 });
-	idleRAnim.PushBack({ 347, 103, 23, 36 });
-	idleRAnim.PushBack({ 323, 103, 24, 36 });
-	idleRAnim.PushBack({ 299, 103, 24, 35 });
-	idleRAnim.PushBack({ 275, 103, 24, 36 });
-	idleRAnim.PushBack({ 251, 103, 23, 39 });
-	idleRAnim.PushBack({ 227, 103, 23, 37 });
+	for (int i = 1; i < 9; i++) {
+		idleRAnim.PushBack({ 250 + (i * 50), 350, 50, 50 });
+	}
 	idleRAnim.loop = true;
 	idleRAnim.speed = 0.1f;
 
+
+	// Idle Right Animation
+	//idleRAnim.PushBack({ 393, 103, 23, 36 });
+	//idleRAnim.PushBack({ 370, 103, 23, 35 });
+	//idleRAnim.PushBack({ 347, 103, 23, 36 });
+	//idleRAnim.PushBack({ 323, 103, 24, 36 });
+	//idleRAnim.PushBack({ 299, 103, 24, 35 });
+	//idleRAnim.PushBack({ 275, 103, 24, 36 });
+	//idleRAnim.PushBack({ 251, 103, 23, 39 });
+	//idleRAnim.PushBack({ 227, 103, 23, 37 });
+	//idleRAnim.loop = true;
+	//idleRAnim.speed = 0.1f;
+
 	// Move Right
-	rightAnim.PushBack({ 454, 148, 45, 32 });
-	rightAnim.PushBack({ 426, 148, 28, 33 });
-	rightAnim.PushBack({ 385, 148, 41, 36 });
-	rightAnim.PushBack({ 339, 148, 46,	29 });
-	rightAnim.PushBack({ 310, 148, 29, 36 });
-	rightAnim.PushBack({ 269, 148, 41, 35 });
+	for (int i = 0; i < 5; i++) {
+		rightAnim.PushBack({ 319+(i*53), 399, 53, 57 });
+	}
 	rightAnim.loop = true;
-	rightAnim.speed = 0.1f;
+	rightAnim.speed = 0.05f;
+
 
 	// Move Down Head Left
 	downLAnim.PushBack({ 240, 404, 29, 43 });
@@ -259,6 +270,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		estadoTP = estadoTimerP::EJECUTANDO;
 
 		App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::MOVIMIENTO;
+		App->frisbee->limiteConcrete = true;
 	}
 }
 

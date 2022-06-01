@@ -234,6 +234,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 		estadoTP2 = estadoTimerP2::EJECUTANDO;
 
 		App->player->estadoP1 = ModulePlayer::estadoPlayer::MOVIMIENTO;
+		App->frisbee->limiteConcrete = true;
 	}
 
 	
