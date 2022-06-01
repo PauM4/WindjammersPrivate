@@ -20,109 +20,75 @@
 
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
-	// Idle Left Animation
-	//idleLAnim.PushBack({ 393, 359, 23, 36 });
-	//idleLAnim.PushBack({ 370, 359, 23, 35 });
-	//idleLAnim.PushBack({ 347, 359, 23, 36 });
-	//idleLAnim.PushBack({ 323, 359, 24, 36 });
-	//idleLAnim.PushBack({ 299, 359, 24, 35 });
-	//idleLAnim.PushBack({ 275, 359, 24, 36 });
-	//idleLAnim.PushBack({ 251, 359, 23, 39 });
-	//idleLAnim.PushBack({ 227, 359, 23, 37 });
-	//idleLAnim.loop = true;
-	//idleLAnim.speed = 0.1f;
-
-	for (int i = 1; i < 9; i++) {
-		idleLAnim.PushBack({ 100+(i*50), 0, 50, 50 });
-	}
+	//idleLAnim
+	for (int i = 0; i < 8; i++) {
+		idleLAnim.PushBack({ 211+(i*53), 338, 53, 57 });
+	} 
 	idleLAnim.loop = true;
-	idleLAnim.speed = 0.1f;
+	idleLAnim.speed = 0.075f;
 
-	for (int i = 1; i < 9; i++) {
-		idleRAnim.PushBack({ 250 + (i * 50), 350, 50, 50 });
+	//idleRAnim
+	for (int i = 0; i < 8; i++) {
+		idleRAnim.PushBack({ 107 + (i * 53), 0, 53, 57 });
 	}
 	idleRAnim.loop = true;
-	idleRAnim.speed = 0.1f;
-
-
-	// Idle Right Animation
-	//idleRAnim.PushBack({ 393, 103, 23, 36 });
-	//idleRAnim.PushBack({ 370, 103, 23, 35 });
-	//idleRAnim.PushBack({ 347, 103, 23, 36 });
-	//idleRAnim.PushBack({ 323, 103, 24, 36 });
-	//idleRAnim.PushBack({ 299, 103, 24, 35 });
-	//idleRAnim.PushBack({ 275, 103, 24, 36 });
-	//idleRAnim.PushBack({ 251, 103, 23, 39 });
-	//idleRAnim.PushBack({ 227, 103, 23, 37 });
-	//idleRAnim.loop = true;
-	//idleRAnim.speed = 0.1f;
+	idleRAnim.speed = 0.075f;
 
 	// Move Right
 	for (int i = 0; i < 5; i++) {
 		rightAnim.PushBack({ 319+(i*53), 399, 53, 57 });
 	}
 	rightAnim.loop = true;
-	rightAnim.speed = 0.05f;
-
-
-	// Move Down Head Left
-	downLAnim.PushBack({ 240, 404, 29, 43 });
-	downLAnim.PushBack({ 208, 404, 32, 38 });
-	downLAnim.PushBack({ 179, 404, 29, 35 });
-	downLAnim.PushBack({ 155, 404, 24, 41 });
-	downLAnim.PushBack({ 125, 404, 30, 38 });
-	downLAnim.PushBack({ 94, 404, 31, 34 });
-	downLAnim.loop = true;
-	downLAnim.speed = 0.1f;
-
-	// Move Down Head Right
-	downRAnim.PushBack({ 240, 148, 29, 43 });
-	downRAnim.PushBack({ 208, 148, 32, 38 });
-	downRAnim.PushBack({ 179, 148, 29, 35 });
-	downRAnim.PushBack({ 155, 148, 24, 41 });
-	downRAnim.PushBack({ 125, 148, 30, 38 });
-	downRAnim.PushBack({ 94, 148, 31, 34 });
-	downRAnim.loop = true;
-	downRAnim.speed = 0.1f;
-
-	//Move Up Head Left
-	upLAnim.PushBack({ 150, 447, 30, 40 });
-	upLAnim.PushBack({ 120, 447, 30, 51 });
-	upLAnim.PushBack({ 90, 447, 30, 50 });
-	upLAnim.PushBack({ 60, 447, 30, 40 });
-	upLAnim.PushBack({ 30, 447, 30, 53 });
-	upLAnim.PushBack({ 0, 447, 30, 50 });
-	upLAnim.loop = true;
-	upLAnim.speed = 0.1f;
-
-	//Move Up Head Right
-	upRAnim.PushBack({ 150, 191, 30, 40 });
-	upRAnim.PushBack({ 120, 191, 30, 51 });
-	upRAnim.PushBack({ 90, 191, 30, 50 });
-	upRAnim.PushBack({ 60, 191, 30, 40 });
-	upRAnim.PushBack({ 30, 191, 30, 53 });
-	upRAnim.PushBack({ 0, 191, 30, 50 });
-	upRAnim.loop = true;
-	upRAnim.speed = 0.1f;
+	rightAnim.speed = 0.075f;
 
 	//Move Left
-	leftAnim.PushBack({ 455, 404, 45, 32 });
-	leftAnim.PushBack({ 427, 404, 28, 33 });
-	leftAnim.PushBack({ 386, 404, 40, 36 });
-	leftAnim.PushBack({ 340, 404, 45, 29 });
-	leftAnim.PushBack({ 311, 404, 28, 36 });
-	leftAnim.PushBack({ 270, 404, 40, 35 });
+	for (int i = 0; i < 6; i++) {
+		leftAnim.PushBack({ 105 + (i * 53), 58, 53, 57 });
+	}
 	leftAnim.loop = true;
-	leftAnim.speed = 0.1f;
+	leftAnim.speed = 0.075f;
+	
+	// Move Down Head Right
+	for (int i = 0; i < 6; i++) {
+		downRAnim.PushBack({ 0 + (i * 53), 114, 53, 57 });
+	}
+	downRAnim.loop = true;
+	downRAnim.speed = 0.075f;
 
+	// Move Down Head Left
+	for (int i = 0; i < 6; i++) {
+		downLAnim.PushBack({ 425 + (i * 53), 451, 53, 57 });
+	} 
+	downLAnim.loop = true;
+	downLAnim.speed = 0.075f;
+
+	//Move Up Head Left
+	for (int i = 0; i < 6; i++) {
+		upLAnim.PushBack({ 0 + (i * 53), 395, 53, 57 });
+	}
+	upLAnim.loop = true;
+	upLAnim.speed = 0.075f;
+	
+	//Move Up Head Right
+	for (int i = 0; i < 6; i++) {
+		upRAnim.PushBack({ 423 + (i * 53), 57, 53, 57 });
+	}
+	upRAnim.loop = true;
+	upRAnim.speed = 0.075f;
+	
 	//Idle Disk
-	idleDisk.PushBack({ 0, 512, 47, 48 });
-	idleDisk.PushBack({ 48, 512, 47, 48 });
-	idleDisk.PushBack({ 96, 512, 47, 48 });
-	idleDisk.PushBack({ 144, 512, 47, 48 });
-	idleDisk.PushBack({ 192, 512, 47, 48 });
+	for (int i = 0; i < 3; i++) {
+		idleDisk.PushBack({ 158 + (i * 53), 283, 53, 57 });
+	}
 	idleDisk.loop = true;
-	idleDisk.speed = 0.1f;
+	idleDisk.speed = 0.075f;
+
+	//Lanzamiento Disco
+	for (int i = 0; i < 5; i++) {
+		lanzamiento.PushBack({ 322 + (i * 53), 284, 53, 57 });
+	}
+	lanzamiento.loop = false;
+	lanzamiento.speed = 0.75f;
 
 	//Dust particles
 	polvo.PushBack({ 5, 108, 14, 14 });
@@ -197,13 +163,38 @@ Update_Status ModulePlayer::Update()
 		movimientoPlayer();
 		break;
 
-	case (WITHFRISBEE): 
+	case (WITHFRISBEE):
 		timerP();
 		bea = (currentTimeP - initialTimeP) / 1000;
 		lanzamientoPlayer();
 		break;
 
+
+	case (LANZAMIENTO):
+		if (estadoTP == INICIO)
+		{
+			initialTimeP = SDL_GetTicks();
+			timeLimitP = 0.08 * 1000;
+			currentAnimation = &lanzamiento;
+			estadoTP = EJECUTANDO;
+		}
+		else if (estadoTP == EJECUTANDO) {
+			/*setsSpriteAppear = true;*/
+			timerP();
+		}
+		else if (estadoTP == FIN)
+		{
+			//setsSpriteAppear = false;
+			//SceneBeachStage::Arbitro(1);
+			estadoTP = INICIO;
+			estadoP1 = MOVIMIENTO;
+			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+			lanzamiento.Reset();
+			currentAnimation = &idleRAnim;
+		}
+		break;
 	}
+
 
 	collider->SetPos(position.x, position.y);
 	currentAnimation->Update();
@@ -312,14 +303,15 @@ void ModulePlayer::movimientoPlayer(){
 			}
 
 		}
-		else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 20)
+		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 20)
 		{
 			position.x -= speed;
 
 			if (currentAnimation != &leftAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
-			{
+			{ 
 				leftAnim.Reset();
 				currentAnimation = &leftAnim;
+
 			}
 			last1 = 0; //TO DO: REVISAR NOMBRE Y SU FUNCIÓN DE TODOS LOS LAST1
 
@@ -348,9 +340,10 @@ void ModulePlayer::movimientoPlayer(){
 			}
 
 		}
-		else if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > 50)
+		if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > 50)
 		{
 			position.y -= speed;
+			
 
 			if (currentAnimation != &upLAnim && last1 == 0)
 			{
@@ -388,7 +381,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 
 		}
-		else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 150)
+		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 150)
 		{
 			position.y += speed;
 
@@ -472,6 +465,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;			
 			estadoP1 = estadoPlayer::MOVIMIENTO;
+			
 
 			break;
 		}
@@ -487,6 +481,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 			estadoP1 = estadoPlayer::MOVIMIENTO;
+
 			break;
 
 		}
@@ -497,13 +492,14 @@ void ModulePlayer::lanzamientoPlayer() {
 
 			//Pepe y bea sirven para modificar la velocidad del disco en funcion del tiempo que la haya tenido el player1.
 
-
+			currentAnimation = &lanzamiento;
 			App->frisbee->xspeed = 4 / pepe;
 			App->frisbee->yspeed = 0;
-			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
+			/*App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;*/
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
-			estadoP1 = estadoPlayer::MOVIMIENTO;
+			/*estadoP1 = estadoPlayer::MOVIMIENTO;*/
+			estadoP1 = estadoPlayer::LANZAMIENTO;
 			estadoTP = estadoTimerP::INICIO;
 
 			break;

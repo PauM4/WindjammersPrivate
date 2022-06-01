@@ -61,6 +61,7 @@ public:
 	Animation downRAnim;
 	Animation rightAnim;
 	Animation leftAnim;
+	Animation lanzamiento; 
 	Animation polvo;
 
 	enum estadoPlayer
@@ -68,7 +69,7 @@ public:
 		STOP =0,
 		MOVIMIENTO,
 		WITHFRISBEE,
-		
+		LANZAMIENTO,
 		
 	};
 	int estadoP1;
