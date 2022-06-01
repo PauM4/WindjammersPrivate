@@ -54,6 +54,8 @@ bool ModuleInGameUI::Start()
 	winUILeft = { 324, 86, 112, 32 };
 	LoseUILeft = { 0, 54, 100, 27 };
 
+	drawGameRect = { 100, 54, 212, 29 };
+
 	tresPuntsL = { 0, 188, 63, 34 };
 	cincPuntsL = { 76, 258, 63, 35 };
 
@@ -168,8 +170,9 @@ Update_Status ModuleInGameUI::PostUpdate()
 		else if (App->sceneBeachStage->winState == 3) {
 
 			App->render->Blit(bothCharactersTexture, 0, 0, NULL);
-			App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
-			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
+			App->render->Blit(uiSpriteTexture, 46, 36, &drawGameRect);
+			//App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);
+			//App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
 			//winState = 4;
 		}
 	}

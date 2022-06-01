@@ -87,6 +87,7 @@ public:
 	SDL_Rect LoseUIRight;
 	SDL_Rect winUILeft;
 	SDL_Rect LoseUILeft;
+	SDL_Rect drawGameRect;
 
 	SDL_Rect rectTimer88;
 
