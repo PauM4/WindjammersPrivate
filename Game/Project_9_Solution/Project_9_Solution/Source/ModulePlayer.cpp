@@ -113,6 +113,8 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	idleDisk.loop = true;
 	idleDisk.speed = 0.1f;
 
+
+
 	////Dust particles
 	//polvo.PushBack({ 5, 108, 14, 14 });
 	//polvo.PushBack({ 26, 108, 14, 14 });
@@ -146,7 +148,7 @@ bool ModulePlayer::Start()
 	texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
 	currentAnimation = &idleRAnim;
 
-	particlesTexture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
+
 	/*dustAnimation = &polvo;*/
 
 	position.x = 20;
@@ -190,6 +192,8 @@ Update_Status ModulePlayer::Update()
 
 	collider->SetPos(position.x, position.y);
 	currentAnimation->Update();
+
+
 
 	/*dustAnimation->Update();*/
 
@@ -317,7 +321,7 @@ void ModulePlayer::movimientoPlayer(){
 				timerP();
 				position.x -= 1, 5 * speed;
 				currentAnimation = &leftAnim;
-				pols = true;
+				/*pols = true;*/
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -356,7 +360,7 @@ void ModulePlayer::movimientoPlayer(){
 			{
 				timerP();
 				position.y -= 1, 5 * speed;
-				pols = true;
+				/*pols = true;*/
 				currentAnimation = &rightAnim;
 			}
 			else if (estadoTP == FIN) {
@@ -386,7 +390,7 @@ void ModulePlayer::movimientoPlayer(){
 
 
 			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
-				pols = true;
+				/*pols = true;*/
 				initialTimeP = SDL_GetTicks();
 				timeLimitP = 2 * 1000;
 				estadoTP = EJECUTANDO;
@@ -396,7 +400,7 @@ void ModulePlayer::movimientoPlayer(){
 			{
 				timerP();
 				position.y += 1, 5 * speed;
-				pols = true;
+				/*pols = true;*/
 				currentAnimation = &rightAnim;
 			}
 			else if (estadoTP == FIN) {

@@ -33,6 +33,15 @@ ModuleInGameUI::ModuleInGameUI(bool startEnabled) : Module(startEnabled)
 	timerAnim.pingpong = false;
 	timerAnim.speed = 0.017f;
 
+	//LeftGoalFlash particles
+	leftGoalFlashAnim.PushBack({ 100, 15, 17, 30 });
+	leftGoalFlashAnim.PushBack({ 121, 15, 22, 38 });
+	leftGoalFlashAnim.PushBack({ 147, 15, 27, 43 });
+	leftGoalFlashAnim.PushBack({ 178, 15, 31, 47 });
+	leftGoalFlashAnim.PushBack({ 213, 15, 32, 48 });
+	leftGoalFlashAnim.loop = false;
+	leftGoalFlashAnim.speed = 0.2f;
+
 }
 
 ModuleInGameUI::~ModuleInGameUI()
@@ -106,6 +115,9 @@ bool ModuleInGameUI::Start()
 	// Load rectangulet Lila per set count
 	rectanguletLila = App->textures->Load("Assets/Sprites/UI/rectanguletLila.png");
 
+	particlesTexture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
+	currentLeftGoalFlashAnimation = &leftGoalFlashAnim;
+
 	//P1 Left
 	switch (App->sceneCharacterSelect->p1Char)
 	{
@@ -139,7 +151,7 @@ bool ModuleInGameUI::Start()
 
 Update_Status ModuleInGameUI::Update()
 {
-
+	currentLeftGoalFlashAnimation->Update();
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -345,6 +357,8 @@ Update_Status ModuleInGameUI::PostUpdate()
 		{
 		case (0):
 			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
+			SDL_Rect leftGoalFlashRect = currentLeftGoalFlashAnimation->GetCurrentFrame();
+			App->render->Blit(particlesTexture, App->frisbee->position.x, App->frisbee->position.y, &leftGoalFlashRect);
 			break;
 		case(1):
 			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
@@ -421,6 +435,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 			break;
 		}
 	}
+
 
 	if (isDebugAppear)
 	{

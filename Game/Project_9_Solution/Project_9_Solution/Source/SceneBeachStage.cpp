@@ -633,6 +633,7 @@ void SceneBeachStage::Score(){
 		//Score de Concrete
 		//Esquerra
 		if (App->frisbee->position.x <= 19) {
+
 			//Mid left
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
 				App->player2->score += 3;
