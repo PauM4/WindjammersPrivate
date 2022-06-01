@@ -521,6 +521,7 @@ void SceneBeachStage::Round() {
 				App->player->score = 0;
 				App->player2->score = 0;
 				arbitroFinalRonda = 1;
+				estadoTS = INICIOT;
 				estadoS = FINALRONDA;
 			}
 
