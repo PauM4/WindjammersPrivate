@@ -706,8 +706,8 @@ void SceneBeachStage::Score(){
 			// upright
 			else if (App->frisbee->position.y < 71)
 			{
-				App->player->score += 3;
-				App->audio->PlayFx(threePointsFX);
+				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
 				App->audio->PlayFx(applauseFX);
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
@@ -741,6 +741,7 @@ void SceneBeachStage::Score(){
 		// miss
 		else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
 			App->player2->score += 2;
+			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
 			}
@@ -753,6 +754,7 @@ void SceneBeachStage::Score(){
 		}
 		else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
 			App->player->score += 2;
+			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
 			}
@@ -765,7 +767,7 @@ void SceneBeachStage::Score(){
 	}
 	else
 	{
-		//Score de Beach i Lawn
+	//Score de Beach i Lawn
 	//Esquerra
 		if (App->frisbee->position.x <= 19) {
 			//Mid left
@@ -840,8 +842,8 @@ void SceneBeachStage::Score(){
 			// upright
 			else if (App->frisbee->position.y < 94)
 			{
-				App->player->score += 5;
-				App->audio->PlayFx(fivePointsFX);
+				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
 				App->audio->PlayFx(applauseFX);
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
@@ -875,6 +877,7 @@ void SceneBeachStage::Score(){
 		// miss
 		else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
 			App->player2->score += 2;
+			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
 			}
@@ -887,6 +890,7 @@ void SceneBeachStage::Score(){
 		}
 		else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
 			App->player->score += 2;
+			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
 			}
