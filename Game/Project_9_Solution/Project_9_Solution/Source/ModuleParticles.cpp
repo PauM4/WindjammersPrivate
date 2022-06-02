@@ -22,9 +22,9 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	texture = App->textures->Load("Assets/Sprites/Levels/Beach.png");
+	texture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
 
-	particlesAndEffectsTxt = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
+	//particlesAndEffectsTxt = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
 
 	//Left Goal Flash
 	leftGoalFlashParticle.anim.PushBack({ 100, 15, 17, 30 });
@@ -32,7 +32,8 @@ bool ModuleParticles::Start()
 	leftGoalFlashParticle.anim.PushBack({ 147, 15, 27, 43 });
 	leftGoalFlashParticle.anim.PushBack({ 178, 15, 31, 47 });
 	leftGoalFlashParticle.anim.PushBack({ 213, 15, 32, 48 });
-	leftGoalFlashParticle.lifetime = 40;
+	leftGoalFlashParticle.anim.loop = false;
+	//leftGoalFlashParticle.lifetime = 20;
 	leftGoalFlashParticle.anim.speed = 0.2f;
 
 	//Frisbee Player 1 Basic Mov
