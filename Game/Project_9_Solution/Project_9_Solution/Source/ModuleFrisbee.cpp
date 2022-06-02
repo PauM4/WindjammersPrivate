@@ -220,6 +220,15 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 		//currentAnimation2 = &desaparece;
 		//estadoF = estadoFrisbee::STOP;
 	/*	FloorTime = 0;*/
+		
+		if (position.x < 150)
+		{
+			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->player->position.x + 29, App->player->position.y, Collider::NONE, 0);
+		}
+		else if (position.x > 150)
+		{
+			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->player2->position.x - 5, App->player2->position.y, Collider::NONE, 0);
+		}
 
 		estadoTF = INICIO;
 

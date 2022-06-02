@@ -694,6 +694,7 @@ void SceneBeachStage::Score(){
 		}
 		//Dreta
 		else if (App->frisbee->position.x >= 276) {
+			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->frisbee->position.x - 10, App->frisbee->position.y, Collider::NONE, 0);
 			//mid right
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
 				App->player->score += 3;
@@ -831,6 +832,8 @@ void SceneBeachStage::Score(){
 		}
 		//Dreta
 		else if (App->frisbee->position.x >= 276) {
+			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->frisbee->position.x - 10, App->frisbee->position.y, Collider::NONE, 0);
+
 			//mid right
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player->score += 5;

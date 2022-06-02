@@ -75,6 +75,7 @@ public:
 	//Particle frisbeeProjectile2Down;
 
 	Particle leftGoalFlashParticle;
+	Particle rightGoalFlashParticle;
 
 private:
 	// Particles spritesheet loaded into an SDL Texture
