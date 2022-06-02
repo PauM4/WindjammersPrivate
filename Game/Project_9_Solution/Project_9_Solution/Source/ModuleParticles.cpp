@@ -46,6 +46,20 @@ bool ModuleParticles::Start()
 	rightGoalFlashParticle.lifetime = 20;
 	rightGoalFlashParticle.anim.speed = 0.2f;
 
+	//Dust particle
+	dustParticle.anim.PushBack({ 5, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 26, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 47, 109, 14, 14 });
+	dustParticle.anim.PushBack({ 70, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 93, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 112, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 129, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 142, 108, 14, 14 });
+	dustParticle.anim.loop = false;
+	//dustParticle.anim.pingpong = true;
+	dustParticle.lifetime = 30;
+	dustParticle.anim.speed = 0.4f;
+
 	//Frisbee Player 1 Basic Mov
 	frisbee.anim.PushBack({ 117, 48, 16, 16 });
 	frisbee.anim.PushBack({ 149, 48, 16, 16 });

@@ -76,6 +76,7 @@ public:
 
 	Particle leftGoalFlashParticle;
 	Particle rightGoalFlashParticle;
+	Particle dustParticle;
 
 private:
 	// Particles spritesheet loaded into an SDL Texture

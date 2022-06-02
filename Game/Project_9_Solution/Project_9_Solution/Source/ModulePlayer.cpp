@@ -282,6 +282,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
+				App->particles->AddParticle(1, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 				timerP();
 				position.x += 1, 5 * speed;
 				currentAnimation = &rightAnim;
@@ -321,6 +322,7 @@ void ModulePlayer::movimientoPlayer(){
 				timerP();
 				position.x -= 1, 5 * speed;
 				currentAnimation = &leftAnim;
+				App->particles->AddParticle(-1, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 				/*pols = true;*/
 			}
 			else if (estadoTP == FIN) {
@@ -362,6 +364,7 @@ void ModulePlayer::movimientoPlayer(){
 				position.y -= 1, 5 * speed;
 				/*pols = true;*/
 				currentAnimation = &rightAnim;
+				App->particles->AddParticle(0, -1, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -402,6 +405,7 @@ void ModulePlayer::movimientoPlayer(){
 				position.y += 1, 5 * speed;
 				/*pols = true;*/
 				currentAnimation = &rightAnim;
+				App->particles->AddParticle(0, 1, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
