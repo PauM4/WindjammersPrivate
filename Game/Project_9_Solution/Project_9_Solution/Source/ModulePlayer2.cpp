@@ -21,8 +21,6 @@
 
 ModulePlayer2::ModulePlayer2(bool startEnabled) : Module(startEnabled)
 {
-
-
 	// Idle Left Animation
 	idleLAnim.PushBack({ 211, 341, 53, 57 });
 	idleLAnim.PushBack({ 264, 341, 53, 57 });
@@ -33,7 +31,7 @@ ModulePlayer2::ModulePlayer2(bool startEnabled) : Module(startEnabled)
 	idleLAnim.PushBack({ 529, 341, 53, 57 });
 	idleLAnim.PushBack({ 582, 341, 53, 57 });
 	idleLAnim.loop = true;
-	idleLAnim.speed = 0.1f;
+	idleLAnim.speed = 0.15f;
 
 	// Idle Right Animation
 	idleRAnim.PushBack({ 105, 0, 53, 57 });
@@ -45,76 +43,75 @@ ModulePlayer2::ModulePlayer2(bool startEnabled) : Module(startEnabled)
 	idleRAnim.PushBack({ 423, 0, 53, 57 });
 	idleRAnim.PushBack({ 476, 0, 53, 57 });
 	idleRAnim.loop = true;
-	idleRAnim.speed = 0.1f;
-
-	// Move Right
-	rightAnim.PushBack({ 454, 148, 45, 32 });
-	rightAnim.PushBack({ 426, 148, 28, 33 });
-	rightAnim.PushBack({ 385, 148, 41, 36 });
-	rightAnim.PushBack({ 339, 148, 46,	29 });
-	rightAnim.PushBack({ 310, 148, 29, 36 });
-	rightAnim.PushBack({ 269, 148, 41, 35 });
-	rightAnim.loop = true;
-	rightAnim.speed = 0.1f;
-
-	// Move Down Head Left
-	downLAnim.PushBack({ 240, 404, 29, 43 });
-	downLAnim.PushBack({ 208, 404, 32, 38 });
-	downLAnim.PushBack({ 179, 404, 29, 35 });
-	downLAnim.PushBack({ 155, 404, 24, 41 });
-	downLAnim.PushBack({ 125, 404, 30, 38 });
-	downLAnim.PushBack({ 94, 404, 31, 34 });
-	downLAnim.loop = true;
-	downLAnim.speed = 0.1f;
-
-	// Move Down Head Right
-	downRAnim.PushBack({ 240, 148, 29, 43 });
-	downRAnim.PushBack({ 208, 148, 32, 38 });
-	downRAnim.PushBack({ 179, 148, 29, 35 });
-	downRAnim.PushBack({ 155, 148, 24, 41 });
-	downRAnim.PushBack({ 125, 148, 30, 38 });
-	downRAnim.PushBack({ 94, 148, 31, 34 });
-	downRAnim.loop = true;
-	downRAnim.speed = 0.1f;
-
-	//Move Up Head Left
-	upLAnim.PushBack({ 150, 447, 30, 40 });
-	upLAnim.PushBack({ 120, 447, 30, 51 });
-	upLAnim.PushBack({ 90, 447, 30, 50 });
-	upLAnim.PushBack({ 60, 447, 30, 40 });
-	upLAnim.PushBack({ 30, 447, 30, 53 });
-	upLAnim.PushBack({ 0, 447, 30, 50 });
-	upLAnim.loop = true;
-	upLAnim.speed = 0.1f;
-
-	//Move Up Head Right
-	upRAnim.PushBack({ 150, 191, 30, 40 });
-	upRAnim.PushBack({ 120, 191, 30, 51 });
-	upRAnim.PushBack({ 90, 191, 30, 50 });
-	upRAnim.PushBack({ 60, 191, 30, 40 });
-	upRAnim.PushBack({ 30, 191, 30, 53 });
-	upRAnim.PushBack({ 0, 191, 30, 50 });
-	upRAnim.loop = true;
-	upRAnim.speed = 0.1f;
+	idleRAnim.speed = 0.15f;
 
 	//Move Left
-	leftAnim.PushBack({ 455, 404, 45, 32 });
-	leftAnim.PushBack({ 427, 404, 28, 33 });
-	leftAnim.PushBack({ 386, 404, 40, 36 });
-	leftAnim.PushBack({ 340, 404, 45, 29 });
-	leftAnim.PushBack({ 311, 404, 28, 36 });
-	leftAnim.PushBack({ 270, 404, 40, 35 });
+	leftAnim.PushBack({ 371, 57, 53, 57 });
+	leftAnim.PushBack({ 318, 57, 53, 57 });
+	leftAnim.PushBack({ 265, 57, 53, 57 });
+	leftAnim.PushBack({ 212, 57, 53, 57 });
+	leftAnim.PushBack({ 159, 57, 53, 57 });
+	leftAnim.PushBack({ 106, 57, 53, 57 });
 	leftAnim.loop = true;
-	leftAnim.speed = 0.1f;
+	leftAnim.speed = 0.15f;
+
+	// Move Right
+	rightAnim.PushBack({ 53, 57, 53, 57 });
+	rightAnim.PushBack({ 0, 57, 53, 57 });
+	rightAnim.PushBack({ 689, 0, 53, 57 });
+	rightAnim.PushBack({ 636, 0, 53, 57 });
+	rightAnim.PushBack({ 583, 0, 53, 57 });
+	rightAnim.PushBack({ 530, 0, 53, 57 });
+	rightAnim.loop = true;
+	rightAnim.speed = 0.15f;
+
+	//Move Up Head Left
+	upLAnim.PushBack({ 265, 398, 53, 57 });
+	upLAnim.PushBack({ 212, 398, 53, 57 });
+	upLAnim.PushBack({ 159, 398, 53, 57 });
+	upLAnim.PushBack({ 106, 398, 53, 57 });
+	upLAnim.PushBack({ 53, 398, 53, 57 });
+	upLAnim.PushBack({ 0, 398, 53, 57 });
+	upLAnim.loop = true;
+	upLAnim.speed = 0.15f;
+
+	//Move Up Head Right
+	upRAnim.PushBack({ 424, 57, 53, 57 });
+	upRAnim.PushBack({ 477, 57, 53, 57 });
+	upRAnim.PushBack({ 530, 57, 53, 57 });
+	upRAnim.PushBack({ 583, 57, 53, 57 });
+	upRAnim.PushBack({ 636, 57, 53, 57 });
+	upRAnim.PushBack({ 689, 57, 53, 57 });
+	upRAnim.loop = true;
+	upRAnim.speed = 0.15f;
+
+	// Move Down Head Left
+	downLAnim.PushBack({ 424, 453, 53, 57 });
+	downLAnim.PushBack({ 477, 453, 53, 57 });
+	downLAnim.PushBack({ 530, 453, 53, 57 });
+	downLAnim.PushBack({ 583, 453, 53, 57 });
+	downLAnim.PushBack({ 636, 453, 53, 57 });
+	downLAnim.PushBack({ 689, 453, 53, 57 });
+	downLAnim.loop = true;
+	downLAnim.speed = 0.15f;
+
+	// Move Down Head Right
+	downRAnim.PushBack({ 265, 114, 53, 57 });
+	downRAnim.PushBack({ 212, 114, 53, 57 });
+	downRAnim.PushBack({ 159, 114, 53, 57 });
+	downRAnim.PushBack({ 106, 114, 53, 57 });
+	downRAnim.PushBack({ 53, 114, 53, 57 });
+	downRAnim.PushBack({ 0, 114, 53, 57 });
+	downRAnim.loop = true;
+	downRAnim.speed = 0.15f;
 
 	//Idle Disk
-	idleDisk.PushBack({ 0, 512, 47, 48 });
-	idleDisk.PushBack({ 48, 512, 47, 48 });
-	idleDisk.PushBack({ 96, 512, 47, 48 });
-	idleDisk.PushBack({ 144, 512, 47, 48 });
-	idleDisk.PushBack({ 192, 512, 47, 48 });
+	idleDisk.PushBack({ 530, 627, 53, 57 });
+	idleDisk.PushBack({ 477, 627, 53, 57 });
+	idleDisk.PushBack({ 530, 627, 53, 57 });
+	idleDisk.PushBack({ 424, 627, 53, 57 });
 	idleDisk.loop = true;
-	idleDisk.speed = 0.1f;
+	idleDisk.speed = 0.15f;
 }
 
 ModulePlayer2::~ModulePlayer2()
