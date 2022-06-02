@@ -639,7 +639,7 @@ void SceneBeachStage::Score(){
 		//Score de Concrete
 		//Esquerra
 		if (App->frisbee->position.x <= 19) {
-			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x, App->frisbee->position.y, Collider::NONE, 0);
+			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x - 5, App->frisbee->position.y, Collider::NONE, 0);
 
 			//Mid left
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
@@ -777,7 +777,7 @@ void SceneBeachStage::Score(){
 	//Score de Beach i Lawn
 	//Esquerra
 		if (App->frisbee->position.x <= 19) {
-			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x, App->frisbee->position.y, Collider::NONE, 0);
+			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x - 5, App->frisbee->position.y, Collider::NONE, 0);
 			//Mid left
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player2->score += 5;

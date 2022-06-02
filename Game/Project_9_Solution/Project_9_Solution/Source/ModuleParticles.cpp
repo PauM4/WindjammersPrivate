@@ -33,7 +33,7 @@ bool ModuleParticles::Start()
 	leftGoalFlashParticle.anim.PushBack({ 178, 15, 31, 47 });
 	leftGoalFlashParticle.anim.PushBack({ 213, 15, 32, 48 });
 	leftGoalFlashParticle.anim.loop = false;
-	//leftGoalFlashParticle.lifetime = 20;
+	leftGoalFlashParticle.lifetime = 20;
 	leftGoalFlashParticle.anim.speed = 0.2f;
 
 	//Frisbee Player 1 Basic Mov
