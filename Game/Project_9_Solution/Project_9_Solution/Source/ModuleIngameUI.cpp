@@ -353,32 +353,40 @@ Update_Status ModuleInGameUI::PostUpdate()
 	//Depenent de quin stage is selected (punts gol posicions)
 	if (App->sceneStageSelect->sceneSelected == Beach)
 	{
+		/*
+		UPLEFT,
+		MIDLEFT,
+		DOWNLEFT,
+		UPRIGHT,
+		MIDRIGHT,
+		DOWNRIGHT,
+		MISSL,
+		MISSR,
+		*/
 		switch (App->sceneBeachStage->estadoGolScore)
 		{
-		case (0):
+		case (App->sceneBeachStage->UPLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-			SDL_Rect leftGoalFlashRect = currentLeftGoalFlashAnimation->GetCurrentFrame();
-			App->render->Blit(particlesTexture, App->frisbee->position.x, App->frisbee->position.y, &leftGoalFlashRect);
 			break;
-		case(1):
+		case(App->sceneBeachStage->MIDLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 			break;
-		case(2):
+		case(App->sceneBeachStage->DOWNLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 			break;
-		case(3):
+		case(App->sceneBeachStage->UPRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
 			break;
-		case(4):
+		case(App->sceneBeachStage->MIDRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
 			break;
-		case(5):
+		case(App->sceneBeachStage->DOWNRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 			break;
-		case(6):
-			App->render->Blit(uiSpriteTexture, 72, 58,&dosPunts);
+		case(App->sceneBeachStage->MISSL):
+			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
 			break;
-		case(7):
+		case(App->sceneBeachStage->MISSR):
 			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
 			break;
 		}
@@ -387,51 +395,59 @@ Update_Status ModuleInGameUI::PostUpdate()
 	{
 		switch (App->sceneBeachStage->estadoGolScore)
 		{
-		case (0):
+		case (App->sceneBeachStage->UPLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
 			break;
-		case(1):
+		case(App->sceneBeachStage->MIDLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 			break;
-		case(2):
+		case(App->sceneBeachStage->DOWNLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 			break;
-		case(3):
+		case(App->sceneBeachStage->UPRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
 			break;
-		case(4):
+		case(App->sceneBeachStage->MIDRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
 			break;
-		case(5):
+		case(App->sceneBeachStage->DOWNRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 			break;
-		case(6):
+		case(App->sceneBeachStage->MISSL):
+			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
+			break;
+		case(App->sceneBeachStage->MISSR):
+			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
 			break;
 		}
 	}
-	else
+	else if (App->sceneStageSelect->sceneSelected == Concrete)
 	{
 		switch (App->sceneBeachStage->estadoGolScore)
 		{
-		case (0):
-			App->render->Blit(uiSpriteTexture, 12, 26, &cincPuntsL);
+		case (App->sceneBeachStage->UPLEFT):
+			App->render->Blit(uiSpriteTexture, 7, 30, &cincPuntsL);
 			break;
-		case(1):
-			App->render->Blit(uiSpriteTexture, 12, 92, &tresPuntsL);
+		case(App->sceneBeachStage->MIDLEFT):
+			App->render->Blit(uiSpriteTexture, 7, 92, &tresPuntsL);
 			break;
-		case(2):
-			App->render->Blit(uiSpriteTexture, 12, 158, &cincPuntsL);
+		case(App->sceneBeachStage->DOWNLEFT):
+			App->render->Blit(uiSpriteTexture, 7, 158, &cincPuntsL);
 			break;
-		case(3):
-			App->render->Blit(uiSpriteTexture, 236, 44, &cincPuntsR);
+		case(App->sceneBeachStage->UPRIGHT):
+			App->render->Blit(uiSpriteTexture, 236, 30, &cincPuntsR);
 			break;
-		case(4):
+		case(App->sceneBeachStage->MIDRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 92, &tresPuntsR);
 			break;
-		case(5):
+		case(App->sceneBeachStage->DOWNRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 158, &cincPuntsR);
 			break;
-		case(6):
+		case(App->sceneBeachStage->MISSL):
+			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
+			break;
+		case(App->sceneBeachStage->MISSR):
+			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
 			break;
 		}
 	}
