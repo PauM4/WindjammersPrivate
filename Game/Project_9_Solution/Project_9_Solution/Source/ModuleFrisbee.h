@@ -66,6 +66,8 @@ public:
 
 	// The player's collider
 	Collider* collider = nullptr;
+	Collider* provisional = nullptr;
+	Collider* provisional2 = nullptr;
 
 	// A flag to detect when the player has been destroyed
 	bool destroyed;
@@ -139,6 +141,7 @@ public:
 	bool yooDirec;
 	bool contador_Angulo_SuperShot; //contador utilizado tanto para el angulo del supershot de la Mito como para el supershot de Yoo
 	
+	bool limiteConcrete;
 
 };
 

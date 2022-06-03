@@ -14,7 +14,7 @@ struct Collider
 		NONE = -1,
 		WALL,
 		PLAYER,
-		ENEMY,
+		DEBUGG,
 		FRISBEE,
 		PLAYER_SHOT,
 		ENEMY_SHOT,

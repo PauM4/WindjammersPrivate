@@ -200,7 +200,7 @@ Update_Status SceneBeachStage::Update()
 	case (RONDA):
 		App->ingameUI->currentTimerAnim->Update();
 		//if (estadoTGol == INICIOGOL) {
-
+		Round();
 		//}//Tendremos que poner una condicion para cuando se marquen puntos que aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 		if (estadoTGol == EJECUTANDOGOL)
 		{
@@ -347,7 +347,7 @@ Update_Status SceneBeachStage::PostUpdate()
 	if (isDebugAppear)
 	{
 		sprintf_s(debugText, 10, "%2d", (int)App->frisbee->position.x - ((int)App->player->position.x + 20));
-		//sprintf_s(debugText2, 10, "%2d", App->frisbee->position.y);
+		
 		sprintf_s(debugText2, 10, "%2d", (int)App->frisbee->position.y);
 		
 		//DEBUGG ESTADO PLAYER1

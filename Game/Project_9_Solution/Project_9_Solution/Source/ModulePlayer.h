@@ -62,17 +62,22 @@ public:
 	Animation downRAnim;
 	Animation rightAnim;
 	Animation leftAnim;
-
-	
-
-	//Animation polvo;
+	Animation lanzamiento; 
+	Animation polvo;
+	Animation win;
+	Animation lose;
+	Animation dashUp;
+	Animation dashDown;
+	Animation dashLeft;
+	Animation dashRight;
 
 	enum estadoPlayer
 	{
 		STOP =0,
 		MOVIMIENTO,
 		WITHFRISBEE,
-		
+		LANZAMIENTO,
+		LANZAMIENTO_SUPER,
 		
 	};
 	int estadoP1;
