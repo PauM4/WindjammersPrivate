@@ -221,6 +221,7 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 		//estadoF = estadoFrisbee::STOP;
 	/*	FloorTime = 0;*/
 		
+		//Flash particle left or right depending on the player
 		if (position.x < 150)
 		{
 			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->player->position.x + 29, App->player->position.y, Collider::NONE, 0);
@@ -366,10 +367,15 @@ void ModuleFrisbee::limitesFrisbee() {
 
 	else if (lanzamientoF != ARBITRO && lanzamientoF != SUPERSHOT) {
 		if (position.x >= 19 && position.x <= 276) {
-
+			//UP
 			if (position.y <= 48) {
+				if (xspeed > 0)
+				{
+					App->particles->AddParticle(0, 0, App->particles->xocUpleft, 110, 120, Collider::NONE, 0);
+				}
 				yspeed *= -1;
 			}
+			//DOWN
 			else if (position.y >= 170) {
 				yspeed *= -1;
 			}
