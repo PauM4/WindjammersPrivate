@@ -228,6 +228,7 @@ Update_Status ModulePlayer2::Update()
 	case (STOP):
 		break;
 	case (MOVIMIENTO):
+		limitePlayer2();
 		movimientoPlayer2();
 		break;
 
@@ -264,6 +265,7 @@ Update_Status ModulePlayer2::Update()
 		{
 			initialTimeP2 = SDL_GetTicks();
 			timeLimitP2 = 0.8 * 1000;
+			lanzamiento.loop = true;
 			currentAnimation = &lanzamiento; //lanzamiento supershot animation
 			estadoTP2 = EJECUTANDO;
 		}
@@ -278,6 +280,7 @@ Update_Status ModulePlayer2::Update()
 			lanzamiento.Reset();
 			currentAnimation = &idleRAnim;
 			last2 = 0;
+			lanzamiento.loop = false;
 		}
 		break;
 	}
@@ -337,7 +340,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 
 		App->player->estadoP1 = ModulePlayer::estadoPlayer::MOVIMIENTO;
 		App->frisbee->limiteConcrete = true;
-	}
+	}			
 
 	
 }
@@ -345,9 +348,16 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 void ModulePlayer2::movimientoPlayer2() {
 	//MOVIMIENTO
 
-	if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT && position.x < 258)
+	if ((App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) && position.x < 258)
 	{
 		position.x += speed;
+
+		if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
+		{
+			rightAnim.Reset();
+			currentAnimation = &rightAnim;
+		}
+		last2 = 1;
 
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
 
@@ -361,14 +371,14 @@ void ModulePlayer2::movimientoPlayer2() {
 
 			if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT) {
 				timerP2();
-				position.y -= 0.25 * speed;
-				position.x += 0.25 * speed;
+				position.y -= 0.75 * speed;
+				position.x += 0.75 * speed;
 				currentAnimation = &diagonalUpRight;
 			}
 			else if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT) {
 				timerP2();
-				position.y += 0.25 * speed;
-				position.x += 0.25 * speed;
+				position.y += 0.75 * speed;
+				position.x += 0.75 * speed;
 				currentAnimation = &diagonalDownRight;
 			}
 			else {
@@ -383,17 +393,15 @@ void ModulePlayer2::movimientoPlayer2() {
 		else if (estadoTP2 == FIN) {
 			estadoTP2 = INICIO;
 		}
+		else {
 
-
-		if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
-		{
-			rightAnim.Reset();
-			currentAnimation = &rightAnim;
 		}
-		last2 = 1;
+
+
+	
 	}
 
-	else if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT && position.x > 159)
+	else if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT && position.x > 140)
 	{
 		position.x -= speed;
 
@@ -415,14 +423,14 @@ void ModulePlayer2::movimientoPlayer2() {
 		{
 			if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT) {
 				timerP2();
-				position.y -= 0.25 * speed;
-				position.x -= 0.25 * speed;
+				position.y -= 0.75 * speed;
+				position.x -= 0.75 * speed;
 				currentAnimation = &diagonalUpLeft;
 			}
 			else if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT) {
 				timerP2();
-				position.y += 0.25 * speed;
-				position.x -= 0.25 * speed;
+				position.y += 0.75 * speed;
+				position.x -= 0.75 * speed;
 				currentAnimation = &diagonalDownLeft;
 			}
 			else {
@@ -467,14 +475,14 @@ void ModulePlayer2::movimientoPlayer2() {
 
 			if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) {
 				timerP2();
-				position.y -= 0.25 * speed;
-				position.x += 0.25 * speed;
+				position.y -= 0.75 * speed;
+				position.x += 0.75 * speed;
 				currentAnimation = &diagonalUpRight;
 			}
 			else if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT) {
 				timerP2();
-				position.y -= 0.25 * speed;
-				position.x -= 0.25 * speed;
+				position.y -= 0.75 * speed;
+				position.x -= 0.75 * speed;
 				currentAnimation = &diagonalUpLeft;
 			}
 			else {
@@ -517,14 +525,14 @@ void ModulePlayer2::movimientoPlayer2() {
 
 			if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) {
 				timerP2();
-				position.y += 0.25 * speed;
-				position.x += 0.25 * speed;
+				position.y += 0.75 * speed;
+				position.x += 0.75 * speed;
 				currentAnimation = &diagonalDownRight;
 			}
 			else if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT) {
 				timerP2();
-				position.y += 0.25 * speed;
-				position.x -= 0.25 * speed;
+				position.y += 0.75 * speed;
+				position.x -= 0.75 * speed;
 				currentAnimation = &diagonalDownLeft;
 			}
 			else {
@@ -707,11 +715,6 @@ void ModulePlayer2::lanzamientoPlayer2() {
 	}
 }
 
-
-
-
-
-
 void ModulePlayer2::timerP2() {
 	currentTimeP2 = SDL_GetTicks();
 
@@ -719,3 +722,49 @@ void ModulePlayer2::timerP2() {
 		estadoTP2 = estadoTimerP2::FIN;
 	}
 } 
+
+void ModulePlayer2::limitePlayer2() {
+
+
+	if (position.x > 258) {
+		if (position.y < 50) {
+			position.y = 52;
+			position.x = 256;
+		}
+		else if (position.y > 138) {
+			position.y = 136;
+			position.x = 256;
+		}
+		else {
+			position.x = 256;
+		}
+	} 
+	else if (position.x < 140) {
+		if (position.y < 50) {
+			position.y = 52;
+			position.x = 142;
+
+		}
+		else if (position.y > 138) {
+			position.y = 136;
+			position.x = 142;
+		}
+		else {
+			position.x = 142;
+		}
+	}
+
+
+	if (position.y > 138) {
+		position.y = 136;
+	} 
+	else if (position.y < 50) {
+		position.y = 52;
+	}
+
+
+	
+}
+
+/*position.x = 230;
+position.y = 9*/

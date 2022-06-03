@@ -105,6 +105,7 @@ public:
 
 	void movimientoPlayer2();
 	void lanzamientoPlayer2();
+	void limitePlayer2();
 
 
 	// Font score index

@@ -222,6 +222,7 @@ Update_Status ModulePlayer::Update()
 	case (STOP):
 		break;
 	case (MOVIMIENTO):
+		limitePlayer();
 		movimientoPlayer();
 		break;
 
@@ -259,6 +260,7 @@ Update_Status ModulePlayer::Update()
 		{
 			initialTimeP = SDL_GetTicks();
 			timeLimitP = 0.8 * 1000;
+			lanzamiento.loop = true;
 			currentAnimation = &lanzamiento; //lanzamiento supershot animation
 			estadoTP = EJECUTANDO;
 		}
@@ -273,6 +275,7 @@ Update_Status ModulePlayer::Update()
 			lanzamiento.Reset();
 			currentAnimation = &idleRAnim;
 			last1 = 1;
+			lanzamiento.loop = false;
 		}
 		break;
 	}
@@ -396,7 +399,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 
 		}
-		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 20)
+		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 10)
 		{
 			position.x -= speed;
 
@@ -720,4 +723,45 @@ void ModulePlayer::timerP() {
 	if (currentTimeP - initialTimeP >= timeLimitP) {
 		estadoTP = estadoTimerP::FIN;
 	}
+}
+
+
+void ModulePlayer::limitePlayer() {
+
+	//if (position.x > 110) {
+	//	if (position.y < 50) {
+	//		position.y = 52;
+	//		position.x = ;
+	//	}
+	//	else if (position.y > 138) {
+	//		position.y = 136;
+	//		position.x = ;
+	//	}
+	//	else {
+	//		position.x = ;
+	//	}
+	//}
+	//else if (position.x < 10) {
+	//	if (position.y < 50) {
+	//		position.y = 52;
+	//		position.x = ;
+
+	//	}
+	//	else if (position.y > 138) {
+	//		position.y = 136;
+	//		position.x = ;
+	//	}
+	//	else {
+	//		position.x = 142;
+	//	}
+	//}
+
+
+	//if (position.y > 138) {
+	//	position.y = 136;
+	//}
+	//else if (position.y < 50) {
+	//	position.y = 52;
+	//}
+
 }
