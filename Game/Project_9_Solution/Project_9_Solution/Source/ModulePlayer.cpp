@@ -338,14 +338,14 @@ bool ModulePlayer::Start()
 		speed = 2;
 		//idleLAnim
 		for (int i = 0; i < 3; i++) {
-			idleLAnim.PushBack({ 225 + (i * 75), 0, 75, 65 });
+			idleLAnim.PushBack({ 825 + (i * 75), 390, 75, 65 });
 		}
 		idleLAnim.loop = true;
 		idleLAnim.speed = 0.075f;
 
 		//idleRAnim
 		for (int i = 0; i < 3; i++) {
-			idleRAnim.PushBack({ 825 + (i * 75), 390, 75, 65 });
+			idleRAnim.PushBack({ 225 + (i * 75), 0, 75, 65 });
 		}
 		idleRAnim.loop = true;
 		idleRAnim.speed = 0.075f;
