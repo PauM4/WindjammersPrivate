@@ -130,13 +130,37 @@ bool ModuleParticles::Start()
 	mitaSuperShotParticle.lifetime = 12;
 	mitaSuperShotParticle.anim.speed = 0.6f;
 
-	yooSuperShotParticle.anim.PushBack({201, 236, 16 , 16});
-	yooSuperShotParticle.anim.PushBack({218, 236, 16, 16 });
-	yooSuperShotParticle.anim.PushBack({237, 236, 16, 16});
-	yooSuperShotParticle.anim.PushBack({255, 236, 16, 16});
-	yooSuperShotParticle.anim.loop = false;
-	yooSuperShotParticle.lifetime = 100;
-	yooSuperShotParticle.anim.speed = 0.4f;
+	yooSuperShotParticleR.anim.PushBack({201, 236, 16 , 16});
+	yooSuperShotParticleR.anim.PushBack({218, 236, 16, 16 });
+	yooSuperShotParticleR.anim.PushBack({237, 236, 16, 16});
+	yooSuperShotParticleR.anim.PushBack({255, 236, 16, 16});
+	yooSuperShotParticleR.anim.loop = false;
+	yooSuperShotParticleR.lifetime = 100;
+	yooSuperShotParticleR.anim.speed = 0.4f;
+
+	yooSuperShotParticleL.anim.PushBack({ 255, 254, 16, 16 });
+	yooSuperShotParticleL.anim.PushBack({ 237, 254, 16, 16 });
+	yooSuperShotParticleL.anim.PushBack({ 218, 254, 16, 16 });
+	yooSuperShotParticleL.anim.PushBack({ 201, 254, 16 , 16 });
+	yooSuperShotParticleL.anim.loop = false;
+	yooSuperShotParticleL.lifetime = 100;
+	yooSuperShotParticleL.anim.speed = 0.4f;
+
+	yooSuperShotParticleU.anim.PushBack({ 274, 220, 16, 16 });
+	yooSuperShotParticleU.anim.PushBack({ 274, 237, 16, 16 });
+	yooSuperShotParticleU.anim.PushBack({ 274, 256, 16, 16 });
+	yooSuperShotParticleU.anim.PushBack({ 274, 274, 16 , 16 });
+	yooSuperShotParticleU.anim.loop = false;
+	yooSuperShotParticleU.lifetime = 100;
+	yooSuperShotParticleU.anim.speed = 0.4f;
+
+	yooSuperShotParticleD.anim.PushBack({ 274, 274, 16 , 16 });
+	yooSuperShotParticleD.anim.PushBack({ 274, 256, 16, 16 });
+	yooSuperShotParticleD.anim.PushBack({ 274, 237, 16, 16 });
+	yooSuperShotParticleD.anim.PushBack({ 274, 220, 16, 16 });
+	yooSuperShotParticleD.anim.loop = false;
+	yooSuperShotParticleD.lifetime = 100;
+	yooSuperShotParticleD.anim.speed = 0.4f;
 
 
 
