@@ -130,6 +130,14 @@ bool ModuleParticles::Start()
 	mitaSuperShotParticle.lifetime = 12;
 	mitaSuperShotParticle.anim.speed = 0.6f;
 
+	yooSuperShotParticle.anim.PushBack({201, 236, 16 , 16});
+	yooSuperShotParticle.anim.PushBack({218, 236, 16, 16 });
+	yooSuperShotParticle.anim.PushBack({237, 236, 16, 16});
+	yooSuperShotParticle.anim.PushBack({255, 236, 16, 16});
+	yooSuperShotParticle.anim.loop = false;
+	yooSuperShotParticle.lifetime = 100;
+	yooSuperShotParticle.anim.speed = 0.4f;
+
 
 
 	return true;

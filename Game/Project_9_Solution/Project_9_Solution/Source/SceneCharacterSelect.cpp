@@ -225,7 +225,7 @@ Update_Status SceneCharacterSelect::PostUpdate()
 
 	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
 	{
-		App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, 110, 120, Collider::NONE, 0);
+		App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticle, 110, 120, Collider::NONE, 0);
 	}
 
 	return Update_Status::UPDATE_CONTINUE;
