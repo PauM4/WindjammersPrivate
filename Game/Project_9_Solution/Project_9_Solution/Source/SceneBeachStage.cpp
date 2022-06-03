@@ -92,6 +92,15 @@ bool SceneBeachStage::Start()
 		currentBgAnim = &bgBeachAnim;
 
 		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
+
+		limiteCentralIzq = 110;
+		limiteIzquierda = 10;
+		limiteSuperior = 50;
+		limiteInferior = 138;
+		limiteCentralDer = 140;
+		limiteDerecha = 258;
+
+
 		break;
 	case Lawn:
 		bgLawnTexture = App->textures->Load("Assets/Sprites/Levels/bgLawnSpriteSheet.png");
@@ -101,6 +110,13 @@ bool SceneBeachStage::Start()
 
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
 		App->audio->PlayMusic("Assets/Music/05_Windjammers (Lawn Court).ogg", 1.0f);
+
+		limiteCentralIzq;
+		limiteCentralDer;
+		limiteSuperior;
+		limiteInferior;
+		limiteDerecha;
+		limiteIzquierda;
 		break;
 	case Concrete:
 		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/bgConcreteSpriteSheet.png");
@@ -110,6 +126,13 @@ bool SceneBeachStage::Start()
 
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
 		App->audio->PlayMusic("Assets/Music/04_You-got-a-power-_Concrete_.ogg", 1.0f);
+
+		limiteCentralIzq;
+		limiteCentralDer;
+		limiteSuperior;
+		limiteInferior;
+		limiteDerecha;
+		limiteIzquierda;
 		break;
 	}
 

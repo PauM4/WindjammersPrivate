@@ -45,6 +45,21 @@ bool ModulePlayer::Start()
 	case(CharList::Mita):
 		texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
 		speed = 2;
+
+		posicionInicialX = 20;
+		posicionInicialY = 100;
+
+		ajusteColliderX = 10;
+		ajusteColliderY = 10;
+
+
+
+		lanzamientoXSpeed = 4;
+		lanzamientoYSpeed = 4;
+		parabolaXSpeed = 3;
+		parabolaYSpeed = 0;
+		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this); //en cada switch segun el player habra uno
+
 		//idleLAnim
 		for (int i = 0; i < 8; i++) {
 			idleLAnim.PushBack({ 211 + (i * 53), 338, 53, 57 });
@@ -220,6 +235,20 @@ bool ModulePlayer::Start()
 	case(CharList::Yoo):
 		texture = App->textures->Load("Assets/Sprites/Characters/Kor.png");
 		speed = 2;
+
+		posicionInicialX = 20;
+		posicionInicialY = 100;
+
+		ajusteColliderX = 10;
+		ajusteColliderY = 10;
+
+		lanzamientoXSpeed = 4;
+		lanzamientoYSpeed = 4;
+		parabolaXSpeed = 3;
+		parabolaYSpeed = 0;
+
+		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this); //en cada switch segun el player habra uno
+
 		//idleLAnim
 		for (int i = 0; i < 8; i++) {
 			idleLAnim.PushBack({ 462 + (i * 66), 462, 66, 66 });
@@ -367,6 +396,20 @@ bool ModulePlayer::Start()
 	case(CharList::Wessel):
 		texture = App->textures->Load("Assets/Sprites/Characters/Ger.png");
 		speed = 2;
+
+		posicionInicialX = 20;
+		posicionInicialY = 100;
+
+		ajusteColliderX = 10;
+		ajusteColliderY = 10;
+
+		lanzamientoXSpeed = 4;
+		lanzamientoYSpeed = 4;
+		parabolaXSpeed = 3;
+		parabolaYSpeed = 0;
+
+		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this); //en cada switch segun el player habra uno
+
 		//idleLAnim
 		for (int i = 0; i < 3; i++) {
 			idleLAnim.PushBack({ 825 + (i * 75), 390, 75, 65 });
@@ -511,13 +554,10 @@ bool ModulePlayer::Start()
 		diagonalUpLeft.speed = 0.45f;
 		break;
 	}
-
 	currentAnimation = &idleRAnim;
 
-	position.x = 20;
-	position.y = 100;
-
-	collider = App->collisions->AddCollider({ (int)position.x+14, (int)position.y+10, 27, 31 }, Collider::Type::PLAYER, this);
+	position.x = posicionInicialX;
+	position.y = posicionInicialY; 
 
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);
@@ -595,12 +635,8 @@ Update_Status ModulePlayer::Update()
 	}
 
 
-	collider->SetPos(position.x+10, position.y+10);
+	collider->SetPos(position.x+ ajusteColliderX, position.y+ ajusteColliderY);
 	currentAnimation->Update();
-
-
-
-	/*dustAnimation->Update();*/
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -619,12 +655,6 @@ Update_Status ModulePlayer::PostUpdate()
 	//	App->fonts->BlitText(117, 17, scoreFont, scoreText);
 
 	//	//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
-	//}
-
-	//if (pols)
-	//{
-	//	SDL_Rect rect2 = dustAnimation->GetCurrentFrame();
-	//	App->render->Blit(dust_texture, position.x - 5, position.y + 27, &rect2); //ARREGLAR LA POSICION
 	//}
 
 	//Debug Text rounds P1
@@ -669,7 +699,8 @@ void ModulePlayer::movimientoPlayer(){
 		
 		//MOVIMIENTO - DASH 
 
-		if ((App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) && position.x < 110)
+
+		if ((App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) && position.x < App->sceneBeachStage->limiteCentralIzq)
 		{
 			position.x += speed;
 
@@ -714,7 +745,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 
 		}
-		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > 10)
+		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > App->sceneBeachStage->limiteIzquierda)
 		{
 			position.x -= speed;
 
@@ -761,7 +792,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 
 		}
-		if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > 50)
+		if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > App->sceneBeachStage->limiteSuperior)
 		{
 			position.y -= speed;
 			
@@ -814,7 +845,7 @@ void ModulePlayer::movimientoPlayer(){
 
 
 		}
-		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 138)
+		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < App->sceneBeachStage->limiteInferior)
 		{
 			position.y += speed;
 
@@ -884,9 +915,8 @@ void ModulePlayer::movimientoPlayer(){
 				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
 
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::BLOCKPLAYER1;
-			}
-				
-			
+			}	
+
 		}
 	 
 
@@ -902,8 +932,8 @@ void ModulePlayer::lanzamientoPlayer() {
 	for (int i = 0; i < 1; i++) {
 		if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT)
 		{
-			App->frisbee->xspeed = 4/pepe; 
-			App->frisbee->yspeed = -4/pepe;
+			App->frisbee->xspeed = lanzamientoXSpeed /pepe;
+			App->frisbee->yspeed = -lanzamientoYSpeed /pepe;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;			
 			estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -918,8 +948,8 @@ void ModulePlayer::lanzamientoPlayer() {
 		{
 			
 
-			App->frisbee->xspeed = 4/pepe;
-			App->frisbee->yspeed = 4 / pepe;
+			App->frisbee->xspeed = lanzamientoXSpeed /pepe;
+			App->frisbee->yspeed = lanzamientoYSpeed / pepe;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 			estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -936,8 +966,8 @@ void ModulePlayer::lanzamientoPlayer() {
 			//Pepe y bea sirven para modificar la velocidad del disco en funcion del tiempo que la haya tenido el player1.
 
 			currentAnimation = &lanzamiento;
-			App->frisbee->xspeed = 4 / pepe;
-			App->frisbee->yspeed = 0;
+			App->frisbee->xspeed = lanzamientoXSpeed / pepe;
+			App->frisbee->yspeed = lanzamientoYSpeed*0;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -953,8 +983,8 @@ void ModulePlayer::lanzamientoPlayer() {
 			
 			App->collisions->RemoveCollider(App->frisbee->collider);
 
-			App->frisbee->xspeed = 3;
-			App->frisbee->yspeed = 0;
+			App->frisbee->xspeed = parabolaXSpeed;
+			App->frisbee->yspeed = parabolaYSpeed;
 			App->frisbee->vel_parabola(position.x, 260);
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
@@ -1043,41 +1073,41 @@ void ModulePlayer::timerP() {
 
 
 void ModulePlayer::limitePlayer() {
+	
+	if (position.x > App->sceneBeachStage->limiteCentralIzq) { 
+		if (position.y < App->sceneBeachStage->limiteSuperior) {
+			position.y = App->sceneBeachStage->limiteSuperior+2;
+			position.x = App->sceneBeachStage->limiteCentralIzq-2;
+		}
+		else if (position.y > App->sceneBeachStage->limiteInferior) {
+			position.y = App->sceneBeachStage->limiteInferior-2;
+			position.x = App->sceneBeachStage->limiteCentralIzq-2;
+		}
+		else {
+			position.x = App->sceneBeachStage->limiteCentralIzq-2;
+		}
+	}
+	else if (position.x < App->sceneBeachStage->limiteIzquierda) {
+		if (position.y < App->sceneBeachStage->limiteSuperior) {
+			position.y = App->sceneBeachStage->limiteSuperior+2;
+			position.x = App->sceneBeachStage->limiteIzquierda+2;
 
-	//if (position.x > 110) {
-	//	if (position.y < 50) {
-	//		position.y = 52;
-	//		position.x = ;
-	//	}
-	//	else if (position.y > 138) {
-	//		position.y = 136;
-	//		position.x = ;
-	//	}
-	//	else {
-	//		position.x = ;
-	//	}
-	//}
-	//else if (position.x < 10) {
-	//	if (position.y < 50) {
-	//		position.y = 52;
-	//		position.x = ;
-
-	//	}
-	//	else if (position.y > 138) {
-	//		position.y = 136;
-	//		position.x = ;
-	//	}
-	//	else {
-	//		position.x = 142;
-	//	}
-	//}
+		}
+		else if (position.y > App->sceneBeachStage->limiteInferior) {
+			position.y = App->sceneBeachStage->limiteInferior-2;
+			position.x = App->sceneBeachStage->limiteIzquierda+2;
+		}
+		else {
+			position.x = App->sceneBeachStage->limiteIzquierda+2;
+		}
+	}
 
 
-	//if (position.y > 138) {
-	//	position.y = 136;
-	//}
-	//else if (position.y < 50) {
-	//	position.y = 52;
-	//}
+	if (position.y > App->sceneBeachStage->limiteInferior) {
+		position.y = App->sceneBeachStage->limiteInferior-2;
+	}
+	else if (position.y < App->sceneBeachStage->limiteSuperior) {
+		position.y = App->sceneBeachStage->limiteSuperior+2;
+	}
 
 }

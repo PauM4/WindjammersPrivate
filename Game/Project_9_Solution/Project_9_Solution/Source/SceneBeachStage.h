@@ -170,6 +170,13 @@ public:
 	bool setsSpriteAppear;
 	
 	void miradaArbitro();
+
+	int limiteCentralIzq;
+	int limiteCentralDer;
+	int limiteSuperior;
+	int limiteInferior;
+	int limiteDerecha;
+	int limiteIzquierda;
 };
 
 #endif
