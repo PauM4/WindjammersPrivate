@@ -46,7 +46,7 @@ ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 	//Disco bloqueado
 	blocked.PushBack({ 0, 102, 51, 51 });
 	for (int i = 5; i >= 0; i--) {
-		blocked.PushBack({ 204 + (i * 75), 51, 51, 51 });
+		blocked.PushBack({ 204 + (i * 51), 51, 51, 51 });
 	}
 	for (int i = 0; i < 3; i++) {
 		blocked.PushBack({ 357 + (i * 51), 0, 51, 51 });
@@ -55,7 +55,7 @@ ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 		blocked.PushBack({ 0 + (i * 51), 51, 51, 51 });
 	}
 	moving.loop = false;
-	moving.speed = 0.2f;
+	moving.speed = 0.1f;
 
 	//Desaparece: que no hace falta hacer nada
 
