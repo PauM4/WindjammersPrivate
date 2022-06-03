@@ -48,8 +48,6 @@ public:
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnimation = nullptr;
 
-	
-
 	//Animation* dustAnimation = nullptr;
 
 	// A set of animations
@@ -70,6 +68,10 @@ public:
 	Animation dashDown;
 	Animation dashLeft;
 	Animation dashRight;
+	Animation diagonalUpRight;
+	Animation diagonalUpLeft;
+	Animation diagonalDownRight;
+	Animation diagonalDownLeft;
 
 	enum estadoPlayer
 	{

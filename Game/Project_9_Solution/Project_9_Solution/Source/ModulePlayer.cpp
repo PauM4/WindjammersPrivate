@@ -156,6 +156,34 @@ bool ModulePlayer::Start()
 		}
 		lose.loop = true;
 		lose.speed = 0.05f;
+
+		//Dash diagonalUpRight
+		diagonalUpRight.PushBack({ 635, 112, 53, 57 });
+		diagonalUpRight.PushBack({ 635 + 53, 112, 53, 57 });
+		diagonalUpRight.PushBack({ 0, 170, 53, 57 });
+		diagonalUpRight.loop = false;
+		diagonalUpRight.speed = 0.45f;
+
+		//Dash diagonalDownRight
+		for (int i = 0; i < 3; i++) {
+			diagonalDownRight.PushBack({ 210 + (i * 53), 170, 53, 57 });
+		}
+		diagonalDownRight.loop = false;
+		diagonalDownRight.speed = 0.45f;
+
+		//Dash diagonalDownLeft
+		for (int i = 2; i >= 0; i--) {
+			diagonalDownLeft.PushBack({ 372 + (i * 53), 510, 53, 57 });
+		}
+		diagonalDownLeft.loop = false;
+		diagonalDownLeft.speed = 0.45f;
+
+		//Dash diagonalUpLeft
+		diagonalUpLeft.PushBack({ 0, 455, 53, 57 });
+		diagonalUpLeft.PushBack({ 53, 170, 53, 57 });
+		diagonalUpLeft.PushBack({ 689, 510, 53, 57 });
+		diagonalUpLeft.loop = false;
+		diagonalUpLeft.speed = 0.45f;
 		break;
 
 	case(CharList::Yoo):
@@ -275,6 +303,34 @@ bool ModulePlayer::Start()
 		}
 		lose.loop = true;
 		lose.speed = 0.05f;
+
+		//Dash diagonalUpRight
+		for (int i = 0; i < 4; i++) {
+			diagonalUpRight.PushBack({ 462 + (i * 66), 66, 66, 66 });
+		}
+		diagonalUpRight.loop = false;
+		diagonalUpRight.speed = 0.45f;
+
+		//Dash diagonalDownRight
+		for (int i = 0; i < 4; i++) {
+			diagonalDownRight.PushBack({ 198 + (i * 66), 132, 66, 66 });
+		}
+		diagonalDownRight.loop = false;
+		diagonalDownRight.speed = 0.45f;
+
+		//Dash diagonalDownLeft
+		for (int i = 3; i >= 0; i--) {
+			diagonalDownLeft.PushBack({ 726 + (i * 66), 660, 66, 66 });
+		}
+		diagonalDownLeft.loop = false;
+		diagonalDownLeft.speed = 0.45f;
+
+		//Dash diagonalUpLeft
+		for (int i = 3; i >= 0; i--) {
+			diagonalUpLeft.PushBack({ 462 + (i * 66), 594, 66, 66 });
+		}
+		diagonalUpLeft.loop = false;
+		diagonalUpLeft.speed = 0.45f;
 		break;
 
 	case(CharList::Wessel):
@@ -390,15 +446,42 @@ bool ModulePlayer::Start()
 		for (int i = 0; i < 4; i++) {
 			lose.PushBack({ 975 + (i * 75), 195, 75, 65 });
 		}
-		idleDisk.PushBack({ 1125, 260, 75, 65 });
-		idleDisk.PushBack({ 1200, 260, 75, 65 });
+		lose.PushBack({ 0, 260, 75, 65 });
+		lose.PushBack({ 75, 260, 75, 65 });
 		lose.loop = true;
 		lose.speed = 0.05f;
+		
+		//Dash diagonalUpRight
+		for (int i = 0; i < 4; i++) {
+			diagonalUpRight.PushBack({ 375 + (i * 75), 130, 75, 65 });
+		}
+		diagonalUpRight.loop = false;
+		diagonalUpRight.speed = 0.45f;
+
+		//Dash diagonalDownRight
+		for (int i = 0; i < 4; i++) {
+			diagonalDownRight.PushBack({ 975 + (i * 75), 130, 75, 65 });
+		}
+		diagonalDownRight.loop = false;
+		diagonalDownRight.speed = 0.45f;
+
+		//Dash diagonalDownLeft
+		for (int i = 3; i >= 0; i--) {
+			diagonalDownLeft.PushBack({ 0 + (i * 75), 520, 75, 65 });
+		}
+		diagonalDownLeft.loop = false;
+		diagonalDownLeft.speed = 0.45f;
+
+		//Dash diagonalUpLeft
+		for (int i = 3; i >= 0; i--) {
+			diagonalUpLeft.PushBack({ 600 + (i * 75), 520, 75, 65 });
+		}
+		diagonalUpLeft.loop = false;
+		diagonalUpLeft.speed = 0.45f;
 		break;
 	}
 
 	currentAnimation = &idleRAnim;
-
 
 	position.x = 20;
 	position.y = 100;
