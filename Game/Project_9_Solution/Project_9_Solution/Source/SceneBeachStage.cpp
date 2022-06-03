@@ -210,7 +210,7 @@ Update_Status SceneBeachStage::Update()
 		App->ingameUI->currentTimerAnim->Update();
 		//if (estadoTGol == INICIOGOL) {
 		//SI NO FUNCIONA, TREURE ROUND();
-		Round();
+		//Round();
 		// -----------------------------------------------------------------------------
 		//}//Tendremos que poner una condicion para cuando se marquen puntos que aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 		if (estadoTGol == EJECUTANDOGOL)
@@ -555,7 +555,7 @@ void SceneBeachStage::Round() {
 			}
 
 		}
-		else if (estadoTS == FIN && (App->frisbee->estadoF == ModuleFrisbee::estadoFrisbee::WITHPLAYER)) { //FALTA TIMER
+		else if (estadoTS == FIN) { //FALTA TIMER
 
 			App->frisbee->position.x = 150;
 			App->frisbee->position.y = 200;
@@ -592,7 +592,7 @@ void SceneBeachStage::Round() {
 				App->player->round += 1;
 				App->player2->round += 1;
 				App->player->currentAnimation = &App->player->win;
-				App->player->currentAnimation = &App->player->win;
+				App->player2->currentAnimation = &App->player2->win;
 
 				App->player->score = 0;
 				App->player2->score = 0;
