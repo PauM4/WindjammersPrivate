@@ -103,7 +103,7 @@ bool ModulePlayer::Start()
 
 		//Idle Disk
 		for (int i = 0; i < 3; i++) {
-			idleDisk.PushBack({ 158 + (i * 53), 283, 53, 57 });
+			idleDisk.PushBack({ 158 + (i * 53), 287, 53, 57 });
 		}
 		idleDisk.loop = true;
 		idleDisk.speed = 0.075f;
