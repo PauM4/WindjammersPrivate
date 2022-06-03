@@ -13,7 +13,13 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 
 
 	matrix[Collider::Type::PLAYER][Collider::Type::FRISBEE] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::DEBUGG] = false;
+
 	matrix[Collider::Type::FRISBEE][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::FRISBEE][Collider::Type::DEBUGG] = false;
+	
+	matrix[Collider::Type::DEBUGG][Collider::Type::FRISBEE] = false;
+	matrix[Collider::Type::DEBUGG][Collider::Type::PLAYER] = false;
 
 }
 

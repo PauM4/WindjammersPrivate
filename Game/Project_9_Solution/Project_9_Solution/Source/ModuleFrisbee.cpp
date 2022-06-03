@@ -118,8 +118,8 @@ Update_Status ModuleFrisbee::Update()
 	case WITHPLAYER:
 		currentAnimation2 = &desaparece;
 		if (App->player->estadoP1 == ModulePlayer::estadoPlayer::WITHFRISBEE) {
-			position.x = App->player->position.x + 28;
-			position.y = App->player->position.y + 10;
+			position.x = App->player->position.x + 38;
+			position.y = App->player->position.y + 20;
 		}
 		else if (App->player2->estadoP2 == ModulePlayer2::estadoPlayer2::WITHFRISBEE) {
 			position.x = App->player2->position.x - 17;

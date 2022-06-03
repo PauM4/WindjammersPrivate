@@ -125,23 +125,54 @@ bool ModulePlayer::Start()
 		//Dash izquierdo
 		for (int i = 2; i >= 0; i--) {
 			dashLeft.PushBack({ 265 + (i * 53), 450, 53, 57 });
-		}//dashLeft
+		}
 		dashLeft.loop = false;
 		dashLeft.speed = 0.45f;
 
 		//Dash arriba
 		for (int i = 0; i < 3; i++) {
 			dashUp.PushBack({ 477 + (i * 53), 115, 53, 57 });
-		}//dashLeft
+		}
 		dashUp.loop = false;
 		dashUp.speed = 0.45f;
 
 		//Dash abajo
 		for (int i = 0; i < 3; i++) {
 			dashDown.PushBack({ 55 + (i * 53), 170, 53, 57 });
-		}//dashLeft
+		}
 		dashDown.loop = false;
 		dashDown.speed = 0.45f;
+
+		//Dash diagonalUpRight
+	
+		diagonalUpRight.PushBack({ 635, 112, 53, 57 });
+		diagonalUpRight.PushBack({ 635 + 53, 112, 53, 57 });
+		diagonalUpRight.PushBack({ 0, 170, 53, 57 });
+		
+		diagonalUpRight.loop = false;
+		diagonalUpRight.speed = 2.0f;
+
+		//Dash diagonalDownRight
+		for (int i = 0; i < 3; i++) {
+			diagonalDownRight.PushBack({ 210 + (i * 53), 170, 53, 57 });
+		}
+		diagonalDownRight.loop = false;
+		diagonalDownRight.speed = 0.45f;
+
+		//Dash diagonalDownLeft
+		for (int i = 2; i >=0 ; i--) {
+			diagonalDownLeft.PushBack({ 372 + (i * 53), 510, 53, 57 });
+		}
+		diagonalDownLeft.loop = false;
+		diagonalDownLeft.speed = 0.45f;
+
+		
+		//Dash diagonalUpLeft
+		diagonalUpLeft.PushBack({ 0, 455, 53, 57 });
+		diagonalUpLeft.PushBack({ 53, 170, 53, 57 });
+		diagonalUpLeft.PushBack({ 689, 510, 53, 57 });
+		diagonalUpLeft.loop = false;
+		diagonalUpLeft.speed = 0.45f;
 
 		//Win
 		for (int i = 0; i < 3; i++) {
@@ -157,6 +188,7 @@ bool ModulePlayer::Start()
 		lose.loop = true;
 		lose.speed = 0.05f;
 		break;
+
 	case(CharList::Yoo):
 		//texture = App->textures->Load("Assets/Sprites/Characters/Yoo.png");
 		break;
@@ -171,7 +203,7 @@ bool ModulePlayer::Start()
 	position.x = 20;
 	position.y = 100;
 
-	collider = App->collisions->AddCollider({ (int)position.x + , (int)position.y, 27, 31 }, Collider::Type::PLAYER, this);
+	collider = App->collisions->AddCollider({ (int)position.x+14, (int)position.y+10, 27, 31 }, Collider::Type::PLAYER, this);
 
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);
@@ -246,7 +278,7 @@ Update_Status ModulePlayer::Update()
 	}
 
 
-	collider->SetPos(position.x, position.y);
+	collider->SetPos(position.x+10, position.y+10);
 	currentAnimation->Update();
 
 
@@ -319,6 +351,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 void ModulePlayer::movimientoPlayer(){
 		
 		//MOVIMIENTO - DASH 
+
 		if ((App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) && position.x < 110)
 		{
 			position.x += speed;
@@ -331,7 +364,7 @@ void ModulePlayer::movimientoPlayer(){
 			last1 = 1;
 
 			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
-
+			
 				initialTimeP = SDL_GetTicks();
 				timeLimitP = 2 * 1000;
 				estadoTP = EJECUTANDO;
@@ -339,10 +372,24 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				timerP();
-				position.x += 1, 5 * speed;
-				currentAnimation = &rightAnim;
-				/*pols = true;*/
+				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
+					timerP();
+					position.y -= 0.25* speed;
+					position.x += 0.25 * speed;
+					currentAnimation = &diagonalUpRight;
+				}
+				else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) {
+					timerP();
+					position.y += 0.25 * speed;
+					position.x += 0.25 * speed;
+					currentAnimation = &diagonalDownRight;
+				}
+				else {
+					timerP();
+					position.x += 1.5 * speed;
+					currentAnimation = &dashRight;
+		
+				}
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -371,10 +418,24 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				timerP();
-				position.x -= 1, 5 * speed;
-				currentAnimation = &leftAnim;
-				/*pols = true;*/
+				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
+					timerP();
+					position.y -= 0.25 * speed;
+					position.x -= 0.25 * speed;
+					currentAnimation = &diagonalUpLeft;
+				}
+				else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) {
+					timerP();
+					position.y += 0.25 * speed;
+					position.x -= 0.25 * speed;
+					currentAnimation = &diagonalDownLeft;
+				}
+				else {
+					timerP();
+					position.x -= 1.5 * speed;
+					currentAnimation = &dashLeft;
+				}
+
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -407,10 +468,26 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				timerP();
-				position.y -= 1, 5 * speed;
-				/*pols = true;*/
-				currentAnimation = &rightAnim;
+
+				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
+					timerP();
+					position.y -= 0.25 * speed;
+					position.x += 0.25 * speed;
+					currentAnimation = &diagonalUpRight;
+				}
+				else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT) {
+					timerP();
+					position.y -= 0.25 * speed;
+					position.x -= 0.25 * speed;
+					currentAnimation = &diagonalUpLeft;
+				}
+				else {
+					timerP();
+					position.y -= 1, 5 * speed;
+					currentAnimation = &dashUp;
+				}
+
+
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
@@ -418,7 +495,7 @@ void ModulePlayer::movimientoPlayer(){
 
 
 		}
-		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 150)
+		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < 138)
 		{
 			position.y += speed;
 
@@ -443,10 +520,26 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				timerP();
-				position.y += 1, 5 * speed;
-				/*pols = true;*/
-				currentAnimation = &rightAnim;
+
+				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
+					timerP();
+					position.y += 0.25 * speed;
+					position.x += 0.25 * speed;
+					currentAnimation = &diagonalDownRight;
+				}
+				else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT) {
+					timerP();
+					position.y += 0.25 * speed;
+					position.x -= 0.25 * speed;
+					currentAnimation = &diagonalDownLeft;
+				}
+				else {
+					timerP();
+					position.y += 1, 5 * speed;
+					currentAnimation = &dashDown;
+				}
+
+
 			}
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
