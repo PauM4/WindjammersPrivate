@@ -173,6 +173,14 @@ bool ModuleParticles::Start()
 	yooLoadShotPArticle.lifetime = 60;
 	yooLoadShotPArticle.anim.speed = 0.4f;
 
+	wesselLoadShotParticle.anim.PushBack({409, 140, 48, 48});
+	wesselLoadShotParticle.anim.PushBack({457, 140, 48, 48});
+	wesselLoadShotParticle.anim.PushBack({409, 188, 48, 48});
+	wesselLoadShotParticle.anim.PushBack({457, 188, 48, 48});
+	wesselLoadShotParticle.anim.loop = true;
+	wesselLoadShotParticle.lifetime = 40;
+	wesselLoadShotParticle.anim.speed = 0.4f;
+
 	wesselSuperShotParticleCircle.anim.PushBack({ 318, 343, 47, 47 });
 	wesselSuperShotParticleCircle.anim.PushBack({ 264, 343, 47, 47 });
 	wesselSuperShotParticleCircle.anim.PushBack({ 212, 343, 47, 47 });
