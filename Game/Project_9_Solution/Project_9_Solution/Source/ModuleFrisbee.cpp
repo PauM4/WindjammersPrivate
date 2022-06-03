@@ -158,7 +158,7 @@ Update_Status ModuleFrisbee::Update()
 			}
 
 			timeLimitF = 2 * 1000;
-			currentAnimation2 = &projectile;
+			currentAnimation2 = &blocked;
 			App->collisions->RemoveCollider(App->frisbee->collider);
 			estadoTF = EJECUTANDO;
 
