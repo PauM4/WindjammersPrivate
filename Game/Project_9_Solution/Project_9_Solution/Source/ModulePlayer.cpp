@@ -58,6 +58,7 @@ bool ModulePlayer::Start()
 		lanzamientoYSpeed = 4;
 		parabolaXSpeed = 3;
 		parabolaYSpeed = 0;
+
 		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this); //en cada switch segun el player habra uno
 
 		//idleLAnim
