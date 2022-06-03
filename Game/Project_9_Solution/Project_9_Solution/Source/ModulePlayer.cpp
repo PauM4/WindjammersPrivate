@@ -158,7 +158,122 @@ bool ModulePlayer::Start()
 		lose.speed = 0.05f;
 		break;
 	case(CharList::Yoo):
-		//texture = App->textures->Load("Assets/Sprites/Characters/Yoo.png");
+		texture = App->textures->Load("Assets/Sprites/Characters/Kor.png");
+		speed = 2;
+		//idleLAnim
+		for (int i = 0; i < 8; i++) {
+			idleLAnim.PushBack({ 462 + (i * 66), 462, 66, 66 });
+		}
+		idleLAnim.loop = true;
+		idleLAnim.speed = 0.075f;
+
+		//idleRAnim
+		for (int i = 0; i < 8; i++) {
+			idleRAnim.PushBack({ 198 + (i * 66), 0, 66, 66 });
+		}
+		idleRAnim.loop = true;
+		idleRAnim.speed = 0.075f;
+
+		// Move Right
+		for (int i = 0; i < 6; i++) {
+			rightAnim.PushBack({ 792 + (i * 66), 0, 66, 66 });
+		}
+		rightAnim.loop = true;
+		rightAnim.speed = 0.075f;
+
+		//Move Left
+		for (int i = 0; i < 6; i++) {
+			leftAnim.PushBack({ 66 + (i * 66), 462, 66, 66 });
+		}
+		leftAnim.loop = true;
+		leftAnim.speed = 0.075f;
+
+		// Move Down Head Right
+		for (int i = 0; i < 6; i++) {
+			downRAnim.PushBack({ 792 + (i * 66), 66, 66, 66 });
+		}
+		downRAnim.loop = true;
+		downRAnim.speed = 0.075f;
+
+		// Move Down Head Left
+		for (int i = 0; i < 6; i++) {
+			downLAnim.PushBack({ 66 + (i * 66), 528, 66, 66 });
+		}
+		downLAnim.loop = true;
+		downLAnim.speed = 0.075f;
+
+		//Move Up Head Left
+		for (int i = 0; i < 6; i++) {
+			upLAnim.PushBack({ 462 + (i * 66), 528, 66, 66 });
+		}
+		upLAnim.loop = true;
+		upLAnim.speed = 0.075f;
+
+		//Move Up Head Right
+		for (int i = 0; i < 6; i++) {
+			upRAnim.PushBack({ 330 + (i * 66), 66, 66, 66 });
+		}
+		upRAnim.loop = true;
+		upRAnim.speed = 0.075f;
+
+		//Idle Disk
+		for (int i = 0; i < 8; i++) {
+			idleDisk.PushBack({ 0 + (i * 66), 330, 66, 66 });
+		}
+		idleDisk.loop = true;
+		idleDisk.speed = 0.075f;
+
+		//Lanzamiento Disco
+		for (int i = 0; i < 6; i++) {
+			lanzamiento.PushBack({ 396 + (i * 66), 396, 66, 66 });
+		}
+		lanzamiento.loop = false;
+		lanzamiento.speed = 0.3f;
+
+		//Dash derecho
+		dashRight.PushBack({ 1122, 66, 66, 66 });
+		for (int i = 0; i < 3; i++) {
+			dashRight.PushBack({ 0 + (i * 66), 132, 66, 66 });
+		}
+		dashRight.loop = false;
+		dashRight.speed = 0.45f;
+
+		//Dash izquierdo
+		dashRight.PushBack({ 0, 528, 66, 66 });
+		for (int i = 3; i >= 0; i--) {
+			dashLeft.PushBack({ 1122 + (i * 66), 594, 66, 66 });
+		}
+		dashLeft.loop = false;
+		dashLeft.speed = 0.45f;
+
+		//Dash arriba
+		for (int i = 0; i < 3; i++) {
+			dashUp.PushBack({ 198 + (i * 66), 132, 66, 66 });
+		}
+		dashUp.loop = false;
+		dashUp.speed = 0.45f;
+
+		//Dash abajo
+		dashDown.PushBack({ 726, 132, 66, 66 });
+		dashDown.PushBack({ 792, 132, 66, 66 });
+		dashDown.PushBack({ 1122, 132, 66, 66 });
+		dashDown.PushBack({ 132, 198, 66, 66 });
+		dashDown.loop = false;
+		dashDown.speed = 0.45f;
+
+		//Win
+		for (int i = 0; i < 3; i++) {
+			win.PushBack({ 132 + (i * 66), 264, 66, 66 });
+		}
+		win.loop = true;
+		win.speed = 0.05f;
+
+		//Lose
+		for (int i = 0; i < 6; i++) {
+			lose.PushBack({ 330 + (i * 66), 264, 66, 66 });
+		}
+		lose.loop = true;
+		lose.speed = 0.05f;
 		break;
 	case(CharList::Wessel):
 		texture = App->textures->Load("Assets/Sprites/Characters/Wessel.png");
