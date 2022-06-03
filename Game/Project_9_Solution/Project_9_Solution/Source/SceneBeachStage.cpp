@@ -196,10 +196,11 @@ Update_Status SceneBeachStage::Update()
 		//Animacion Ronda 1.
 		App->player->score = 0;
 		App->player2->score = 0;
-		App->audio->PlayFx(whistleFX);
+		
 
 		if (estadoTS == INICIOT)
 		{
+			App->audio->PlayFx(whistleFX);
 			initialTimeS = SDL_GetTicks();
 			if (App->player->round == 0 && App->player2->round == 0)
 			{
@@ -307,10 +308,10 @@ Update_Status SceneBeachStage::Update()
 	case(LANZAMIENTOARBITRO):
 		if (estadoTS == INICIOT)
 		{
-			if (arbitroFinalRonda = 1) {
+			if (arbitroFinalRonda == 1) {
 				//currentAnimationFrisbee = &lanzamientoIzquierda;
 			}
-			else if (arbitroFinalRonda = 2) {
+			else if (arbitroFinalRonda == 2) {
 				//currentAnimationFrisbee = &lanzamientoDerecha;
 			}
 			
@@ -330,8 +331,6 @@ Update_Status SceneBeachStage::Update()
 			timeLimitS = 30 * 1000;
 			estadoTS = EJECUTANDO;
 			App->ingameUI->timerAnim.Reset();
-			
-
 		}
 		break;
 	}
@@ -492,11 +491,12 @@ Update_Status SceneBeachStage::PostUpdate()
 		if (estadoS == 4) {
 			App->fonts->BlitText(110, 180, debugFont, "S.FINAL");
 		}
+		if (estadoS == 5) {
+			App->fonts->BlitText(110, 180, debugFont, "S.LANZAMIENTOARBITRO");
+		}
 
 		if (App->frisbee->lanzamientoF == 0) {
-
 			App->fonts->BlitText(110, 120, debugFont, "NORMAL");
-
 		}
 		else if (App->frisbee->lanzamientoF == 1) {
 			App->fonts->BlitText(110, 120, debugFont, "PARABOLA");
@@ -514,9 +514,9 @@ Update_Status SceneBeachStage::PostUpdate()
 			App->fonts->BlitText(110, 120, debugFont, "BLOCKPLAYER2");
 		}
 
+
 		if(App->frisbee->estadoTF == 0) {
 			App->fonts->BlitText(110, 150, debugFont, "INICIO");
-
 		}
 		else if (App->frisbee->estadoTF == 1) {
 			App->fonts->BlitText(110, 150, debugFont, "EJECUTANDO");

@@ -92,10 +92,8 @@ bool ModuleFrisbee::Start()
 	position.x = 150;
 	position.y = 200;
 	projectil = 0;
-	FloorTime = 0;
 
 
-	destroyed = false;
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
 	
