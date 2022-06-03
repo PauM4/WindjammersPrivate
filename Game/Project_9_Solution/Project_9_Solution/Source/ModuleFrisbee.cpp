@@ -237,7 +237,7 @@ Update_Status ModuleFrisbee::PostUpdate()
 
 void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider && destroyed == false)
+	if (c1 == collider && (c2 == App->player->collider || c2==App->player2->collider))
 	{
 		//currentAnimation2 = &desaparece;
 		//estadoF = estadoFrisbee::STOP;

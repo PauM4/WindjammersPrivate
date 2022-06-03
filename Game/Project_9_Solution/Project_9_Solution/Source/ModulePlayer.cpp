@@ -678,7 +678,7 @@ Update_Status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider)
+	if (c1 == collider && c2 == App->frisbee->collider)
 	{
 		//creo q si ya lo tenemos puesto en el disco que si choca no haga nada, no deberia hacer falta ponerlo aqui tmb
 		estadoP1 = estadoPlayer::WITHFRISBEE;

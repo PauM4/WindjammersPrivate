@@ -661,7 +661,7 @@ Update_Status ModulePlayer2::PostUpdate()
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider)
+	if (c1 == collider && c2 == App->frisbee->collider)
 	{//le pongo 0,0 pq no se exactamente q es esto y como he cambiado la funcion como tal tengo q meterle estos parametros i o si
 		
 		estadoP2 = estadoPlayer2::WITHFRISBEE;
