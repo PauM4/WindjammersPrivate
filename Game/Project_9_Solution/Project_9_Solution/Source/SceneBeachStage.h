@@ -51,6 +51,15 @@ public:
 	Animation bgLawnAnim;
 	Animation bgConcreteAnim;
 	Animation* currentBgAnim = nullptr;
+	
+	Animation* currentAnimationFrisbee = nullptr;
+	Animation lanzamientoIzquierda;
+	Animation lanzamientoDerecha;
+	Animation scoreP1;
+	Animation scoreP2;
+	Animation miradaIzq;
+	Animation miradaDerecha;  
+	
 
 	// Sound effects indices
 	uint round1FX;
@@ -105,8 +114,8 @@ public:
 		INICIORONDA, //Animaciones de inicio de ronda
 		RONDA, //durante el juego
 		FINALRONDA, //animaciones/texturas fin de ronda
-		FINAL //fin de partida
-
+		FINAL, //fin de partida
+		LANZAMIENTOARBITRO 
 	};
 	int estadoS;
 
@@ -160,6 +169,7 @@ public:
 	bool roundSpriteAppear;
 	bool setsSpriteAppear;
 	
+	void miradaArbitro();
 };
 
 #endif
