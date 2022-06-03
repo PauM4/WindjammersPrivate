@@ -122,6 +122,16 @@ public:
 	char debugText[10] = { "\0" };
 	bool isDebugAppear;
 
+	// Font score index
+	uint score;
+	int scoreFont;
+	char scoreText[10] = { "\0" };
+
+	// Font score index
+	uint score2;
+	int scoreFont2;
+	char scoreText2[10] = { "\0" };
+
 };
 
 #endif

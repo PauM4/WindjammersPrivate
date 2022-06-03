@@ -90,6 +90,18 @@ bool ModuleInGameUI::Start()
 	ambQuadradet = true;
 	verticalPos = 107;
 
+	score = 000;
+	scoreFont = -1;
+
+	score2 = 000;
+	scoreFont2 = -1;
+
+	char lookupTable1[] = { "0123456789G " };
+	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable1, 1);
+
+	char lookupTable2[] = { "0123456789G " };
+	scoreFont2 = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable2, 1);
+
 	//Debug Font
 	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
@@ -278,6 +290,24 @@ Update_Status ModuleInGameUI::PostUpdate()
 	//COMEN�A PARTIDA
 	else if (App->sceneBeachStage->estadoS == App->sceneBeachStage->RONDA)
 	{
+
+		// Draw UI P1(score) --------------------------------------
+		if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
+		{
+			sprintf_s(scoreText, 10, "%2d", App->player->score);
+
+			App->fonts->BlitText(117, 17, scoreFont, scoreText);
+
+			//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
+		}
+		// Draw UI P2(score2) --------------------------------------
+		if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
+		{
+			sprintf_s(scoreText2, 10, "%2d", App->player2->score);
+
+			App->fonts->BlitText(165, 17, scoreFont2, scoreText2);
+		}
+
 		//Timer
 		rectTimer = currentTimerAnim->GetCurrentFrame();
 		App->render->Blit(timerTexture, 144, 13, &rectTimer);

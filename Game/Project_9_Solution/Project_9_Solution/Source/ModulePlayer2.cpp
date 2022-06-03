@@ -193,13 +193,13 @@ Update_Status ModulePlayer2::PostUpdate()
 		App->render->Blit(texture, position.x, position.y, &rect);
 	}
 
-	// Draw UI (score) --------------------------------------
-	if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
-	{
-		sprintf_s(scoreText, 10, "%2d", score);
+	//// Draw UI (score) --------------------------------------
+	//if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
+	//{
+	//	sprintf_s(scoreText, 10, "%2d", score);
 
-		App->fonts->BlitText(165, 17, scoreFont, scoreText);
-	}
+	//	App->fonts->BlitText(165, 17, scoreFont, scoreText);
+	//}
 
 	//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
 
