@@ -157,6 +157,7 @@ bool ModulePlayer::Start()
 		lose.loop = true;
 		lose.speed = 0.05f;
 		break;
+
 	case(CharList::Yoo):
 		texture = App->textures->Load("Assets/Sprites/Characters/Kor.png");
 		speed = 2;
@@ -275,8 +276,124 @@ bool ModulePlayer::Start()
 		lose.loop = true;
 		lose.speed = 0.05f;
 		break;
+
 	case(CharList::Wessel):
-		texture = App->textures->Load("Assets/Sprites/Characters/Wessel.png");
+		texture = App->textures->Load("Assets/Sprites/Characters/Ger.png");
+		speed = 2;
+		//idleLAnim
+		for (int i = 0; i < 3; i++) {
+			idleLAnim.PushBack({ 225 + (i * 75), 0, 75, 65 });
+		}
+		idleLAnim.loop = true;
+		idleLAnim.speed = 0.075f;
+
+		//idleRAnim
+		for (int i = 0; i < 3; i++) {
+			idleRAnim.PushBack({ 825 + (i * 75), 390, 75, 65 });
+		}
+		idleRAnim.loop = true;
+		idleRAnim.speed = 0.075f;
+
+		// Move Right
+		for (int i = 0; i < 6; i++) {
+			rightAnim.PushBack({ 450 + (i * 75), 0, 75, 65 });
+		}
+		rightAnim.loop = true;
+		rightAnim.speed = 0.075f;
+
+		//Move Left
+		for (int i = 0; i < 6; i++) {
+			leftAnim.PushBack({ 375 + (i * 75), 390, 75, 65 });
+		}
+		leftAnim.loop = true;
+		leftAnim.speed = 0.075f;
+
+		// Move Down Head Right
+		for (int i = 0; i < 6; i++) {
+			downRAnim.PushBack({ 525 + (i * 75), 65, 75, 65 });
+		}
+		downRAnim.loop = true;
+		downRAnim.speed = 0.075f;
+
+		// Move Down Head Left
+		for (int i = 0; i < 6; i++) {
+			downLAnim.PushBack({ 525 + (i * 75), 65, 75, 65 });
+		}
+		downLAnim.loop = true;
+		downLAnim.speed = 0.075f;
+
+		//Move Up Head Left
+		for (int i = 0; i < 6; i++) {
+			upLAnim.PushBack({ 75 + (i * 75), 65, 75, 65 });
+		}
+		upLAnim.loop = true;
+		upLAnim.speed = 0.075f;
+
+		//Move Up Head Right
+		for (int i = 0; i < 6; i++) {
+			upRAnim.PushBack({ 75 + (i * 75), 65, 75, 65 });
+		}
+		upRAnim.loop = true;
+		upRAnim.speed = 0.075f;
+
+		//Idle Disk
+		idleDisk.PushBack({ 1125, 260, 75, 65 });
+		idleDisk.PushBack({ 1200, 260, 75, 65 });
+		idleDisk.PushBack({ 0, 325, 75, 65 });
+		idleDisk.PushBack({ 75, 325, 75, 65 });
+		idleDisk.loop = true;
+		idleDisk.speed = 0.075f;
+
+		//Lanzamiento Disco
+		for (int i = 0; i < 6; i++) {
+			lanzamiento.PushBack({ 750 + (i * 75), 325, 75, 65 });
+		}
+		lanzamiento.loop = false;
+		lanzamiento.speed = 0.3f;
+
+		//Dash derecho
+		for (int i = 0; i < 4; i++) {
+			dashRight.PushBack({ 975 + (i * 75), 65, 75, 65 });
+		}
+		dashRight.loop = false;
+		dashRight.speed = 0.45f;
+
+		//Dash izquierdo
+		for (int i = 3; i >= 0; i--) {
+			dashLeft.PushBack({ 0 + (i * 75), 455, 75, 65 });
+		}
+		dashLeft.loop = false;
+		dashLeft.speed = 0.45f;
+
+		//Dash arriba
+		for (int i = 0; i < 4; i++) {
+			dashUp.PushBack({ 0 + (i * 75), 130, 75, 65 });
+		}
+		dashUp.loop = false;
+		dashUp.speed = 0.45f;
+
+		//Dash abajo
+		for (int i = 0; i < 4; i++) {
+			dashDown.PushBack({ 675 + (i * 75), 130, 75, 65 });
+		}
+		dashDown.loop = false;
+		dashDown.speed = 0.45f;
+
+		//Win
+		for (int i = 0; i < 7; i++) {
+			win.PushBack({ 450 + (i * 75), 195, 75, 65 });
+		}
+		win.loop = true;
+		win.speed = 0.05f;
+
+		//Lose
+		for (int i = 0; i < 4; i++) {
+			lose.PushBack({ 975 + (i * 75), 195, 75, 65 });
+		}
+		idleDisk.PushBack({ 1125, 260, 75, 65 });
+		idleDisk.PushBack({ 1200, 260, 75, 65 });
+		lose.loop = true;
+		lose.speed = 0.05f;
 		break;
 	}
 
