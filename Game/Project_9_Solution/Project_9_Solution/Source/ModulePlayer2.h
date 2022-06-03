@@ -96,8 +96,6 @@ public:
 	void lanzamientoPlayer2();
 
 
-	int FrisbeeTime;
-
 	// Font score index
 	uint score;
 	int scoreFont;

@@ -21,7 +21,7 @@
 
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
-	if (p1Char == CharList::Mita){
+	if (App->sceneCharacterSelect->p1Char == CharList::Mita){
 		//idleLAnim
 		for (int i = 0; i < 8; i++) {
 			idleLAnim.PushBack({ 211 + (i * 53), 338, 53, 57 });
@@ -135,12 +135,12 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 		lose.speed = 0.05f;
 	
 	}
-	else if (p1Char == CharList::Wessel) {
+	else if (App->sceneCharacterSelect->p1Char == CharList::Wessel) {
 	
 		//Animaciones Wessel
 
 	} 
-	else if (p1Char == CharList::Yoo) {
+	else if (App->sceneCharacterSelect->p1Char == CharList::Yoo) {
 	
 		//Animaciones Yoo
 		
@@ -168,27 +168,31 @@ ModulePlayer::~ModulePlayer()
 
 bool ModulePlayer::Start()
 {
-	speed = 2;
+
 	last1 = 1;
 	score = 000;
 	scoreFont = -1;
 	round = 0;
-	p1Char =0;
+	estadoP1 = STOP;
+	bool ret = true;
 
 	LOG("Loading player textures");
 
-	bool ret = true;
-
-	if (p1Char == CharList::Mita) {
+	switch (App->sceneCharacterSelect->p1Char) {
+	case(CharList::Mita):
 		texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
-	}
-	else if (p1Char == CharList::Wessel) {
+		speed = 2;
+		break;
+	case(CharList::Yoo):
+		//texture = App->textures->Load("Assets/Sprites/Characters/Yoo.png");
+		break;
+	case(CharList::Wessel):
 		texture = App->textures->Load("Assets/Sprites/Characters/Wessel.png");
+		break;
 	}
+
 	currentAnimation = &idleRAnim;
 
-
-	/*dustAnimation = &polvo;*/
 
 	position.x = 20;
 	position.y = 100;
@@ -201,12 +205,6 @@ bool ModulePlayer::Start()
 	char lookupTableDebug[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTableDebug, 2);
 	isDebugAppear = false;
-
-	FrisbeeTime = 0;
-
-	/*pols = false;*/
-
-	estadoP1 = STOP;
 
 	return ret;
 }
@@ -582,7 +580,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 
 		//LANZAMIENTO SUPERSHOT
-		if (p1Char == CharList::Mita) { //japo
+		if (App->sceneCharacterSelect->p1Char == CharList::Mita) { //japo
 
 			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN /*&& (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)*/ && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
@@ -599,7 +597,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			}
 
 		}
-		else if (p1Char == CharList::Yoo) { //coreano
+		else if (App->sceneCharacterSelect->p1Char == CharList::Yoo) { //coreano
 
 			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN /*&& (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT || App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT)*/ && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
@@ -615,7 +613,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			}
 
 		}
-		else if (p1Char == CharList::Wessel) { //aleman
+		else if (App->sceneCharacterSelect->p1Char == CharList::Wessel) { //aleman
 
 			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{

@@ -105,8 +105,6 @@ public:
 	void lanzamientoPlayer();
 	
 
-	int FrisbeeTime;
-
 	// Font score index
 	uint score;
 	int scoreFont;
@@ -121,7 +119,6 @@ public:
 	int round;
 	int bea;
 	float pepe;
-	int p1Char;
 	
 	//bool pols;
 
