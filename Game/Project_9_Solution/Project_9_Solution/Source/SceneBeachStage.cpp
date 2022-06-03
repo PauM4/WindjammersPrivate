@@ -175,14 +175,10 @@ Update_Status SceneBeachStage::Update()
 		App->player2->score = 0;
 		App->audio->PlayFx(whistleFX);
 
-		if (App->player->round > 1 || App->player2->round > 1)
-		{
-
-		}
 		if (estadoTS == INICIOT)
 		{
 			initialTimeS = SDL_GetTicks();
-			if (App->player->round == 0 || App->player2->round == 0)
+			if (App->player->round == 0 && App->player2->round == 0)
 			{
 				timeLimitS = 1;
 			}
