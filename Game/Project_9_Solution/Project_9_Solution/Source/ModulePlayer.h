@@ -48,8 +48,6 @@ public:
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnimation = nullptr;
 
-	
-
 	//Animation* dustAnimation = nullptr;
 
 	// A set of animations
