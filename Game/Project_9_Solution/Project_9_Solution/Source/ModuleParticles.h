@@ -77,6 +77,10 @@ public:
 	Particle leftGoalFlashParticle;
 	Particle rightGoalFlashParticle;
 	Particle dustParticle;
+	Particle xocUpleft;
+	Particle xocDownleft;
+	Particle xocUpright;
+	Particle xocDownright;
 
 
 private:

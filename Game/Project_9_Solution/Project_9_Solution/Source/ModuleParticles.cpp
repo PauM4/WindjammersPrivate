@@ -82,6 +82,43 @@ bool ModuleParticles::Start()
 	frisbeeProjectile.lifetime = 180;
 	frisbeeProjectile.anim.speed = 0.1f;
 
+	//Particle when frisbee colliding with wall
+	xocUpleft.anim.PushBack({ 4, 215, 32, 19 });
+	xocUpleft.anim.PushBack({ 37, 215, 32, 22});
+	xocUpleft.anim.PushBack({ 71, 215, 31, 23 });
+	xocUpleft.anim.PushBack({ 104, 215, 29, 24 });
+	xocUpleft.anim.PushBack({ 135, 215, 28, 25 });
+	xocUpleft.anim.loop = false;
+	xocUpleft.lifetime = 13;
+	xocUpleft.anim.speed = 0.35f;
+
+	xocDownleft.anim.PushBack({ 4, 254, 32, 19 });
+	xocDownleft.anim.PushBack({ 37, 254, 32, 22 });
+	xocDownleft.anim.PushBack({ 71, 254, 31, 23 });
+	xocDownleft.anim.PushBack({ 104, 254, 29, 24 });
+	xocDownleft.anim.PushBack({ 135, 254, 28, 25 });
+	xocDownleft.anim.loop = false;
+	xocDownleft.lifetime = 13;
+	xocDownleft.anim.speed = 0.35f;
+
+	xocUpright.anim.PushBack({ 135, 283, 28, 25 });
+	xocUpright.anim.PushBack({ 104, 283, 29, 24 });
+	xocUpright.anim.PushBack({ 71, 283, 31, 23 });
+	xocUpright.anim.PushBack({ 37, 283, 32, 22 });
+	xocUpright.anim.PushBack({ 4, 283, 32, 19 });
+	xocUpright.anim.loop = false;
+	xocUpright.lifetime = 13;
+	xocUpright.anim.speed = 0.35f;
+
+	xocDownright.anim.PushBack({ 135, 315, 28, 25 });
+	xocDownright.anim.PushBack({ 104, 315, 29, 24 });
+	xocDownright.anim.PushBack({ 71, 315, 31, 23 });
+	xocDownright.anim.PushBack({ 37, 315, 32, 22 });
+	xocDownright.anim.PushBack({ 4, 315, 32, 19 });
+	xocDownright.anim.loop = false;
+	xocDownright.lifetime = 13;
+	xocDownright.anim.speed = 0.35f;
+
 
 	return true;
 }

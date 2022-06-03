@@ -348,7 +348,10 @@ Update_Status SceneBeachStage::PostUpdate()
 
 	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
 	{
-		App->particles->AddParticle(1, 0, App->particles->dustParticle, 110, 110, Collider::NONE, 0);
+		App->particles->AddParticle(0, 0, App->particles->xocUpleft, 110, 120, Collider::NONE, 0);
+		App->particles->AddParticle(0, 0, App->particles->xocDownleft, 110, 150, Collider::NONE, 0);
+		App->particles->AddParticle(0, 0, App->particles->xocUpright, 150, 150, Collider::NONE, 0);
+		App->particles->AddParticle(0, 0, App->particles->xocDownright, 150, 120, Collider::NONE, 0);
 
 	}
 
