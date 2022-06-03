@@ -150,7 +150,7 @@ bool ModulePlayer::Start()
 		diagonalUpRight.PushBack({ 0, 170, 53, 57 });
 		
 		diagonalUpRight.loop = false;
-		diagonalUpRight.speed = 2.0f;
+		diagonalUpRight.speed = 0.45f;
 
 		//Dash diagonalDownRight
 		for (int i = 0; i < 3; i++) {
@@ -512,7 +512,6 @@ void ModulePlayer::movimientoPlayer(){
 
 
 			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
-				/*pols = true;*/
 				initialTimeP = SDL_GetTicks();
 				timeLimitP = 2 * 1000;
 				estadoTP = EJECUTANDO;
@@ -629,7 +628,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
-
+		//LANZAMIENTO DE DISCO PARÁBOLA
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
 			

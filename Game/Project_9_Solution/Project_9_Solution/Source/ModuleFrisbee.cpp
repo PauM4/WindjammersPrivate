@@ -122,8 +122,8 @@ Update_Status ModuleFrisbee::Update()
 			position.y = App->player->position.y + 20;
 		}
 		else if (App->player2->estadoP2 == ModulePlayer2::estadoPlayer2::WITHFRISBEE) {
-			position.x = App->player2->position.x - 17;
-			position.y = App->player2->position.y + 10;
+			position.x = App->player2->position.x - 2;
+			position.y = App->player2->position.y + 20;
 		}
 		break;
 

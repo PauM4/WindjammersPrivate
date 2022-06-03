@@ -481,8 +481,8 @@ bool SceneBeachStage::CleanUp()
 void SceneBeachStage::Arbitro(int arbitro) { 
 	App->player->position.x = 20;
 	App->player->position.y = 100;
-	App->player2->position.x = 259;
-	App->player2->position.y = 100;
+	App->player2->position.x = 230;
+	App->player2->position.y = 97;
 	App->player->currentAnimation = &App->player->idleRAnim;
 	App->player2->currentAnimation = &App->player2->idleLAnim;
 

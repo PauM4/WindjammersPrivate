@@ -74,6 +74,7 @@ public:
 	Animation diagonalUpLeft;
 	Animation diagonalDownRight;
 	Animation diagonalDownLeft;
+
 	enum estadoPlayer
 	{
 		STOP =0,
@@ -91,7 +92,6 @@ public:
 		FIN,
 	};
 	int estadoTP;
-	int estadoTPd;
 
 	void timerP();
 	int initialTimeP;

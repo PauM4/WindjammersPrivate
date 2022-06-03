@@ -61,15 +61,26 @@ public:
 	Animation downRAnim;
 	Animation rightAnim;
 	Animation leftAnim;
+	Animation lanzamiento;
 	Animation polvo;
+	Animation win;
+	Animation lose;
+	Animation dashUp;
+	Animation dashDown;
+	Animation dashLeft;
+	Animation dashRight;
+	Animation diagonalUpRight;
+	Animation diagonalUpLeft;
+	Animation diagonalDownRight;
+	Animation diagonalDownLeft;
 
 	enum estadoPlayer2
 	{
-		STOP,
+		STOP = 0,
 		MOVIMIENTO,
 		WITHFRISBEE,
-
-
+		LANZAMIENTO,
+		LANZAMIENTO_SUPER,
 	};
 	int estadoP2;
 
@@ -108,11 +119,10 @@ public:
 	char debugText[10] = { "\0" };
 	bool isDebugAppear;
 	bool pols;
-	bool destroyed;
 
 	int bea;
 	float pepe;
-	int p2Char;
+
 	
 
 
