@@ -81,6 +81,7 @@ public:
 	Particle xocDownleft;
 	Particle xocUpright;
 	Particle xocDownright;
+	Particle mitaSuperShotParticle;
 
 
 private:

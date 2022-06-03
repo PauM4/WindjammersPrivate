@@ -6,6 +6,7 @@
 #include "ModuleAudio.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleParticles.h"
 
 SceneCharacterSelect::SceneCharacterSelect(bool startEnabled) : Module(startEnabled)
 {
@@ -221,6 +222,11 @@ Update_Status SceneCharacterSelect::PostUpdate()
 	App->render->Blit(bgTexture, 0, 0, NULL);
 	App->render->Blit(uiSpriteSheet, x1, y1, &p1Rect);
 	App->render->Blit(uiSpriteSheet, x2, y2, &p2Rect);
+
+	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
+	{
+		App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, 110, 120, Collider::NONE, 0);
+	}
 
 	return Update_Status::UPDATE_CONTINUE;
 }

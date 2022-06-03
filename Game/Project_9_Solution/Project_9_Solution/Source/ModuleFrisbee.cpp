@@ -280,6 +280,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			anguloSupershot();
 			position.x += xspeed*0.8f;
 			position.y += yspeed * cos(angulo);
+			App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, position.x, position.y - 48, Collider::NONE, 5);
 
 
 		} else if (tipoSupershot == YOO_SUPERSHOT) {

@@ -119,6 +119,18 @@ bool ModuleParticles::Start()
 	xocDownright.lifetime = 13;
 	xocDownright.anim.speed = 0.25f;
 
+	mitaSuperShotParticle.anim.PushBack({ 202, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({ 218, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({ 235, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({252, 114, 16, 96});
+	mitaSuperShotParticle.anim.PushBack({269, 114, 16, 96});
+	mitaSuperShotParticle.anim.PushBack({286, 114, 16, 96});
+	mitaSuperShotParticle.anim.PushBack({303, 114, 16, 96});
+	mitaSuperShotParticle.anim.loop = false;
+	mitaSuperShotParticle.lifetime = 12;
+	mitaSuperShotParticle.anim.speed = 0.6f;
+
+
 
 	return true;
 }
