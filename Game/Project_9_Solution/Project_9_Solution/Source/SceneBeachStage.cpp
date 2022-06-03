@@ -200,7 +200,7 @@ Update_Status SceneBeachStage::Update()
 	case (RONDA):
 		App->ingameUI->currentTimerAnim->Update();
 		//if (estadoTGol == INICIOGOL) {
-
+		Round();
 		//}//Tendremos que poner una condicion para cuando se marquen puntos que aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 		if (estadoTGol == EJECUTANDOGOL)
 		{
