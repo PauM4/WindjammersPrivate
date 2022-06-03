@@ -16,34 +16,51 @@
 
 ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 {
-	moving.PushBack({ 17 +  51, 17, 16, 16 });
-	moving.PushBack({ 17 + 102, 17, 16, 16 });
-	moving.PushBack({ 17 + 153, 17, 16, 16 });
-	moving.PushBack({ 17 + 204, 17, 16, 16 });
-	moving.PushBack({ 17 + 255, 17, 16, 16 });
-	moving.PushBack({ 17 + 306, 17, 16, 16 });
-	moving.PushBack({ 17 + 357, 17, 16, 16 });
+	//Moving animation
+	for (int i = 0; i < 7; i++) {
+		moving.PushBack({ 0 + (i * 51), 0, 51, 51 });
+	}
 	moving.loop = true;
-	moving.speed = 0.1f;
+	moving.speed = 0.2f;
 
 	// Projectile motion animation
-	moving.PushBack({ 117, 48, 16, 16 });
-	projectile.PushBack({ 35, 8, 32, 14 });
-	projectile.PushBack({ 53, 7, 25, 31 });
-	projectile.PushBack({ 79, 6, 36, 34 });
-	projectile.PushBack({ 116, 5, 28, 36 });
-	projectile.PushBack({ 145, 4, 21, 38 });
-	projectile.PushBack({ 167, 3, 3, 39 });
-	projectile.PushBack({ 171, 2, 23, 41 });
-	projectile.PushBack({ 195, 2, 33, 42 });
-	projectile.PushBack({ 229, 0, 43, 44 });
+	for (int i = 0; i < 9; i++) {
+		projectile.PushBack({ 51 + (i * 51), 102, 51, 51 });
+	}
+	for (int i = 0; i < 10; i++) {
+		projectile.PushBack({ 0 + (i * 51), 153, 51, 51 });
+	}
+	for (int i = 0; i < 10; i++) {
+		projectile.PushBack({ 0 + (i * 51), 204, 51, 51 });
+	}
+	for (int i = 0; i < 10; i++) {
+		projectile.PushBack({ 0 + (i * 51), 255, 51, 51 });
+	}
+	for (int i = 0; i < 7; i++) {
+		projectile.PushBack({ 0 + (i * 51), 306, 51, 51 });
+	}
 	projectile.loop = false;
 	projectile.pingpong = true;
 	projectile.speed = 0.2f;
 
+	//Disco bloqueado
+	blocked.PushBack({ 0, 102, 51, 51 });
+	for (int i = 5; i >= 0; i--) {
+		blocked.PushBack({ 204 + (i * 75), 51, 51, 51 });
+	}
+	for (int i = 0; i < 3; i++) {
+		blocked.PushBack({ 357 + (i * 51), 0, 51, 51 });
+	}
+	for (int i = 0; i < 4; i++) {
+		blocked.PushBack({ 0 + (i * 51), 51, 51, 51 });
+	}
+	moving.loop = false;
+	moving.speed = 0.2f;
+
 	//Desaparece: que no hace falta hacer nada
+
 	//Stop
-	stop.PushBack({ 117, 48, 16, 16 });
+	stop.PushBack({ 255, 0, 51, 51 });
 	stop.loop = false;
 	
 	

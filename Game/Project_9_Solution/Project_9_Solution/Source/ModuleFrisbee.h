@@ -61,6 +61,7 @@ public:
 	// A set of animations
 	Animation moving;
 	Animation projectile;
+	Animation blocked;
 	Animation desaparece;
 	Animation stop;
 
