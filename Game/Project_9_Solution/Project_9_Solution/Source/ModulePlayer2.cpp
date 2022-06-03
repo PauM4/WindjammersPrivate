@@ -653,7 +653,8 @@ void ModulePlayer2::lanzamientoPlayer2() {
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::SUPERSHOT;
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::MAX;
 				App->frisbee->tipoSupershot = ModuleFrisbee::tipoSupershot::MITA_SUPERSHOT;
-
+				estadoP2 = estadoPlayer2::LANZAMIENTO_SUPER;
+				estadoTP2 = estadoTimerP2::INICIO;
 				break;
 
 			}

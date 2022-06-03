@@ -134,10 +134,10 @@ Update_Status ModuleFrisbee::Update()
 			initialTimeF = SDL_GetTicks();
 
 			if (lanzamientoF == BLOCKPLAYER1) {
-				position.x = App->player->position.x + 35;
+				position.x = App->player->position.x + 38;
 			}
 			else if (lanzamientoF == BLOCKPLAYER2) {
-				position.x = App->player2->position.x - 25;
+				position.x = App->player2->position.x - 2;
 			}
 
 			timeLimitF = 2 * 1000;
