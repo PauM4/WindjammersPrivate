@@ -130,16 +130,7 @@ bool ModuleParticles::Start()
 	mitaSuperShotParticle.lifetime = 12;
 	mitaSuperShotParticle.anim.speed = 0.6f;
 
-	yooLoadShotPArticle.anim.PushBack({4, 343, 47, 47});
-	yooLoadShotPArticle.anim.PushBack({56, 343, 47, 47});
-	yooLoadShotPArticle.anim.PushBack({108, 343, 47, 47});
-	yooLoadShotPArticle.anim.PushBack({160, 343, 47, 47});
-	yooLoadShotPArticle.anim.PushBack({212, 343, 47, 47});
-	yooLoadShotPArticle.anim.PushBack({264, 343, 47, 47});
-	yooLoadShotPArticle.anim.PushBack({318, 343, 47, 47});
-	yooLoadShotPArticle.anim.loop = false;
-	yooLoadShotPArticle.lifetime = 40;
-	yooLoadShotPArticle.anim.speed = 0.6f;
+
 
 	yooSuperShotParticleR.anim.PushBack({201, 236, 16 , 16});
 	yooSuperShotParticleR.anim.PushBack({218, 236, 16, 16 });
@@ -172,6 +163,26 @@ bool ModuleParticles::Start()
 	yooSuperShotParticleD.anim.loop = false;
 	yooSuperShotParticleD.lifetime = 12;
 	yooSuperShotParticleD.anim.speed = 0.4f;
+
+	yooLoadShotPArticle.anim.PushBack({207, 58, 50, 53});
+	yooLoadShotPArticle.anim.PushBack({266, 58, 50, 53});
+	yooLoadShotPArticle.anim.PushBack({326, 58, 50, 53}); //325 324? 327
+	yooLoadShotPArticle.anim.PushBack({387, 58, 50, 53});
+	yooLoadShotPArticle.anim.loop = true;
+	yooLoadShotPArticle.anim.pingpong = false;
+	yooLoadShotPArticle.lifetime = 60;
+	yooLoadShotPArticle.anim.speed = 0.4f;
+
+	wesselSuperShotParticleCircle.anim.PushBack({ 318, 343, 47, 47 });
+	wesselSuperShotParticleCircle.anim.PushBack({ 264, 343, 47, 47 });
+	wesselSuperShotParticleCircle.anim.PushBack({ 212, 343, 47, 47 });
+	wesselSuperShotParticleCircle.anim.PushBack({ 160, 343, 47, 47 });
+	wesselSuperShotParticleCircle.anim.PushBack({ 108, 343, 47, 47 });
+	wesselSuperShotParticleCircle.anim.PushBack({ 56, 343, 47, 47 });
+	wesselSuperShotParticleCircle.anim.PushBack({ 4, 343, 47, 47 });
+	wesselSuperShotParticleCircle.anim.loop = true;
+	wesselSuperShotParticleCircle.lifetime = 40;
+	wesselSuperShotParticleCircle.anim.speed = 0.7f;
 
 	wesselSuperShotParticleU.anim.PushBack({ 437, 465, 32, 58 });
 	wesselSuperShotParticleU.anim.PushBack({437, 409, 32, 58});
