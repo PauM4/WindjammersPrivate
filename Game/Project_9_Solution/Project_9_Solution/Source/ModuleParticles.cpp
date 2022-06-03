@@ -90,7 +90,7 @@ bool ModuleParticles::Start()
 	xocUpleft.anim.PushBack({ 135, 215, 28, 25 });
 	xocUpleft.anim.loop = false;
 	xocUpleft.lifetime = 13;
-	xocUpleft.anim.speed = 0.35f;
+	xocUpleft.anim.speed = 0.25f;
 
 	xocDownleft.anim.PushBack({ 4, 254, 32, 19 });
 	xocDownleft.anim.PushBack({ 37, 254, 32, 22 });
@@ -99,7 +99,7 @@ bool ModuleParticles::Start()
 	xocDownleft.anim.PushBack({ 135, 254, 28, 25 });
 	xocDownleft.anim.loop = false;
 	xocDownleft.lifetime = 13;
-	xocDownleft.anim.speed = 0.35f;
+	xocDownleft.anim.speed = 0.25f;
 
 	xocUpright.anim.PushBack({ 135, 283, 28, 25 });
 	xocUpright.anim.PushBack({ 104, 283, 29, 24 });
@@ -108,7 +108,7 @@ bool ModuleParticles::Start()
 	xocUpright.anim.PushBack({ 4, 283, 32, 19 });
 	xocUpright.anim.loop = false;
 	xocUpright.lifetime = 13;
-	xocUpright.anim.speed = 0.35f;
+	xocUpright.anim.speed = 0.25f;
 
 	xocDownright.anim.PushBack({ 135, 315, 28, 25 });
 	xocDownright.anim.PushBack({ 104, 315, 29, 24 });
@@ -117,7 +117,7 @@ bool ModuleParticles::Start()
 	xocDownright.anim.PushBack({ 4, 315, 32, 19 });
 	xocDownright.anim.loop = false;
 	xocDownright.lifetime = 13;
-	xocDownright.anim.speed = 0.35f;
+	xocDownright.anim.speed = 0.25f;
 
 
 	return true;

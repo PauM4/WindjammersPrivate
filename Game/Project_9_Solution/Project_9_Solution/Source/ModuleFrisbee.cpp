@@ -369,14 +369,30 @@ void ModuleFrisbee::limitesFrisbee() {
 		if (position.x >= 19 && position.x <= 276) {
 			//UP
 			if (position.y <= 48) {
+				//Right
 				if (xspeed > 0)
 				{
-					App->particles->AddParticle(0, 0, App->particles->xocUpleft, 110, 120, Collider::NONE, 0);
+					App->particles->AddParticle(0, 0, App->particles->xocDownright, position.x + 20, position.y, Collider::NONE, 0);
+				}
+				//Left	
+				else if (xspeed < 0)
+				{
+					App->particles->AddParticle(0, 0, App->particles->xocDownleft, position.x - 20, position.y, Collider::NONE, 0);
 				}
 				yspeed *= -1;
 			}
 			//DOWN
 			else if (position.y >= 170) {
+				//Right
+				if (xspeed > 0 && position.y < 173)
+				{
+					App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x + 20, position.y, Collider::NONE, 0);
+				}
+				//Left	
+				else if (xspeed < 0 && position.y < 173)
+				{
+					App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x - 20, position.y, Collider::NONE, 0);
+				}
 				yspeed *= -1;
 			}
 		}
