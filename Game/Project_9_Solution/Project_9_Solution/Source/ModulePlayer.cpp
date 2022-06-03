@@ -297,15 +297,15 @@ Update_Status ModulePlayer::PostUpdate()
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y, &rect);	
 
-	// Draw UI (score) --------------------------------------
-	if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
-	{
-		sprintf_s(scoreText, 10, "%2d", score);
+	//// Draw UI (score) --------------------------------------
+	//if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
+	//{
+	//	sprintf_s(scoreText, 10, "%2d", score);
 
-		App->fonts->BlitText(117, 17, scoreFont, scoreText);
+	//	App->fonts->BlitText(117, 17, scoreFont, scoreText);
 
-		//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
-	}
+	//	//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
+	//}
 
 	//if (pols)
 	//{
@@ -375,6 +375,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y -= 0.25* speed;
@@ -409,7 +410,7 @@ void ModulePlayer::movimientoPlayer(){
 				currentAnimation = &leftAnim;
 
 			}
-			last1 = 0; //TO DO: REVISAR NOMBRE Y SU FUNCIÓN DE TODOS LOS LAST1
+			last1 = 0; //TO DO: REVISAR NOMBRE Y SU FUNCIï¿½N DE TODOS LOS LAST1
 
 
 			if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_DOWN && estadoTP == INICIO) {
@@ -421,6 +422,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y -= 0.25 * speed;
@@ -471,7 +473,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y -= 0.25 * speed;
@@ -522,7 +524,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y += 0.25 * speed;
@@ -631,7 +633,7 @@ void ModulePlayer::lanzamientoPlayer() {
 
 		}
 
-		//LANZAMIENTO DE DISCO PARÁBOLA
+		//LANZAMIENTO DE DISCO PARï¿½BOLA
 		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
 		{
 			

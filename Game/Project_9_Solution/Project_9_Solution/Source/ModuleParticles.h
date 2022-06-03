@@ -74,6 +74,21 @@ public:
 	//Particle frisbeeProjectile2Up;
 	//Particle frisbeeProjectile2Down;
 
+	Particle leftGoalFlashParticle;
+	Particle rightGoalFlashParticle;
+	Particle dustParticle;
+	Particle xocUpleft;
+	Particle xocDownleft;
+	Particle xocUpright;
+	Particle xocDownright;
+	Particle mitaSuperShotParticle;
+	Particle yooSuperShotParticle;
+	Particle wesselSuperShotParticle;
+	Particle mitaLoadShotParticle;
+	Particle yooLoadShotPArticle;
+	Particle wesselLoadShotParticle;
+
+
 private:
 	// Particles spritesheet loaded into an SDL Texture
 	SDL_Texture* texture = nullptr;

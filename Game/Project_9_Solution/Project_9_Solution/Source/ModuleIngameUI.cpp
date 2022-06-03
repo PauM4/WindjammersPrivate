@@ -33,15 +33,6 @@ ModuleInGameUI::ModuleInGameUI(bool startEnabled) : Module(startEnabled)
 	timerAnim.pingpong = false;
 	timerAnim.speed = 0.017f;
 
-	//LeftGoalFlash particles
-	leftGoalFlashAnim.PushBack({ 100, 15, 17, 30 });
-	leftGoalFlashAnim.PushBack({ 121, 15, 22, 38 });
-	leftGoalFlashAnim.PushBack({ 147, 15, 27, 43 });
-	leftGoalFlashAnim.PushBack({ 178, 15, 31, 47 });
-	leftGoalFlashAnim.PushBack({ 213, 15, 32, 48 });
-	leftGoalFlashAnim.loop = false;
-	leftGoalFlashAnim.speed = 0.2f;
-
 }
 
 ModuleInGameUI::~ModuleInGameUI()
@@ -99,6 +90,18 @@ bool ModuleInGameUI::Start()
 	ambQuadradet = true;
 	verticalPos = 107;
 
+	score = 000;
+	scoreFont = -1;
+
+	score2 = 000;
+	scoreFont2 = -1;
+
+	char lookupTable1[] = { "0123456789G " };
+	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable1, 1);
+
+	char lookupTable2[] = { "0123456789G " };
+	scoreFont2 = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable2, 1);
+
 	//Debug Font
 	char lookupTable[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTable, 2);
@@ -114,9 +117,6 @@ bool ModuleInGameUI::Start()
 
 	// Load rectangulet Lila per set count
 	rectanguletLila = App->textures->Load("Assets/Sprites/UI/rectanguletLila.png");
-
-	particlesTexture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
-	currentLeftGoalFlashAnimation = &leftGoalFlashAnim;
 
 	//P1 Left
 	switch (App->sceneCharacterSelect->p1Char)
@@ -151,7 +151,6 @@ bool ModuleInGameUI::Start()
 
 Update_Status ModuleInGameUI::Update()
 {
-	currentLeftGoalFlashAnimation->Update();
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -291,6 +290,24 @@ Update_Status ModuleInGameUI::PostUpdate()
 	//COMEN�A PARTIDA
 	else if (App->sceneBeachStage->estadoS == App->sceneBeachStage->RONDA)
 	{
+
+		// Draw UI P1(score) --------------------------------------
+		if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
+		{
+			sprintf_s(scoreText, 10, "%2d", App->player->score);
+
+			App->fonts->BlitText(117, 17, scoreFont, scoreText);
+
+			//App->fonts->BlitText(20, 150, scoreFont, "0 1 2 3 4 5 6 7 8 9 G");
+		}
+		// Draw UI P2(score2) --------------------------------------
+		if (App->sceneBeachStage->estadoS != App->sceneBeachStage->INICIO)
+		{
+			sprintf_s(scoreText2, 10, "%2d", App->player2->score);
+
+			App->fonts->BlitText(165, 17, scoreFont2, scoreText2);
+		}
+
 		//Timer
 		rectTimer = currentTimerAnim->GetCurrentFrame();
 		App->render->Blit(timerTexture, 144, 13, &rectTimer);
@@ -353,32 +370,40 @@ Update_Status ModuleInGameUI::PostUpdate()
 	//Depenent de quin stage is selected (punts gol posicions)
 	if (App->sceneStageSelect->sceneSelected == Beach)
 	{
+		/*
+		UPLEFT,
+		MIDLEFT,
+		DOWNLEFT,
+		UPRIGHT,
+		MIDRIGHT,
+		DOWNRIGHT,
+		MISSL,
+		MISSR,
+		*/
 		switch (App->sceneBeachStage->estadoGolScore)
 		{
-		case (0):
+		case (App->sceneBeachStage->UPLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
-			SDL_Rect leftGoalFlashRect = currentLeftGoalFlashAnimation->GetCurrentFrame();
-			App->render->Blit(particlesTexture, App->frisbee->position.x, App->frisbee->position.y, &leftGoalFlashRect);
 			break;
-		case(1):
+		case(App->sceneBeachStage->MIDLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 			break;
-		case(2):
+		case(App->sceneBeachStage->DOWNLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 			break;
-		case(3):
+		case(App->sceneBeachStage->UPRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
 			break;
-		case(4):
+		case(App->sceneBeachStage->MIDRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
 			break;
-		case(5):
+		case(App->sceneBeachStage->DOWNRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 			break;
-		case(6):
-			App->render->Blit(uiSpriteTexture, 72, 58,&dosPunts);
+		case(App->sceneBeachStage->MISSL):
+			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
 			break;
-		case(7):
+		case(App->sceneBeachStage->MISSR):
 			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
 			break;
 		}
@@ -387,51 +412,59 @@ Update_Status ModuleInGameUI::PostUpdate()
 	{
 		switch (App->sceneBeachStage->estadoGolScore)
 		{
-		case (0):
+		case (App->sceneBeachStage->UPLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 30, &tresPuntsL);
 			break;
-		case(1):
+		case(App->sceneBeachStage->MIDLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 92, &cincPuntsL);
 			break;
-		case(2):
+		case(App->sceneBeachStage->DOWNLEFT):
 			App->render->Blit(uiSpriteTexture, 7, 158, &tresPuntsL);
 			break;
-		case(3):
+		case(App->sceneBeachStage->UPRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 30, &tresPuntsR);
 			break;
-		case(4):
+		case(App->sceneBeachStage->MIDRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 92, &cincPuntsR);
 			break;
-		case(5):
+		case(App->sceneBeachStage->DOWNRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 			break;
-		case(6):
+		case(App->sceneBeachStage->MISSL):
+			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
+			break;
+		case(App->sceneBeachStage->MISSR):
+			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
 			break;
 		}
 	}
-	else
+	else if (App->sceneStageSelect->sceneSelected == Concrete)
 	{
 		switch (App->sceneBeachStage->estadoGolScore)
 		{
-		case (0):
-			App->render->Blit(uiSpriteTexture, 12, 26, &cincPuntsL);
+		case (App->sceneBeachStage->UPLEFT):
+			App->render->Blit(uiSpriteTexture, 7, 30, &cincPuntsL);
 			break;
-		case(1):
-			App->render->Blit(uiSpriteTexture, 12, 92, &tresPuntsL);
+		case(App->sceneBeachStage->MIDLEFT):
+			App->render->Blit(uiSpriteTexture, 7, 92, &tresPuntsL);
 			break;
-		case(2):
-			App->render->Blit(uiSpriteTexture, 12, 158, &cincPuntsL);
+		case(App->sceneBeachStage->DOWNLEFT):
+			App->render->Blit(uiSpriteTexture, 7, 158, &cincPuntsL);
 			break;
-		case(3):
-			App->render->Blit(uiSpriteTexture, 236, 44, &cincPuntsR);
+		case(App->sceneBeachStage->UPRIGHT):
+			App->render->Blit(uiSpriteTexture, 236, 30, &cincPuntsR);
 			break;
-		case(4):
+		case(App->sceneBeachStage->MIDRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 92, &tresPuntsR);
 			break;
-		case(5):
+		case(App->sceneBeachStage->DOWNRIGHT):
 			App->render->Blit(uiSpriteTexture, 236, 158, &cincPuntsR);
 			break;
-		case(6):
+		case(App->sceneBeachStage->MISSL):
+			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
+			break;
+		case(App->sceneBeachStage->MISSR):
+			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
 			break;
 		}
 	}

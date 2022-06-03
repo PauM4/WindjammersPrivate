@@ -43,9 +43,6 @@ public:
 	SDL_Texture* leftNameTxt = nullptr;
 	SDL_Texture* rightNameTxt = nullptr;
 
-	//The dust particle spritesheet loaded into an SDL_Texture
-	SDL_Texture* particlesTexture = nullptr;
-
 	Animation* currentTimerAnim = nullptr;
 	Animation timerAnim;
 
@@ -125,8 +122,15 @@ public:
 	char debugText[10] = { "\0" };
 	bool isDebugAppear;
 
-	Animation* currentLeftGoalFlashAnimation = nullptr;
-	Animation leftGoalFlashAnim;
+	// Font score index
+	uint score;
+	int scoreFont;
+	char scoreText[10] = { "\0" };
+
+	// Font score index
+	uint score2;
+	int scoreFont2;
+	char scoreText2[10] = { "\0" };
 
 };
 

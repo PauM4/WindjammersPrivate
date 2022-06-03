@@ -227,6 +227,16 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 		//currentAnimation2 = &desaparece;
 		//estadoF = estadoFrisbee::STOP;
 	/*	FloorTime = 0;*/
+		
+		//Flash particle left or right depending on the player
+		if (position.x < 150)
+		{
+			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->player->position.x + 29, App->player->position.y, Collider::NONE, 0);
+		}
+		else if (position.x > 150)
+		{
+			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->player2->position.x - 5, App->player2->position.y, Collider::NONE, 0);
+		}
 
 		estadoTF = INICIO;
 
@@ -277,6 +287,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			anguloSupershot();
 			position.x += xspeed*0.8f;
 			position.y += yspeed * cos(angulo);
+			App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, position.x, position.y - 48, Collider::NONE, 5);
 
 
 		} else if (tipoSupershot == YOO_SUPERSHOT) {
@@ -363,33 +374,32 @@ void ModuleFrisbee::limitesFrisbee() {
 	}
 	else if (lanzamientoF != ARBITRO && lanzamientoF != SUPERSHOT) {
 		if (position.x >= 19 && position.x <= 276) {
-
-			if (App->sceneStageSelect->sceneSelected == Concrete) {
-				if (position.y <= 48) {
-					yspeed *= -1;
+			//UP
+			if (position.y <= 48) {
+				//Right
+				if (xspeed > 0)
+				{
+					App->particles->AddParticle(0, 0, App->particles->xocDownright, position.x + 15, position.y, Collider::NONE, 0);
 				}
-				else if (position.y >= 190) {
-					yspeed *= -1;
+				//Left	
+				else if (xspeed < 0)
+				{
+					App->particles->AddParticle(0, 0, App->particles->xocDownleft, position.x - 25, position.y, Collider::NONE, 0);
 				}
+				yspeed *= -1;
 			}
-			else {
-				if (position.y <= 48) {
-					yspeed *= -1;
+			//DOWN
+			else if (position.y >= 170) {
+				//Right
+				if (xspeed > 0 && position.y < 173)
+				{
+					App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x + 15, position.y, Collider::NONE, 0);
 				}
-				else if (position.y >= 170) {
-					yspeed *= -1;
+				//Left	
+				else if (xspeed < 0 && position.y < 173)
+				{
+					App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x - 25, position.y, Collider::NONE, 0);
 				}
-			}
-
-			
-		}
-	}
-
-	if (App->sceneStageSelect->sceneSelected == Concrete) {
-
-		if (position.x <= 155 && position.x >= 145) {
-			if (((position.y <= 62 && position.y >= 52) || (position.y <= 161 && position.y >= 151)) && limiteConcrete) {
-				limiteConcrete = false;
 				yspeed *= -1;
 			}
 		}

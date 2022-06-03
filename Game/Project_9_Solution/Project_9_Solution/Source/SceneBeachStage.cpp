@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleCollisions.h"
+#include "ModuleParticles.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleFrisbee.h"
@@ -173,10 +174,18 @@ Update_Status SceneBeachStage::Update()
 		App->player->score = 0;
 		App->player2->score = 0;
 		App->audio->PlayFx(whistleFX);
+
 		if (estadoTS == INICIOT)
 		{
 			initialTimeS = SDL_GetTicks();
-			timeLimitS = 2 * 1000;
+			if (App->player->round == 0 && App->player2->round == 0)
+			{
+				timeLimitS = 1;
+			}
+			else
+			{
+				timeLimitS = 2 * 1000;
+			}
 			estadoTS = EJECUTANDO;
 		}
 		else if (estadoTS == EJECUTANDO) {
@@ -200,7 +209,9 @@ Update_Status SceneBeachStage::Update()
 	case (RONDA):
 		App->ingameUI->currentTimerAnim->Update();
 		//if (estadoTGol == INICIOGOL) {
+		//SI NO FUNCIONA, TREURE ROUND();
 		Round();
+		// -----------------------------------------------------------------------------
 		//}//Tendremos que poner una condicion para cuando se marquen puntos que aqui se ejecuten unas texuras/animaciones - MARCARPUNTO
 		if (estadoTGol == EJECUTANDOGOL)
 		{
@@ -343,6 +354,10 @@ Update_Status SceneBeachStage::PostUpdate()
 		break;
 	}
 
+	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
+	{
+		App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, 110, 120, Collider::NONE, 0);
+	}
 
 	if (isDebugAppear)
 	{
@@ -654,6 +669,7 @@ void SceneBeachStage::Score(){
 		//Score de Concrete
 		//Esquerra
 		if (App->frisbee->position.x <= 19) {
+			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x - 5, App->frisbee->position.y, Collider::NONE, 0);
 
 			//Mid left
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
@@ -714,6 +730,7 @@ void SceneBeachStage::Score(){
 		}
 		//Dreta
 		else if (App->frisbee->position.x >= 276) {
+			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->frisbee->position.x - 10, App->frisbee->position.y, Collider::NONE, 0);
 			//mid right
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
 				App->player->score += 3;
@@ -735,8 +752,8 @@ void SceneBeachStage::Score(){
 			// upright
 			else if (App->frisbee->position.y < 71)
 			{
-				App->player->score += 3;
-				App->audio->PlayFx(threePointsFX);
+				App->player->score += 5;
+				App->audio->PlayFx(fivePointsFX);
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
@@ -777,6 +794,7 @@ void SceneBeachStage::Score(){
 			App->player2->score += 2;
 			App->player->currentAnimation = &App->player->lose;
 			App->player2->currentAnimation = &App->player2->win;
+			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
 			}
@@ -791,6 +809,7 @@ void SceneBeachStage::Score(){
 			App->player->score += 2;
 			App->player->currentAnimation = &App->player->win;
 			App->player2->currentAnimation = &App->player2->lose;
+			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
 			}
@@ -803,9 +822,10 @@ void SceneBeachStage::Score(){
 	}
 	else
 	{
-		//Score de Beach i Lawn
+	//Score de Beach i Lawn
 	//Esquerra
 		if (App->frisbee->position.x <= 19) {
+			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x - 5, App->frisbee->position.y, Collider::NONE, 0);
 			//Mid left
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player2->score += 5;
@@ -865,6 +885,8 @@ void SceneBeachStage::Score(){
 		}
 		//Dreta
 		else if (App->frisbee->position.x >= 276) {
+			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->frisbee->position.x - 10, App->frisbee->position.y, Collider::NONE, 0);
+
 			//mid right
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player->score += 5;
@@ -886,8 +908,8 @@ void SceneBeachStage::Score(){
 			// upright
 			else if (App->frisbee->position.y < 94)
 			{
-				App->player->score += 5;
-				App->audio->PlayFx(fivePointsFX);
+				App->player->score += 3;
+				App->audio->PlayFx(threePointsFX);
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
@@ -927,6 +949,7 @@ void SceneBeachStage::Score(){
 			App->player2->score += 2;
 			App->player->currentAnimation = &App->player->lose;
 			App->player2->currentAnimation = &App->player2->win;
+			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
 			}
@@ -941,6 +964,7 @@ void SceneBeachStage::Score(){
 			App->player->score += 2;
 			App->player->currentAnimation = &App->player->win;
 			App->player2->currentAnimation = &App->player2->lose;
+			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
 			}

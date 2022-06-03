@@ -22,8 +22,43 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	texture = App->textures->Load("Assets/Sprites/Levels/Beach.png");
+	texture = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
 
+	//particlesAndEffectsTxt = App->textures->Load("Assets/Sprites/particlesAndEffects.png");
+
+	//Left Goal Flash
+	leftGoalFlashParticle.anim.PushBack({ 100, 15, 17, 30 });
+	leftGoalFlashParticle.anim.PushBack({ 121, 12, 22, 38 });
+	leftGoalFlashParticle.anim.PushBack({ 147, 9, 27, 43 });
+	leftGoalFlashParticle.anim.PushBack({ 178, 9, 31, 47 });
+	leftGoalFlashParticle.anim.PushBack({ 213, 6, 32, 48 });
+	leftGoalFlashParticle.anim.loop = false;
+	leftGoalFlashParticle.lifetime = 20;
+	leftGoalFlashParticle.anim.speed = 0.2f;
+
+	//Right Goal Flash
+	rightGoalFlashParticle.anim.PushBack({ 384, 15, 17, 30 });
+	rightGoalFlashParticle.anim.PushBack({ 358, 12, 22, 38 });
+	rightGoalFlashParticle.anim.PushBack({ 327, 9, 27, 43 });
+	rightGoalFlashParticle.anim.PushBack({ 292, 8, 31, 47 });
+	rightGoalFlashParticle.anim.PushBack({ 256, 6, 32, 48 });
+	rightGoalFlashParticle.anim.loop = false;
+	rightGoalFlashParticle.lifetime = 20;
+	rightGoalFlashParticle.anim.speed = 0.2f;
+
+	//Dust particle
+	dustParticle.anim.PushBack({ 5, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 26, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 47, 109, 14, 14 });
+	dustParticle.anim.PushBack({ 70, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 93, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 112, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 129, 108, 14, 14 });
+	dustParticle.anim.PushBack({ 142, 108, 14, 14 });
+	dustParticle.anim.loop = false;
+	//dustParticle.anim.pingpong = true;
+	dustParticle.lifetime = 30;
+	dustParticle.anim.speed = 0.4f;
 
 	//Frisbee Player 1 Basic Mov
 	frisbee.anim.PushBack({ 117, 48, 16, 16 });
@@ -46,6 +81,63 @@ bool ModuleParticles::Start()
 	frisbeeProjectile.anim.loop = false;
 	frisbeeProjectile.lifetime = 180;
 	frisbeeProjectile.anim.speed = 0.1f;
+
+	//Particle when frisbee colliding with wall
+	xocUpleft.anim.PushBack({ 4, 215, 32, 19 });
+	xocUpleft.anim.PushBack({ 37, 215, 32, 22});
+	xocUpleft.anim.PushBack({ 71, 215, 31, 23 });
+	xocUpleft.anim.PushBack({ 104, 215, 29, 24 });
+	xocUpleft.anim.PushBack({ 135, 215, 28, 25 });
+	xocUpleft.anim.loop = false;
+	xocUpleft.lifetime = 13;
+	xocUpleft.anim.speed = 0.25f;
+
+	xocDownleft.anim.PushBack({ 4, 254, 32, 19 });
+	xocDownleft.anim.PushBack({ 37, 254, 32, 22 });
+	xocDownleft.anim.PushBack({ 71, 254, 31, 23 });
+	xocDownleft.anim.PushBack({ 104, 254, 29, 24 });
+	xocDownleft.anim.PushBack({ 135, 254, 28, 25 });
+	xocDownleft.anim.loop = false;
+	xocDownleft.lifetime = 13;
+	xocDownleft.anim.speed = 0.25f;
+
+	xocUpright.anim.PushBack({ 135, 283, 28, 25 });
+	xocUpright.anim.PushBack({ 104, 283, 29, 24 });
+	xocUpright.anim.PushBack({ 71, 283, 31, 23 });
+	xocUpright.anim.PushBack({ 37, 283, 32, 22 });
+	xocUpright.anim.PushBack({ 4, 283, 32, 19 });
+	xocUpright.anim.loop = false;
+	xocUpright.lifetime = 13;
+	xocUpright.anim.speed = 0.25f;
+
+	xocDownright.anim.PushBack({ 135, 315, 28, 25 });
+	xocDownright.anim.PushBack({ 104, 315, 29, 24 });
+	xocDownright.anim.PushBack({ 71, 315, 31, 23 });
+	xocDownright.anim.PushBack({ 37, 315, 32, 22 });
+	xocDownright.anim.PushBack({ 4, 315, 32, 19 });
+	xocDownright.anim.loop = false;
+	xocDownright.lifetime = 13;
+	xocDownright.anim.speed = 0.25f;
+
+	mitaSuperShotParticle.anim.PushBack({ 202, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({ 218, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({ 235, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({252, 114, 16, 96});
+	mitaSuperShotParticle.anim.PushBack({269, 114, 16, 96});
+	mitaSuperShotParticle.anim.PushBack({286, 114, 16, 96});
+	mitaSuperShotParticle.anim.PushBack({303, 114, 16, 96});
+	mitaSuperShotParticle.anim.loop = false;
+	mitaSuperShotParticle.lifetime = 12;
+	mitaSuperShotParticle.anim.speed = 0.6f;
+
+	yooSuperShotParticle.anim.PushBack({201, 236, 16 , 16});
+	yooSuperShotParticle.anim.PushBack({218, 236, 16, 16 });
+	yooSuperShotParticle.anim.PushBack({237, 236, 16, 16});
+	yooSuperShotParticle.anim.PushBack({255, 236, 16, 16});
+	yooSuperShotParticle.anim.loop = false;
+	yooSuperShotParticle.lifetime = 100;
+	yooSuperShotParticle.anim.speed = 0.4f;
+
 
 
 	return true;
