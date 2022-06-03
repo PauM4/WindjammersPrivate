@@ -82,11 +82,14 @@ public:
 	Particle xocUpright;
 	Particle xocDownright;
 	Particle mitaSuperShotParticle;
-	Particle yooSuperShotParticleL;
-	Particle yooSuperShotParticleR;
 	Particle yooSuperShotParticleU;
 	Particle yooSuperShotParticleD;
-	Particle wesselSuperShotParticle;
+	Particle yooSuperShotParticleL;
+	Particle yooSuperShotParticleR;
+	Particle wesselSuperShotParticleU;
+	Particle wesselSuperShotParticleD;
+	Particle wesselSuperShotParticleL;
+	Particle wesselSuperShotParticleR;
 	Particle mitaLoadShotParticle;
 	Particle yooLoadShotPArticle;
 	Particle wesselLoadShotParticle;
