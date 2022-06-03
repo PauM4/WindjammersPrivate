@@ -21,7 +21,30 @@
 
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
-	if (App->sceneCharacterSelect->p1Char == CharList::Mita){
+
+}
+
+ModulePlayer::~ModulePlayer()
+{
+
+}
+
+bool ModulePlayer::Start()
+{
+
+	last1 = 1;
+	score = 000;
+	scoreFont = -1;
+	round = 0;
+	estadoP1 = STOP;
+	bool ret = true;
+
+	LOG("Loading player textures");
+
+	switch (App->sceneCharacterSelect->p1Char) {
+	case(CharList::Mita):
+		texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
+		speed = 2;
 		//idleLAnim
 		for (int i = 0; i < 8; i++) {
 			idleLAnim.PushBack({ 211 + (i * 53), 338, 53, 57 });
@@ -98,90 +121,41 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 		}
 		dashRight.loop = false;
 		dashRight.speed = 0.45f;
-		
+
 		//Dash izquierdo
-		for (int i = 2; i>= 0; i--) {
+		for (int i = 2; i >= 0; i--) {
 			dashLeft.PushBack({ 265 + (i * 53), 450, 53, 57 });
 		}//dashLeft
 		dashLeft.loop = false;
 		dashLeft.speed = 0.45f;
-		
+
 		//Dash arriba
 		for (int i = 0; i < 3; i++) {
 			dashUp.PushBack({ 477 + (i * 53), 115, 53, 57 });
 		}//dashLeft
 		dashUp.loop = false;
 		dashUp.speed = 0.45f;
-		
-	//Dash abajo
+
+		//Dash abajo
 		for (int i = 0; i < 3; i++) {
 			dashDown.PushBack({ 55 + (i * 53), 170, 53, 57 });
 		}//dashLeft
 		dashDown.loop = false;
 		dashDown.speed = 0.45f;
 
-	//Win
+		//Win
 		for (int i = 0; i < 3; i++) {
 			win.PushBack({ 0 + (i * 53), 229, 53, 57 });
 		}
 		win.loop = true;
 		win.speed = 0.05f;
-		
-	//Lose
+
+		//Lose
 		for (int i = 0; i < 5; i++) {
 			lose.PushBack({ 159 + (i * 53), 229, 53, 57 });
 		}
 		lose.loop = true;
 		lose.speed = 0.05f;
-	
-	}
-	else if (App->sceneCharacterSelect->p1Char == CharList::Wessel) {
-	
-		//Animaciones Wessel
-
-	} 
-	else if (App->sceneCharacterSelect->p1Char == CharList::Yoo) {
-	
-		//Animaciones Yoo
-		
-	}
-
-
-
-	////Dust particles
-	//polvo.PushBack({ 5, 108, 14, 14 });
-	//polvo.PushBack({ 26, 108, 14, 14 });
-	//polvo.PushBack({ 47, 108, 15, 14 });
-	//polvo.PushBack({ 69, 108, 15, 14 });
-	//polvo.PushBack({ 94, 108, 12, 13 });
-	//polvo.PushBack({ 113, 108, 12, 13 });
-	//polvo.PushBack({ 130, 108, 12, 13 });
-	//polvo.PushBack({ 143, 108, 12, 13 });
-	//polvo.loop = false;
-	//polvo.speed = 0.3f;
-}
-
-ModulePlayer::~ModulePlayer()
-{
-
-}
-
-bool ModulePlayer::Start()
-{
-
-	last1 = 1;
-	score = 000;
-	scoreFont = -1;
-	round = 0;
-	estadoP1 = STOP;
-	bool ret = true;
-
-	LOG("Loading player textures");
-
-	switch (App->sceneCharacterSelect->p1Char) {
-	case(CharList::Mita):
-		texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
-		speed = 2;
 		break;
 	case(CharList::Yoo):
 		//texture = App->textures->Load("Assets/Sprites/Characters/Yoo.png");
@@ -197,7 +171,7 @@ bool ModulePlayer::Start()
 	position.x = 20;
 	position.y = 100;
 
-	collider = App->collisions->AddCollider({ (int)position.x + , (int)position.y, 27, 31 }, Collider::Type::PLAYER, this);
+	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 27, 31 }, Collider::Type::PLAYER, this);
 
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);

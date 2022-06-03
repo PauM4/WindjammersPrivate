@@ -154,7 +154,6 @@ bool ModulePlayer2::Start()
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTableDebug, 2);
 	isDebugAppear = false;
 
-	FrisbeeTime = 0;
 
 	estadoP2 = STOP;
 
