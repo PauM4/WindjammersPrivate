@@ -130,13 +130,81 @@ bool ModuleParticles::Start()
 	mitaSuperShotParticle.lifetime = 12;
 	mitaSuperShotParticle.anim.speed = 0.6f;
 
-	yooSuperShotParticle.anim.PushBack({201, 236, 16 , 16});
-	yooSuperShotParticle.anim.PushBack({218, 236, 16, 16 });
-	yooSuperShotParticle.anim.PushBack({237, 236, 16, 16});
-	yooSuperShotParticle.anim.PushBack({255, 236, 16, 16});
-	yooSuperShotParticle.anim.loop = false;
-	yooSuperShotParticle.lifetime = 100;
-	yooSuperShotParticle.anim.speed = 0.4f;
+	yooLoadShotPArticle.anim.PushBack({4, 343, 47, 47});
+	yooLoadShotPArticle.anim.PushBack({56, 343, 47, 47});
+	yooLoadShotPArticle.anim.PushBack({108, 343, 47, 47});
+	yooLoadShotPArticle.anim.PushBack({160, 343, 47, 47});
+	yooLoadShotPArticle.anim.PushBack({212, 343, 47, 47});
+	yooLoadShotPArticle.anim.PushBack({264, 343, 47, 47});
+	yooLoadShotPArticle.anim.PushBack({318, 343, 47, 47});
+	yooLoadShotPArticle.anim.loop = false;
+	yooLoadShotPArticle.lifetime = 40;
+	yooLoadShotPArticle.anim.speed = 0.6f;
+
+	yooSuperShotParticleR.anim.PushBack({201, 236, 16 , 16});
+	yooSuperShotParticleR.anim.PushBack({218, 236, 16, 16 });
+	yooSuperShotParticleR.anim.PushBack({237, 236, 16, 16});
+	yooSuperShotParticleR.anim.PushBack({255, 236, 16, 16});
+	yooSuperShotParticleR.anim.loop = false;
+	yooSuperShotParticleR.lifetime = 12;
+	yooSuperShotParticleR.anim.speed = 0.4f;
+
+	yooSuperShotParticleL.anim.PushBack({ 255, 254, 16, 16 });
+	yooSuperShotParticleL.anim.PushBack({ 237, 254, 16, 16 });
+	yooSuperShotParticleL.anim.PushBack({ 218, 254, 16, 16 });
+	yooSuperShotParticleL.anim.PushBack({ 201, 254, 16 , 16 });
+	yooSuperShotParticleL.anim.loop = false;
+	yooSuperShotParticleL.lifetime = 12;
+	yooSuperShotParticleL.anim.speed = 0.4f;
+
+	yooSuperShotParticleU.anim.PushBack({ 274, 220, 16, 16 });
+	yooSuperShotParticleU.anim.PushBack({ 274, 237, 16, 16 });
+	yooSuperShotParticleU.anim.PushBack({ 274, 256, 16, 16 });
+	yooSuperShotParticleU.anim.PushBack({ 274, 274, 16 , 16 });
+	yooSuperShotParticleU.anim.loop = false;
+	yooSuperShotParticleU.lifetime = 12;
+	yooSuperShotParticleU.anim.speed = 0.4f;
+
+	yooSuperShotParticleD.anim.PushBack({ 274, 274, 16 , 16 });
+	yooSuperShotParticleD.anim.PushBack({ 274, 256, 16, 16 });
+	yooSuperShotParticleD.anim.PushBack({ 274, 237, 16, 16 });
+	yooSuperShotParticleD.anim.PushBack({ 274, 220, 16, 16 });
+	yooSuperShotParticleD.anim.loop = false;
+	yooSuperShotParticleD.lifetime = 12;
+	yooSuperShotParticleD.anim.speed = 0.4f;
+
+	wesselSuperShotParticleU.anim.PushBack({ 437, 465, 32, 58 });
+	wesselSuperShotParticleU.anim.PushBack({437, 409, 32, 58});
+	wesselSuperShotParticleU.anim.PushBack({437, 357, 32, 58});
+	wesselSuperShotParticleU.anim.PushBack({ 437, 296, 32, 58 });
+	wesselSuperShotParticleU.anim.loop = false;
+	wesselSuperShotParticleU.lifetime = 12;
+	wesselSuperShotParticleU.anim.speed = 0.4f;
+
+	wesselSuperShotParticleD.anim.PushBack({ 473, 280, 32, 58 });
+	wesselSuperShotParticleD.anim.PushBack({ 473, 334, 32, 58 });
+	wesselSuperShotParticleD.anim.PushBack({ 473, 387, 32, 58 });
+	wesselSuperShotParticleD.anim.PushBack({ 473, 447, 32, 58 });
+	wesselSuperShotParticleD.anim.loop = false;
+	wesselSuperShotParticleD.lifetime = 12;
+	wesselSuperShotParticleD.anim.speed = 0.4f;
+
+	wesselSuperShotParticleL.anim.PushBack({ 374, 473, 58, 32 });
+	wesselSuperShotParticleL.anim.PushBack({ 316, 473, 58, 32 });
+	wesselSuperShotParticleL.anim.PushBack({ 263, 473, 58, 32 });
+	wesselSuperShotParticleL.anim.PushBack({ 203, 473, 58, 32 });
+	wesselSuperShotParticleL.anim.loop = false;
+	wesselSuperShotParticleL.lifetime = 12;
+	wesselSuperShotParticleL.anim.speed = 0.4f;
+
+	wesselSuperShotParticleR.anim.PushBack({ 198, 438, 58, 32 });
+	wesselSuperShotParticleR.anim.PushBack({ 241, 438, 58, 32 });
+	wesselSuperShotParticleR.anim.PushBack({ 295, 438, 58, 32 });
+	wesselSuperShotParticleR.anim.PushBack({ 354, 438, 58, 32 });
+	wesselSuperShotParticleR.anim.loop = false;
+	wesselSuperShotParticleR.lifetime = 12;
+	wesselSuperShotParticleR.anim.speed = 0.4f;
+
 
 
 
