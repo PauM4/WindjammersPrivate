@@ -185,7 +185,7 @@ Update_Status ModuleFrisbee::Update()
 		currentAnimation2 = &stop;
 		
 		if (estadoTF == INICIO) {
-			lanzamientoF = NORMAL;
+			//lanzamientoF = NORMAL;
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
 			App->audio->PlayFx(landingFX);
@@ -276,6 +276,7 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && (c2 == App->player->collider || c2==App->player2->collider))
 	{
+		//lanzamientoF = NORMAL;
 		//currentAnimation2 = &desaparece;
 		//estadoF = estadoFrisbee::STOP;
 	/*	FloorTime = 0;*/
@@ -316,13 +317,27 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		else if (direccionF == HORIZONTAL) {
 			position.x += xspeed;
 		}
-
 	}
+
 	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
 		currentAnimation2 = &projectile;
-		if (24 < position.x && 230 > position.x) {
+		if (position.x < parabolaFinalX && indicacionPlayerParabola) {
 			position.x += xspeed;
-
+			if (position.y > parabolaFinalY && direccionF== DARRIBA) {
+				position.y -= yspeed;
+			}
+			if (position.y < parabolaFinalY && direccionF == DABAJO) {
+				position.y += yspeed;
+			}
+		}
+		else if(position.x > parabolaFinalX && !indicacionPlayerParabola){
+			position.x += xspeed;
+			if (position.y > parabolaFinalY && direccionF == DARRIBA) {
+				position.y -= yspeed;
+			}
+			if (position.y < parabolaFinalY && direccionF == DABAJO) {
+				position.y += yspeed;
+			}
 		}
 		else {
 			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
@@ -330,6 +345,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			currentAnimation2->Reset();
 		}
 	}
+
 	else if (lanzamientoF == ARBITRO) {
 		position.x += xspeed;
 		position.y += yspeed;
@@ -601,10 +617,10 @@ void ModuleFrisbee::timerF() {
 }
 
 void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
-	if (pos_final_frisbee >= 260) {
+	if (pos_final_frisbee >= App->sceneBeachStage->limiteCentralDer+5 && pos_final_frisbee <=230){
 		projectile.speed = 54 / ((pos_final_frisbee - pos_Player) / xspeed);
 	}
-	else if (pos_final_frisbee <= 23) {
+	else if (pos_final_frisbee >= 23 && pos_final_frisbee <= App->sceneBeachStage->limiteCentralIzq - 5) {
 		projectile.speed = 66 / ((-pos_final_frisbee - pos_Player) / xspeed);
 	}
 

@@ -168,7 +168,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 {
 	//Quadradet final d'on caura la parabola
 	if(App->frisbee->lanzamientoF == App->frisbee->PARABOLA){
-		App->render->Blit(punterParabola, App->frisbee->parabolaFinalX, App->frisbee->parabolaFinalY, &punterParabolaP);
+		App->render->Blit(punterParabola, App->frisbee->parabolaFinalX+15, App->frisbee->parabolaFinalY+15, &punterParabolaP);
 	}
 
 	//P1 UI

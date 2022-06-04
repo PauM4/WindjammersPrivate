@@ -1119,7 +1119,7 @@ void SceneBeachStage::Score(){
 			}
 		}
 		// miss
-		else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
+		else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 140) {
 			App->player2->score += 2;
 			App->player->currentAnimation = &App->player->lose;
 			App->player2->currentAnimation = &App->player2->win;
@@ -1135,7 +1135,7 @@ void SceneBeachStage::Score(){
 			arbitroFinalRonda = 1;
 			estadoGolScore = MISSL;
 		}
-		else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
+		else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 140) {
 			App->player->score += 2;
 			App->player->currentAnimation = &App->player->win;
 			App->player2->currentAnimation = &App->player2->lose;
