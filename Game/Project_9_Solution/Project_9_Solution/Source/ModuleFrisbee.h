@@ -148,6 +148,7 @@ public:
 	uint effectTossFx; //LANZAMIENTOTF = PARABOLA posar abans del canvi
 	uint frisbeeOnAirFX; //
 	uint landingFX;
+	uint wallHitFX;
 
 };
 

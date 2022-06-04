@@ -92,6 +92,7 @@ bool ModuleFrisbee::Start()
 	effectTossFx = App->audio->LoadFx("Assets/Fx/EffectToss.wav");
 	frisbeeOnAirFX = App->audio->LoadFx("Assets/Fx/Freesbeonair.wav");
 	landingFX = App->audio->LoadFx("Assets/Fx/Landing.wav");
+	wallHitFX = App->audio->LoadFx("Assets/Fx/WallHit.wav");
 
 	position.x = 150;
 	position.y = 200;
@@ -403,6 +404,7 @@ void ModuleFrisbee::limitesFrisbee() {
 		if (position.x >= 19 && position.x <= 276) {
 			//UP
 			if (position.y <= 48) {
+				App->audio->PlayFx(wallHitFX);
 				//Right
 				if (xspeed > 0)
 				{
@@ -417,6 +419,7 @@ void ModuleFrisbee::limitesFrisbee() {
 			}
 			//DOWN
 			else if (position.y >= 170) {
+				App->audio->PlayFx(wallHitFX);
 				//Right
 				if (xspeed > 0 && position.y < 173)
 				{
