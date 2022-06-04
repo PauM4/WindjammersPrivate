@@ -413,15 +413,15 @@ Update_Status SceneBeachStage::Update()
 		}
 		if (estadoTS == EJECUTANDO)
 		{
-			App->audio->PlayMusic("Assets/Music/06_Set_Clear.ogg", 0.0f);
+			App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 		}
 		TimerS();
 		if (estadoTS == FIN)
 		{
 			//SceneBeachStage::Arbitro(1);
 			estadoS = INICIO;
-			App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 			App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+			App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 		}
 		break;
 
