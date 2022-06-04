@@ -138,7 +138,8 @@ public:
 	int parabolaYSpeed;
 
 	uint tossFX;
-
+	uint hiromiChargeFX;
+	uint hiromiPowerPhraseFX;
 	bool stopLoadFX;
 	
 

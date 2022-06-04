@@ -62,8 +62,6 @@ ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 	//Stop
 	stop.PushBack({ 255, 0, 51, 51 });
 	stop.loop = false;
-	
-	
 
 }
 
@@ -93,6 +91,9 @@ bool ModuleFrisbee::Start()
 	frisbeeOnAirFX = App->audio->LoadFx("Assets/Fx/Freesbeonair.wav");
 	landingFX = App->audio->LoadFx("Assets/Fx/Landing.wav");
 	wallHitFX = App->audio->LoadFx("Assets/Fx/WallHit.wav");
+
+	hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
+	hiromiSuperSonicFX = App->audio->LoadFx("Assets/Fx/HiromiSupersonic1.wav");
 
 	position.x = 150;
 	position.y = 200;
@@ -316,6 +317,8 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			position.x += xspeed*0.8f;
 			position.y += yspeed * cos(angulo);
 			App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, position.x, position.y - 48, Collider::NONE, 5);
+			App->audio->PlayFx(hiromiSuperSonicFX);
+			App->audio->PlayFx(hiromiPowerSoundFX);
 
 
 		} else if (tipoSupershot == YOO_SUPERSHOT) {

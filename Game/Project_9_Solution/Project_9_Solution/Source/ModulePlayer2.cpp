@@ -48,6 +48,10 @@ bool ModulePlayer2::Start()
 	stopLoadFX = false;
 
 	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
+	hiromiChargeFX = App->audio->LoadFx("Assets/Fx/HiromiCharge.wav");
+	hiromiPowerPhraseFX = App->audio->LoadFx("Assets/Fx/HiromiPowerPhrase.wav");
+	hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
+	hiromiSuperSonicFX = App->audio->LoadFx("Asseys/Fx/HiromiSupersonic1.wav");
 
 
 	switch (App->sceneCharacterSelect->p2Char) {
@@ -665,6 +669,8 @@ Update_Status ModulePlayer2::PostUpdate()
 	if (App->frisbee->position.x > 150 && App->frisbee->estadoF == App->frisbee->BLOCK && !stopLoadFX)
 	{
 		App->particles->AddParticle(0, 0, App->particles->mitaLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+		App->audio->PlayFx(hiromiChargeFX);
+		App->audio->PlayFx(hiromiPowerSoundFX);
 		stopLoadFX = true;
 	}
 	else if (App->frisbee->estadoF == App->frisbee->MOVIMIENTO)

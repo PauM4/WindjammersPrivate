@@ -150,6 +150,9 @@ public:
 	uint landingFX;
 	uint wallHitFX;
 
+	uint hiromiSuperSonicFX;
+	uint hiromiPowerSoundFX;
+
 };
 
 #endif //!__MODULE_FRISBEE_H__ 
