@@ -142,6 +142,7 @@ public:
 	uint yooPowerSoundFX;
 	uint wesselChargeFX;
 	uint wesselPowerSoundFX;
+	uint dashFX;
 	bool stopLoadFX;
 };
 

@@ -57,6 +57,8 @@ bool ModulePlayer2::Start()
 	wesselChargeFX = App->audio->LoadFx("Assets/Fx/KlaussCharge.wav");
 	wesselPowerSoundFX = App->audio->LoadFx("Assets/Fx/KlaussSuperSound.wav");
 
+	dashFX = App->audio->LoadFx("Assets/Fx/Dash.wav");
+
 	switch (App->sceneCharacterSelect->p2Char) {
 	case(CharList::Mita):
 		texture = App->textures->Load("Assets/Sprites/Characters/Jap2.png");
@@ -743,6 +745,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		}
 		else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_REPEAT && estadoTP2 == EJECUTANDO)
 		{
+			App->audio->PlayFx(dashFX);
 			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 			if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT) {
 				timerP2();
@@ -796,6 +799,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		}
 		else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_REPEAT && estadoTP2 == EJECUTANDO)
 		{
+			App->audio->PlayFx(dashFX);
 			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 			if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT) {
 				timerP2();
@@ -848,6 +852,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		}
 		else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_REPEAT && estadoTP2 == EJECUTANDO)
 		{
+			App->audio->PlayFx(dashFX);
 			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 			if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) {
 				timerP2();
@@ -898,6 +903,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		}
 		else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_REPEAT && estadoTP2 == EJECUTANDO)
 		{
+			App->audio->PlayFx(dashFX);
 			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
 			if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) {
 				timerP2();
