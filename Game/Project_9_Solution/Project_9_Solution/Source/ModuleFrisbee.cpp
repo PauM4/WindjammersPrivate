@@ -576,6 +576,16 @@ void ModuleFrisbee::limitesFrisbee() {
 			
 		}
 	}
+
+	if (App->sceneStageSelect->sceneSelected == Concrete) {
+
+		if (position.x <= 155 && position.x >= 145) {
+			if (((position.y <= 62 && position.y >= 52) || (position.y <= 161 && position.y >= 151)) && limiteConcrete) {
+				limiteConcrete = false;
+				yspeed *= -1;
+			}
+		}
+	}
 }
 
 
