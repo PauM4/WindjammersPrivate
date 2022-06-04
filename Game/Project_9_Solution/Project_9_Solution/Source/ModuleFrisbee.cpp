@@ -278,6 +278,7 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 	/*	FloorTime = 0;*/
 		
 		//Flash particle left or right depending on the player
+
 		if (c2 == App->player->collider)
 		{
 			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->player->position.x + 29, App->player->position.y, Collider::NONE, 0);
@@ -467,36 +468,112 @@ void ModuleFrisbee::limitesFrisbee() {
 	}
 	else if (lanzamientoF != ARBITRO && lanzamientoF != SUPERSHOT) {
 		if (position.x >= 19 && position.x <= 276) {
-			//UP
-			if (position.y <= 48) {
-				App->audio->PlayFx(wallHitFX);
-				//Right
-				if (xspeed > 0)
-				{
-					App->particles->AddParticle(0, 0, App->particles->xocDownright, position.x + 15, position.y, Collider::NONE, 0);
+			
+			if (App->sceneStageSelect->sceneSelected == Concrete) {
+
+				//UP
+				if (position.y <= App->sceneBeachStage->limiteSuperior) { //48
+					App->audio->PlayFx(wallHitFX);
+					//Right
+					if (xspeed > 0)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocDownright, position.x + 15, position.y+5, Collider::NONE, 0);
+					}
+					//Left	
+					else if (xspeed < 0)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocDownleft, position.x - 25, position.y+5, Collider::NONE, 0);
+					}
+					yspeed *= -1;
 				}
-				//Left	
-				else if (xspeed < 0)
-				{
-					App->particles->AddParticle(0, 0, App->particles->xocDownleft, position.x - 25, position.y, Collider::NONE, 0);
+				//DOWN
+				else if (position.y >= App->sceneBeachStage->limiteInferior) { //170
+					App->audio->PlayFx(wallHitFX);
+					//Right
+					if (xspeed > 0 && position.y < 173)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x + 15, position.y+28, Collider::NONE, 0);
+					}
+					//Left	
+					else if (xspeed < 0 && position.y < 173)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x - 25, position.y+28, Collider::NONE, 0);
+					}
+					yspeed *= -1;
 				}
-				yspeed *= -1;
+			
 			}
-			//DOWN
-			else if (position.y >= 170) {
-				App->audio->PlayFx(wallHitFX);
-				//Right
-				if (xspeed > 0 && position.y < 173)
-				{
-					App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x + 15, position.y, Collider::NONE, 0);
+			else if (App->sceneStageSelect->sceneSelected == Beach) {
+
+				//UP
+				if (position.y <= App->sceneBeachStage->limiteSuperior-15) { //48
+					App->audio->PlayFx(wallHitFX);
+					//Right
+					if (xspeed > 0)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocDownright, position.x, position.y+18, Collider::NONE, 0); //15
+					}
+					//Left	
+					else if (xspeed < 0)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocDownleft, position.x, position.y+18, Collider::NONE, 0); //-25
+					}
+					yspeed *= -1;
 				}
-				//Left	
-				else if (xspeed < 0 && position.y < 173)
-				{
-					App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x - 25, position.y, Collider::NONE, 0);
+				//DOWN
+				else if (position.y >= App->sceneBeachStage->limiteInferior+15) { //170
+					App->audio->PlayFx(wallHitFX);
+					//Right
+					if (xspeed > 0 && position.y < 173)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x, position.y+14, Collider::NONE, 0); //15
+					}
+					//Left	
+					else if (xspeed < 0 && position.y < 173)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x, position.y+14, Collider::NONE, 0); //-25
+					}
+					yspeed *= -1;
 				}
-				yspeed *= -1;
+
 			}
+			else if (App->sceneStageSelect->sceneSelected == Lawn) {
+
+				//UP
+				if (position.y <= App->sceneBeachStage->limiteSuperior - 15) { //48
+					App->audio->PlayFx(wallHitFX);
+					//Right
+					if (xspeed > 0)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocDownright, position.x+5, position.y + 29, Collider::NONE, 0); //15
+					}
+					//Left	
+					else if (xspeed < 0)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocDownleft, position.x, position.y + 29, Collider::NONE, 0); //-25
+					}
+					yspeed *= -1;
+				}
+				//DOWN
+				else if (position.y >= App->sceneBeachStage->limiteInferior + 15) { //170
+					App->audio->PlayFx(wallHitFX);
+					//Right
+					if (xspeed > 0 && position.y < 173)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x, position.y + 10, Collider::NONE, 0); //15
+					}
+					//Left	
+					else if (xspeed < 0 && position.y < 173)
+					{
+						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x, position.y + 10, Collider::NONE, 0); //-25
+					}
+					yspeed *= -1;
+				}
+
+			}
+			
+			
+			
 		}
 	}
 }

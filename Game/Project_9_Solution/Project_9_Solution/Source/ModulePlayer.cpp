@@ -805,7 +805,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 
 		}
-		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > App->sceneBeachStage->limiteIzquierda)
+		else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > App->sceneBeachStage->limiteIzquierda)
 		{
 			position.x -= speed;
 
@@ -853,7 +853,7 @@ void ModulePlayer::movimientoPlayer(){
 			}
 
 		}
-		if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > App->sceneBeachStage->limiteSuperior)
+		else if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > App->sceneBeachStage->limiteSuperior)
 		{
 			position.y -= speed;
 			
@@ -907,7 +907,7 @@ void ModulePlayer::movimientoPlayer(){
 
 
 		}
-		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < App->sceneBeachStage->limiteInferior)
+		else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < App->sceneBeachStage->limiteInferior)
 		{
 			position.y += speed;
 
@@ -981,6 +981,7 @@ void ModulePlayer::movimientoPlayer(){
 
 		}
 	 
+		
 
 }
 
@@ -1123,6 +1124,7 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 	
 	}
+
 }
 
 void ModulePlayer::timerP() {

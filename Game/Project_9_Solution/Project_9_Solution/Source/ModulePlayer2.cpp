@@ -212,16 +212,16 @@ bool ModulePlayer2::Start()
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
 
-		//Win
-		for (int i = 0; i < 3; i++) {
-			win.PushBack({ 0 + (i * 53), 229, 53, 57 });
+		//Win Mita P2
+		for (int i = 2; i >= 0; i--) {
+			win.PushBack({ 583 + (i * 53), 570, 53, 57 });
 		}
 		win.loop = true;
 		win.speed = 0.05f;
 
-		//Lose
-		for (int i = 0; i < 5; i++) {
-			lose.PushBack({ 159 + (i * 53), 229, 53, 57 });
+		//Lose Mita P2
+		for (int i = 3; i >= 0; i--) {
+			lose.PushBack({ 371 + (i * 53), 570, 53, 57 });
 		}
 		lose.loop = true;
 		lose.speed = 0.05f;
@@ -346,16 +346,16 @@ bool ModulePlayer2::Start()
 		dashDown.loop = false;
 		dashDown.speed = 0.45f;
 
-		//Win
-		for (int i = 0; i < 3; i++) {
-			win.PushBack({ 132 + (i * 66), 264, 66, 66 });
+		//Win Yoo P2
+		for (int i = 2; i >= 0; i--) {
+			win.PushBack({ 858 + (i * 66), 726, 66, 66 });
 		}
 		win.loop = true;
 		win.speed = 0.05f;
 
-		//Lose
-		for (int i = 0; i < 6; i++) {
-			lose.PushBack({ 330 + (i * 66), 264, 66, 66 });
+		//Lose Yoo P2
+		for (int i = 5; i >= 0; i--) {
+			lose.PushBack({ 462 + (i * 66), 726, 66, 66 });
 		}
 		lose.loop = true;
 		lose.speed = 0.05f;
@@ -508,19 +508,19 @@ bool ModulePlayer2::Start()
 		dashDown.loop = false;
 		dashDown.speed = 0.45f;
 
-		//Win
-		for (int i = 0; i < 7; i++) {
-			win.PushBack({ 450 + (i * 75), 195, 75, 65 });
+		//Win Wessel P2
+		for (int i = 6; i >= 0; i--) {
+			win.PushBack({ 300 + (i * 75), 585, 75, 65 });
 		}
 		win.loop = true;
 		win.speed = 0.05f;
 
-		//Lose
-		for (int i = 0; i < 4; i++) {
-			lose.PushBack({ 975 + (i * 75), 195, 75, 65 });
+		//Lose Wessel P2
+		for (int i = 3; i >= 0; i--) {
+			lose.PushBack({ 0 + (i * 75), 585, 75, 65 });
 		}
-		lose.PushBack({ 0, 260, 75, 65 });
-		lose.PushBack({ 75, 260, 75, 65 });
+		lose.PushBack({ 1200, 650, 75, 65 });
+		lose.PushBack({ 1125, 650, 75, 65 });
 		lose.loop = true;
 		lose.speed = 0.05f;
 
@@ -971,6 +971,8 @@ void ModulePlayer2::movimientoPlayer2() {
 
 
 	}
+
+	
 
 
 }
