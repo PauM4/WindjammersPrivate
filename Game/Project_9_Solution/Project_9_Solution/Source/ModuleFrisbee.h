@@ -144,6 +144,8 @@ public:
 	
 	bool limiteConcrete;
 
+	uint catchFx;
+	uint effectTossFx;
 };
 
 #endif //!__MODULE_FRISBEE_H__ 

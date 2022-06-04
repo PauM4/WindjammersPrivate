@@ -88,6 +88,8 @@ bool ModuleFrisbee::Start()
 	
 	texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
 
+	catchFx = App->audio->LoadFx("Assets/Fx/Catch.wav");
+	effectTossFx = App->audio->LoadFx("Assets/Fx/EffectToss.wav");
 
 	position.x = 150;
 	position.y = 200;
@@ -252,6 +254,8 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 		{
 			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->player2->position.x - 5, App->player2->position.y, Collider::NONE, 0);
 		}
+		
+		App->audio->PlayFx(catchFx);
 
 		estadoTF = INICIO;
 
@@ -279,10 +283,11 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 	}
 	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
-	
+		App->audio->PlayFx(effectTossFx);
 		currentAnimation2 = &projectile;
 		if (35 < position.x && 250 > position.x) {
 			position.x += xspeed;
+
 		}
 		else {
 			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);

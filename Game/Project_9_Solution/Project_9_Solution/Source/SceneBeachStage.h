@@ -68,6 +68,10 @@ public:
 	uint fivePointsFX;
 	uint applauseFX;
 	uint whistleFX;
+	uint bigApplauseFX;
+	uint excelentGameFX;
+	uint finalRoundFX;
+	uint getReadyFX;
 
 
 	//uint winFx = 0;

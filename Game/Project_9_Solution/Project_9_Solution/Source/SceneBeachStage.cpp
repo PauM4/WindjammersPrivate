@@ -79,6 +79,10 @@ bool SceneBeachStage::Start()
 	fivePointsFX = App->audio->LoadFx("Assets/Fx/5Pts.wav");
 
 	applauseFX = App->audio->LoadFx("Assets/Fx/Applause.wav");
+	bigApplauseFX = App->audio->LoadFx("Assets/Fx/BigApplause.wav");
+	excelentGameFX = App->audio->LoadFx("Assets/Fx/ExcelentGame.wav");
+	finalRoundFX = App->audio->LoadFx("Assets/Fx/FinalRound.wav");
+	getReadyFX = App->audio->LoadFx("Assets/Fx/GetReady.wav");
 
 	whistleFX = App->audio->LoadFx("Assets/Fx/Whistle.wav");
 
@@ -111,12 +115,12 @@ bool SceneBeachStage::Start()
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
 		App->audio->PlayMusic("Assets/Music/05_Windjammers (Lawn Court).ogg", 1.0f);
 
-		limiteCentralIzq;
-		limiteCentralDer;
-		limiteSuperior;
-		limiteInferior;
-		limiteDerecha;
-		limiteIzquierda;
+		limiteCentralIzq = 110;
+		limiteIzquierda = 10;
+		limiteSuperior = 50;
+		limiteInferior = 138;
+		limiteCentralDer = 140;
+		limiteDerecha = 258;
 		break;
 	case Concrete:
 		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/bgConcreteSpriteSheet.png");
@@ -127,12 +131,12 @@ bool SceneBeachStage::Start()
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
 		App->audio->PlayMusic("Assets/Music/04_You-got-a-power-_Concrete_.ogg", 1.0f);
 
-		limiteCentralIzq;
-		limiteCentralDer;
-		limiteSuperior;
-		limiteInferior;
-		limiteDerecha;
-		limiteIzquierda;
+		limiteCentralIzq = 110;
+		limiteIzquierda = 10;
+		limiteSuperior = 50;
+		limiteInferior = 138;
+		limiteCentralDer = 140;
+		limiteDerecha = 258;
 		break;
 	}
 
@@ -334,7 +338,7 @@ Update_Status SceneBeachStage::Update()
 		}
 		break;
 	}
-
+	
 	// DEBUG INSTANT WIN
 	if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
 	{
@@ -658,6 +662,12 @@ void SceneBeachStage::Round() {
 
 		}
 
+		//Si es guanya de pallisa play ExcelentGameFx
+		if ((App->player->round == 2 && App->player2->round == 0) || ((App->player->round == 0 && App->player2->round == 2)))
+		{
+			App->audio->PlayFx(excelentGameFX);
+		}
+
 	}
 
 }
@@ -752,7 +762,7 @@ void SceneBeachStage::Score(){
 			{
 				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
 				//currentAnimationFrisbee = &scoreP2;
@@ -772,7 +782,7 @@ void SceneBeachStage::Score(){
 			{
 				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
 				//currentAnimationFrisbee = &scoreP2;
@@ -815,7 +825,7 @@ void SceneBeachStage::Score(){
 			{
 				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
 				//currentAnimationFrisbee = &scoreP1;
@@ -835,7 +845,7 @@ void SceneBeachStage::Score(){
 			{
 				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
 				//currentAnimationFrisbee = &scoreP1;
@@ -895,7 +905,7 @@ void SceneBeachStage::Score(){
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
 				//currentAnimationFrisbee = &scoreP2;
@@ -959,7 +969,7 @@ void SceneBeachStage::Score(){
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
 				//currentAnimationFrisbee = &scoreP1;
