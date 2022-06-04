@@ -42,13 +42,8 @@ public:
 	float yspeed;
 	int mov;
 	int arbitro;
-
-	bool pared;
-	bool inicio;
-	int posesion; //FALSE: PLAYER 1, TRUE: PLAYER 2
-	int PosTemp;
-	int projectil;
 	int FloorTime;
+
 	int contadorBlock;
 
 	// The player spritesheet loaded into an SDL_Texture
@@ -69,9 +64,6 @@ public:
 	Collider* collider = nullptr;
 	Collider* provisional = nullptr;
 	Collider* provisional2 = nullptr;
-
-	// A flag to detect when the player has been destroyed
-	bool destroyed;
 
 	
 

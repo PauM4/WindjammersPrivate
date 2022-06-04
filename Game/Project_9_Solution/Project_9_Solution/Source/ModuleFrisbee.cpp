@@ -1,5 +1,4 @@
 #include "ModuleFrisbee.h"
-
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
@@ -77,10 +76,7 @@ bool ModuleFrisbee::Start()
 	bool ret = true;
 	speed = 1;
 	arbitro = 1;
-	pared = false;
-	inicio = false;
-	posesion = false;
-	destroyed = false;
+	FloorTime = 0;
 
 	currentAnimation2 = &desaparece;
 	LOG("Loading frisbee textures");
@@ -89,13 +85,10 @@ bool ModuleFrisbee::Start()
 	texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
 
 
-	position.x = 150;
-	position.y = 200;
-	projectil = 0;
+	position.x = 134; //150
+	position.y = 184; //200
 
-
-
-	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
+	collider = App->collisions->AddCollider({ (int)position.x+16, (int)position.y+16, 16, 16 }, Collider::Type::FRISBEE, this);
 	
 	provisional = App->collisions->AddCollider({ 145, 52, 10, 16 }, Collider::Type::DEBUGG, this);
 	provisional2 = App->collisions->AddCollider({ 145, 151, 10, 16 }, Collider::Type::DEBUGG, this);
@@ -133,12 +126,12 @@ Update_Status ModuleFrisbee::Update()
 	case WITHPLAYER:
 		currentAnimation2 = &desaparece;
 		if (App->player->estadoP1 == ModulePlayer::estadoPlayer::WITHFRISBEE) {
-			position.x = App->player->position.x + 38;
-			position.y = App->player->position.y + 20;
+			position.x = App->player->position.x + 38; 
+			position.y = App->player->position.y + 20; 
 		}
 		else if (App->player2->estadoP2 == ModulePlayer2::estadoPlayer2::WITHFRISBEE) {
-			position.x = App->player2->position.x - 2;
-			position.y = App->player2->position.y + 20;
+			position.x = App->player2->position.x - 2; 
+			position.y = App->player2->position.y + 20; 
 		}
 		break;
 
@@ -167,7 +160,7 @@ Update_Status ModuleFrisbee::Update()
 		else if (estadoTF == FIN) {
 			estadoTF = INICIO;
 			currentAnimation2 = &stop;
-			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16,16 }, Collider::Type::FRISBEE, this);
+			collider = App->collisions->AddCollider({ (int)position.x+17, (int)position.y+17, 16,16 }, Collider::Type::FRISBEE, this);
 			blockSuperShot = true;
 				
 			estadoF = SUELO;
@@ -213,17 +206,13 @@ Update_Status ModuleFrisbee::Update()
 
 			/*App->sceneBeachStage->ScoreRound(2);*/
 		}
-		position.x = 150;
-		position.y = 200;
+		position.x = 134;
+		position.y = 184;
 	}
 
 
 	currentAnimation2->Update();
-	
-
-	collider->SetPos(position.x, position.y);
-
-
+	collider->SetPos(position.x+17, position.y+17);
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -262,7 +251,6 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 void ModuleFrisbee :: movimientoFrisbee() {
 	currentAnimation2 = &moving;
 	
-
  	if (lanzamientoF == NORMAL) {
 		if (direccionF == DARRIBA) {
 			position.x += xspeed;
@@ -377,11 +365,11 @@ void ModuleFrisbee::limitesFrisbee() {
 
 	if (tipoSupershot == WESSEL_SUPERSHOT) {
 		
-		if (position.y <= 50) {
+		if (position.y <= App->sceneBeachStage->limiteSuperior) {
 			position.x += xspeed;
 			yspeed = 0;
 		}
-		else if (position.y >= 170) {
+		else if (position.y >= App->sceneBeachStage->limiteInferior) {
 			position.x += xspeed;
 			yspeed = 0;
 		}

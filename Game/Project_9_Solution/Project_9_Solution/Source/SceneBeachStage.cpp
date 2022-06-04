@@ -111,12 +111,13 @@ bool SceneBeachStage::Start()
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
 		App->audio->PlayMusic("Assets/Music/05_Windjammers (Lawn Court).ogg", 1.0f);
 
-		limiteCentralIzq;
-		limiteCentralDer;
-		limiteSuperior;
-		limiteInferior;
-		limiteDerecha;
-		limiteIzquierda;
+		limiteCentralIzq = 110;
+		limiteIzquierda = 10;
+		limiteSuperior = 25;
+		limiteInferior = 153;
+		limiteCentralDer = 140;
+		limiteDerecha = 248;
+
 		break;
 	case Concrete:
 		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/bgConcreteSpriteSheet.png");
@@ -127,12 +128,13 @@ bool SceneBeachStage::Start()
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
 		App->audio->PlayMusic("Assets/Music/04_You-got-a-power-_Concrete_.ogg", 1.0f);
 
-		limiteCentralIzq;
-		limiteCentralDer;
-		limiteSuperior;
-		limiteInferior;
-		limiteDerecha;
-		limiteIzquierda;
+		limiteCentralIzq = 100;
+		limiteIzquierda = 10;
+		limiteSuperior = 35;
+		limiteInferior = 155;
+		limiteCentralDer = 150;
+		limiteDerecha = 244;
+
 		break;
 	}
 
@@ -555,8 +557,8 @@ void SceneBeachStage::Arbitro(int arbitro) {
 	App->player2->currentAnimation = &App->player2->idleLAnim;
 
 	if (arbitro == 1) {
-
-		App->frisbee->xspeed = -3;
+	
+		App->frisbee->xspeed = -3; 
 		App->frisbee->yspeed = -2;
 		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
 		App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::ARBITRO;
