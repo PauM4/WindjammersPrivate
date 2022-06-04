@@ -746,7 +746,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_REPEAT && estadoTP2 == EJECUTANDO)
 		{
 			App->audio->PlayFx(dashFX);
-			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
+			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y + 35, Collider::NONE, 0);
 			if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT) {
 				timerP2();
 				position.y -= 0.75 * speed;
@@ -800,7 +800,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_REPEAT && estadoTP2 == EJECUTANDO)
 		{
 			App->audio->PlayFx(dashFX);
-			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
+			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 35, position.y + 35, Collider::NONE, 0);
 			if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT) {
 				timerP2();
 				position.y -= 0.75 * speed;
@@ -853,7 +853,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_REPEAT && estadoTP2 == EJECUTANDO)
 		{
 			App->audio->PlayFx(dashFX);
-			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
+			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 15, position.y + 25, Collider::NONE, 0);
 			if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) {
 				timerP2();
 				position.y -= 0.75 * speed;
@@ -904,7 +904,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_REPEAT && estadoTP2 == EJECUTANDO)
 		{
 			App->audio->PlayFx(dashFX);
-			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
+			App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 15, position.y, Collider::NONE, 0);
 			if (App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) {
 				timerP2();
 				position.y += 0.75 * speed;

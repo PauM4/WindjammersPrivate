@@ -815,7 +815,7 @@ void ModulePlayer::movimientoPlayer(){
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
 				App->audio->PlayFx(dashFX);
-				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x - 35, position.y + 35, Collider::NONE, 0);
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 35, position.y + 35, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y -= 0.25 * speed;
@@ -867,7 +867,7 @@ void ModulePlayer::movimientoPlayer(){
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
 				App->audio->PlayFx(dashFX);
-				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 15, position.y - 55, Collider::NONE, 0);
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 15, position.y + 25, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y -= 0.25 * speed;
