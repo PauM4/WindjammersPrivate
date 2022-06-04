@@ -185,6 +185,7 @@ Update_Status ModuleFrisbee::Update()
 		currentAnimation2 = &stop;
 		
 		if (estadoTF == INICIO) {
+			lanzamientoF = NORMAL;
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
 			App->audio->PlayFx(landingFX);

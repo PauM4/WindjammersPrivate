@@ -416,6 +416,13 @@ bool ModulePlayer::Start()
 		}
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
+
+		//bloqueo
+		for (int i = 0; i < 3; i++) {
+			bloqueo.PushBack({ 583 + (i * 53), 228, 53, 57 });
+		}
+		bloqueo.loop = false;
+		bloqueo.speed = 0.20f;
 		break;
 
 	case(CharList::Wessel):
@@ -1067,6 +1074,8 @@ void ModulePlayer::lanzamientoPlayer() {
 
 			App->frisbee->xspeed = parabolaXSpeed;
 			App->frisbee->yspeed = parabolaYSpeed;
+			App->frisbee->parabolaFinalX = 260+15;
+			App->frisbee->parabolaFinalY = App->frisbee->position.y+15;
 			App->frisbee->vel_parabola(position.x, 260);
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;

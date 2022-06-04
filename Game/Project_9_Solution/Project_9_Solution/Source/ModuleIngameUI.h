@@ -43,6 +43,8 @@ public:
 	SDL_Texture* leftNameTxt = nullptr;
 	SDL_Texture* rightNameTxt = nullptr;
 
+	SDL_Texture* punterParabola = nullptr;
+
 	Animation* currentTimerAnim = nullptr;
 	Animation timerAnim;
 
@@ -114,6 +116,8 @@ public:
 	SDL_Rect setNum1;
 	SDL_Rect setNum2;
 	SDL_Rect setNum3;
+
+	SDL_Rect punterParabolaP;
 
 	SDL_Texture* bothCharactersTexture;
 

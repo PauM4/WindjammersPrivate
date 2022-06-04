@@ -137,6 +137,9 @@ public:
 	
 	bool limiteConcrete;
 
+	int parabolaFinalX;
+	int parabolaFinalY;
+
 	uint catchFx;
 	uint effectTossFx; //LANZAMIENTOTF = PARABOLA posar abans del canvi
 	uint frisbeeOnAirFX; //

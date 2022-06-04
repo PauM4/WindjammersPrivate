@@ -44,6 +44,7 @@ ModuleInGameUI::~ModuleInGameUI()
 bool ModuleInGameUI::Start()
 {
 	bool ret = true;
+	punterParabolaP = { 0, 0, 15, 15 };
 
 	rectanguletL = { 0, 357, 29, 3 };
 	rectanguletR = { 0, 357, 29, 3 };
@@ -118,6 +119,9 @@ bool ModuleInGameUI::Start()
 	// Load rectangulet Lila per set count
 	rectanguletLila = App->textures->Load("Assets/Sprites/UI/rectanguletLila.png");
 
+	//Punter parabola
+	punterParabola = App->textures->Load("Assets/Sprites/UI/punterParabola.png");
+
 	//P1 Left
 	switch (App->sceneCharacterSelect->p1Char)
 	{
@@ -162,6 +166,11 @@ Update_Status ModuleInGameUI::Update()
 // Update: draw background
 Update_Status ModuleInGameUI::PostUpdate()
 {
+	//Quadradet final d'on caura la parabola
+	if(App->frisbee->lanzamientoF == App->frisbee->PARABOLA){
+		App->render->Blit(punterParabola, App->frisbee->parabolaFinalX, App->frisbee->parabolaFinalY, &punterParabolaP);
+	}
+
 	//P1 UI
 	App->render->Blit(uiSpriteTexture, 10, 10, &p1Rect);
 	switch (App->sceneCharacterSelect->p1Char)
