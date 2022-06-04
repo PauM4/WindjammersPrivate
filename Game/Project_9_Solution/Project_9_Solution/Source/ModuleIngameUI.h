@@ -132,6 +132,9 @@ public:
 	int scoreFont2;
 	char scoreText2[10] = { "\0" };
 
+	int posXFrisbeeMiss;
+	int posYFrisbeeMiss;
+
 };
 
 #endif

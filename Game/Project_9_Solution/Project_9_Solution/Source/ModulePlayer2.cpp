@@ -63,7 +63,7 @@ bool ModulePlayer2::Start()
 	switch (App->sceneCharacterSelect->p2Char) {
 	case(CharList::Mita):
 		texture = App->textures->Load("Assets/Sprites/Characters/Jap2.png");
-		speed = 2;
+		speed = 3;
 
 		posicionInicialX = 230;
 		posicionInicialY = 100;
@@ -72,8 +72,8 @@ bool ModulePlayer2::Start()
 		ajusteColliderY = 10;
 
 
-		lanzamientoXSpeed = -4;
-		lanzamientoYSpeed = -4;
+		lanzamientoXSpeed = -3;
+		lanzamientoYSpeed = -3;
 		parabolaXSpeed = -3;
 		parabolaYSpeed = 0;
 
@@ -392,7 +392,7 @@ bool ModulePlayer2::Start()
 
 	case(CharList::Wessel):
 		texture = App->textures->Load("Assets/Sprites/Characters/Ger2.png");
-		speed = 2;
+		speed = 1;
 
 		posicionInicialX = 214;
 		posicionInicialY = 95;
@@ -402,8 +402,8 @@ bool ModulePlayer2::Start()
 		ajusteColliderFrisbeeX = -16;
 
 
-		lanzamientoXSpeed = -4;
-		lanzamientoYSpeed = -4;
+		lanzamientoXSpeed = -5;
+		lanzamientoYSpeed = -5;
 		parabolaXSpeed = -3;
 		parabolaYSpeed = 0;
 
@@ -754,7 +754,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
 
 			initialTimeP2 = SDL_GetTicks();
-			timeLimitP2 = 2 * 1000;
+			timeLimitP2 = 1 * 300;
 			estadoTP2 = EJECUTANDO;
 
 		}
@@ -808,7 +808,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
 
 			initialTimeP2 = SDL_GetTicks();
-			timeLimitP2 = 2 * 1000;
+			timeLimitP2 = 1 * 300;
 			estadoTP2 = EJECUTANDO;
 
 		}
@@ -861,7 +861,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
 
 			initialTimeP2 = SDL_GetTicks();
-			timeLimitP2 = 2 * 1000;
+			timeLimitP2 = 1 * 300;
 			estadoTP2 = EJECUTANDO;
 
 		}
@@ -912,7 +912,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
 			pols = true;
 			initialTimeP2 = SDL_GetTicks();
-			timeLimitP2 = 2 * 1000;
+			timeLimitP2 = 1 * 300;
 			estadoTP2 = EJECUTANDO;
 
 		}

@@ -153,6 +153,7 @@ Update_Status ModuleFrisbee::Update()
 
 		//animaciones del disco volando
 		if (estadoTF == INICIO) {
+			
 			initialTimeF = SDL_GetTicks();
 
 			if (lanzamientoF == BLOCKPLAYER1) {
@@ -173,11 +174,10 @@ Update_Status ModuleFrisbee::Update()
 		}
 		else if (estadoTF == FIN) {
 			estadoTF = INICIO;
-			currentAnimation2 = &stop;
 			collider = App->collisions->AddCollider({ (int)position.x+17, (int)position.y+17, 16,16 }, Collider::Type::FRISBEE, this);
 			blockSuperShot = true;
-				
 			estadoF = SUELO;
+			currentAnimation2->Reset();
 		}
 		break;
 

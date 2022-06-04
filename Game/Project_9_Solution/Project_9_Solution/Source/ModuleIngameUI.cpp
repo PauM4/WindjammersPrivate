@@ -151,6 +151,11 @@ bool ModuleInGameUI::Start()
 
 Update_Status ModuleInGameUI::Update()
 {
+	if (App->frisbee->estadoF == App->frisbee->SUELO) {
+		posXFrisbeeMiss = App->frisbee->position.x;
+		posYFrisbeeMiss = App->frisbee->position.y-16;
+	}
+	
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -422,10 +427,10 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 			break;
 		case(App->sceneBeachStage->MISSL):
-			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
+			App->render->Blit(uiSpriteTexture, posXFrisbeeMiss, posYFrisbeeMiss, &dosPunts); //72- 58
 			break;
 		case(App->sceneBeachStage->MISSR):
-			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
+			App->render->Blit(uiSpriteTexture, posXFrisbeeMiss, posYFrisbeeMiss, &dosPunts); //192-58
 			break;
 		}
 	}
@@ -452,10 +457,10 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(uiSpriteTexture, 236, 158, &tresPuntsR);
 			break;
 		case(App->sceneBeachStage->MISSL):
-			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
+			App->render->Blit(uiSpriteTexture, posXFrisbeeMiss, posYFrisbeeMiss, &dosPunts); //72-58
 			break;
 		case(App->sceneBeachStage->MISSR):
-			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
+			App->render->Blit(uiSpriteTexture, posXFrisbeeMiss, posYFrisbeeMiss, &dosPunts); //192-58
 			break;
 		}
 	}
@@ -482,10 +487,10 @@ Update_Status ModuleInGameUI::PostUpdate()
 			App->render->Blit(uiSpriteTexture, 236, 158, &cincPuntsR);
 			break;
 		case(App->sceneBeachStage->MISSL):
-			App->render->Blit(uiSpriteTexture, 72, 58, &dosPunts);
+			App->render->Blit(uiSpriteTexture, posXFrisbeeMiss, posYFrisbeeMiss, &dosPunts); //72-58
 			break;
 		case(App->sceneBeachStage->MISSR):
-			App->render->Blit(uiSpriteTexture, 192, 58, &dosPunts);
+			App->render->Blit(uiSpriteTexture, posXFrisbeeMiss, posYFrisbeeMiss, &dosPunts);//192-58
 			break;
 		}
 	}
