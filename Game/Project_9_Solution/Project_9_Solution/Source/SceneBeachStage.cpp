@@ -307,7 +307,7 @@ Update_Status SceneBeachStage::Update()
 		}
 		else if (estadoTS == EJECUTANDO) {
 			roundSpriteAppear = true;
-			if ((App->player->round >= 1 || App->player2->round >= 1) && getReadyOnce)
+			if (((App->player->round >= 1 && App->player->round < 2)|| (App->player2->round >= 1 && App->player2->round < 2)) && getReadyOnce)
 			{
 				App->audio->PlayFx(getReadyFX);
 				getReadyOnce = false;
@@ -411,15 +411,18 @@ Update_Status SceneBeachStage::Update()
 			timeLimitS = 4 * 1000;
 			estadoTS = EJECUTANDO;
 		}
+		if (estadoTS == EJECUTANDO)
+		{
+			App->audio->PlayMusic("Assets/Music/06_Set_Clear.ogg", 0.0f);
+		}
 		TimerS();
 		if (estadoTS == FIN)
 		{
 			//SceneBeachStage::Arbitro(1);
 			estadoS = INICIO;
-
+			App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 			App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
 		}
-
 		break;
 
 	}
@@ -456,7 +459,6 @@ Update_Status SceneBeachStage::Update()
 			isDebugAppear = true;
 		else isDebugAppear = false;
 	}
-
 
 	currentAnimationFrisbee->Update();
 	currentBgAnim->Update(); 
@@ -497,6 +499,8 @@ Update_Status SceneBeachStage::PostUpdate()
 		App->audio->PlayFx(celebrationFX);
 		stopCelebration = true;
 	}
+
+	
 
 	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
 	{
@@ -618,6 +622,7 @@ Update_Status SceneBeachStage::PostUpdate()
 		else if (App->frisbee->estadoTF == 2) {
 			App->fonts->BlitText(110, 150, debugFont, "FIN");
 		}
+
 
 		App->fonts->BlitText(110, 110, debugFont, debugText);
 		App->fonts->BlitText(165, 110, debugFont, debugText2);
