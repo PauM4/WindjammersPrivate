@@ -77,6 +77,8 @@ bool ModulePlayer2::Start()
 		parabolaXSpeed = -3;
 		parabolaYSpeed = 0;
 
+		ajusteColliderFrisbeeX = 5; 
+
 		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this);
 
 		//idleLAnim
@@ -229,12 +231,12 @@ bool ModulePlayer2::Start()
 		texture = App->textures->Load("Assets/Sprites/Characters/Kor2.png");
 		speed = 2;
 
-		posicionInicialX = 230;
-		posicionInicialY = 100;
+		posicionInicialX = 215;
+		posicionInicialY = 90;
 
-		ajusteColliderX = 16;
-		ajusteColliderY = 10;
-
+		ajusteColliderX = 20;
+		ajusteColliderY = 15;
+		ajusteColliderFrisbeeX = -4;
 
 		lanzamientoXSpeed = -4;
 		lanzamientoYSpeed = -4;
@@ -392,11 +394,12 @@ bool ModulePlayer2::Start()
 		texture = App->textures->Load("Assets/Sprites/Characters/Ger2.png");
 		speed = 2;
 
-		posicionInicialX = 230;
-		posicionInicialY = 100;
+		posicionInicialX = 214;
+		posicionInicialY = 95;
 
-		ajusteColliderX = 16;
-		ajusteColliderY = 10;
+		ajusteColliderX = 26;
+		ajusteColliderY = 12;
+		ajusteColliderFrisbeeX = -16;
 
 
 		lanzamientoXSpeed = -4;

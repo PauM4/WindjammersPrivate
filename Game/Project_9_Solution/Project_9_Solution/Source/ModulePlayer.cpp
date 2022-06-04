@@ -67,12 +67,12 @@ bool ModulePlayer::Start()
 		ajusteColliderX = 10;
 		ajusteColliderY = 10;
 
-
-
 		lanzamientoXSpeed = 4;
 		lanzamientoYSpeed = 4;
 		parabolaXSpeed = 3;
 		parabolaYSpeed = 0;
+
+		ajusteColliderFrisbeeX = 12;
 
 		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this); //en cada switch segun el player habra uno
 
@@ -251,12 +251,13 @@ bool ModulePlayer::Start()
 	case(CharList::Yoo):
 		texture = App->textures->Load("Assets/Sprites/Characters/Kor.png");
 		speed = 2;
-
+		
 		posicionInicialX = 20;
-		posicionInicialY = 100;
+		posicionInicialY = 90;
 
-		ajusteColliderX = 10;
-		ajusteColliderY = 10;
+		ajusteColliderX = 20;
+		ajusteColliderY = 15;
+		ajusteColliderFrisbeeX = 12;
 
 		lanzamientoXSpeed = 4;
 		lanzamientoYSpeed = 4;
@@ -413,11 +414,12 @@ bool ModulePlayer::Start()
 		texture = App->textures->Load("Assets/Sprites/Characters/Ger.png");
 		speed = 2;
 
-		posicionInicialX = 20;
-		posicionInicialY = 100;
+		posicionInicialX = 15;
+		posicionInicialY = 95;
 
-		ajusteColliderX = 10;
-		ajusteColliderY = 10;
+		ajusteColliderX = 19;
+		ajusteColliderY = 12;
+		ajusteColliderFrisbeeX = 12;
 
 		lanzamientoXSpeed = 4;
 		lanzamientoYSpeed = 4;

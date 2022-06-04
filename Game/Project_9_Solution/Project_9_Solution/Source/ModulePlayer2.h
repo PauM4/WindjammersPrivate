@@ -135,6 +135,8 @@ public:
 	int parabolaXSpeed;
 	int parabolaYSpeed;
 
+	int ajusteColliderFrisbeeX;
+
 	uint tossFX;
 	uint hiromiChargeFX;
 	uint hiromiPowerSoundFX;

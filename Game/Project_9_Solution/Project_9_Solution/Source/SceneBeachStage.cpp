@@ -269,10 +269,10 @@ Update_Status SceneBeachStage::Update()
 		//Animacion Ronda 1.
 		App->player->score = 0;
 		App->player2->score = 0;
-		App->player->position.x = 20;
-		App->player->position.y = 100;
-		App->player2->position.x = 230;
-		App->player2->position.y = 97;
+		App->player->position.x = App->player->posicionInicialX;
+		App->player->position.y = App->player->posicionInicialY;
+		App->player2->position.x = App->player2->posicionInicialX;
+		App->player2->position.y = App->player2->posicionInicialY;
 
 		if (estadoTS == INICIOT)
 		{
@@ -323,10 +323,10 @@ Update_Status SceneBeachStage::Update()
 		}
 		else if (estadoTGol == FINGOL)
 		{
-			App->player->position.x = 20;
-			App->player->position.y = 100;
-			App->player2->position.x = 230;
-			App->player2->position.y = 97;
+			App->player->position.x = App->player->posicionInicialX;
+			App->player->position.y = App->player->posicionInicialY;
+			App->player2->position.x = App->player2->posicionInicialX;
+			App->player2->position.y = App->player2->posicionInicialY;
 			if (suddenDeath) {
 				Win();
 			}
