@@ -42,6 +42,7 @@ bool ModulePlayer2::Start()
 	round = 0;
 	estadoP2 = STOP;
 	bool ret = true;
+	startLoadingSupershot = false;
 
 	LOG("Loading player textures");
 
@@ -621,6 +622,7 @@ Update_Status ModulePlayer2::Update()
 		else if (estadoTP2 == EJECUTANDO) {
 			startLoadingSupershot = false;
 			timerP2();
+			startLoadingSupershot = false;
 		}
 		else if (estadoTP2 == FIN)
 		{
@@ -674,7 +676,6 @@ Update_Status ModulePlayer2::PostUpdate()
 		App->fonts->BlitText(205, 20, debugFont, debugText);
 	}
 
-
 	if (startLoadingSupershot)
 	{
 		if (App->frisbee->position.x > 150/* && App->frisbee->estadoF == App->frisbee->BLOCK && !stopLoadFX*/)
@@ -707,8 +708,9 @@ Update_Status ModulePlayer2::PostUpdate()
 
 		startLoadingSupershot = false;
 	}
-	
-	
+
+
+
 
 
 	return Update_Status::UPDATE_CONTINUE;
@@ -1026,7 +1028,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 
 			App->frisbee->xspeed = parabolaXSpeed;
 			App->frisbee->yspeed = parabolaYSpeed;
-			App->frisbee->vel_parabola(position.x, 35);
+			App->frisbee->vel_parabola(position.x, 23);
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP2 = estadoPlayer2::LANZAMIENTO;

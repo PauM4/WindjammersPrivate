@@ -84,7 +84,7 @@ bool ModuleParticles::Start()
 
 	//Particle when frisbee colliding with wall
 	xocUpleft.anim.PushBack({ 4, 215, 32, 19 });
-	xocUpleft.anim.PushBack({ 37, 215, 32, 22});
+	xocUpleft.anim.PushBack({ 37, 215, 32, 22 });
 	xocUpleft.anim.PushBack({ 71, 215, 31, 23 });
 	xocUpleft.anim.PushBack({ 104, 215, 29, 24 });
 	xocUpleft.anim.PushBack({ 135, 215, 28, 25 });
@@ -122,39 +122,39 @@ bool ModuleParticles::Start()
 	mitaSuperShotParticle.anim.PushBack({ 202, 114, 16, 96 });
 	mitaSuperShotParticle.anim.PushBack({ 218, 114, 16, 96 });
 	mitaSuperShotParticle.anim.PushBack({ 235, 114, 16, 96 });
-	mitaSuperShotParticle.anim.PushBack({252, 114, 16, 96});
-	mitaSuperShotParticle.anim.PushBack({269, 114, 16, 96});
-	mitaSuperShotParticle.anim.PushBack({286, 114, 16, 96});
-	mitaSuperShotParticle.anim.PushBack({303, 114, 16, 96});
+	mitaSuperShotParticle.anim.PushBack({ 252, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({ 269, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({ 286, 114, 16, 96 });
+	mitaSuperShotParticle.anim.PushBack({ 303, 114, 16, 96 });
 	mitaSuperShotParticle.anim.loop = false;
 	mitaSuperShotParticle.lifetime = 12;
 	mitaSuperShotParticle.anim.speed = 0.6f;
 
-	mitaLoadShotParticle.anim.PushBack({5, 525, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({74, 525, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({142, 525, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({211, 523, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({4, 597, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({76, 597, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({142, 597, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({211, 598, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({5, 669, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({76, 669, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({142, 669, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({211, 669, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({5, 733, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({76, 733, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({142, 733, 64, 64});
-	mitaLoadShotParticle.anim.PushBack({208, 733, 64, 64});
+	mitaLoadShotParticle.anim.PushBack({ 5, 525, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 74, 525, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 142, 525, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 211, 523, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 4, 597, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 76, 597, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 142, 597, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 211, 598, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 5, 669, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 76, 669, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 142, 669, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 211, 669, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 5, 733, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 76, 733, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 142, 733, 64, 64 });
+	mitaLoadShotParticle.anim.PushBack({ 208, 733, 64, 64 });
 	mitaLoadShotParticle.anim.loop = false;
 	mitaLoadShotParticle.anim.pingpong = true;
-	mitaLoadShotParticle.lifetime = 105;
+	mitaLoadShotParticle.lifetime = 52;
 	mitaLoadShotParticle.anim.speed = 0.6f;
 
-	yooSuperShotParticleR.anim.PushBack({201, 236, 16 , 16});
-	yooSuperShotParticleR.anim.PushBack({218, 236, 16, 16 });
-	yooSuperShotParticleR.anim.PushBack({237, 236, 16, 16});
-	yooSuperShotParticleR.anim.PushBack({255, 236, 16, 16});
+	yooSuperShotParticleR.anim.PushBack({ 201, 236, 16 , 16 });
+	yooSuperShotParticleR.anim.PushBack({ 218, 236, 16, 16 });
+	yooSuperShotParticleR.anim.PushBack({ 237, 236, 16, 16 });
+	yooSuperShotParticleR.anim.PushBack({ 255, 236, 16, 16 });
 	yooSuperShotParticleR.anim.loop = false;
 	yooSuperShotParticleR.lifetime = 12;
 	yooSuperShotParticleR.anim.speed = 0.4f;
@@ -183,19 +183,19 @@ bool ModuleParticles::Start()
 	yooSuperShotParticleD.lifetime = 12;
 	yooSuperShotParticleD.anim.speed = 0.4f;
 
-	yooLoadShotParticle.anim.PushBack({207, 58, 50, 53});
-	yooLoadShotParticle.anim.PushBack({266, 58, 50, 53});
-	yooLoadShotParticle.anim.PushBack({326, 58, 50, 53});
-	yooLoadShotParticle.anim.PushBack({387, 58, 50, 53});
+	yooLoadShotParticle.anim.PushBack({ 207, 58, 50, 53 });
+	yooLoadShotParticle.anim.PushBack({ 266, 58, 50, 53 });
+	yooLoadShotParticle.anim.PushBack({ 326, 58, 50, 53 });
+	yooLoadShotParticle.anim.PushBack({ 387, 58, 50, 53 });
 	yooLoadShotParticle.anim.loop = false;
 	yooLoadShotParticle.anim.pingpong = true;
 	yooLoadShotParticle.lifetime = 60;
 	yooLoadShotParticle.anim.speed = 0.6f;
 
-	wesselLoadShotParticle.anim.PushBack({409, 140, 48, 48});
-	wesselLoadShotParticle.anim.PushBack({457, 140, 48, 48});
-	wesselLoadShotParticle.anim.PushBack({409, 188, 48, 48});
-	wesselLoadShotParticle.anim.PushBack({457, 188, 48, 48});
+	wesselLoadShotParticle.anim.PushBack({ 409, 140, 48, 48 });
+	wesselLoadShotParticle.anim.PushBack({ 457, 140, 48, 48 });
+	wesselLoadShotParticle.anim.PushBack({ 409, 188, 48, 48 });
+	wesselLoadShotParticle.anim.PushBack({ 457, 188, 48, 48 });
 	wesselLoadShotParticle.anim.loop = true;
 	//wesselLoadShotParticle.anim.pingpong = true;
 	wesselLoadShotParticle.lifetime = 60;
@@ -213,8 +213,8 @@ bool ModuleParticles::Start()
 	wesselSuperShotParticleCircle.anim.speed = 0.7f;
 
 	wesselSuperShotParticleU.anim.PushBack({ 437, 465, 32, 58 });
-	wesselSuperShotParticleU.anim.PushBack({437, 409, 32, 58});
-	wesselSuperShotParticleU.anim.PushBack({437, 357, 32, 58});
+	wesselSuperShotParticleU.anim.PushBack({ 437, 409, 32, 58 });
+	wesselSuperShotParticleU.anim.PushBack({ 437, 357, 32, 58 });
 	wesselSuperShotParticleU.anim.PushBack({ 437, 296, 32, 58 });
 	wesselSuperShotParticleU.anim.loop = false;
 	wesselSuperShotParticleU.lifetime = 12;
@@ -354,3 +354,4 @@ Particle* ModuleParticles::AddParticle(int xspeed, int yspeed, const Particle& p
 
 	return newParticle;
 }
+

@@ -146,9 +146,7 @@ public:
 	uint wesselPowerSoundFX;
 	uint dashFX;
 	bool stopLoadFX;
-
 	bool startLoadingSupershot;
-	
 
 };
 

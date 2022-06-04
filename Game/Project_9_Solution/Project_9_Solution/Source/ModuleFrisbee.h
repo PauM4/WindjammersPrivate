@@ -42,13 +42,8 @@ public:
 	float yspeed;
 	int mov;
 	int arbitro;
-
-	bool pared;
-	bool inicio;
-	int posesion; //FALSE: PLAYER 1, TRUE: PLAYER 2
-	int PosTemp;
-	int projectil;
 	int FloorTime;
+
 	int contadorBlock;
 
 	// The player spritesheet loaded into an SDL_Texture
@@ -70,9 +65,6 @@ public:
 	Collider* provisional = nullptr;
 	Collider* provisional2 = nullptr;
 
-	// A flag to detect when the player has been destroyed
-	bool destroyed;
-
 	
 
 	enum estadoFrisbee
@@ -83,7 +75,8 @@ public:
 		PRUEBA,
 		WITHPLAYER, //con el player + cambiar posicion
 		BLOCK,
-		SUELO
+		SUELO,
+		LANZAMIENTOARBITRO
 
 	};
 	int estadoF;

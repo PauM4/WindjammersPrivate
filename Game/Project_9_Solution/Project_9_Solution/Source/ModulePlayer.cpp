@@ -38,6 +38,7 @@ bool ModulePlayer::Start()
 	round = 0;
 	estadoP1 = STOP;
 	bool ret = true;
+	startLoadingSupershot = false;
 
 	LOG("Loading player textures");
 
@@ -637,7 +638,6 @@ Update_Status ModulePlayer::Update()
 			currentAnimation = &lanzamiento; //lanzamiento supershot animation
 			estadoTP = EJECUTANDO;
 			startLoadingSupershot = true;
-
 		}
 		else if (estadoTP == EJECUTANDO) {
 			startLoadingSupershot = false;
@@ -693,6 +693,8 @@ Update_Status ModulePlayer::PostUpdate()
 		App->fonts->BlitText(80, 20, debugFont, debugText);
 	}
 
+
+
 	if (startLoadingSupershot)
 	{
 		if (App->frisbee->position.x < 150/* && App->frisbee->estadoF == App->frisbee->BLOCK && !stopLoadFX*/)
@@ -717,7 +719,7 @@ Update_Status ModulePlayer::PostUpdate()
 			}
 
 			stopLoadFX = true;
-			
+
 		}
 		/*else if (App->frisbee->estadoF == App->frisbee->MOVIMIENTO)
 		{
@@ -725,7 +727,8 @@ Update_Status ModulePlayer::PostUpdate()
 		}*/
 		startLoadingSupershot = false;
 	}
-	
+
+
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -969,11 +972,10 @@ void ModulePlayer::movimientoPlayer(){
 			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 1)
 			currentAnimation = &idleRAnim;
 
-		if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN &&  (App->frisbee->position.x - (position.x +20)) > 1  && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
+		if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN &&  (App->frisbee->position.x - (position.x /*+20*/)) > 1  && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
 		
-			if (App->frisbee->position.y >= position.y && App->frisbee->position.y <= (position.y +31)) {
+			if (App->frisbee->position.y+16 >= position.y && App->frisbee->position.y <= (position.y +31)) {
 				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
-
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::BLOCKPLAYER1;
 			}	
 
