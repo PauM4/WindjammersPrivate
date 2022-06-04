@@ -46,6 +46,7 @@ bool ModulePlayer2::Start()
 	LOG("Loading player textures");
 
 	stopLoadFX = false;
+	startLoadingSupershot = false;
 
 	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
 	hiromiChargeFX = App->audio->LoadFx("Assets/Fx/HiromiCharge.wav");
