@@ -384,6 +384,7 @@ Update_Status SceneBeachStage::Update()
 
 		if (estadoTS == INICIOT)
 		{
+			App->frisbee->limiteConcrete = false;
 			initialTimeS = SDL_GetTicks();
 			timeLimitS = 4 * 1000;
 			estadoTS = EJECUTANDO;

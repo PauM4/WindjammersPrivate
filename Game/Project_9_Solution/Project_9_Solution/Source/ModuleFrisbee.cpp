@@ -183,6 +183,7 @@ Update_Status ModuleFrisbee::Update()
 
 	case SUELO:
 		currentAnimation2 = &stop;
+		
 		if (estadoTF == INICIO) {
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
@@ -196,6 +197,7 @@ Update_Status ModuleFrisbee::Update()
 			estadoTF = INICIO;
 			estadoF = ARBITROF;
 			App->sceneBeachStage->Score();
+			App->frisbee->limiteConcrete = false;
 		}
 		break;
 
@@ -579,7 +581,7 @@ void ModuleFrisbee::limitesFrisbee() {
 
 	if (App->sceneStageSelect->sceneSelected == Concrete) {
 
-		if (position.x <= 155 && position.x >= 145) {
+		if (position.x <= 155-20 && position.x >= 145-20) {
 			if (((position.y <= 62 && position.y >= 52) || (position.y <= 161 && position.y >= 151)) && limiteConcrete) {
 				limiteConcrete = false;
 				yspeed *= -1;
