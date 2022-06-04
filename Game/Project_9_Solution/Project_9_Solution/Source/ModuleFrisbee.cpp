@@ -85,8 +85,8 @@ bool ModuleFrisbee::Start()
 	texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
 
 
-	position.x = 134; //150
-	position.y = 184; //200
+	position.x = App->sceneBeachStage->posicionXInicialFrisbee; 
+	position.y = App->sceneBeachStage->posicionYInicialFrisbee;
 
 	collider = App->collisions->AddCollider({ (int)position.x+16, (int)position.y+16, 16, 16 }, Collider::Type::FRISBEE, this);
 	
@@ -206,8 +206,8 @@ Update_Status ModuleFrisbee::Update()
 
 			/*App->sceneBeachStage->ScoreRound(2);*/
 		}
-		position.x = 134;
-		position.y = 184;
+		position.x = App->sceneBeachStage->posicionXInicialFrisbee;
+		position.y = App->sceneBeachStage->posicionYInicialFrisbee;
 	}
 
 

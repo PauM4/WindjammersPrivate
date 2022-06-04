@@ -43,6 +43,7 @@ public:
 	SDL_Texture* timerTexture = nullptr;
 	SDL_Texture* uiSpriteTexture = nullptr;
 	SDL_Texture* Winn;
+	SDL_Texture* texturaArbitro = nullptr;
 
 
 	Animation timerAnim;
@@ -50,7 +51,9 @@ public:
 	Animation bgBeachAnim;
 	Animation bgLawnAnim;
 	Animation bgConcreteAnim;
+	Animation quieto;
 	Animation* currentBgAnim = nullptr;
+	
 	
 	Animation* currentAnimationFrisbee = nullptr;
 	Animation lanzamientoIzquierda;
@@ -160,6 +163,7 @@ public:
 
 	SDL_Rect backgroundAnimationRect; 
 
+
 	//Font Debug vars
 	int debugFont;
 	char debugText[10] = { "\0" };
@@ -177,6 +181,9 @@ public:
 	int limiteInferior;
 	int limiteDerecha;
 	int limiteIzquierda;
+
+	int posicionXInicialFrisbee;
+	int posicionYInicialFrisbee;
 };
 
 #endif
