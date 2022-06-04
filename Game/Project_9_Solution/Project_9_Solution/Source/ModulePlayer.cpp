@@ -418,11 +418,10 @@ bool ModulePlayer::Start()
 		diagonalUpLeft.speed = 0.45f;
 
 		//bloqueo
-		for (int i = 0; i < 3; i++) {
-			bloqueo.PushBack({ 583 + (i * 53), 228, 53, 57 });
-		}
+		bloqueo.PushBack({ 798, 273, 53, 57 });
 		bloqueo.loop = false;
 		bloqueo.speed = 0.20f;
+
 		break;
 
 	case(CharList::Wessel):
@@ -585,6 +584,15 @@ bool ModulePlayer::Start()
 		}
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
+
+		//bloqueo
+
+		bloqueo.PushBack({ 235, 265, 53, 57 });
+		bloqueo.PushBack({ 312, 265, 53, 57 });
+
+		bloqueo.loop = false;
+		bloqueo.speed = 0.20f;
+
 		break;
 	}
 	currentAnimation = &idleRAnim;

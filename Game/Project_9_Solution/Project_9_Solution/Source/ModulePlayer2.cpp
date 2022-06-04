@@ -397,6 +397,11 @@ bool ModulePlayer2::Start()
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
 
+		//bloqueo
+		bloqueo.PushBack({ 336, 735, 53, 57 });
+		bloqueo.loop = false;
+		bloqueo.speed = 0.20f;
+
 		break;
 
 	case(CharList::Wessel):
@@ -560,6 +565,12 @@ bool ModulePlayer2::Start()
 		}
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
+
+		//bloqueo
+		bloqueo.PushBack({ 987, 660, 53, 57 });
+		bloqueo.PushBack({ 912, 665, 53, 57 });
+		bloqueo.loop = false;
+		bloqueo.speed = 0.20f;
 
 		break;
 	}
