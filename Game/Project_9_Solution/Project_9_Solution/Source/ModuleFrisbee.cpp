@@ -319,8 +319,22 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 
 		} else if (tipoSupershot == YOO_SUPERSHOT) {
-
 			if (contadorYooSuperShot <= 8 && contador_Angulo_SuperShot) {
+				//if (App->player->estadoP1 == App->player->LANZAMIENTO_SUPER)
+				//{
+				//}
+				//else if (App->player2->estadoP2 == App->player2->LANZAMIENTO_SUPER)
+				//{
+				//}
+				if (App->frisbee->xspeed > 0)
+				{
+					App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticleR, position.x, position.y + 20, Collider::NONE, 1);
+				}
+				else if (App->frisbee->xspeed < 0)
+				{
+					App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticleL, position.x, position.y + 20, Collider::NONE, 1);
+				}
+
 				position.x += xspeed;
 				contadorYooSuperShot++;
 
@@ -339,6 +353,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			else if (!contador_Angulo_SuperShot) {
 
 				if (yooDirec) {
+					App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticleU, position.x, position.y + 20, Collider::NONE, 0);
 					position.y -= yspeed;
 					contadorYooSuperShot++;
 
@@ -350,6 +365,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 				}
 				else if (!yooDirec) {
+					App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticleD, position.x, position.y + 20, Collider::NONE, 0);
 					position.y += yspeed;
 					contadorYooSuperShot--;
 
@@ -362,6 +378,25 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 		}
 		else if (tipoSupershot == WESSEL_SUPERSHOT) {
+
+			if (App->frisbee->xspeed > 0 && App->frisbee->yspeed == 0)
+			{
+				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleR, position.x - 6, position.y + 8, Collider::NONE, 0);
+			}
+			else if (App->frisbee->xspeed < 0 && App->frisbee->yspeed == 0)
+			{
+				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleL, position.x - 6, position.y + 10, Collider::NONE, 0);
+			}
+			else if (App->frisbee->yspeed < 0)
+			{
+				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleU, position.x + 16, position.y - 5, Collider::NONE, 0);
+			}
+			else if (App->frisbee->yspeed > 0)
+			{
+				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleD, position.x, position.y, Collider::NONE, 0);
+			}
+
+
 			if (position.x < limiteWesselSupershot ) {
 				position.x += xspeed;
 			} else if (position.x >= limiteWesselSupershot){
