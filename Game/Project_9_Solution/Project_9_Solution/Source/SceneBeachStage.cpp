@@ -15,6 +15,7 @@
 #include "SceneCharacterPresent.h"
 #include "SceneStageSelect.h"
 #include "ModuleIngameUI.h"
+#include "SceneCharacterSelect.h"
 
 #include "SDL/include/SDL.h"
 
@@ -95,6 +96,7 @@ SceneBeachStage::SceneBeachStage(bool startEnabled) : Module(startEnabled)
 	quieto.loop = false;
 
 
+
 }
 
 SceneBeachStage::~SceneBeachStage()
@@ -121,6 +123,7 @@ bool SceneBeachStage::Start()
 	suddenDeath = false;
 	initialTime = 0;
 	startTheGame = false;
+	stopCelebration = false;
 	texturaArbitro = App->textures->Load("Assets/Sprites/Arbitro.png");
 
 	estadoGolScore = CLEAR;
@@ -139,6 +142,19 @@ bool SceneBeachStage::Start()
 	goalHitFX = App->audio->LoadFx("Assets/Fx/GoalHit.wav");
 
 	whistleFX = App->audio->LoadFx("Assets/Fx/Whistle.wav");
+
+	switch (App->sceneCharacterSelect->p1Char)
+	{
+	case Mita:
+		celebrationFX = App->audio->LoadFx("Assets/Fx/HiromiSetWin.wav");
+		break;
+	case Yoo:
+		celebrationFX = App->audio->LoadFx("Assets/Fx/YooSetWin.wav");
+		break;
+	case Wessel:
+		celebrationFX = App->audio->LoadFx("Assets/Fx/KlaussSetWin.wav");
+		break;
+	}
 
 	//currentAnimationFrisbee = &lanzamientoIzquierda;
 
@@ -465,6 +481,12 @@ Update_Status SceneBeachStage::PostUpdate()
 		App->render->Blit(texturaArbitro, 127, 190, &rect);
 
 		break;
+	}
+
+	if (estadoS == FINAL && !stopCelebration)
+	{
+		App->audio->PlayFx(celebrationFX);
+		stopCelebration = true;
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)

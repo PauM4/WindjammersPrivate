@@ -76,6 +76,8 @@ public:
 	uint finalRoundFX;//
 	uint getReadyFX;//
 	uint goalHitFX; //volumeUp
+
+	uint celebrationFX;
 	//uint winFx = 0;
 
 	void Arbitro(int arbitro);
@@ -186,6 +188,8 @@ public:
 
 	int posicionXInicialFrisbee;
 	int posicionYInicialFrisbee;
+
+	bool stopCelebration;
 };
 
 #endif
