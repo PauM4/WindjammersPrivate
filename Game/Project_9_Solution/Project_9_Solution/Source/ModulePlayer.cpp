@@ -47,6 +47,9 @@ bool ModulePlayer::Start()
 	hiromiChargeFX = App->audio->LoadFx("Assets/Fx/HiromiCharge.wav");
 	hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
 
+	yooChargeFX = App->audio->LoadFx("Assets/Fx/B.YooCharge.wav");
+	yooPowerSoundFX = App->audio->LoadFx("Assets/FX/B.YooSuperSound.wav");
+
 
 	switch (App->sceneCharacterSelect->p1Char) {
 	case(CharList::Mita):
@@ -683,9 +686,25 @@ Update_Status ModulePlayer::PostUpdate()
 
 	if (App->frisbee->position.x < 150 && App->frisbee->estadoF == App->frisbee->BLOCK && !stopLoadFX)
 	{
-		App->particles->AddParticle(0, 0, App->particles->mitaLoadShotParticle, position.x, position.y, Collider::NONE, 1);
-		App->audio->PlayFx(hiromiChargeFX);
-		App->audio->PlayFx(hiromiPowerSoundFX);
+		switch (App->sceneCharacterSelect->p1Char)
+		{
+		case Mita:
+			App->particles->AddParticle(0, 0, App->particles->mitaLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+			App->audio->PlayFx(hiromiChargeFX);
+			App->audio->PlayFx(hiromiPowerSoundFX);
+			break;
+		case Yoo:
+			App->particles->AddParticle(0, 0, App->particles->yooLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+			App->audio->PlayFx(yooChargeFX);
+			App->audio->PlayFx(yooPowerSoundFX);
+			break;
+		case Wessel:
+			App->particles->AddParticle(0, 0, App->particles->wesselLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+			App->audio->PlayFx(yooChargeFX);
+			App->audio->PlayFx(yooPowerSoundFX);
+			break;
+		}
+
 		stopLoadFX = true;
 	}
 	else if (App->frisbee->estadoF == App->frisbee->MOVIMIENTO)

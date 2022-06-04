@@ -153,6 +153,11 @@ public:
 	uint hiromiSuperSonicFX;
 	uint hiromiSuperFFX;
 
+	uint yooSuperSonicFX;
+	uint yooSuperFFX;
+
+	uint wessel;
+
 };
 
 #endif //!__MODULE_FRISBEE_H__ 
