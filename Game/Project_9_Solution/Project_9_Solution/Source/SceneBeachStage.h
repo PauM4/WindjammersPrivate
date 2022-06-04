@@ -190,6 +190,8 @@ public:
 	int posicionYInicialFrisbee;
 
 	bool stopCelebration;
+
+	bool getReadyOnce;
 };
 
 #endif

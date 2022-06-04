@@ -124,6 +124,7 @@ bool SceneBeachStage::Start()
 	initialTime = 0;
 	startTheGame = false;
 	stopCelebration = false;
+	getReadyOnce = true;
 	texturaArbitro = App->textures->Load("Assets/Sprites/Arbitro.png");
 
 	estadoGolScore = CLEAR;
@@ -292,7 +293,7 @@ Update_Status SceneBeachStage::Update()
 
 		if (estadoTS == INICIOT)
 		{
-			App->audio->PlayFx(whistleFX);
+			/*App->audio->PlayFx(getReadyFX);*/
 			initialTimeS = SDL_GetTicks();
 			if (App->player->round == 0 && App->player2->round == 0)
 			{
@@ -306,13 +307,21 @@ Update_Status SceneBeachStage::Update()
 		}
 		else if (estadoTS == EJECUTANDO) {
 			roundSpriteAppear = true;
+			if ((App->player->round >= 1 || App->player2->round >= 1) && getReadyOnce)
+			{
+				App->audio->PlayFx(getReadyFX);
+				getReadyOnce = false;
+			}
+
 			TimerS();
 		}
 		else if (estadoTS == FIN)
 		{
+			App->audio->PlayFx(whistleFX);
 			estadoTS = INICIOT;
 			estadoS = RONDA;
 			App->frisbee->estadoF = App->frisbee->LANZAMIENTOARBITRO;
+			getReadyOnce = true;
 		}
 
 		break;
@@ -402,12 +411,12 @@ Update_Status SceneBeachStage::Update()
 			timeLimitS = 4 * 1000;
 			estadoTS = EJECUTANDO;
 		}
-
 		TimerS();
 		if (estadoTS == FIN)
 		{
 			//SceneBeachStage::Arbitro(1);
 			estadoS = INICIO;
+
 			App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
 		}
 
