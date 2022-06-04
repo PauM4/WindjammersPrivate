@@ -600,12 +600,11 @@ void ModuleFrisbee::timerF() {
 }
 
 void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
-
 	if (pos_final_frisbee >= 260) {
-		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed )- 0.24 ;
+		projectile.speed = 54 / ((pos_final_frisbee - pos_Player) / xspeed);
 	}
 	else if (pos_final_frisbee <= 23) {
-		projectile.speed = (pos_Player - pos_final_frisbee) / ( pos_Player - pos_final_frisbee / -xspeed)-0.24;
+		projectile.speed = 66 / ((-pos_final_frisbee - pos_Player) / xspeed);
 	}
 
 }
