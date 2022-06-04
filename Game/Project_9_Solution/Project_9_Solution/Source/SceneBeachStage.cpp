@@ -264,7 +264,10 @@ Update_Status SceneBeachStage::Update()
 		//Animacion Ronda 1.
 		App->player->score = 0;
 		App->player2->score = 0;
-		
+		App->player->position.x = 20;
+		App->player->position.y = 100;
+		App->player2->position.x = 230;
+		App->player2->position.y = 97;
 
 		if (estadoTS == INICIOT)
 		{

@@ -39,8 +39,8 @@ ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 		projectile.PushBack({ 0 + (i * 51), 306, 51, 51 });
 	}
 	projectile.loop = false;
-	projectile.pingpong = true;
-	projectile.speed = 0.2f;
+	projectile.pingpong = false;
+	projectile.speed = 0.7f;
 
 	//Disco bloqueado
 	blocked.PushBack({ 0, 102, 51, 51 });
@@ -213,7 +213,7 @@ Update_Status ModuleFrisbee::Update()
 
 	}
 
-//PARABOLA
+//SUELO
 
 	if (FloorTime == 120) {
 		if (position.x < 150 && position.x >20) {
@@ -274,6 +274,7 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 
 
 void ModuleFrisbee :: movimientoFrisbee() {
+	
 	currentAnimation2 = &moving;
 	
  	if (lanzamientoF == NORMAL) {
@@ -292,15 +293,15 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 	}
 	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
-	
+		
 		currentAnimation2 = &projectile;
-		if (35 < position.x && 250 > position.x) {
+		if (23 < position.x && 250 > position.x) {
 			position.x += xspeed;
 		}
 		else {
 			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
 			estadoF = SUELO;
-			
+			currentAnimation2->Reset();
 		}
 	}
 	else if (lanzamientoF == ARBITRO) {
@@ -372,7 +373,6 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 
 
-	
 }
 
 void ModuleFrisbee::limitesFrisbee() {
@@ -446,11 +446,10 @@ void ModuleFrisbee::timerF() {
 void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
 
 	if (pos_final_frisbee >= 260) {
-		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed) * 0.2f;
-			
+		projectile.speed = (pos_final_frisbee - pos_Player) / (pos_final_frisbee - pos_Player / xspeed )- 0.24 ;
 	}
-	else if (pos_final_frisbee <= 35) {
-		projectile.speed = (pos_Player - pos_final_frisbee) / ( pos_Player - pos_final_frisbee / xspeed*-1) * 0.2f;
+	else if (pos_final_frisbee <= 23) {
+		projectile.speed = (pos_Player - pos_final_frisbee) / ( pos_Player - pos_final_frisbee / -xspeed)-0.24;
 	}
 
 }
