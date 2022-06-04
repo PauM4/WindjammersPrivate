@@ -320,7 +320,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 	}
 	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
 		currentAnimation2 = &projectile;
-		if (23 < position.x && 250 > position.x) {
+		if (24 < position.x && 230 > position.x) {
 			position.x += xspeed;
 
 		}
