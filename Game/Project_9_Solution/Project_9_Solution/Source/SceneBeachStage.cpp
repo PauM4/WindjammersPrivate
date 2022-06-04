@@ -71,16 +71,17 @@ SceneBeachStage::SceneBeachStage(bool startEnabled) : Module(startEnabled)
 	lanzamientoDerecha.loop = false;
 	lanzamientoDerecha.speed = 0.2f;
 		
-	for (int i = 3; i >= 0; i--) {
-		scoreP1.PushBack({ 0 + (i * 56), 0, 56, 38 });
-	}
+	scoreP1.PushBack({ 59, 40, 56, 38 });
+	scoreP1.PushBack({ 0, 40, 56, 38 });
+	scoreP1.PushBack({ 280, 0, 56, 38 });
+	scoreP1.PushBack({ 223, 0, 56, 38 });
 	scoreP1.loop = false;
 	scoreP1.speed = 0.1f;
 	
-	scoreP2.PushBack({ 56, 38, 56, 38 });
-	scoreP2.PushBack({ 0, 38, 56, 38 });
-	scoreP2.PushBack({ 190, 0, 56, 38 });
-	scoreP2.PushBack({ 152, 0, 56, 38 });
+	scoreP2.PushBack({ 168, 0, 56, 38 });
+	scoreP2.PushBack({ 55, 0, 56, 38 });
+	scoreP2.PushBack({ 115, 0, 56, 38 });
+	scoreP2.PushBack({ 0, 0, 56, 38 });
 	scoreP2.loop = false;
 	scoreP2.speed = 0.1f;
 	
@@ -229,7 +230,6 @@ bool SceneBeachStage::Start()
 
 Update_Status SceneBeachStage::Update()
 {
-	currentAnimationFrisbee->Update();
 
 	/*if (_kbhit() && _getch() == 27)
 		return Update_Status::UPDATE_STOP;*/
@@ -287,7 +287,8 @@ Update_Status SceneBeachStage::Update()
 		else if (estadoTS == FIN)
 		{
 			estadoTS = INICIOT;
-			estadoS = LANZAMIENTOARBITRO; 
+			estadoS = RONDA;
+			App->frisbee->estadoF = App->frisbee->LANZAMIENTOARBITRO;
 		}
 
 		break;
@@ -295,7 +296,14 @@ Update_Status SceneBeachStage::Update()
 		//INGAME Gemplei 
 	case (RONDA):
 		App->ingameUI->currentTimerAnim->Update();
-		miradaArbitro();
+		if (estadoTS == INICIOT) {
+			roundSpriteAppear = false;
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 30 * 1000;
+			App->frisbee->estadoF = App->frisbee->LANZAMIENTOARBITRO;
+			estadoTS = EJECUTANDO;
+			App->ingameUI->timerAnim.Reset();
+		}
 		//if (estadoTGol == INICIOGOL) {
 		//SI NO FUNCIONA, TREURE ROUND();
 		//Round();
@@ -307,17 +315,24 @@ Update_Status SceneBeachStage::Update()
 		}
 		else if (estadoTGol == FINGOL)
 		{
+			App->player->position.x = 20;
+			App->player->position.y = 100;
+			App->player2->position.x = 230;
+			App->player2->position.y = 97;
 			if (suddenDeath) {
 				Win();
 			}
 			estadoTGol = INICIOGOL;
 			Round();
 			if (estadoS != FINALRONDA) {
-				Arbitro(arbitroFinalRonda);
+				App->frisbee->estadoF = App->frisbee->LANZAMIENTOARBITRO;
 			}
 		}
 		else if (estadoTS == EJECUTANDO) {
 			TimerS();
+			if (App->frisbee->estadoF != App->frisbee->LANZAMIENTOARBITRO) {
+				miradaArbitro();
+			}
 
 		}
 		else if (estadoTS == FIN) {
@@ -373,34 +388,7 @@ Update_Status SceneBeachStage::Update()
 		}
 
 		break;
-	case(LANZAMIENTOARBITRO):
-		if (estadoTS == INICIOT)
-		{
-			if (arbitroFinalRonda == 1) {
-				currentAnimationFrisbee = &lanzamientoIzquierda;
-			}
-			else if (arbitroFinalRonda == 2) {
-				currentAnimationFrisbee = &lanzamientoDerecha;
-			}
-			
-			initialTimeS = SDL_GetTicks();
-			timeLimitS = 1.1 * 1000;
-			estadoTS = EJECUTANDO;
-		}
-		else if (estadoTS == EJECUTANDO) {
-			TimerS();
-		}
-		else if (estadoTS == FIN)
-		{
-			roundSpriteAppear = false;
-			Arbitro(arbitroFinalRonda);
-			estadoS = RONDA;
-			initialTimeS = SDL_GetTicks();
-			timeLimitS = 30 * 1000;
-			estadoTS = EJECUTANDO;
-			App->ingameUI->timerAnim.Reset();
-		}
-		break;
+
 	}
 
 	// DEBUG INSTANT WIN
@@ -437,7 +425,7 @@ Update_Status SceneBeachStage::Update()
 	}
 
 
-
+	currentAnimationFrisbee->Update();
 	currentBgAnim->Update(); 
 
 	return Update_Status::UPDATE_CONTINUE;
@@ -560,9 +548,6 @@ Update_Status SceneBeachStage::PostUpdate()
 		if (estadoS == 4) {
 			App->fonts->BlitText(110, 180, debugFont, "S.FINAL");
 		}
-		if (estadoS == 5) {
-			App->fonts->BlitText(110, 180, debugFont, "S.LANZAMIENTOARBITRO");
-		}
 
 		if (App->frisbee->lanzamientoF == 0) {
 			App->fonts->BlitText(110, 120, debugFont, "NORMAL");
@@ -616,15 +601,10 @@ bool SceneBeachStage::CleanUp()
 }
 
 void SceneBeachStage::Arbitro(int arbitro) { 
-	App->player->position.x = 20;
-	App->player->position.y = 100;
-	App->player2->position.x = 230;
-	App->player2->position.y = 97;
 	App->player->currentAnimation = &App->player->idleRAnim;
 	App->player2->currentAnimation = &App->player2->idleLAnim;
 
 	if (arbitro == 1) {
-	
 		App->frisbee->xspeed = -3; 
 		App->frisbee->yspeed = -2;
 		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
@@ -633,7 +613,6 @@ void SceneBeachStage::Arbitro(int arbitro) {
 
 	}
 	else if (arbitro == 2) {
-
 		App->frisbee->xspeed = 3;
 		App->frisbee->yspeed = -2;
 		App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
@@ -788,7 +767,7 @@ void SceneBeachStage::Win() {
 void SceneBeachStage::Score(){
 	App->player->estadoP1 = ModulePlayer::estadoPlayer::STOP;
 	App->player2->estadoP2 = ModulePlayer2::estadoPlayer2::STOP;
-	
+	currentAnimationFrisbee->Reset();
 	if (App->sceneStageSelect->sceneSelected == Concrete)
 	{
 		//Score de Concrete
@@ -818,6 +797,7 @@ void SceneBeachStage::Score(){
 			//Upleft
 			else if (App->frisbee->position.y < 71)
 			{
+
 				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
 				App->audio->PlayFx(applauseFX);
@@ -1143,6 +1123,7 @@ void SceneBeachStage::TimerGol() {
 
 
 void SceneBeachStage::miradaArbitro() {
+	currentAnimationFrisbee->Reset();
 
 	if (App->frisbee->position.x <= 120) { //limiteMedio - hasta donde el cual el arbitro mira izquierda, pasada esta posicion --> derecha
 		currentAnimationFrisbee = &miradaIzq;

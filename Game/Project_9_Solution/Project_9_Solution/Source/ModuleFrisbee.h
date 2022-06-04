@@ -75,7 +75,8 @@ public:
 		PRUEBA,
 		WITHPLAYER, //con el player + cambiar posicion
 		BLOCK,
-		SUELO
+		SUELO,
+		LANZAMIENTOARBITRO
 
 	};
 	int estadoF;

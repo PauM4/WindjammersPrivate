@@ -117,8 +117,7 @@ public:
 		INICIORONDA, //Animaciones de inicio de ronda
 		RONDA, //durante el juego
 		FINALRONDA, //animaciones/texturas fin de ronda
-		FINAL, //fin de partida
-		LANZAMIENTOARBITRO 
+		FINAL //fin de partida
 	};
 	int estadoS;
 

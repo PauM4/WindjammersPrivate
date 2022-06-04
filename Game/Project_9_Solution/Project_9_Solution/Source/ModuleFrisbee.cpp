@@ -185,6 +185,31 @@ Update_Status ModuleFrisbee::Update()
 		}
 		break;
 
+	case(LANZAMIENTOARBITRO):
+		if (estadoTF == INICIO)
+		{
+			App->sceneBeachStage->currentAnimationFrisbee->Reset();
+			if (App->sceneBeachStage->arbitroFinalRonda == 1) {
+				App->sceneBeachStage->currentAnimationFrisbee = &App->sceneBeachStage->lanzamientoIzquierda;
+			}
+			else if (App->sceneBeachStage->arbitroFinalRonda == 2) {
+				App->sceneBeachStage->currentAnimationFrisbee = &App->sceneBeachStage->lanzamientoDerecha;
+			}
+
+			initialTimeF = SDL_GetTicks();
+			timeLimitF = 1.1 * 1000;
+			estadoTF = EJECUTANDO;
+		}
+		else if (estadoTF == EJECUTANDO) {
+			timerF();
+		}
+		else if (estadoTF == FIN)
+		{
+			App->sceneBeachStage->Arbitro(App->sceneBeachStage->arbitroFinalRonda);
+			estadoTF = INICIO;
+
+		}
+		break;
 
 	}
 
