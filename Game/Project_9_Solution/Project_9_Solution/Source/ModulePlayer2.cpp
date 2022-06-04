@@ -967,7 +967,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 
 			App->frisbee->xspeed = parabolaXSpeed;
 			App->frisbee->yspeed = parabolaYSpeed;
-			App->frisbee->vel_parabola(position.x, 35);
+			App->frisbee->vel_parabola(position.x, 23);
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP2 = estadoPlayer2::LANZAMIENTO;
