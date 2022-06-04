@@ -83,6 +83,7 @@ bool SceneBeachStage::Start()
 	excelentGameFX = App->audio->LoadFx("Assets/Fx/ExcelentGame.wav");
 	finalRoundFX = App->audio->LoadFx("Assets/Fx/FinalRound.wav");
 	getReadyFX = App->audio->LoadFx("Assets/Fx/GetReady.wav");
+	goalHitFX = App->audio->LoadFx("Assets/Fx/GoalHit.wav");
 
 	whistleFX = App->audio->LoadFx("Assets/Fx/Whistle.wav");
 
@@ -409,6 +410,7 @@ Update_Status SceneBeachStage::PostUpdate()
 	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
 	{
 		App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, 110, 120, Collider::NONE, 0);
+		//App->audio->PlayFx(goalHitFX);
 	}
 
 	if (isDebugAppear)
@@ -737,7 +739,7 @@ void SceneBeachStage::Score(){
 		//Esquerra
 		if (App->frisbee->position.x <= 19) {
 			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x - 5, App->frisbee->position.y, Collider::NONE, 0);
-
+			App->audio->PlayFx(goalHitFX);
 			//Mid left
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
 				App->player2->score += 3;
@@ -801,6 +803,7 @@ void SceneBeachStage::Score(){
 		//Dreta
 		else if (App->frisbee->position.x >= 276) {
 			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->frisbee->position.x - 10, App->frisbee->position.y, Collider::NONE, 0);
+			App->audio->PlayFx(goalHitFX);
 			//mid right
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
 				App->player->score += 3;
@@ -901,6 +904,7 @@ void SceneBeachStage::Score(){
 	//Esquerra
 		if (App->frisbee->position.x <= 19) {
 			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x - 5, App->frisbee->position.y, Collider::NONE, 0);
+			App->audio->PlayFx(goalHitFX);
 			//Mid left
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player2->score += 5;
@@ -964,6 +968,7 @@ void SceneBeachStage::Score(){
 		//Dreta
 		else if (App->frisbee->position.x >= 276) {
 			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->frisbee->position.x - 10, App->frisbee->position.y, Collider::NONE, 0);
+			App->audio->PlayFx(goalHitFX);
 
 			//mid right
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {

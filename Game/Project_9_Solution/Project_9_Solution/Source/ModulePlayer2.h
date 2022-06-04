@@ -134,6 +134,8 @@ public:
 	int lanzamientoYSpeed;
 	int parabolaXSpeed;
 	int parabolaYSpeed;
+
+	uint tossFX;
 };
 
 #endif //!__MODULE_PLAYER2_H__

@@ -90,6 +90,8 @@ bool ModuleFrisbee::Start()
 
 	catchFx = App->audio->LoadFx("Assets/Fx/Catch.wav");
 	effectTossFx = App->audio->LoadFx("Assets/Fx/EffectToss.wav");
+	frisbeeOnAirFX = App->audio->LoadFx("Assets/Fx/Freesbeonair.wav");
+	landingFX = App->audio->LoadFx("Assets/Fx/Landing.wav");
 
 	position.x = 150;
 	position.y = 200;
@@ -181,8 +183,8 @@ Update_Status ModuleFrisbee::Update()
 		if (estadoTF == INICIO) {
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
+			App->audio->PlayFx(landingFX);
 			estadoTF = EJECUTANDO;
-
 		}
 		else if (estadoTF == EJECUTANDO) {
 			timerF();
@@ -234,6 +236,12 @@ Update_Status ModuleFrisbee::PostUpdate()
 {
 	SDL_Rect rect2 = currentAnimation2->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y, &rect2);
+
+	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
+	{
+		App->audio->PlayFx(effectTossFx);
+	}
+
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -283,7 +291,6 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 	}
 	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
-		App->audio->PlayFx(effectTossFx);
 		currentAnimation2 = &projectile;
 		if (35 < position.x && 250 > position.x) {
 			position.x += xspeed;

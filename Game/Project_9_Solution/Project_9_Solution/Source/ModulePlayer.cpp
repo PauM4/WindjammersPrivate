@@ -41,6 +41,8 @@ bool ModulePlayer::Start()
 
 	LOG("Loading player textures");
 
+	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
+
 	switch (App->sceneCharacterSelect->p1Char) {
 	case(CharList::Mita):
 		texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
@@ -598,9 +600,11 @@ Update_Status ModulePlayer::Update()
 		}
 		else if (estadoTP == EJECUTANDO) {
 			timerP();
+			
 		}
 		else if (estadoTP == FIN)
 		{
+			App->audio->PlayFx(tossFX);
 			estadoTP = INICIO;
 			estadoP1 = MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;

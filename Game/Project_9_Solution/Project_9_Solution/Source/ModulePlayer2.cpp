@@ -45,6 +45,9 @@ bool ModulePlayer2::Start()
 
 	LOG("Loading player textures");
 
+	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
+
+
 	switch (App->sceneCharacterSelect->p2Char) {
 	case(CharList::Mita):
 		texture = App->textures->Load("Assets/Sprites/Characters/Jap2.png");
@@ -583,6 +586,7 @@ Update_Status ModulePlayer2::Update()
 		}
 		else if (estadoTP2 == FIN)
 		{
+			App->audio->PlayFx(tossFX);
 			estadoTP2 = INICIO;
 			estadoP2 = MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;

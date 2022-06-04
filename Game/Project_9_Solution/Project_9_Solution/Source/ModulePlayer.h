@@ -136,6 +136,8 @@ public:
 	int lanzamientoYSpeed;
 	int parabolaXSpeed;
 	int parabolaYSpeed;
+
+	uint tossFX;
 	
 
 };

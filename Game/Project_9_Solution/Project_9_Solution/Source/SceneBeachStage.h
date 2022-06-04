@@ -68,12 +68,11 @@ public:
 	uint fivePointsFX;
 	uint applauseFX;
 	uint whistleFX;
-	uint bigApplauseFX;
+	uint bigApplauseFX;//volumeUp
 	uint excelentGameFX;
-	uint finalRoundFX;
-	uint getReadyFX;
-
-
+	uint finalRoundFX;//
+	uint getReadyFX;//
+	uint goalHitFX; //volumeUp
 	//uint winFx = 0;
 
 	void Arbitro(int arbitro);
