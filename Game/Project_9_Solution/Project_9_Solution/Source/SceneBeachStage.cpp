@@ -15,6 +15,7 @@
 #include "SceneCharacterPresent.h"
 #include "SceneStageSelect.h"
 #include "ModuleIngameUI.h"
+#include "SceneCharacterSelect.h"
 
 #include "SDL/include/SDL.h"
 
@@ -95,6 +96,7 @@ SceneBeachStage::SceneBeachStage(bool startEnabled) : Module(startEnabled)
 	quieto.loop = false;
 
 
+
 }
 
 SceneBeachStage::~SceneBeachStage()
@@ -121,6 +123,8 @@ bool SceneBeachStage::Start()
 	suddenDeath = false;
 	initialTime = 0;
 	startTheGame = false;
+	stopCelebration = false;
+	getReadyOnce = true;
 	texturaArbitro = App->textures->Load("Assets/Sprites/Arbitro.png");
 
 	estadoGolScore = CLEAR;
@@ -139,6 +143,19 @@ bool SceneBeachStage::Start()
 	goalHitFX = App->audio->LoadFx("Assets/Fx/GoalHit.wav");
 
 	whistleFX = App->audio->LoadFx("Assets/Fx/Whistle.wav");
+
+	switch (App->sceneCharacterSelect->p1Char)
+	{
+	case Mita:
+		celebrationFX = App->audio->LoadFx("Assets/Fx/HiromiSetWin.wav");
+		break;
+	case Yoo:
+		celebrationFX = App->audio->LoadFx("Assets/Fx/YooSetWin.wav");
+		break;
+	case Wessel:
+		celebrationFX = App->audio->LoadFx("Assets/Fx/KlaussSetWin.wav");
+		break;
+	}
 
 	//currentAnimationFrisbee = &lanzamientoIzquierda;
 
@@ -276,7 +293,7 @@ Update_Status SceneBeachStage::Update()
 
 		if (estadoTS == INICIOT)
 		{
-			App->audio->PlayFx(whistleFX);
+			/*App->audio->PlayFx(getReadyFX);*/
 			initialTimeS = SDL_GetTicks();
 			if (App->player->round == 0 && App->player2->round == 0)
 			{
@@ -290,13 +307,21 @@ Update_Status SceneBeachStage::Update()
 		}
 		else if (estadoTS == EJECUTANDO) {
 			roundSpriteAppear = true;
+			if (((App->player->round >= 1 && App->player->round < 2)|| (App->player2->round >= 1 && App->player2->round < 2)) && getReadyOnce)
+			{
+				App->audio->PlayFx(getReadyFX);
+				getReadyOnce = false;
+			}
+
 			TimerS();
 		}
 		else if (estadoTS == FIN)
 		{
+			App->audio->PlayFx(whistleFX);
 			estadoTS = INICIOT;
 			estadoS = RONDA;
 			App->frisbee->estadoF = App->frisbee->LANZAMIENTOARBITRO;
+			getReadyOnce = true;
 		}
 
 		break;
@@ -386,15 +411,18 @@ Update_Status SceneBeachStage::Update()
 			timeLimitS = 4 * 1000;
 			estadoTS = EJECUTANDO;
 		}
-
+		if (estadoTS == EJECUTANDO)
+		{
+			App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+		}
 		TimerS();
 		if (estadoTS == FIN)
 		{
 			//SceneBeachStage::Arbitro(1);
 			estadoS = INICIO;
 			App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+			App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
 		}
-
 		break;
 
 	}
@@ -432,7 +460,6 @@ Update_Status SceneBeachStage::Update()
 		else isDebugAppear = false;
 	}
 
-
 	currentAnimationFrisbee->Update();
 	currentBgAnim->Update(); 
 
@@ -466,6 +493,14 @@ Update_Status SceneBeachStage::PostUpdate()
 
 		break;
 	}
+
+	if (estadoS == FINAL && !stopCelebration)
+	{
+		App->audio->PlayFx(celebrationFX);
+		stopCelebration = true;
+	}
+
+	
 
 	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
 	{
@@ -587,6 +622,7 @@ Update_Status SceneBeachStage::PostUpdate()
 		else if (App->frisbee->estadoTF == 2) {
 			App->fonts->BlitText(110, 150, debugFont, "FIN");
 		}
+
 
 		App->fonts->BlitText(110, 110, debugFont, debugText);
 		App->fonts->BlitText(165, 110, debugFont, debugText2);
