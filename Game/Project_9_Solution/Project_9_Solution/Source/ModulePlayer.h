@@ -138,6 +138,8 @@ public:
 	int parabolaYSpeed;
 
 	uint tossFX;
+
+	bool stopLoadFX;
 	
 
 };

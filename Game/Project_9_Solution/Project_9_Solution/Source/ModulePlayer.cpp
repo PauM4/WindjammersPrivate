@@ -41,6 +41,8 @@ bool ModulePlayer::Start()
 
 	LOG("Loading player textures");
 
+	stopLoadFX = false;
+
 	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
 
 	switch (App->sceneCharacterSelect->p1Char) {
@@ -674,6 +676,16 @@ Update_Status ModulePlayer::PostUpdate()
 	{
 		sprintf_s(debugText, 10, "%2d", round);
 		App->fonts->BlitText(80, 20, debugFont, debugText);
+	}
+
+	if (App->frisbee->position.x < 150 && App->frisbee->estadoF == App->frisbee->BLOCK && !stopLoadFX)
+	{
+		App->particles->AddParticle(0, 0, App->particles->mitaLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+		stopLoadFX = true;
+	}
+	else if (App->frisbee->estadoF == App->frisbee->MOVIMIENTO)
+	{
+		stopLoadFX = false;
 	}
 	
 

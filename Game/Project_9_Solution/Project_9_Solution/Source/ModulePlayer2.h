@@ -136,6 +136,8 @@ public:
 	int parabolaYSpeed;
 
 	uint tossFX;
+
+	bool stopLoadFX;
 };
 
 #endif //!__MODULE_PLAYER2_H__
