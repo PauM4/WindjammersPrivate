@@ -699,6 +699,7 @@ Update_Status ModulePlayer2::PostUpdate()
 		stopLoadFX = false;
 	}
 
+
 	return Update_Status::UPDATE_CONTINUE;
 }
 

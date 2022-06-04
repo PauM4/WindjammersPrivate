@@ -147,7 +147,7 @@ bool ModuleParticles::Start()
 	mitaLoadShotParticle.anim.PushBack({142, 733, 64, 64});
 	mitaLoadShotParticle.anim.PushBack({208, 733, 64, 64});
 	mitaLoadShotParticle.anim.loop = true;
-	mitaLoadShotParticle.lifetime = 70;
+	mitaLoadShotParticle.lifetime = 150;
 	mitaLoadShotParticle.anim.speed = 0.4f;
 
 	yooSuperShotParticleR.anim.PushBack({201, 236, 16 , 16});
@@ -188,7 +188,7 @@ bool ModuleParticles::Start()
 	yooLoadShotParticle.anim.PushBack({387, 58, 50, 53});
 	yooLoadShotParticle.anim.loop = true;
 	yooLoadShotParticle.anim.pingpong = false;
-	yooLoadShotParticle.lifetime = 60;
+	yooLoadShotParticle.lifetime = 150;
 	yooLoadShotParticle.anim.speed = 0.4f;
 
 	wesselLoadShotParticle.anim.PushBack({409, 140, 48, 48});
@@ -196,7 +196,7 @@ bool ModuleParticles::Start()
 	wesselLoadShotParticle.anim.PushBack({409, 188, 48, 48});
 	wesselLoadShotParticle.anim.PushBack({457, 188, 48, 48});
 	wesselLoadShotParticle.anim.loop = true;
-	wesselLoadShotParticle.lifetime = 40;
+	wesselLoadShotParticle.lifetime = 150;
 	wesselLoadShotParticle.anim.speed = 0.4f;
 
 	wesselSuperShotParticleCircle.anim.PushBack({ 318, 343, 47, 47 });
