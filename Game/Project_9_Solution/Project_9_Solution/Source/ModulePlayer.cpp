@@ -50,6 +50,8 @@ bool ModulePlayer::Start()
 	yooChargeFX = App->audio->LoadFx("Assets/Fx/B.YooCharge.wav");
 	yooPowerSoundFX = App->audio->LoadFx("Assets/FX/B.YooSuperSound.wav");
 
+	wesselChargeFX = App->audio->LoadFx("Assets/Fx/KlaussCharge.wav");
+	wesselPowerSoundFX = App->audio->LoadFx("Assets/Fx/KlaussSuperSound.wav");
 
 	switch (App->sceneCharacterSelect->p1Char) {
 	case(CharList::Mita):
@@ -700,8 +702,8 @@ Update_Status ModulePlayer::PostUpdate()
 			break;
 		case Wessel:
 			App->particles->AddParticle(0, 0, App->particles->wesselLoadShotParticle, position.x, position.y, Collider::NONE, 1);
-			App->audio->PlayFx(yooChargeFX);
-			App->audio->PlayFx(yooPowerSoundFX);
+			App->audio->PlayFx(wesselChargeFX);
+			App->audio->PlayFx(wesselPowerSoundFX);
 			break;
 		}
 

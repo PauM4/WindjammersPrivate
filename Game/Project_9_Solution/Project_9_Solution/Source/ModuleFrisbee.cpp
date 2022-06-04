@@ -98,6 +98,9 @@ bool ModuleFrisbee::Start()
 	yooSuperSonicFX = App->audio->LoadFx("Assets/Fx/B.YooSuperSonic1.wav");
 	yooSuperFFX = App->audio->LoadFx("Assets/Fx/B.YooSuperF.wav");
 
+	wesselSuperSonicFX = App->audio->LoadFx("Assets/Fx/KlaussSupersonic1.wav");
+	wesselSuperFFX = App->audio->LoadFx("Assets/Fx/KlaussSuperF.wav");
+
 	position.x = 150;
 	position.y = 200;
 	projectil = 0;
@@ -404,6 +407,9 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			{
 				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleD, position.x, position.y, Collider::NONE, 0);
 			}
+
+			App->audio->PlayFx(wesselSuperSonicFX);
+			App->audio->PlayFx(wesselSuperFFX);
 
 
 			if (position.x < limiteWesselSupershot ) {

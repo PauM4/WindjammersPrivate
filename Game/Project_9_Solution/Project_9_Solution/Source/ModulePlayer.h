@@ -142,6 +142,8 @@ public:
 	uint hiromiPowerSoundFX;
 	uint yooChargeFX;
 	uint yooPowerSoundFX;
+	uint wesselChargeFX;
+	uint wesselPowerSoundFX;
 	bool stopLoadFX;
 	
 

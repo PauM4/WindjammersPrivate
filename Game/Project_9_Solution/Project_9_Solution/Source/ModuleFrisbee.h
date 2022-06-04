@@ -156,7 +156,8 @@ public:
 	uint yooSuperSonicFX;
 	uint yooSuperFFX;
 
-	uint wessel;
+	uint wesselSuperSonicFX;
+	uint wesselSuperFFX;
 
 };
 
