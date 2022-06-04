@@ -244,11 +244,11 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 	/*	FloorTime = 0;*/
 		
 		//Flash particle left or right depending on the player
-		if (position.x < 150)
+		if (c2 == App->player->collider)
 		{
 			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->player->position.x + 29, App->player->position.y, Collider::NONE, 0);
 		}
-		else if (position.x > 150)
+		else if (c2 == App->player2->collider)
 		{
 			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->player2->position.x - 5, App->player2->position.y, Collider::NONE, 0);
 		}
