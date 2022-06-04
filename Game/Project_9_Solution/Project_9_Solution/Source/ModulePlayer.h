@@ -72,6 +72,7 @@ public:
 	Animation diagonalUpLeft;
 	Animation diagonalDownRight;
 	Animation diagonalDownLeft;
+	Animation bloqueo;
 
 	enum estadoPlayer
 	{
@@ -150,6 +151,7 @@ public:
 	bool stopLoadFX;
 	bool startLoadingSupershot;
 
+	bool bloqAnimation;
 };
 
 #endif //!__MODULE_PLAYER_H__

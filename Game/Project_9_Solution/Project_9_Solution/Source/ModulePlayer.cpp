@@ -246,6 +246,14 @@ bool ModulePlayer::Start()
 		diagonalUpLeft.PushBack({ 689, 510, 53, 57 });
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
+
+		//bloqueo
+		for (int i = 0; i < 3; i++) {
+			bloqueo.PushBack({ 583 + (i * 53), 228, 53, 57 });
+		}
+		bloqueo.loop = false;
+		bloqueo.speed = 0.20f;
+
 		break;
 
 	case(CharList::Yoo):
@@ -583,7 +591,7 @@ bool ModulePlayer::Start()
 	char lookupTableDebug[] = { "! ?,_./0123456789?;<??ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	debugFont = App->fonts->Load("Assets/Sprites/UI/Fonts/debugFont.png", lookupTableDebug, 2);
 	isDebugAppear = false;
-
+	bloqAnimation = false;
 	return ret;
 }
 
@@ -803,6 +811,7 @@ void ModulePlayer::movimientoPlayer(){
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
 			}
+			bloqAnimation = false;
 
 		}
 		else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > App->sceneBeachStage->limiteIzquierda)
@@ -851,6 +860,7 @@ void ModulePlayer::movimientoPlayer(){
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
 			}
+			bloqAnimation = false;
 
 		}
 		else if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && position.y > App->sceneBeachStage->limiteSuperior)
@@ -904,7 +914,7 @@ void ModulePlayer::movimientoPlayer(){
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
 			}
-
+			bloqAnimation = false;
 
 		}
 		else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && position.y < App->sceneBeachStage->limiteInferior)
@@ -956,30 +966,39 @@ void ModulePlayer::movimientoPlayer(){
 			else if (estadoTP == FIN) {
 				estadoTP = INICIO;
 			}
+			bloqAnimation = false;
+		} 
+
+
+
+		if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && (App->frisbee->position.x - (position.x /*+20*/)) > 1 && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
+
+			if (App->frisbee->position.y + 16 >= position.y && App->frisbee->position.y <= (position.y + 31)) {
+				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
+				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::BLOCKPLAYER1;
+				currentAnimation = &bloqueo;
+				bloqAnimation = true;
+
+			}
 
 		}
-
-
-		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
+		else if (!bloqAnimation){
+			if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 0)
 			currentAnimation = &idleLAnim;
 
-		if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
+			if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_IDLE
 			&& App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_IDLE && last1 == 1)
 			currentAnimation = &idleRAnim;
 
-		if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN &&  (App->frisbee->position.x - (position.x /*+20*/)) > 1  && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
-		
-			if (App->frisbee->position.y+16 >= position.y && App->frisbee->position.y <= (position.y +31)) {
-				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
-				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::BLOCKPLAYER1;
-			}	
-
 		}
+
+
+	
 	 
 		
 
