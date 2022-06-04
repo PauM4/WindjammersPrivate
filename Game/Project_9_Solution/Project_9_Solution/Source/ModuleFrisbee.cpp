@@ -53,8 +53,10 @@ ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 	for (int i = 0; i < 4; i++) {
 		blocked.PushBack({ 0 + (i * 51), 51, 51, 51 });
 	}
-	moving.loop = false;
-	moving.speed = 0.1f;
+	blocked.loop = false;
+	blocked.speed = 0.2f;  
+
+
 
 	//Desaparece: que no hace falta hacer nada
 
@@ -154,13 +156,13 @@ Update_Status ModuleFrisbee::Update()
 			initialTimeF = SDL_GetTicks();
 
 			if (lanzamientoF == BLOCKPLAYER1) {
-				position.x = App->player->position.x + 38;
+				position.x = App->player->position.x + 22;
 			}
 			else if (lanzamientoF == BLOCKPLAYER2) {
-				position.x = App->player2->position.x - 2;
+				position.x = App->player2->position.x - 20;
 			}
 
-			timeLimitF = 2 * 1000;
+			timeLimitF = 1.2 * 1000;
 			currentAnimation2 = &blocked;
 			App->collisions->RemoveCollider(App->frisbee->collider);
 			estadoTF = EJECUTANDO;
