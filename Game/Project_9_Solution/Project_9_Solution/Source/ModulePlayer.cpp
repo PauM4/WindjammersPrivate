@@ -38,7 +38,6 @@ bool ModulePlayer::Start()
 	round = 0;
 	estadoP1 = STOP;
 	bool ret = true;
-	startLoadingSupershot = false;
 
 	LOG("Loading player textures");
 
