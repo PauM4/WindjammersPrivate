@@ -43,6 +43,8 @@ bool ModulePlayer::Start()
 
 	stopLoadFX = false;
 
+	startLoadingSupershot = false;
+
 	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
 	hiromiChargeFX = App->audio->LoadFx("Assets/Fx/HiromiCharge.wav");
 	hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
@@ -634,8 +636,11 @@ Update_Status ModulePlayer::Update()
 			lanzamiento.loop = true;
 			currentAnimation = &lanzamiento; //lanzamiento supershot animation
 			estadoTP = EJECUTANDO;
+			startLoadingSupershot = true;
+
 		}
 		else if (estadoTP == EJECUTANDO) {
+			startLoadingSupershot = false;
 			timerP();
 		}
 		else if (estadoTP == FIN)
@@ -688,33 +693,39 @@ Update_Status ModulePlayer::PostUpdate()
 		App->fonts->BlitText(80, 20, debugFont, debugText);
 	}
 
-	if (App->frisbee->position.x < 150 && App->frisbee->estadoF == App->frisbee->BLOCK && !stopLoadFX)
+	if (startLoadingSupershot)
 	{
-		switch (App->sceneCharacterSelect->p1Char)
+		if (App->frisbee->position.x < 150/* && App->frisbee->estadoF == App->frisbee->BLOCK && !stopLoadFX*/)
 		{
-		case Mita:
-			App->particles->AddParticle(0, 0, App->particles->mitaLoadShotParticle, position.x, position.y, Collider::NONE, 1);
-			App->audio->PlayFx(hiromiChargeFX);
-			App->audio->PlayFx(hiromiPowerSoundFX);
-			break;
-		case Yoo:
-			App->particles->AddParticle(0, 0, App->particles->yooLoadShotParticle, position.x, position.y, Collider::NONE, 1);
-			App->audio->PlayFx(yooChargeFX);
-			App->audio->PlayFx(yooPowerSoundFX);
-			break;
-		case Wessel:
-			App->particles->AddParticle(0, 0, App->particles->wesselLoadShotParticle, position.x, position.y, Collider::NONE, 1);
-			App->audio->PlayFx(wesselChargeFX);
-			App->audio->PlayFx(wesselPowerSoundFX);
-			break;
-		}
+			switch (App->sceneCharacterSelect->p1Char)
+			{
+			case Mita:
+				App->particles->AddParticle(0, 0, App->particles->mitaLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+				App->audio->PlayFx(hiromiChargeFX);
+				App->audio->PlayFx(hiromiPowerSoundFX);
+				break;
+			case Yoo:
+				App->particles->AddParticle(0, 0, App->particles->yooLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+				App->audio->PlayFx(yooChargeFX);
+				App->audio->PlayFx(yooPowerSoundFX);
+				break;
+			case Wessel:
+				App->particles->AddParticle(0, 0, App->particles->wesselLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+				App->audio->PlayFx(wesselChargeFX);
+				App->audio->PlayFx(wesselPowerSoundFX);
+				break;
+			}
 
-		stopLoadFX = true;
+			stopLoadFX = true;
+			
+		}
+		/*else if (App->frisbee->estadoF == App->frisbee->MOVIMIENTO)
+		{
+			stopLoadFX = false;
+		}*/
+		startLoadingSupershot = false;
 	}
-	else if (App->frisbee->estadoF == App->frisbee->MOVIMIENTO)
-	{
-		stopLoadFX = false;
-	}
+	
 
 	return Update_Status::UPDATE_CONTINUE;
 }

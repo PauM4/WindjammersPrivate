@@ -144,6 +144,8 @@ public:
 	uint wesselPowerSoundFX;
 	uint dashFX;
 	bool stopLoadFX;
+
+	bool startLoadingSupershot;
 };
 
 #endif //!__MODULE_PLAYER2_H__
