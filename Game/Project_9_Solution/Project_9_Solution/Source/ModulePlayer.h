@@ -139,7 +139,8 @@ public:
 
 	uint tossFX;
 	uint hiromiChargeFX;
-	uint hiromiPowerPhraseFX;
+	uint hiromiPowerSoundFX;
+
 	bool stopLoadFX;
 	
 

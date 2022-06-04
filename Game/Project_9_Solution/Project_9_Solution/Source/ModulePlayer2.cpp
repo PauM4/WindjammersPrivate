@@ -49,9 +49,9 @@ bool ModulePlayer2::Start()
 
 	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
 	hiromiChargeFX = App->audio->LoadFx("Assets/Fx/HiromiCharge.wav");
-	hiromiPowerPhraseFX = App->audio->LoadFx("Assets/Fx/HiromiPowerPhrase.wav");
+	//hiromiPowerPhraseFX = App->audio->LoadFx("Assets/Fx/HiromiPowerPhrase.wav");
 	hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
-	hiromiSuperSonicFX = App->audio->LoadFx("Asseys/Fx/HiromiSupersonic1.wav");
+	//hiromiSuperSonicFX = App->audio->LoadFx("Asseys/Fx/HiromiSupersonic1.wav");
 
 
 	switch (App->sceneCharacterSelect->p2Char) {

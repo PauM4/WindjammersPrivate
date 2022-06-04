@@ -92,7 +92,7 @@ bool ModuleFrisbee::Start()
 	landingFX = App->audio->LoadFx("Assets/Fx/Landing.wav");
 	wallHitFX = App->audio->LoadFx("Assets/Fx/WallHit.wav");
 
-	hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
+	hiromiSuperFFX = App->audio->LoadFx("Assets/Fx/HiromiSuperF.wav");
 	hiromiSuperSonicFX = App->audio->LoadFx("Assets/Fx/HiromiSupersonic1.wav");
 
 	position.x = 150;
@@ -318,7 +318,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			position.y += yspeed * cos(angulo);
 			App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, position.x, position.y - 48, Collider::NONE, 5);
 			App->audio->PlayFx(hiromiSuperSonicFX);
-			App->audio->PlayFx(hiromiPowerSoundFX);
+			App->audio->PlayFx(hiromiSuperFFX, 1);
 
 
 		} else if (tipoSupershot == YOO_SUPERSHOT) {

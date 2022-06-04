@@ -151,7 +151,7 @@ public:
 	uint wallHitFX;
 
 	uint hiromiSuperSonicFX;
-	uint hiromiPowerSoundFX;
+	uint hiromiSuperFFX;
 
 };
 
