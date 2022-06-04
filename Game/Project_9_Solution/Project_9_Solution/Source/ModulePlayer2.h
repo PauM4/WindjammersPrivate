@@ -124,10 +124,16 @@ public:
 	int bea;
 	float pepe;
 
-	
+	int posicionInicialX;
+	int posicionInicialY;
 
+	int ajusteColliderX;
+	int ajusteColliderY;
 
-
+	int lanzamientoXSpeed;
+	int lanzamientoYSpeed;
+	int parabolaXSpeed;
+	int parabolaYSpeed;
 };
 
 #endif //!__MODULE_PLAYER2_H__

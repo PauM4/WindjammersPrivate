@@ -125,7 +125,17 @@ public:
 	
 	//bool pols;
 
-	
+	//magicNumbers
+	int posicionInicialX;
+	int posicionInicialY;
+
+	int ajusteColliderX;
+	int ajusteColliderY;
+
+	int lanzamientoXSpeed;
+	int lanzamientoYSpeed;
+	int parabolaXSpeed;
+	int parabolaYSpeed;
 	
 
 };

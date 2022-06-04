@@ -92,10 +92,8 @@ bool ModuleFrisbee::Start()
 	position.x = 150;
 	position.y = 200;
 	projectil = 0;
-	FloorTime = 0;
 
 
-	destroyed = false;
 
 	collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
 	
@@ -239,7 +237,7 @@ Update_Status ModuleFrisbee::PostUpdate()
 
 void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider && destroyed == false)
+	if (c1 == collider && (c2 == App->player->collider || c2==App->player2->collider))
 	{
 		//currentAnimation2 = &desaparece;
 		//estadoF = estadoFrisbee::STOP;

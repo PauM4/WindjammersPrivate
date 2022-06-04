@@ -92,6 +92,15 @@ bool SceneBeachStage::Start()
 		currentBgAnim = &bgBeachAnim;
 
 		App->audio->PlayMusic("Assets/Music/03_Flying Power Disc (Beach Court).ogg", 1.0f);
+
+		limiteCentralIzq = 110;
+		limiteIzquierda = 10;
+		limiteSuperior = 50;
+		limiteInferior = 138;
+		limiteCentralDer = 140;
+		limiteDerecha = 258;
+
+
 		break;
 	case Lawn:
 		bgLawnTexture = App->textures->Load("Assets/Sprites/Levels/bgLawnSpriteSheet.png");
@@ -101,6 +110,13 @@ bool SceneBeachStage::Start()
 
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
 		App->audio->PlayMusic("Assets/Music/05_Windjammers (Lawn Court).ogg", 1.0f);
+
+		limiteCentralIzq;
+		limiteCentralDer;
+		limiteSuperior;
+		limiteInferior;
+		limiteDerecha;
+		limiteIzquierda;
 		break;
 	case Concrete:
 		bgConcreteTexture = App->textures->Load("Assets/Sprites/Levels/bgConcreteSpriteSheet.png");
@@ -110,6 +126,13 @@ bool SceneBeachStage::Start()
 
 		//CANVIAR LA MUSICA A LA CORRESPONENT DE L'ESCENARI
 		App->audio->PlayMusic("Assets/Music/04_You-got-a-power-_Concrete_.ogg", 1.0f);
+
+		limiteCentralIzq;
+		limiteCentralDer;
+		limiteSuperior;
+		limiteInferior;
+		limiteDerecha;
+		limiteIzquierda;
 		break;
 	}
 
@@ -173,10 +196,11 @@ Update_Status SceneBeachStage::Update()
 		//Animacion Ronda 1.
 		App->player->score = 0;
 		App->player2->score = 0;
-		App->audio->PlayFx(whistleFX);
+		
 
 		if (estadoTS == INICIOT)
 		{
+			App->audio->PlayFx(whistleFX);
 			initialTimeS = SDL_GetTicks();
 			if (App->player->round == 0 && App->player2->round == 0)
 			{
@@ -194,13 +218,8 @@ Update_Status SceneBeachStage::Update()
 		}
 		else if (estadoTS == FIN)
 		{
-			roundSpriteAppear = false;
-			Arbitro(arbitroFinalRonda);
-			estadoS = RONDA;
-			initialTimeS = SDL_GetTicks();
-			timeLimitS = 30 * 1000;
-			estadoTS = EJECUTANDO;
-			App->ingameUI->timerAnim.Reset();
+			estadoTS = INICIOT;
+			estadoS = LANZAMIENTOARBITRO; 
 		}
 
 		break;
@@ -208,6 +227,7 @@ Update_Status SceneBeachStage::Update()
 		//INGAME Gemplei 
 	case (RONDA):
 		App->ingameUI->currentTimerAnim->Update();
+		miradaArbitro();
 		//if (estadoTGol == INICIOGOL) {
 		//SI NO FUNCIONA, TREURE ROUND();
 		//Round();
@@ -284,6 +304,34 @@ Update_Status SceneBeachStage::Update()
 			App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
 		}
 
+		break;
+	case(LANZAMIENTOARBITRO):
+		if (estadoTS == INICIOT)
+		{
+			if (arbitroFinalRonda == 1) {
+				//currentAnimationFrisbee = &lanzamientoIzquierda;
+			}
+			else if (arbitroFinalRonda == 2) {
+				//currentAnimationFrisbee = &lanzamientoDerecha;
+			}
+			
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 0.8 * 1000;
+			estadoTS = EJECUTANDO;
+		}
+		else if (estadoTS == EJECUTANDO) {
+			TimerS();
+		}
+		else if (estadoTS == FIN)
+		{
+			roundSpriteAppear = false;
+			Arbitro(arbitroFinalRonda);
+			estadoS = RONDA;
+			initialTimeS = SDL_GetTicks();
+			timeLimitS = 30 * 1000;
+			estadoTS = EJECUTANDO;
+			App->ingameUI->timerAnim.Reset();
+		}
 		break;
 	}
 
@@ -443,11 +491,12 @@ Update_Status SceneBeachStage::PostUpdate()
 		if (estadoS == 4) {
 			App->fonts->BlitText(110, 180, debugFont, "S.FINAL");
 		}
+		if (estadoS == 5) {
+			App->fonts->BlitText(110, 180, debugFont, "S.LANZAMIENTOARBITRO");
+		}
 
 		if (App->frisbee->lanzamientoF == 0) {
-
 			App->fonts->BlitText(110, 120, debugFont, "NORMAL");
-
 		}
 		else if (App->frisbee->lanzamientoF == 1) {
 			App->fonts->BlitText(110, 120, debugFont, "PARABOLA");
@@ -465,9 +514,9 @@ Update_Status SceneBeachStage::PostUpdate()
 			App->fonts->BlitText(110, 120, debugFont, "BLOCKPLAYER2");
 		}
 
+
 		if(App->frisbee->estadoTF == 0) {
 			App->fonts->BlitText(110, 150, debugFont, "INICIO");
-
 		}
 		else if (App->frisbee->estadoTF == 1) {
 			App->fonts->BlitText(110, 150, debugFont, "EJECUTANDO");
@@ -532,6 +581,7 @@ void SceneBeachStage::Round() {
 				App->player->round += 1;
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
+				//currentAnimationFrisbee = &scoreP1;
 
 				//Llamar animaci�n de jugador ganador 1 y las texturas
 				App->player->score = 0;
@@ -546,6 +596,7 @@ void SceneBeachStage::Round() {
 				App->player2->round += 1;
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
+				//currentAnimationFrisbee = &scoreP2;
 				//Llamar animaci�n de jugador ganador 2 y las texturas
 				App->player->score = 0;
 				App->player2->score = 0;
@@ -568,6 +619,7 @@ void SceneBeachStage::Round() {
 				App->player->round += 1;
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
+				//currentAnimationFrisbee = &scoreP1;
 
 				//Llamar animacion de jugador ganador 1 y las texturas
 				App->player->score = 0;
@@ -580,6 +632,7 @@ void SceneBeachStage::Round() {
 				App->player2->round += 1;
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
+				//currentAnimationFrisbee = &scoreP2;
 
 				//Llamar animaci�n de jugador ganador 2 y las texturas
 				App->player->score = 0;
@@ -621,6 +674,7 @@ void SceneBeachStage::Win() {
 		estadoS = FINAL;
 		App->player->currentAnimation = &App->player->win;
 		App->player2->currentAnimation = &App->player2->lose;
+		//currentAnimationFrisbee = &scoreP1;
 
 	}
 	else if (App->player2->score != 0 && suddenDeath) {
@@ -629,6 +683,7 @@ void SceneBeachStage::Win() {
 		estadoS = FINAL;
 		App->player->currentAnimation = &App->player->lose;
 		App->player2->currentAnimation = &App->player2->win;
+		//currentAnimationFrisbee = &scoreP2;
 
 	}
 	else if ((App->player->round == 2 && !suddenDeath) || debugwinP1) {
@@ -638,6 +693,7 @@ void SceneBeachStage::Win() {
 		estadoS = FINAL;
 		App->player->currentAnimation = &App->player->win;
 		App->player2->currentAnimation = &App->player2->lose;
+		//currentAnimationFrisbee = &scoreP1;
 	}
 	else if ((App->player2->round == 2 && !suddenDeath) || debugwinP2) {
 		//llamar animaci�n y texturas de que ha ganado el segundo jugador la partida
@@ -645,6 +701,7 @@ void SceneBeachStage::Win() {
 		estadoS = FINAL;
 		App->player->currentAnimation = &App->player->lose;
 		App->player2->currentAnimation = &App->player2->win;
+		//currentAnimationFrisbee = &scoreP2;
 
 	}
 	else if (suddenDeath && App->player->score == App->player2->score) {
@@ -678,6 +735,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
+				//currentAnimationFrisbee = &scoreP1;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -697,6 +755,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
+				//currentAnimationFrisbee = &scoreP2;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -716,6 +775,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
+				//currentAnimationFrisbee = &scoreP2;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -738,6 +798,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
+				//currentAnimationFrisbee = &scoreP1;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -757,6 +818,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
+				//currentAnimationFrisbee = &scoreP1;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -776,6 +838,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
+				//currentAnimationFrisbee = &scoreP1;
 
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
@@ -794,6 +857,7 @@ void SceneBeachStage::Score(){
 			App->player2->score += 2;
 			App->player->currentAnimation = &App->player->lose;
 			App->player2->currentAnimation = &App->player2->win;
+			//currentAnimationFrisbee = &scoreP2;
 			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
@@ -809,6 +873,7 @@ void SceneBeachStage::Score(){
 			App->player->score += 2;
 			App->player->currentAnimation = &App->player->win;
 			App->player2->currentAnimation = &App->player2->lose;
+			//currentAnimationFrisbee = &scoreP1;
 			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
@@ -833,6 +898,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
+				//currentAnimationFrisbee = &scoreP2;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -852,6 +918,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
+				//currentAnimationFrisbee = &scoreP2;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -871,6 +938,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
+				//currentAnimationFrisbee = &scoreP2;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -894,6 +962,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
+				//currentAnimationFrisbee = &scoreP1;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -913,6 +982,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
+				//currentAnimationFrisbee = &scoreP1;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -932,6 +1002,7 @@ void SceneBeachStage::Score(){
 				App->audio->PlayFx(applauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
+				//currentAnimationFrisbee = &scoreP1;
 
 				//Just despres d'afegir score, UI Textura d'on ha marcat
 				if (suddenDeath) {
@@ -949,6 +1020,7 @@ void SceneBeachStage::Score(){
 			App->player2->score += 2;
 			App->player->currentAnimation = &App->player->lose;
 			App->player2->currentAnimation = &App->player2->win;
+			//currentAnimationFrisbee = &scoreP2;
 			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
@@ -964,6 +1036,7 @@ void SceneBeachStage::Score(){
 			App->player->score += 2;
 			App->player->currentAnimation = &App->player->win;
 			App->player2->currentAnimation = &App->player2->lose;
+			//currentAnimationFrisbee = &scoreP1;
 			App->audio->PlayFx(twoPointsFX);
 			if (suddenDeath) {
 				Win();
@@ -1001,3 +1074,13 @@ void SceneBeachStage::TimerGol() {
 }
 
 
+void SceneBeachStage::miradaArbitro() {
+
+	if (App->frisbee->position.x <= 120) { //limiteMedio - hasta donde el cual el arbitro mira izquierda, pasada esta posicion --> derecha
+		//currentAnimationFrisbee = &miradaIzq;
+	} 
+	else if (App->frisbee->position.x >=130 ) { //limiteMedio - ''    ''
+		//currentAnimationFrisbee = &miradaDerecha;
+	}
+	
+}

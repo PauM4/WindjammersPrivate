@@ -49,6 +49,21 @@ bool ModulePlayer2::Start()
 	case(CharList::Mita):
 		texture = App->textures->Load("Assets/Sprites/Characters/Jap2.png");
 		speed = 2;
+
+		posicionInicialX = 230;
+		posicionInicialY = 100;
+
+		ajusteColliderX = 16;
+		ajusteColliderY = 10;
+
+
+		lanzamientoXSpeed = -4;
+		lanzamientoYSpeed = -4;
+		parabolaXSpeed = -3;
+		parabolaYSpeed = 0;
+
+		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this);
+
 		//idleLAnim
 		for (int i = 0; i < 8; i++) {
 			idleLAnim.PushBack({ 211 + (i * 53), 338, 53, 57 });
@@ -196,19 +211,336 @@ bool ModulePlayer2::Start()
 		break;
 
 	case(CharList::Yoo):
-		//texture = App->textures->Load("Assets/Sprites/Characters/Yoo.png");
+		texture = App->textures->Load("Assets/Sprites/Characters/Kor2.png");
+		speed = 2;
+
+		posicionInicialX = 230;
+		posicionInicialY = 100;
+
+		ajusteColliderX = 16;
+		ajusteColliderY = 10;
+
+
+		lanzamientoXSpeed = -4;
+		lanzamientoYSpeed = -4;
+		parabolaXSpeed = -3;
+		parabolaYSpeed = 0;
+
+		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this);
+
+		//idleLAnim
+		for (int i = 0; i < 8; i++) {
+			idleLAnim.PushBack({ 462 + (i * 66), 462, 66, 66 });
+		}
+		idleLAnim.loop = true;
+		idleLAnim.speed = 0.075f;
+
+		//idleRAnim
+		for (int i = 0; i < 8; i++) {
+			idleRAnim.PushBack({ 198 + (i * 66), 0, 66, 66 });
+		}
+		idleRAnim.loop = true;
+		idleRAnim.speed = 0.075f;
+
+		// Move Right
+		for (int i = 0; i < 6; i++) {
+			rightAnim.PushBack({ 792 + (i * 66), 0, 66, 66 });
+		}
+		rightAnim.loop = true;
+		rightAnim.speed = 0.075f;
+
+		//Move Left
+		for (int i = 0; i < 6; i++) {
+			leftAnim.PushBack({ 66 + (i * 66), 462, 66, 66 });
+		}
+		leftAnim.loop = true;
+		leftAnim.speed = 0.075f;
+
+		// Move Down Head Right
+		for (int i = 0; i < 6; i++) {
+			downRAnim.PushBack({ 792 + (i * 66), 66, 66, 66 });
+		}
+		downRAnim.loop = true;
+		downRAnim.speed = 0.075f;
+
+		// Move Down Head Left
+		for (int i = 0; i < 6; i++) {
+			downLAnim.PushBack({ 66 + (i * 66), 528, 66, 66 });
+		}
+		downLAnim.loop = true;
+		downLAnim.speed = 0.075f;
+
+		//Move Up Head Left
+		for (int i = 0; i < 6; i++) {
+			upLAnim.PushBack({ 462 + (i * 66), 528, 66, 66 });
+		}
+		upLAnim.loop = true;
+		upLAnim.speed = 0.075f;
+
+		//Move Up Head Right
+		for (int i = 0; i < 6; i++) {
+			upRAnim.PushBack({ 330 + (i * 66), 66, 66, 66 });
+		}
+		upRAnim.loop = true;
+		upRAnim.speed = 0.075f;
+
+		//Idle Disk
+		for (int i = 0; i < 8; i++) {
+			idleDisk.PushBack({ 660 + (i * 66), 792, 66, 66 });
+		}
+		idleDisk.loop = true;
+		idleDisk.speed = 0.075f;
+
+		//Lanzamiento Disco
+		for (int i = 5; i >= 0; i--) {
+			lanzamiento.PushBack({ 396 + (i * 66), 858, 66, 66 });
+		}
+		lanzamiento.loop = false;
+		lanzamiento.speed = 0.3f;
+
+		//Dash derecho
+		dashRight.PushBack({ 1122, 66, 66, 66 });
+		for (int i = 0; i < 3; i++) {
+			dashRight.PushBack({ 0 + (i * 66), 132, 66, 66 });
+		}
+		dashRight.loop = false;
+		dashRight.speed = 0.45f;
+
+		//Dash izquierdo
+		dashRight.PushBack({ 0, 528, 66, 66 });
+		for (int i = 3; i >= 0; i--) {
+			dashLeft.PushBack({ 1122 + (i * 66), 594, 66, 66 });
+		}
+		dashLeft.loop = false;
+		dashLeft.speed = 0.45f;
+
+		//Dash arriba
+		for (int i = 0; i < 3; i++) {
+			dashUp.PushBack({ 198 + (i * 66), 132, 66, 66 });
+		}
+		dashUp.loop = false;
+		dashUp.speed = 0.45f;
+
+		//Dash abajo
+		dashDown.PushBack({ 726, 132, 66, 66 });
+		dashDown.PushBack({ 792, 132, 66, 66 });
+		dashDown.PushBack({ 1122, 132, 66, 66 });
+		dashDown.PushBack({ 132, 198, 66, 66 });
+		dashDown.loop = false;
+		dashDown.speed = 0.45f;
+
+		//Win
+		for (int i = 0; i < 3; i++) {
+			win.PushBack({ 132 + (i * 66), 264, 66, 66 });
+		}
+		win.loop = true;
+		win.speed = 0.05f;
+
+		//Lose
+		for (int i = 0; i < 6; i++) {
+			lose.PushBack({ 330 + (i * 66), 264, 66, 66 });
+		}
+		lose.loop = true;
+		lose.speed = 0.05f;
+
+		//Dash diagonalUpRight
+		for (int i = 0; i < 4; i++) {
+			diagonalUpRight.PushBack({ 462 + (i * 66), 66, 66, 66 });
+		}
+		diagonalUpRight.loop = false;
+		diagonalUpRight.speed = 0.45f;
+
+		//Dash diagonalDownRight
+		for (int i = 0; i < 4; i++) {
+			diagonalDownRight.PushBack({ 198 + (i * 66), 132, 66, 66 });
+		}
+		diagonalDownRight.loop = false;
+		diagonalDownRight.speed = 0.45f;
+
+		//Dash diagonalDownLeft
+		for (int i = 3; i >= 0; i--) {
+			diagonalDownLeft.PushBack({ 726 + (i * 66), 660, 66, 66 });
+		}
+		diagonalDownLeft.loop = false;
+		diagonalDownLeft.speed = 0.45f;
+
+		//Dash diagonalUpLeft
+		for (int i = 3; i >= 0; i--) {
+			diagonalUpLeft.PushBack({ 462 + (i * 66), 594, 66, 66 });
+		}
+		diagonalUpLeft.loop = false;
+		diagonalUpLeft.speed = 0.45f;
+
 		break;
+
 	case(CharList::Wessel):
-		texture = App->textures->Load("Assets/Sprites/Characters/Wessel.png");
+		texture = App->textures->Load("Assets/Sprites/Characters/Ger2.png");
+		speed = 2;
+
+		posicionInicialX = 230;
+		posicionInicialY = 100;
+
+		ajusteColliderX = 16;
+		ajusteColliderY = 10;
+
+
+		lanzamientoXSpeed = -4;
+		lanzamientoYSpeed = -4;
+		parabolaXSpeed = -3;
+		parabolaYSpeed = 0;
+
+		collider = App->collisions->AddCollider({ (int)position.x + ajusteColliderX, (int)position.y + ajusteColliderY, 27, 31 }, Collider::Type::PLAYER, this);
+		
+		//idleLAnim
+		for (int i = 0; i < 3; i++) {
+			idleLAnim.PushBack({ 825 + (i * 75), 390, 75, 65 });
+		}
+		idleLAnim.loop = true;
+		idleLAnim.speed = 0.075f;
+
+		//idleRAnim
+		for (int i = 0; i < 3; i++) {
+			idleRAnim.PushBack({ 225 + (i * 75), 0, 75, 65 });
+		}
+		idleRAnim.loop = true;
+		idleRAnim.speed = 0.075f;
+
+		// Move Right
+		for (int i = 0; i < 6; i++) {
+			rightAnim.PushBack({ 450 + (i * 75), 0, 75, 65 });
+		}
+		rightAnim.loop = true;
+		rightAnim.speed = 0.075f;
+
+		//Move Left
+		for (int i = 0; i < 6; i++) {
+			leftAnim.PushBack({ 375 + (i * 75), 390, 75, 65 });
+		}
+		leftAnim.loop = true;
+		leftAnim.speed = 0.075f;
+
+		// Move Down Head Right
+		for (int i = 0; i < 6; i++) {
+			downRAnim.PushBack({ 525 + (i * 75), 65, 75, 65 });
+		}
+		downRAnim.loop = true;
+		downRAnim.speed = 0.075f;
+
+		// Move Down Head Left
+		for (int i = 0; i < 6; i++) {
+			downLAnim.PushBack({ 525 + (i * 75), 65, 75, 65 });
+		}
+		downLAnim.loop = true;
+		downLAnim.speed = 0.075f;
+
+		//Move Up Head Left
+		for (int i = 0; i < 6; i++) {
+			upLAnim.PushBack({ 75 + (i * 75), 65, 75, 65 });
+		}
+		upLAnim.loop = true;
+		upLAnim.speed = 0.075f;
+
+		//Move Up Head Right
+		for (int i = 0; i < 6; i++) {
+			upRAnim.PushBack({ 75 + (i * 75), 65, 75, 65 });
+		}
+		upRAnim.loop = true;
+		upRAnim.speed = 0.075f;
+
+		//Idle Disk
+		idleDisk.PushBack({ 75, 650, 75, 65 });
+		idleDisk.PushBack({ 0, 650, 75, 65 });
+		idleDisk.PushBack({ 1200, 715, 75, 65 });
+		idleDisk.PushBack({ 1125, 715, 75, 65 });
+		idleDisk.loop = true;
+		idleDisk.speed = 0.075f;
+
+		//Lanzamiento Disco
+		for (int i = 5; i >= 0; i--) {
+			lanzamiento.PushBack({ 75 + (i * 75), 715, 75, 65 });
+		}
+		lanzamiento.loop = false;
+		lanzamiento.speed = 0.3f;
+
+		//Dash derecho
+		for (int i = 0; i < 4; i++) {
+			dashRight.PushBack({ 975 + (i * 75), 65, 75, 65 });
+		}
+		dashRight.loop = false;
+		dashRight.speed = 0.45f;
+
+		//Dash izquierdo
+		for (int i = 3; i >= 0; i--) {
+			dashLeft.PushBack({ 0 + (i * 75), 455, 75, 65 });
+		}
+		dashLeft.loop = false;
+		dashLeft.speed = 0.45f;
+
+		//Dash arriba
+		for (int i = 0; i < 4; i++) {
+			dashUp.PushBack({ 0 + (i * 75), 130, 75, 65 });
+		}
+		dashUp.loop = false;
+		dashUp.speed = 0.45f;
+
+		//Dash abajo
+		for (int i = 0; i < 4; i++) {
+			dashDown.PushBack({ 675 + (i * 75), 130, 75, 65 });
+		}
+		dashDown.loop = false;
+		dashDown.speed = 0.45f;
+
+		//Win
+		for (int i = 0; i < 7; i++) {
+			win.PushBack({ 450 + (i * 75), 195, 75, 65 });
+		}
+		win.loop = true;
+		win.speed = 0.05f;
+
+		//Lose
+		for (int i = 0; i < 4; i++) {
+			lose.PushBack({ 975 + (i * 75), 195, 75, 65 });
+		}
+		lose.PushBack({ 0, 260, 75, 65 });
+		lose.PushBack({ 75, 260, 75, 65 });
+		lose.loop = true;
+		lose.speed = 0.05f;
+
+		//Dash diagonalUpRight
+		for (int i = 0; i < 4; i++) {
+			diagonalUpRight.PushBack({ 375 + (i * 75), 130, 75, 65 });
+		}
+		diagonalUpRight.loop = false;
+		diagonalUpRight.speed = 0.45f;
+
+		//Dash diagonalDownRight
+		for (int i = 0; i < 4; i++) {
+			diagonalDownRight.PushBack({ 975 + (i * 75), 130, 75, 65 });
+		}
+		diagonalDownRight.loop = false;
+		diagonalDownRight.speed = 0.45f;
+
+		//Dash diagonalDownLeft
+		for (int i = 3; i >= 0; i--) {
+			diagonalDownLeft.PushBack({ 0 + (i * 75), 520, 75, 65 });
+		}
+		diagonalDownLeft.loop = false;
+		diagonalDownLeft.speed = 0.45f;
+
+		//Dash diagonalUpLeft
+		for (int i = 3; i >= 0; i--) {
+			diagonalUpLeft.PushBack({ 600 + (i * 75), 520, 75, 65 });
+		}
+		diagonalUpLeft.loop = false;
+		diagonalUpLeft.speed = 0.45f;
+
 		break;
 	}
 
 	currentAnimation = &idleLAnim;
 
-	position.x = 230;
-	position.y = 97;
-
-	collider = App->collisions->AddCollider({ (int)position.x+16, (int)position.y+10, 27, 31 }, Collider::Type::PLAYER, this);
+	position.x = posicionInicialX;
+	position.y = posicionInicialY;
 
 	char lookupTable[] = { "0123456789G " };
 	scoreFont = App->fonts->Load("Assets/Sprites/UI/Fonts/scoreFont.png", lookupTable, 1);
@@ -285,7 +617,9 @@ Update_Status ModulePlayer2::Update()
 		break;
 	}
 	
-	collider->SetPos(position.x+16, position.y+10);		
+
+
+	collider->SetPos(position.x + ajusteColliderX, position.y + ajusteColliderY);
 	currentAnimation->Update();
 
 	return Update_Status::UPDATE_CONTINUE;
@@ -327,7 +661,7 @@ Update_Status ModulePlayer2::PostUpdate()
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider)
+	if (c1 == collider && c2 == App->frisbee->collider)
 	{//le pongo 0,0 pq no se exactamente q es esto y como he cambiado la funcion como tal tengo q meterle estos parametros i o si
 		
 		estadoP2 = estadoPlayer2::WITHFRISBEE;
@@ -590,8 +924,8 @@ void ModulePlayer2::lanzamientoPlayer2() {
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT)
 		{
 
-			App->frisbee->xspeed = -4/pepe;
-			App->frisbee->yspeed = -4 / pepe;
+			App->frisbee->xspeed = lanzamientoXSpeed /pepe;
+			App->frisbee->yspeed = lanzamientoYSpeed / pepe;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
 			estadoP2 = estadoPlayer2::LANZAMIENTO;
@@ -602,8 +936,8 @@ void ModulePlayer2::lanzamientoPlayer2() {
 
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT)
 		{
-			App->frisbee->xspeed = -4 / pepe;
-			App->frisbee->yspeed = 4 / pepe;
+			App->frisbee->xspeed = lanzamientoXSpeed / pepe;
+			App->frisbee->yspeed = -lanzamientoYSpeed / pepe;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 			estadoP2 = estadoPlayer2::LANZAMIENTO;
@@ -615,7 +949,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN || estadoTP2 == FIN)
 		{
 			App->frisbee->xspeed = -4 / pepe;
-			App->frisbee->yspeed = 0;
+			App->frisbee->yspeed = lanzamientoYSpeed*0;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP2 = estadoPlayer2::LANZAMIENTO;
@@ -631,8 +965,8 @@ void ModulePlayer2::lanzamientoPlayer2() {
 		{
 			App->collisions->RemoveCollider(App->frisbee->collider);
 
-			App->frisbee->xspeed = -3;
-			App->frisbee->yspeed = 0;
+			App->frisbee->xspeed = parabolaXSpeed;
+			App->frisbee->yspeed = parabolaYSpeed;
 			App->frisbee->vel_parabola(position.x, 35);
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
@@ -727,41 +1061,40 @@ void ModulePlayer2::timerP2() {
 
 void ModulePlayer2::limitePlayer2() {
 
-
-	if (position.x > 258) {
-		if (position.y < 50) {
-			position.y = 52;
-			position.x = 256;
+	if (position.x > App->sceneBeachStage->limiteDerecha) {
+		if (position.y < App->sceneBeachStage->limiteSuperior) {
+			position.y = App->sceneBeachStage->limiteSuperior+2;
+			position.x = App->sceneBeachStage->limiteDerecha-2;
 		}
-		else if (position.y > 138) {
-			position.y = 136;
-			position.x = 256;
+		else if (position.y > App->sceneBeachStage->limiteInferior) {
+			position.y = App->sceneBeachStage->limiteInferior-2;
+			position.x = App->sceneBeachStage->limiteDerecha-2;
 		}
 		else {
-			position.x = 256;
+			position.x = App->sceneBeachStage->limiteDerecha-2;
 		}
 	} 
-	else if (position.x < 140) {
-		if (position.y < 50) {
-			position.y = 52;
-			position.x = 142;
+	else if (position.x < App->sceneBeachStage->limiteCentralDer) {
+		if (position.y < App->sceneBeachStage->limiteSuperior) {
+			position.y = App->sceneBeachStage->limiteSuperior+2;
+			position.x = App->sceneBeachStage->limiteCentralDer+2;
 
 		}
-		else if (position.y > 138) {
-			position.y = 136;
-			position.x = 142;
+		else if (position.y > App->sceneBeachStage->limiteInferior) {
+			position.y = App->sceneBeachStage->limiteInferior-2;
+			position.x = App->sceneBeachStage->limiteCentralDer+2;
 		}
 		else {
-			position.x = 142;
+			position.x = App->sceneBeachStage->limiteCentralDer+2;
 		}
 	}
 
 
-	if (position.y > 138) {
-		position.y = 136;
+	if (position.y > App->sceneBeachStage->limiteInferior) {
+		position.y = App->sceneBeachStage->limiteInferior-2;
 	} 
-	else if (position.y < 50) {
-		position.y = 52;
+	else if (position.y < App->sceneBeachStage->limiteSuperior) {
+		position.y = App->sceneBeachStage->limiteSuperior+2;
 	}
 
 
