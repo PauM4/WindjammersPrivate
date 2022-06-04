@@ -132,6 +132,11 @@ bool SceneBeachStage::Start()
 	fivePointsFX = App->audio->LoadFx("Assets/Fx/5Pts.wav");
 
 	applauseFX = App->audio->LoadFx("Assets/Fx/Applause.wav");
+	bigApplauseFX = App->audio->LoadFx("Assets/Fx/BigApplause.wav");
+	excelentGameFX = App->audio->LoadFx("Assets/Fx/ExcelentGame.wav");
+	finalRoundFX = App->audio->LoadFx("Assets/Fx/FinalRound.wav");
+	getReadyFX = App->audio->LoadFx("Assets/Fx/GetReady.wav");
+	goalHitFX = App->audio->LoadFx("Assets/Fx/GoalHit.wav");
 
 	whistleFX = App->audio->LoadFx("Assets/Fx/Whistle.wav");
 
@@ -393,7 +398,7 @@ Update_Status SceneBeachStage::Update()
 		break;
 
 	}
-
+	
 	// DEBUG INSTANT WIN
 	if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
 	{
@@ -465,6 +470,7 @@ Update_Status SceneBeachStage::PostUpdate()
 	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
 	{
 		App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, 110, 120, Collider::NONE, 0);
+		//App->audio->PlayFx(goalHitFX);
 	}
 
 	if (isDebugAppear)
@@ -708,6 +714,12 @@ void SceneBeachStage::Round() {
 
 		}
 
+		//Si es guanya de pallisa play ExcelentGameFx
+		if ((App->player->round == 2 && App->player2->round == 0) || ((App->player->round == 0 && App->player2->round == 2)))
+		{
+			App->audio->PlayFx(excelentGameFX);
+		}
+
 	}
 
 }
@@ -777,7 +789,7 @@ void SceneBeachStage::Score(){
 		//Esquerra
 		if (App->frisbee->position.x <= 19) {
 			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x - 5, App->frisbee->position.y, Collider::NONE, 0);
-
+			App->audio->PlayFx(goalHitFX);
 			//Mid left
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
 				App->player2->score += 3;
@@ -803,7 +815,7 @@ void SceneBeachStage::Score(){
 
 				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
 				currentAnimationFrisbee = &scoreP2;
@@ -823,7 +835,7 @@ void SceneBeachStage::Score(){
 			{
 				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
 				currentAnimationFrisbee = &scoreP2;
@@ -842,6 +854,7 @@ void SceneBeachStage::Score(){
 		//Dreta
 		else if (App->frisbee->position.x >= 276) {
 			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->frisbee->position.x - 10, App->frisbee->position.y, Collider::NONE, 0);
+			App->audio->PlayFx(goalHitFX);
 			//mid right
 			if (App->frisbee->position.y >= 71 && App->frisbee->position.y <= 184) {
 				App->player->score += 3;
@@ -866,7 +879,7 @@ void SceneBeachStage::Score(){
 			{
 				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
 				currentAnimationFrisbee = &scoreP1;
@@ -886,7 +899,7 @@ void SceneBeachStage::Score(){
 			{
 				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
 				currentAnimationFrisbee = &scoreP1;
@@ -942,11 +955,12 @@ void SceneBeachStage::Score(){
 	//Esquerra
 		if (App->frisbee->position.x <= 19) {
 			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->frisbee->position.x - 5, App->frisbee->position.y, Collider::NONE, 0);
+			App->audio->PlayFx(goalHitFX);
 			//Mid left
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player2->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->lose;
 				App->player2->currentAnimation = &App->player2->win;
 				currentAnimationFrisbee = &scoreP2;
@@ -1005,12 +1019,13 @@ void SceneBeachStage::Score(){
 		//Dreta
 		else if (App->frisbee->position.x >= 276) {
 			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->frisbee->position.x - 10, App->frisbee->position.y, Collider::NONE, 0);
+			App->audio->PlayFx(goalHitFX);
 
 			//mid right
 			if (App->frisbee->position.y >= 94 && App->frisbee->position.y <= 144) {
 				App->player->score += 5;
 				App->audio->PlayFx(fivePointsFX);
-				App->audio->PlayFx(applauseFX);
+				App->audio->PlayFx(bigApplauseFX);
 				App->player->currentAnimation = &App->player->win;
 				App->player2->currentAnimation = &App->player2->lose;
 				currentAnimationFrisbee = &scoreP1;

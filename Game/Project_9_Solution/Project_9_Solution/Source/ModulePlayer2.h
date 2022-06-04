@@ -134,6 +134,16 @@ public:
 	int lanzamientoYSpeed;
 	int parabolaXSpeed;
 	int parabolaYSpeed;
+
+	uint tossFX;
+	uint hiromiChargeFX;
+	uint hiromiPowerSoundFX;
+	uint yooChargeFX;
+	uint yooPowerSoundFX;
+	uint wesselChargeFX;
+	uint wesselPowerSoundFX;
+	uint dashFX;
+	bool stopLoadFX;
 };
 
 #endif //!__MODULE_PLAYER2_H__

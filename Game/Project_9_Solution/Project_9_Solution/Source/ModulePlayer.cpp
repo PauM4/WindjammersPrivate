@@ -41,6 +41,20 @@ bool ModulePlayer::Start()
 
 	LOG("Loading player textures");
 
+	stopLoadFX = false;
+
+	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
+	hiromiChargeFX = App->audio->LoadFx("Assets/Fx/HiromiCharge.wav");
+	hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
+
+	yooChargeFX = App->audio->LoadFx("Assets/Fx/B.YooCharge.wav");
+	yooPowerSoundFX = App->audio->LoadFx("Assets/FX/B.YooSuperSound.wav");
+
+	wesselChargeFX = App->audio->LoadFx("Assets/Fx/KlaussCharge.wav");
+	wesselPowerSoundFX = App->audio->LoadFx("Assets/Fx/KlaussSuperSound.wav");
+
+	dashFX = App->audio->LoadFx("Assets/Fx/Dash.wav");
+
 	switch (App->sceneCharacterSelect->p1Char) {
 	case(CharList::Mita):
 		texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
@@ -598,9 +612,11 @@ Update_Status ModulePlayer::Update()
 		}
 		else if (estadoTP == EJECUTANDO) {
 			timerP();
+			
 		}
 		else if (estadoTP == FIN)
 		{
+			App->audio->PlayFx(tossFX);
 			estadoTP = INICIO;
 			estadoP1 = MOVIMIENTO;
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::MOVIMIENTO;
@@ -671,7 +687,34 @@ Update_Status ModulePlayer::PostUpdate()
 		sprintf_s(debugText, 10, "%2d", round);
 		App->fonts->BlitText(80, 20, debugFont, debugText);
 	}
-	
+
+	if (App->frisbee->position.x < 150 && App->frisbee->estadoF == App->frisbee->BLOCK && !stopLoadFX)
+	{
+		switch (App->sceneCharacterSelect->p1Char)
+		{
+		case Mita:
+			App->particles->AddParticle(0, 0, App->particles->mitaLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+			App->audio->PlayFx(hiromiChargeFX);
+			App->audio->PlayFx(hiromiPowerSoundFX);
+			break;
+		case Yoo:
+			App->particles->AddParticle(0, 0, App->particles->yooLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+			App->audio->PlayFx(yooChargeFX);
+			App->audio->PlayFx(yooPowerSoundFX);
+			break;
+		case Wessel:
+			App->particles->AddParticle(0, 0, App->particles->wesselLoadShotParticle, position.x, position.y, Collider::NONE, 1);
+			App->audio->PlayFx(wesselChargeFX);
+			App->audio->PlayFx(wesselPowerSoundFX);
+			break;
+		}
+
+		stopLoadFX = true;
+	}
+	else if (App->frisbee->estadoF == App->frisbee->MOVIMIENTO)
+	{
+		stopLoadFX = false;
+	}
 
 	return Update_Status::UPDATE_CONTINUE;
 }
@@ -721,7 +764,9 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
+				//Play DUST SFX
+				App->audio->PlayFx(dashFX);
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y + 35, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y -= 0.25* speed;
@@ -768,7 +813,8 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
+				App->audio->PlayFx(dashFX);
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 35, position.y + 35, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y -= 0.25 * speed;
@@ -819,7 +865,8 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
+				App->audio->PlayFx(dashFX);
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 15, position.y + 25, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y -= 0.25 * speed;
@@ -870,7 +917,8 @@ void ModulePlayer::movimientoPlayer(){
 			}
 			else if (App->input->keys[SDL_SCANCODE_V] == Key_State::KEY_REPEAT && estadoTP == EJECUTANDO)
 			{
-				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y, Collider::NONE, 0);
+				App->audio->PlayFx(dashFX);
+				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 15, position.y, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
 					timerP();
 					position.y += 0.25 * speed;

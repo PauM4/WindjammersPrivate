@@ -90,8 +90,9 @@ public:
 	Particle wesselSuperShotParticleD;
 	Particle wesselSuperShotParticleL;
 	Particle wesselSuperShotParticleR;
+	Particle wesselSuperShotParticleCircle;
 	Particle mitaLoadShotParticle;
-	Particle yooLoadShotPArticle;
+	Particle yooLoadShotParticle;
 	Particle wesselLoadShotParticle;
 
 

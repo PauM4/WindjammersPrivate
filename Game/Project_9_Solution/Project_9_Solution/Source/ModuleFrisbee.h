@@ -137,6 +137,21 @@ public:
 	
 	bool limiteConcrete;
 
+	uint catchFx;
+	uint effectTossFx; //LANZAMIENTOTF = PARABOLA posar abans del canvi
+	uint frisbeeOnAirFX; //
+	uint landingFX;
+	uint wallHitFX;
+
+	uint hiromiSuperSonicFX;
+	uint hiromiSuperFFX;
+
+	uint yooSuperSonicFX;
+	uint yooSuperFFX;
+
+	uint wesselSuperSonicFX;
+	uint wesselSuperFFX;
+
 };
 
 #endif //!__MODULE_FRISBEE_H__ 

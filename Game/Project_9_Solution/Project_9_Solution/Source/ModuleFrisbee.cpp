@@ -61,8 +61,6 @@ ModuleFrisbee::ModuleFrisbee(bool startEnabled) : Module(startEnabled)
 	//Stop
 	stop.PushBack({ 255, 0, 51, 51 });
 	stop.loop = false;
-	
-	
 
 }
 
@@ -84,6 +82,20 @@ bool ModuleFrisbee::Start()
 	
 	texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
 
+	catchFx = App->audio->LoadFx("Assets/Fx/Catch.wav");
+	effectTossFx = App->audio->LoadFx("Assets/Fx/EffectToss.wav");
+	frisbeeOnAirFX = App->audio->LoadFx("Assets/Fx/Freesbeonair.wav");
+	landingFX = App->audio->LoadFx("Assets/Fx/Landing.wav");
+	wallHitFX = App->audio->LoadFx("Assets/Fx/WallHit.wav");
+
+	hiromiSuperFFX = App->audio->LoadFx("Assets/Fx/HiromiSuperF.wav");
+	hiromiSuperSonicFX = App->audio->LoadFx("Assets/Fx/HiromiSupersonic1.wav");
+
+	yooSuperSonicFX = App->audio->LoadFx("Assets/Fx/B.YooSuperSonic1.wav");
+	yooSuperFFX = App->audio->LoadFx("Assets/Fx/B.YooSuperF.wav");
+
+	wesselSuperSonicFX = App->audio->LoadFx("Assets/Fx/KlaussSupersonic1.wav");
+	wesselSuperFFX = App->audio->LoadFx("Assets/Fx/KlaussSuperF.wav");
 
 	position.x = App->sceneBeachStage->posicionXInicialFrisbee; 
 	position.y = App->sceneBeachStage->posicionYInicialFrisbee;
@@ -172,8 +184,8 @@ Update_Status ModuleFrisbee::Update()
 		if (estadoTF == INICIO) {
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
+			App->audio->PlayFx(landingFX);
 			estadoTF = EJECUTANDO;
-
 		}
 		else if (estadoTF == EJECUTANDO) {
 			timerF();
@@ -246,6 +258,12 @@ Update_Status ModuleFrisbee::PostUpdate()
 {
 	SDL_Rect rect2 = currentAnimation2->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y, &rect2);
+
+	if (App->input->keys[SDL_SCANCODE_F6] == Key_State::KEY_DOWN)
+	{
+		App->audio->PlayFx(effectTossFx);
+	}
+
 	return Update_Status::UPDATE_CONTINUE;
 }
 
@@ -258,14 +276,16 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 	/*	FloorTime = 0;*/
 		
 		//Flash particle left or right depending on the player
-		if (position.x < 150)
+		if (c2 == App->player->collider)
 		{
 			App->particles->AddParticle(0, 0, App->particles->leftGoalFlashParticle, App->player->position.x + 29, App->player->position.y, Collider::NONE, 0);
 		}
-		else if (position.x > 150)
+		else if (c2 == App->player2->collider)
 		{
 			App->particles->AddParticle(0, 0, App->particles->rightGoalFlashParticle, App->player2->position.x - 5, App->player2->position.y, Collider::NONE, 0);
 		}
+		
+		App->audio->PlayFx(catchFx);
 
 		estadoTF = INICIO;
 
@@ -293,10 +313,10 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 	}
 	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
-		
 		currentAnimation2 = &projectile;
 		if (23 < position.x && 250 > position.x) {
 			position.x += xspeed;
+
 		}
 		else {
 			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
@@ -317,11 +337,30 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			position.x += xspeed*0.8f;
 			position.y += yspeed * cos(angulo);
 			App->particles->AddParticle(0, 0, App->particles->mitaSuperShotParticle, position.x, position.y - 48, Collider::NONE, 5);
+			App->audio->PlayFx(hiromiSuperSonicFX);
+			App->audio->PlayFx(hiromiSuperFFX);
 
 
 		} else if (tipoSupershot == YOO_SUPERSHOT) {
-
 			if (contadorYooSuperShot <= 8 && contador_Angulo_SuperShot) {
+				//if (App->player->estadoP1 == App->player->LANZAMIENTO_SUPER)
+				//{
+				//}
+				//else if (App->player2->estadoP2 == App->player2->LANZAMIENTO_SUPER)
+				//{
+				//}
+				if (App->frisbee->xspeed > 0)
+				{
+					App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticleR, position.x, position.y + 20, Collider::NONE, 1);
+				}
+				else if (App->frisbee->xspeed < 0)
+				{
+					App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticleL, position.x, position.y + 20, Collider::NONE, 1);
+				}
+
+				App->audio->PlayFx(yooSuperFFX);
+				App->audio->PlayFx(yooSuperSonicFX);
+
 				position.x += xspeed;
 				contadorYooSuperShot++;
 
@@ -340,6 +379,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			else if (!contador_Angulo_SuperShot) {
 
 				if (yooDirec) {
+					App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticleU, position.x, position.y + 20, Collider::NONE, 0);
 					position.y -= yspeed;
 					contadorYooSuperShot++;
 
@@ -351,6 +391,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 				}
 				else if (!yooDirec) {
+					App->particles->AddParticle(0, 0, App->particles->yooSuperShotParticleD, position.x, position.y + 20, Collider::NONE, 0);
 					position.y += yspeed;
 					contadorYooSuperShot--;
 
@@ -363,6 +404,28 @@ void ModuleFrisbee :: movimientoFrisbee() {
 
 		}
 		else if (tipoSupershot == WESSEL_SUPERSHOT) {
+
+			if (App->frisbee->xspeed > 0 && App->frisbee->yspeed == 0)
+			{
+				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleR, position.x - 6, position.y + 8, Collider::NONE, 0);
+			}
+			else if (App->frisbee->xspeed < 0 && App->frisbee->yspeed == 0)
+			{
+				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleL, position.x - 6, position.y + 10, Collider::NONE, 0);
+			}
+			else if (App->frisbee->yspeed < 0)
+			{
+				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleU, position.x + 16, position.y - 5, Collider::NONE, 0);
+			}
+			else if (App->frisbee->yspeed > 0)
+			{
+				App->particles->AddParticle(0, 0, App->particles->wesselSuperShotParticleD, position.x, position.y, Collider::NONE, 0);
+			}
+
+			App->audio->PlayFx(wesselSuperSonicFX);
+			App->audio->PlayFx(wesselSuperFFX);
+
+
 			if (position.x < limiteWesselSupershot ) {
 				position.x += xspeed;
 			} else if (position.x >= limiteWesselSupershot){
@@ -404,6 +467,7 @@ void ModuleFrisbee::limitesFrisbee() {
 		if (position.x >= 19 && position.x <= 276) {
 			//UP
 			if (position.y <= 48) {
+				App->audio->PlayFx(wallHitFX);
 				//Right
 				if (xspeed > 0)
 				{
@@ -418,6 +482,7 @@ void ModuleFrisbee::limitesFrisbee() {
 			}
 			//DOWN
 			else if (position.y >= 170) {
+				App->audio->PlayFx(wallHitFX);
 				//Right
 				if (xspeed > 0 && position.y < 173)
 				{
