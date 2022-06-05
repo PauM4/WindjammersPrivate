@@ -798,7 +798,9 @@ void ModulePlayer2::movimientoPlayer2() {
 		last2 = 1;
 
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
-
+			diagonalUpRight.Reset();
+			diagonalDownRight.Reset();
+			dashRight.Reset();
 			initialTimeP2 = SDL_GetTicks();
 			timeLimitP2 = 1 * 300;
 			estadoTP2 = EJECUTANDO;
@@ -861,7 +863,9 @@ void ModulePlayer2::movimientoPlayer2() {
 		last2 = 0;
 
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
-
+			diagonalUpLeft.Reset();
+			diagonalDownLeft.Reset();
+			dashLeft.Reset();
 			initialTimeP2 = SDL_GetTicks();
 			timeLimitP2 = 1 * 300;
 			estadoTP2 = EJECUTANDO;
@@ -914,7 +918,9 @@ void ModulePlayer2::movimientoPlayer2() {
 		}
 
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
-
+			diagonalUpRight.Reset();
+			diagonalUpLeft.Reset();
+			dashUp.Reset();
 			initialTimeP2 = SDL_GetTicks();
 			timeLimitP2 = 1 * 300;
 			estadoTP2 = EJECUTANDO;
@@ -965,7 +971,10 @@ void ModulePlayer2::movimientoPlayer2() {
 		}
 
 		if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && estadoTP2 == INICIO) {
-			pols = true;
+			diagonalDownRight.Reset();
+			diagonalDownLeft.Reset();
+			dashDown.Reset();
+			//pols = true;
 			initialTimeP2 = SDL_GetTicks();
 			timeLimitP2 = 1 * 300;
 			estadoTP2 = EJECUTANDO;
