@@ -14,6 +14,8 @@
 #include "ModulePlayer2.h"
 #include "ModuleFrisbee.h"
 #include "SceneCharacterSelect.h"
+#include "SceneStageSelect.h"
+
 
 #include <stdio.h>
 
@@ -58,7 +60,16 @@ bool ModulePlayer::Start()
 
 	switch (App->sceneCharacterSelect->p1Char) {
 	case(CharList::Mita):
-		texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
+		if (App->sceneStageSelect->sceneSelected == Beach) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Jap.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Lawn) {
+			texture = App->textures->Load("Assets/Sprites/Characters/JapFM.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Concrete) {
+			texture = App->textures->Load("Assets/Sprites/Characters/JapFB.png");
+		}
+		
 		speed = 3;
 
 		posicionInicialX = 20;
@@ -257,7 +268,16 @@ bool ModulePlayer::Start()
 		break;
 
 	case(CharList::Yoo):
-		texture = App->textures->Load("Assets/Sprites/Characters/Kor.png");
+		if (App->sceneStageSelect->sceneSelected == Beach) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Kor.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Lawn) {
+			texture = App->textures->Load("Assets/Sprites/Characters/KorFM.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Concrete) {
+			texture = App->textures->Load("Assets/Sprites/Characters/KorFB.png");
+		}
+
 		speed = 2;
 		
 		posicionInicialX = 20;
@@ -426,7 +446,16 @@ bool ModulePlayer::Start()
 		break;
 
 	case(CharList::Wessel):
-		texture = App->textures->Load("Assets/Sprites/Characters/Ger.png");
+		if (App->sceneStageSelect->sceneSelected == Beach) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Ger.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Lawn) {
+			texture = App->textures->Load("Assets/Sprites/Characters/GerFM.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Concrete) {
+			texture = App->textures->Load("Assets/Sprites/Characters/GerFB.png");
+		}
+		
 		speed = 1;
 
 		posicionInicialX = 15;

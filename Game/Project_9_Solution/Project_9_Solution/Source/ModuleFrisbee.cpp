@@ -81,8 +81,15 @@ bool ModuleFrisbee::Start()
 	currentAnimation2 = &desaparece;
 	LOG("Loading frisbee textures");
 
-	
-	texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
+	if (App->sceneStageSelect->sceneSelected == Beach) {
+		texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
+	}
+	else if (App->sceneStageSelect->sceneSelected == Lawn) {
+		texture = App->textures->Load("Assets/Sprites/Levels/FrisbeeM.png");
+	}
+	else if (App->sceneStageSelect->sceneSelected == Concrete) {
+		texture = App->textures->Load("Assets/Sprites/Levels/FrisbeeB.png");
+	}
 
 	catchFx = App->audio->LoadFx("Assets/Fx/Catch.wav");
 	effectTossFx = App->audio->LoadFx("Assets/Fx/EffectToss.wav");

@@ -125,7 +125,16 @@ bool SceneBeachStage::Start()
 	startTheGame = false;
 	stopCelebration = false;
 	getReadyOnce = true;
-	texturaArbitro = App->textures->Load("Assets/Sprites/Arbitro.png");
+
+	if (App->sceneStageSelect->sceneSelected == Beach) {
+		texturaArbitro = App->textures->Load("Assets/Sprites/Arbitro.png");
+	}
+	else if (App->sceneStageSelect->sceneSelected == Lawn) {
+		texturaArbitro = App->textures->Load("Assets/Sprites/ArbitroFM.png");
+	}
+	else if (App->sceneStageSelect->sceneSelected == Concrete) {
+		texturaArbitro = App->textures->Load("Assets/Sprites/ArbitroFB.png");
+	}
 
 	estadoGolScore = CLEAR;
 

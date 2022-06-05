@@ -14,6 +14,8 @@
 #include "ModulePlayer.h"
 #include "SDL/include/SDL.h"
 #include "SceneCharacterSelect.h"
+#include "SceneStageSelect.h"
+
 
 //Venga developer;)
 
@@ -62,7 +64,15 @@ bool ModulePlayer2::Start()
 
 	switch (App->sceneCharacterSelect->p2Char) {
 	case(CharList::Mita):
-		texture = App->textures->Load("Assets/Sprites/Characters/Jap2.png");
+		if (App->sceneStageSelect->sceneSelected == Beach) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Jap2.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Lawn) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Jap2FM.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Concrete) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Jap2FB.png");
+		}
 		speed = 3;
 
 		posicionInicialX = 230;
@@ -237,7 +247,15 @@ bool ModulePlayer2::Start()
 		break;
 
 	case(CharList::Yoo):
-		texture = App->textures->Load("Assets/Sprites/Characters/Kor2.png");
+		if (App->sceneStageSelect->sceneSelected == Beach) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Kor2.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Lawn) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Kor2FM.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Concrete) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Kor2FB.png");
+		}
 		speed = 2;
 
 		posicionInicialX = 215;
@@ -400,7 +418,16 @@ bool ModulePlayer2::Start()
 		break;
 
 	case(CharList::Wessel):
-		texture = App->textures->Load("Assets/Sprites/Characters/Ger2.png");
+		if (App->sceneStageSelect->sceneSelected == Beach) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Ger2.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Lawn) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Ger2FM.png");
+		}
+		else if (App->sceneStageSelect->sceneSelected == Concrete) {
+			texture = App->textures->Load("Assets/Sprites/Characters/Ger2FB.png");
+		}
+		
 		speed = 1;
 
 		posicionInicialX = 214;
