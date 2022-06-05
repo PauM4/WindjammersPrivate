@@ -1151,6 +1151,58 @@ void ModulePlayer::lanzamientoPlayer() {
 			break;
 		}
 
+		//LANZAMIENTO NUEVA PARABOLA HORIZONTAL
+		if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
+		{
+
+			App->collisions->RemoveCollider(App->frisbee->collider);
+			App->frisbee->indicacionPlayerParabola = true;
+			App->frisbee->xspeed = parabolaXSpeed;
+			App->frisbee->yspeed = parabolaYSpeed;
+			App->frisbee->parabolaFinalX = 230;
+			App->frisbee->parabolaFinalY = App->frisbee->position.y;
+			App->frisbee->vel_parabola(position.x, 230);
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
+			estadoP1 = estadoPlayer::LANZAMIENTO;
+			estadoTP = estadoTimerP::INICIO;
+
+			break;
+		}
+		if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
+		{
+
+			App->collisions->RemoveCollider(App->frisbee->collider);
+			App->frisbee->indicacionPlayerParabola = true;
+			App->frisbee->xspeed = parabolaXSpeed;
+			App->frisbee->yspeed = parabolaYSpeed;
+			App->frisbee->parabolaFinalX = 140;
+			App->frisbee->parabolaFinalY = App->frisbee->position.y;
+			App->frisbee->vel_parabola(position.x, 140);
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
+			estadoP1 = estadoPlayer::LANZAMIENTO;
+			estadoTP = estadoTimerP::INICIO;
+
+			break;
+		}
+		if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
+		{
+
+			App->collisions->RemoveCollider(App->frisbee->collider);
+			App->frisbee->indicacionPlayerParabola = true;
+			App->frisbee->xspeed = parabolaXSpeed;
+			App->frisbee->yspeed = parabolaYSpeed;
+			App->frisbee->parabolaFinalX = 185;
+			App->frisbee->parabolaFinalY = App->frisbee->position.y;
+			App->frisbee->vel_parabola(position.x, 185);
+			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
+			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
+			estadoP1 = estadoPlayer::LANZAMIENTO;
+			estadoTP = estadoTimerP::INICIO;
+
+			break;
+		}
 
 		//LANZAMIENTO DE DISCO PAR�BOLA
 		/*if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN)
