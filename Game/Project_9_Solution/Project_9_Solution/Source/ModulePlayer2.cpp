@@ -1307,6 +1307,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 
 			if (App->input->keys[SDL_SCANCODE_I] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER2)
 			{
+				App->frisbee->indicacionPlayerParabola = false;
 				App->frisbee->limiteWesselSupershot = 130;
 				App->frisbee->xspeed = -5;
 				App->frisbee->yspeed = -5;
@@ -1321,6 +1322,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 
 			if (App->input->keys[SDL_SCANCODE_I] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER2)
 			{
+				App->frisbee->indicacionPlayerParabola = false;
 				App->frisbee->limiteWesselSupershot = 130;
 				App->frisbee->xspeed = -5;
 				App->frisbee->yspeed = 5;

@@ -456,10 +456,17 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			App->audio->PlayFx(wesselSuperSonicFX);
 			App->audio->PlayFx(wesselSuperFFX);
 
-
-			if (position.x < limiteWesselSupershot ) {
+			if (position.x < limiteWesselSupershot && indicacionPlayerParabola) {
 				position.x += xspeed;
-			} else if (position.x >= limiteWesselSupershot){
+			} 
+			else if (position.x >= limiteWesselSupershot && indicacionPlayerParabola){
+				position.y += yspeed;
+			}
+
+			if (position.x > limiteWesselSupershot && !indicacionPlayerParabola) {
+				position.x += xspeed;
+			}
+			else if (position.x <= limiteWesselSupershot && !indicacionPlayerParabola) {
 				position.y += yspeed;
 			}
 		}

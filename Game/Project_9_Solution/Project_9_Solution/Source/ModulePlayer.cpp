@@ -1337,8 +1337,9 @@ void ModulePlayer::lanzamientoPlayer() {
 		}
 		else if (App->sceneCharacterSelect->p1Char == CharList::Wessel) { //aleman
 
-			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
-			{
+
+			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1) {
+				App->frisbee->indicacionPlayerParabola = true;
 				App->frisbee->limiteWesselSupershot = 120;
 				App->frisbee->xspeed = 5;
 				App->frisbee->yspeed = -5;
@@ -1348,11 +1349,13 @@ void ModulePlayer::lanzamientoPlayer() {
 				estadoP1 = estadoPlayer::LANZAMIENTO_SUPER;
 				estadoTP = estadoTimerP::INICIO;
 				break;
-
 			}
+				
+
 
 			if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT && App->frisbee->lanzamientoF == ModuleFrisbee::BLOCKPLAYER1)
 			{
+				App->frisbee->indicacionPlayerParabola = true;
 				App->frisbee->limiteWesselSupershot = 120;
 				App->frisbee->xspeed = 5;
 				App->frisbee->yspeed = 5;
