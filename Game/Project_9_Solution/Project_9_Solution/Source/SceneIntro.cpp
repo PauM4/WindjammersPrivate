@@ -27,12 +27,17 @@ bool SceneIntro::Start()
 	bool ret = true;
 
 	bgTexture = App->textures->Load("Assets/Sprites/UI/startScreen.png");
-	App->audio->PlayMusic("Assets/Music/introTitle.ogg", 0.0f);
+	
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
 	return ret;
+}
+
+bool SceneIntro::CleanUp() {
+	App->textures->Unload(bgTexture);
+	return true;
 }
 
 Update_Status SceneIntro::Update()

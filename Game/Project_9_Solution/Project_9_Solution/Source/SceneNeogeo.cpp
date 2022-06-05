@@ -38,13 +38,20 @@ bool SceneNeogeo::Start()
 	timer = 0;
 
 	////SILENT AUDIO per aturar la música de IntroScreen
-	//App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+	App->audio->PlayMusic("Assets/Music/introTitle.ogg", 0.0f);
 	////selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
 	return ret;
+}
+
+bool SceneNeogeo::CleanUp() {
+	for (int i = 0; i < NUM_IMAGES; i++) {
+		App->textures->Unload(bgTexture[i]);
+	}
+	return true;
 }
 
 Update_Status SceneNeogeo::Update()

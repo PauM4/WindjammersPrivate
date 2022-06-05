@@ -92,6 +92,19 @@ bool SceneCharacterPresent::Start()
 	return ret;
 }
 
+bool SceneCharacterPresent::CleanUp() {
+	App->textures->Unload(bgTexture);
+	App->textures->Unload(charactersPresentTexture);
+	App->textures->Unload(leftCharTxt);
+	App->textures->Unload(leftNameTxt);
+	App->textures->Unload(rightCharTxt);
+	App->textures->Unload(rightNameTxt);
+	App->textures->Unload(vsTextureTxt);
+	App->fonts->UnLoad(debugFont);
+
+	return true;
+}
+
 Update_Status SceneCharacterPresent::Update()
 {
 	//4s

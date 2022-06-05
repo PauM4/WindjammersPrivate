@@ -64,6 +64,19 @@ bool SceneStageSelect::Start()
 	return ret;
 }
 
+bool SceneStageSelect::CleanUp() {
+	App->textures->Unload(bgStageTexture);
+	App->textures->Unload(selectSquareTexture);
+	App->textures->Unload(stageNamesTexture);
+	App->textures->Unload(miniClayTexture);
+	App->textures->Unload(miniConcreteTexture);
+	App->textures->Unload(miniLawnTexture);
+	App->textures->Unload(miniStadiumTexture);
+	App->textures->Unload(miniTiledTexture);
+	App->textures->Unload(miniBeachTexture);
+	return true;
+}
+
 Update_Status SceneStageSelect::Update()
 {
 	if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_DOWN)

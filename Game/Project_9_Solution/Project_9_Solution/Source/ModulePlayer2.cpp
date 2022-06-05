@@ -1105,7 +1105,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 	}
 		
 	//LANZAMIENTO NUEVA PARABOLA UP
-	else if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT)
+	if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT)
 	{
 		App->frisbee->indicacionPlayerParabola = false;
 		App->frisbee->xspeed = parabolaXSpeed;

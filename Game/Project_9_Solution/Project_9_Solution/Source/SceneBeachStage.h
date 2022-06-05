@@ -28,7 +28,7 @@ public:
 	Update_Status PostUpdate() override;
 
 	// Disables the player
-	bool CleanUp();
+	bool CleanUp() override;
 
 public:
 

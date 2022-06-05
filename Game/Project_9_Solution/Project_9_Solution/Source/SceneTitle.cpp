@@ -25,7 +25,7 @@ SceneTitle::~SceneTitle()
 bool SceneTitle::Start()
 {
 	/*title.Reset();*/
-	/*selectFx = 0;*/
+	selectFx = 0;
 	LOG("Loading background assets");
 
 	bool ret = true;
@@ -41,13 +41,20 @@ bool SceneTitle::Start()
 	timer = 0;
 
 	//SILENT AUDIO per aturar la música de IntroScreen
-	/*App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-	selectFx = App->audio->LoadFx("Assets/FX/Select.wav");*/
+	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+	selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
 	return ret;
+}
+
+bool SceneTitle::CleanUp() {
+	for (int i = 0; i < NUM_IMAGES; i++) {
+		App->textures->Unload(bgTexture[i]);
+	}
+	return true;
 }
 
 Update_Status SceneTitle::Update()
@@ -64,7 +71,7 @@ Update_Status SceneTitle::Update()
 	{
 		if (!hasPlayed)
 		{
-			//App->audio->PlayFx(selectFx);
+			App->audio->PlayFx(selectFx);
 			hasPlayed = true;
 		}
 		

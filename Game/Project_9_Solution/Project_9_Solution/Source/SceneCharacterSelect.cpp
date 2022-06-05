@@ -58,6 +58,12 @@ bool SceneCharacterSelect::Start()
 	return ret;
 }
 
+bool SceneCharacterSelect::CleanUp() {
+	App->textures->Unload(bgTexture);
+	App->textures->Unload(uiSpriteSheet);
+	return true;
+}
+
 Update_Status SceneCharacterSelect::Update()
 {
 	//Input per P1
