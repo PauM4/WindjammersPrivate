@@ -13,12 +13,7 @@
 
 SceneDataeast::SceneDataeast(bool startEnabled) : Module(startEnabled)
 {
-	/*for (int i = 0; i < 12; i++)
-	{
-		dataeast.PushBack({ i * 304, 0, 304, 224 });
-	}
-	dataeast.loop = false;
-	dataeast.speed = 0.7f;*/
+	
 }
 
 SceneDataeast::~SceneDataeast()

@@ -35,11 +35,11 @@ Application::Application()
 	modules[2] = textures = new ModuleTextures(true);
 	modules[3] = audio = new ModuleAudio(true);
 
-	modules[4] = sceneIntro = new SceneIntro(false);
+	modules[4] = sceneIntro = new SceneIntro(true);
 	modules[5] = sceneNeogeo = new SceneNeogeo(false);
 	modules[6] = sceneDataeast = new SceneDataeast(false);
 	modules[7] = sceneTitle = new SceneTitle(false);
-	modules[8] = sceneCharacterSelect = new SceneCharacterSelect(true);
+	modules[8] = sceneCharacterSelect = new SceneCharacterSelect(false);
 	modules[9] = sceneStageSelect = new SceneStageSelect(false);
 	modules[10] = sceneCharacterPresent = new SceneCharacterPresent(false);
 	modules[11] = sceneBeachStage = new SceneBeachStage(false);

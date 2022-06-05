@@ -31,7 +31,7 @@ bool SceneTitle::Start()
 	bool ret = true;
 	hasPlayed = false;
 
-	char z[64];
+	char z[128];
 
 	for (int i = 0; i < NUM_IMAGES; i++) {
 		sprintf_s(z, "Assets/Sprites/UI/Title/title%d.png", i);

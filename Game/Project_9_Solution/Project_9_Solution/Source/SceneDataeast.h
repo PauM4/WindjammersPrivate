@@ -1,6 +1,6 @@
 #ifndef __SCENE_DATAEAST_H__
 #define __SCENE_DATAEAST_H__
-#define NUM_IMAGES 12
+#define NUM_IMAGES 17
 
 #include "Module.h"
 #include "Animation.h"

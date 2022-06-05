@@ -1,6 +1,6 @@
 #ifndef __SCENE_NEOGEO_H__
 #define __SCENE_NEOGEO_H__
-#define NUM_IMAGES 97
+#define NUM_IMAGES 102
 
 #include "Module.h"
 #include "Animation.h"

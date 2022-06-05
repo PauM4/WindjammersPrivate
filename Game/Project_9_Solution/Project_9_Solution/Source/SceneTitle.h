@@ -1,6 +1,6 @@
 #ifndef __SCENE_TITLE_H__
 #define __SCENE_TITLE_H__
-#define NUM_IMAGES 55
+#define NUM_IMAGES 67
 
 #include "Module.h"
 #include "Animation.h"
