@@ -613,7 +613,7 @@ bool ModulePlayer::Start()
 		}
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
-		break;
+		
 
 		//Bloqueo
 		for (int i = 0; i < 3; i++) {

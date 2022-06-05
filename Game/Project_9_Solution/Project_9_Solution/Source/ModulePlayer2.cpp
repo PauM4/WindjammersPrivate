@@ -414,7 +414,6 @@ bool ModulePlayer2::Start()
 		}
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
-		break;
 		//Bloqueo
 
 		bloqueo.PushBack({ 330, 726, 66, 66 });
@@ -594,7 +593,7 @@ bool ModulePlayer2::Start()
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
 
-		break;
+		
 
 		//Bloqueo
 		for (int i = 2; i >= 0; i--) {
