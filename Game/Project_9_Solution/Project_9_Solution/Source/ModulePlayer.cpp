@@ -1153,6 +1153,8 @@ void ModulePlayer::lanzamientoPlayer() {
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
 				estadoTP = estadoTimerP::INICIO;
+				break;
+
 			}
 			else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
 				App->frisbee->parabolaFinalX = App->sceneBeachStage->limiteCentralDer+2;
@@ -1162,6 +1164,8 @@ void ModulePlayer::lanzamientoPlayer() {
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
 				estadoTP = estadoTimerP::INICIO;
+				break;
+
 			}
 			else if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
 				App->frisbee->parabolaFinalX = 185;
@@ -1171,6 +1175,8 @@ void ModulePlayer::lanzamientoPlayer() {
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
 				estadoTP = estadoTimerP::INICIO;
+				break;
+
 			}
 			break;
 		}
@@ -1196,6 +1202,8 @@ void ModulePlayer::lanzamientoPlayer() {
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
 				estadoTP = estadoTimerP::INICIO;
+				break;
+
 			}
 			else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
 				App->frisbee->parabolaFinalX = App->sceneBeachStage->limiteCentralDer + 2;
@@ -1205,6 +1213,8 @@ void ModulePlayer::lanzamientoPlayer() {
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
 				estadoTP = estadoTimerP::INICIO;
+				break;
+
 			}
 			else if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
 				App->frisbee->parabolaFinalX = 185;
@@ -1214,8 +1224,9 @@ void ModulePlayer::lanzamientoPlayer() {
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
 				estadoTP = estadoTimerP::INICIO;
+				break;
+
 			}
-			break;
 		}
 
 		//LANZAMIENTO NUEVA PARABOLA HORIZONTAL
