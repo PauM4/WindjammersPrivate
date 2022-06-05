@@ -524,9 +524,9 @@ Update_Status SceneBeachStage::PostUpdate()
 		
 		sprintf_s(debugText2, 10, "%2d", (int)App->frisbee->position.y);*/
 
-		sprintf_s(debugText, 10, "%2d", (int)App->player2->position.x);
+		sprintf_s(debugText, 10, "%2d", (int)App->frisbee->position.x);
 
-		sprintf_s(debugText2, 10, "%2d", (int)App->player2->position.y);
+		sprintf_s(debugText2, 10, "%2d", (int)App->frisbee->position.y);
 		
 		//DEBUGG ESTADO PLAYER1
 		if (App->player->estadoP1 == 0) {
