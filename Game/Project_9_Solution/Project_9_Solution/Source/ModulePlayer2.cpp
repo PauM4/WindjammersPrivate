@@ -96,56 +96,56 @@ bool ModulePlayer2::Start()
 			idleLAnim.PushBack({ 211 + (i * 53), 338, 53, 57 });
 		}
 		idleLAnim.loop = true;
-		idleLAnim.speed = 0.075f;
+		idleLAnim.speed = 0.2f;
 
 		//idleRAnim
 		for (int i = 0; i < 8; i++) {
 			idleRAnim.PushBack({ 107 + (i * 53), 0, 53, 57 });
 		}
 		idleRAnim.loop = true;
-		idleRAnim.speed = 0.075f;
+		idleRAnim.speed = 0.2f;
 
 		// Move Right
 		for (int i = 0; i < 5; i++) {
 			rightAnim.PushBack({ 319 + (i * 53), 399, 53, 57 });
 		}
 		rightAnim.loop = true;
-		rightAnim.speed = 0.075f;
+		rightAnim.speed = 0.125f;
 
 		//Move Left
 		for (int i = 0; i < 6; i++) {
 			leftAnim.PushBack({ 105 + (i * 53), 58, 53, 57 });
 		}
 		leftAnim.loop = true;
-		leftAnim.speed = 0.075f;
+		leftAnim.speed = 0.125f;
 
 		// Move Down Head Right
 		for (int i = 0; i < 6; i++) {
 			downRAnim.PushBack({ 0 + (i * 53), 114, 53, 57 });
 		}
 		downRAnim.loop = true;
-		downRAnim.speed = 0.075f;
+		downRAnim.speed = 0.125f;
 
 		// Move Down Head Left
 		for (int i = 0; i < 6; i++) {
 			downLAnim.PushBack({ 425 + (i * 53), 451, 53, 57 });
 		}
 		downLAnim.loop = true;
-		downLAnim.speed = 0.075f;
+		downLAnim.speed = 0.125f;
 
 		//Move Up Head Left
 		for (int i = 0; i < 6; i++) {
 			upLAnim.PushBack({ 0 + (i * 53), 395, 53, 57 });
 		}
 		upLAnim.loop = true;
-		upLAnim.speed = 0.075f;
+		upLAnim.speed = 0.125f;
 
 		//Move Up Head Right
 		for (int i = 0; i < 6; i++) {
 			upRAnim.PushBack({ 423 + (i * 53), 57, 53, 57 });
 		}
 		upRAnim.loop = true;
-		upRAnim.speed = 0.075f;
+		upRAnim.speed = 0.125f;
 
 		//Idle Disk
 		idleDisk.PushBack({ 530,627,53,57 });
@@ -154,95 +154,94 @@ bool ModulePlayer2::Start()
 		idleDisk.PushBack({ 424,627,53,57 });
 
 		idleDisk.loop = true;
-		idleDisk.speed = 0.075f;
+		idleDisk.speed = 0.1f;
 
 		//Lanzamiento Disco
 		for (int i = 5; i >= 0; i--) {
 			lanzamiento.PushBack({ 105 + (i * 53), 625, 53, 57 });
 		}
 		lanzamiento.loop = false;
-		lanzamiento.speed = 0.3f;
+		lanzamiento.speed = 0.2f;
 
 		//Dash derecho
 		for (int i = 0; i < 3; i++) {
 			dashRight.PushBack({ 316 + (i * 53), 112, 53, 57 });
 		}
 		dashRight.loop = false;
-		dashRight.speed = 0.45f;
+		dashRight.speed = 0.25f;
 
 		//Dash izquierdo
 		for (int i = 2; i >= 0; i--) {
 			dashLeft.PushBack({ 265 + (i * 53), 450, 53, 57 });
 		}
 		dashLeft.loop = false;
-		dashLeft.speed = 0.45f;
+		dashLeft.speed = 0.25f;
 
 		//Dash arriba
 		for (int i = 0; i < 3; i++) {
 			dashUp.PushBack({ 477 + (i * 53), 115, 53, 57 });
 		}
 		dashUp.loop = false;
-		dashUp.speed = 0.45f;
+		dashUp.speed = 0.25f;
 
 		//Dash abajo
 		for (int i = 0; i < 3; i++) {
 			dashDown.PushBack({ 55 + (i * 53), 170, 53, 57 });
 		}
 		dashDown.loop = false;
-		dashDown.speed = 0.45f;
+		dashDown.speed = 0.25f;
 
 		//Dash diagonalUpRight
 
-		diagonalUpRight.PushBack({ 635, 112, 53, 57 });
-		diagonalUpRight.PushBack({ 635 + 53, 112, 53, 57 });
-		diagonalUpRight.PushBack({ 0, 170, 53, 57 });
+		diagonalUpRight.PushBack({ 636, 114, 53, 57 });
+		diagonalUpRight.PushBack({ 689, 114, 53, 57 });
+		diagonalUpRight.PushBack({ 0, 171, 53, 57 });
 
 		diagonalUpRight.loop = false;
-		diagonalUpRight.speed = 0.45f;
+		diagonalUpRight.speed = 0.25f;
 
 		//Dash diagonalDownRight
 		for (int i = 0; i < 3; i++) {
 			diagonalDownRight.PushBack({ 210 + (i * 53), 170, 53, 57 });
 		}
 		diagonalDownRight.loop = false;
-		diagonalDownRight.speed = 0.45f;
+		diagonalDownRight.speed = 0.25f;
 
 		//Dash diagonalDownLeft
 		for (int i = 2; i >= 0; i--) {
 			diagonalDownLeft.PushBack({ 372 + (i * 53), 510, 53, 57 });
 		}
 		diagonalDownLeft.loop = false;
-		diagonalDownLeft.speed = 0.45f;
+		diagonalDownLeft.speed = 0.25f;
 
 
 		//Dash diagonalUpLeft
-		diagonalUpLeft.PushBack({ 0, 455, 53, 57 });
-		diagonalUpLeft.PushBack({ 53, 170, 53, 57 });
-		diagonalUpLeft.PushBack({ 689, 510, 53, 57 });
+		diagonalUpLeft.PushBack({ 0, 456, 53, 57 });
+		diagonalUpLeft.PushBack({ 53, 456, 53, 57 });
+		diagonalUpLeft.PushBack({ 689, 513, 53, 57 });
 		diagonalUpLeft.loop = false;
-		diagonalUpLeft.speed = 0.45f;
+		diagonalUpLeft.speed = 0.25f;
 
 		//Win Mita P2
 		for (int i = 2; i >= 0; i--) {
 			win.PushBack({ 583 + (i * 53), 570, 53, 57 });
 		}
 		win.loop = true;
-		win.speed = 0.05f;
+		win.speed = 0.1f;;
 
 		//Lose Mita P2
 		for (int i = 3; i >= 0; i--) {
 			lose.PushBack({ 371 + (i * 53), 570, 53, 57 });
 		}
 		lose.loop = true;
-		lose.speed = 0.05f;
+		lose.speed = 0.1f;
 		
-
 		//bloqueo
 		for (int i = 2; i >= 0; i--) {
 			bloqueo.PushBack({ 0 + (i * 53), 570, 53, 57 });
 		}
 		bloqueo.loop = false;
-		bloqueo.speed = 0.45f;
+		bloqueo.speed = 0.2f;
 
 		break;
 
@@ -277,70 +276,70 @@ bool ModulePlayer2::Start()
 			idleLAnim.PushBack({ 462 + (i * 66), 462, 66, 66 });
 		}
 		idleLAnim.loop = true;
-		idleLAnim.speed = 0.075f;
+		idleLAnim.speed = 0.2f;
 
 		//idleRAnim
 		for (int i = 0; i < 8; i++) {
 			idleRAnim.PushBack({ 198 + (i * 66), 0, 66, 66 });
 		}
 		idleRAnim.loop = true;
-		idleRAnim.speed = 0.075f;
+		idleRAnim.speed = 0.2f;
 
 		// Move Right
 		for (int i = 0; i < 6; i++) {
 			rightAnim.PushBack({ 726 + (i * 66), 0, 66, 66 });
 		}
 		rightAnim.loop = true;
-		rightAnim.speed = 0.075f;
+		rightAnim.speed = 0.125f;
 
 		//Move Left
 		for (int i = 0; i < 6; i++) {
 			leftAnim.PushBack({ 66 + (i * 66), 462, 66, 66 });
 		}
 		leftAnim.loop = true;
-		leftAnim.speed = 0.075f;
+		leftAnim.speed = 0.125f;
 
 		// Move Down Head Right
 		for (int i = 0; i < 6; i++) {
 			downRAnim.PushBack({ 726 + (i * 66), 66, 66, 66 });
 		}
 		downRAnim.loop = true;
-		downRAnim.speed = 0.075f;
+		downRAnim.speed = 0.125f;
 
 		// Move Down Head Left
 		for (int i = 0; i < 6; i++) {
 			downLAnim.PushBack({ 66 + (i * 66), 528, 66, 66 });
 		}
 		downLAnim.loop = true;
-		downLAnim.speed = 0.075f;
+		downLAnim.speed = 0.125f;
 
 		//Move Up Head Left
 		for (int i = 0; i < 6; i++) {
 			upLAnim.PushBack({ 462 + (i * 66), 528, 66, 66 });
 		}
 		upLAnim.loop = true;
-		upLAnim.speed = 0.075f;
+		upLAnim.speed = 0.125f;
 
 		//Move Up Head Right
 		for (int i = 0; i < 6; i++) {
 			upRAnim.PushBack({ 330 + (i * 66), 66, 66, 66 });
 		}
 		upRAnim.loop = true;
-		upRAnim.speed = 0.075f;
+		upRAnim.speed = 0.125f;
 
 		//Idle Disk
 		for (int i = 0; i < 8; i++) {
 			idleDisk.PushBack({ 660 + (i * 66), 792, 66, 66 });
 		}
 		idleDisk.loop = true;
-		idleDisk.speed = 0.075f;
+		idleDisk.speed = 0.2f;
 
 		//Lanzamiento Disco
 		for (int i = 5; i >= 0; i--) {
 			lanzamiento.PushBack({ 396 + (i * 66), 858, 66, 66 });
 		}
 		lanzamiento.loop = false;
-		lanzamiento.speed = 0.3f;
+		lanzamiento.speed = 0.2f;
 
 		//Dash derecho
 		dashRight.PushBack({ 1122, 66, 66, 66 });
@@ -348,22 +347,22 @@ bool ModulePlayer2::Start()
 			dashRight.PushBack({ 0 + (i * 66), 132, 66, 66 });
 		}
 		dashRight.loop = false;
-		dashRight.speed = 0.45f;
+		dashRight.speed = 0.25f;
 
 		//Dash izquierdo
-		dashRight.PushBack({ 0, 528, 66, 66 });
-		for (int i = 3; i >= 0; i--) {
-			dashLeft.PushBack({ 1122 + (i * 66), 594, 66, 66 });
+		dashLeft.PushBack({ 0, 528, 66, 66 });
+		for (int i = 2; i >= 0; i--) {
+			dashLeft.PushBack({ 990 + (i * 66), 594, 66, 66 });
 		}
 		dashLeft.loop = false;
-		dashLeft.speed = 0.45f;
+		dashLeft.speed = 0.25f;
 
 		//Dash arriba
 		for (int i = 0; i < 4; i++) {
 			dashUp.PushBack({ 198 + (i * 66), 132, 66, 66 });
 		}
 		dashUp.loop = false;
-		dashUp.speed = 0.45f;
+		dashUp.speed = 0.25f;
 
 		//Dash abajo
 		dashDown.PushBack({ 726, 132, 66, 66 });
@@ -371,49 +370,49 @@ bool ModulePlayer2::Start()
 		dashDown.PushBack({ 1122, 132, 66, 66 });
 		dashDown.PushBack({ 132, 198, 66, 66 });
 		dashDown.loop = false;
-		dashDown.speed = 0.45f;
+		dashDown.speed = 0.25f;
 
 		//Win Yoo P2
-		for (int i = 2; i >= 0; i--) {
+		for (int i = 1; i >= 0; i--) {
 			win.PushBack({ 858 + (i * 66), 726, 66, 66 });
 		}
 		win.loop = true;
-		win.speed = 0.05f;
+		win.speed = 0.1f;;
 
 		//Lose Yoo P2
 		for (int i = 5; i >= 0; i--) {
 			lose.PushBack({ 462 + (i * 66), 726, 66, 66 });
 		}
 		lose.loop = true;
-		lose.speed = 0.05f;
+		lose.speed = 0.1f;
 
 		//Dash diagonalUpRight
 		for (int i = 0; i < 4; i++) {
-			diagonalUpRight.PushBack({ 462 + (i * 66), 66, 66, 66 });
+			diagonalUpRight.PushBack({ 462 + (i * 66), 132, 66, 66 });
 		}
 		diagonalUpRight.loop = false;
-		diagonalUpRight.speed = 0.45f;
+		diagonalUpRight.speed = 0.25f;
 
 		//Dash diagonalDownRight
 		for (int i = 0; i < 4; i++) {
-			diagonalDownRight.PushBack({ 198 + (i * 66), 132, 66, 66 });
+			diagonalDownRight.PushBack({ 198 + (i * 66), 198, 66, 66 });
 		}
 		diagonalDownRight.loop = false;
-		diagonalDownRight.speed = 0.45f;
+		diagonalDownRight.speed = 0.25f;
 
 		//Dash diagonalDownLeft
 		for (int i = 3; i >= 0; i--) {
 			diagonalDownLeft.PushBack({ 726 + (i * 66), 660, 66, 66 });
 		}
 		diagonalDownLeft.loop = false;
-		diagonalDownLeft.speed = 0.45f;
+		diagonalDownLeft.speed = 0.25f;
 
 		//Dash diagonalUpLeft
 		for (int i = 3; i >= 0; i--) {
 			diagonalUpLeft.PushBack({ 462 + (i * 66), 594, 66, 66 });
 		}
 		diagonalUpLeft.loop = false;
-		diagonalUpLeft.speed = 0.45f;
+		diagonalUpLeft.speed = 0.25f;
 		//Bloqueo
 
 		bloqueo.PushBack({ 330, 726, 66, 66 });
