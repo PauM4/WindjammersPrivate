@@ -81,8 +81,15 @@ bool ModuleFrisbee::Start()
 	currentAnimation2 = &desaparece;
 	LOG("Loading frisbee textures");
 
-	
-	texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
+	if (App->sceneStageSelect->sceneSelected == Beach) {
+		texture = App->textures->Load("Assets/Sprites/Levels/Frisbee.png");
+	}
+	else if (App->sceneStageSelect->sceneSelected == Lawn) {
+		texture = App->textures->Load("Assets/Sprites/Levels/FrisbeeM.png");
+	}
+	else if (App->sceneStageSelect->sceneSelected == Concrete) {
+		texture = App->textures->Load("Assets/Sprites/Levels/FrisbeeB.png");
+	}
 
 	catchFx = App->audio->LoadFx("Assets/Fx/Catch.wav");
 	effectTossFx = App->audio->LoadFx("Assets/Fx/EffectToss.wav");
@@ -134,7 +141,9 @@ Update_Status ModuleFrisbee::Update()
 
 	case MOVIMIENTO:
 		movimientoFrisbee();
-		limitesFrisbee();
+		if (lanzamientoF != PARABOLA) {
+			limitesFrisbee();
+		}
 		break;	
 
 	case WITHPLAYER:
@@ -185,7 +194,7 @@ Update_Status ModuleFrisbee::Update()
 		currentAnimation2 = &stop;
 		
 		if (estadoTF == INICIO) {
-			lanzamientoF = NORMAL;
+			//lanzamientoF = NORMAL;
 			initialTimeF = SDL_GetTicks();
 			timeLimitF = 2 * 1000;
 			App->audio->PlayFx(landingFX);
@@ -276,6 +285,7 @@ void ModuleFrisbee::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && (c2 == App->player->collider || c2==App->player2->collider))
 	{
+		//lanzamientoF = NORMAL;
 		//currentAnimation2 = &desaparece;
 		//estadoF = estadoFrisbee::STOP;
 	/*	FloorTime = 0;*/
@@ -316,13 +326,27 @@ void ModuleFrisbee :: movimientoFrisbee() {
 		else if (direccionF == HORIZONTAL) {
 			position.x += xspeed;
 		}
-
 	}
+
 	else if (lanzamientoF == PARABOLA) { //solo haremos que la parabola se pueda lanzar horizontalmente
 		currentAnimation2 = &projectile;
-		if (23 < position.x && 250 > position.x) {
+		if (position.x < parabolaFinalX && indicacionPlayerParabola) {
 			position.x += xspeed;
-
+			if (position.y > parabolaFinalY && direccionF== DARRIBA) {
+				position.y -= yspeed;
+			}
+			if (position.y < parabolaFinalY && direccionF == DABAJO) {
+				position.y += yspeed;
+			}
+		}
+		else if(position.x > parabolaFinalX && !indicacionPlayerParabola){
+			position.x += xspeed;
+			if (position.y > parabolaFinalY && direccionF == DARRIBA) {
+				position.y -= yspeed;
+			}
+			if (position.y < parabolaFinalY && direccionF == DABAJO) {
+				position.y += yspeed;
+			}
 		}
 		else {
 			collider = App->collisions->AddCollider({ (int)position.x, (int)position.y, 16, 16 }, Collider::Type::FRISBEE, this);
@@ -330,6 +354,7 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			currentAnimation2->Reset();
 		}
 	}
+
 	else if (lanzamientoF == ARBITRO) {
 		position.x += xspeed;
 		position.y += yspeed;
@@ -431,10 +456,17 @@ void ModuleFrisbee :: movimientoFrisbee() {
 			App->audio->PlayFx(wesselSuperSonicFX);
 			App->audio->PlayFx(wesselSuperFFX);
 
-
-			if (position.x < limiteWesselSupershot ) {
+			if (position.x < limiteWesselSupershot && indicacionPlayerParabola) {
 				position.x += xspeed;
-			} else if (position.x >= limiteWesselSupershot){
+			} 
+			else if (position.x >= limiteWesselSupershot && indicacionPlayerParabola){
+				position.y += yspeed;
+			}
+
+			if (position.x > limiteWesselSupershot && !indicacionPlayerParabola) {
+				position.x += xspeed;
+			}
+			else if (position.x <= limiteWesselSupershot && !indicacionPlayerParabola) {
 				position.y += yspeed;
 			}
 		}
@@ -475,7 +507,7 @@ void ModuleFrisbee::limitesFrisbee() {
 			if (App->sceneStageSelect->sceneSelected == Concrete) {
 
 				//UP
-				if (position.y <= App->sceneBeachStage->limiteSuperior) { //48
+				if (position.y <= App->sceneBeachStage->limiteSuperior-4) { //48
 					App->audio->PlayFx(wallHitFX);
 					//Right
 					if (xspeed > 0)
@@ -490,15 +522,15 @@ void ModuleFrisbee::limitesFrisbee() {
 					yspeed *= -1;
 				}
 				//DOWN
-				else if (position.y >= App->sceneBeachStage->limiteInferior) { //170
+				else if (position.y >= App->sceneBeachStage->limiteInferior+11) { //170
 					App->audio->PlayFx(wallHitFX);
 					//Right
-					if (xspeed > 0 && position.y < 173)
+					if (xspeed > 0)
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x + 15, position.y+28, Collider::NONE, 0);
 					}
 					//Left	
-					else if (xspeed < 0 && position.y < 173)
+					else if (xspeed < 0)
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x - 25, position.y+28, Collider::NONE, 0);
 					}
@@ -527,12 +559,12 @@ void ModuleFrisbee::limitesFrisbee() {
 				else if (position.y >= App->sceneBeachStage->limiteInferior+15) { //170
 					App->audio->PlayFx(wallHitFX);
 					//Right
-					if (xspeed > 0 && position.y < 173)
+					if (xspeed > 0)
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x, position.y+14, Collider::NONE, 0); //15
 					}
 					//Left	
-					else if (xspeed < 0 && position.y < 173)
+					else if (xspeed < 0)
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x, position.y+14, Collider::NONE, 0); //-25
 					}
@@ -561,12 +593,12 @@ void ModuleFrisbee::limitesFrisbee() {
 				else if (position.y >= App->sceneBeachStage->limiteInferior + 15) { //170
 					App->audio->PlayFx(wallHitFX);
 					//Right
-					if (xspeed > 0 && position.y < 173)
+					if (xspeed > 0 )
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x, position.y + 10, Collider::NONE, 0); //15
 					}
 					//Left	
-					else if (xspeed < 0 && position.y < 173)
+					else if (xspeed < 0 )
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x, position.y + 10, Collider::NONE, 0); //-25
 					}
@@ -601,10 +633,10 @@ void ModuleFrisbee::timerF() {
 }
 
 void ModuleFrisbee::vel_parabola(int pos_Player, int pos_final_frisbee) {
-	if (pos_final_frisbee >= 260) {
+	if (pos_final_frisbee >= App->sceneBeachStage->limiteCentralDer+5 && pos_final_frisbee <=230){
 		projectile.speed = 54 / ((pos_final_frisbee - pos_Player) / xspeed);
 	}
-	else if (pos_final_frisbee <= 23) {
+	else if (pos_final_frisbee >= 23 && pos_final_frisbee <= App->sceneBeachStage->limiteCentralIzq - 5) {
 		projectile.speed = 66 / ((-pos_final_frisbee - pos_Player) / xspeed);
 	}
 

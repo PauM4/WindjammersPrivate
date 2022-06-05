@@ -125,7 +125,16 @@ bool SceneBeachStage::Start()
 	startTheGame = false;
 	stopCelebration = false;
 	getReadyOnce = true;
-	texturaArbitro = App->textures->Load("Assets/Sprites/Arbitro.png");
+
+	if (App->sceneStageSelect->sceneSelected == Beach) {
+		texturaArbitro = App->textures->Load("Assets/Sprites/Arbitro.png");
+	}
+	else if (App->sceneStageSelect->sceneSelected == Lawn) {
+		texturaArbitro = App->textures->Load("Assets/Sprites/ArbitroFM.png");
+	}
+	else if (App->sceneStageSelect->sceneSelected == Concrete) {
+		texturaArbitro = App->textures->Load("Assets/Sprites/ArbitroFB.png");
+	}
 
 	estadoGolScore = CLEAR;
 
@@ -175,8 +184,8 @@ bool SceneBeachStage::Start()
 		limiteIzquierda = 10;
 		limiteSuperior = 50;
 		limiteInferior = 138;
-		limiteCentralDer = 140;
-		limiteDerecha = 258;
+		limiteCentralDer = 145;
+		limiteDerecha = 240;
 		posicionXInicialFrisbee = 130;
 		posicionYInicialFrisbee = 177;
 
@@ -216,8 +225,8 @@ bool SceneBeachStage::Start()
 
 		limiteCentralIzq = 100;
 		limiteIzquierda = 10;
-		limiteSuperior = 16;
-		limiteInferior = 169;
+		limiteSuperior = 20;
+		limiteInferior = 158;
 		limiteCentralDer = 150;
 		limiteDerecha = 244;
 		posicionXInicialFrisbee = 130;
@@ -368,7 +377,7 @@ Update_Status SceneBeachStage::Update()
 			}
 
 		}
-		else if (estadoTS == FIN) {
+		else if (estadoTS == FIN && App->frisbee->estadoF != App->frisbee->MOVIMIENTO) {
 			Round();
 			estadoTS = INICIOT;
 
@@ -1119,7 +1128,7 @@ void SceneBeachStage::Score(){
 			}
 		}
 		// miss
-		else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 150) {
+		else if (App->frisbee->position.x > 19 && App->frisbee->position.x < 140) {
 			App->player2->score += 2;
 			App->player->currentAnimation = &App->player->lose;
 			App->player2->currentAnimation = &App->player2->win;
@@ -1135,7 +1144,7 @@ void SceneBeachStage::Score(){
 			arbitroFinalRonda = 1;
 			estadoGolScore = MISSL;
 		}
-		else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 150) {
+		else if (App->frisbee->position.x < 276 && App->frisbee->position.x > 140) {
 			App->player->score += 2;
 			App->player->currentAnimation = &App->player->win;
 			App->player2->currentAnimation = &App->player2->lose;

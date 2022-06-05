@@ -139,6 +139,7 @@ public:
 
 	int parabolaFinalX;
 	int parabolaFinalY;
+	bool indicacionPlayerParabola;
 
 	uint catchFx;
 	uint effectTossFx; //LANZAMIENTOTF = PARABOLA posar abans del canvi
