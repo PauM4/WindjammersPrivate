@@ -310,7 +310,7 @@ bool ModulePlayer::Start()
 
 		// Move Right
 		for (int i = 0; i < 6; i++) {
-			rightAnim.PushBack({ 792 + (i * 66), 0, 66, 66 });
+			rightAnim.PushBack({ 726 + (i * 66), 0, 66, 66 });
 		}
 		rightAnim.loop = true;
 		rightAnim.speed = 0.075f;
@@ -381,7 +381,7 @@ bool ModulePlayer::Start()
 		dashLeft.speed = 0.45f;
 
 		//Dash arriba
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			dashUp.PushBack({ 198 + (i * 66), 132, 66, 66 });
 		}
 		dashUp.loop = false;
@@ -437,12 +437,11 @@ bool ModulePlayer::Start()
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
 
-		//bloqueo
-		for (int i = 0; i < 3; i++) {
-			bloqueo.PushBack({ 583 + (i * 53), 228, 53, 57 });
-		}
+		//Bloqueo
+		bloqueo.PushBack({ 726, 264, 66, 66 });
+		bloqueo.PushBack({ 792, 264, 66, 66 });
 		bloqueo.loop = false;
-		bloqueo.speed = 0.20f;
+		bloqueo.speed = 0.2f;
 		break;
 
 	case(CharList::Wessel):
@@ -614,6 +613,14 @@ bool ModulePlayer::Start()
 		}
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
+		break;
+
+		//Bloqueo
+		for (int i = 0; i < 3; i++) {
+			bloqueo.PushBack({ 150 + (i * 75), 260, 75, 65 });
+		}
+		bloqueo.loop = false;
+		bloqueo.speed = 0.2f;
 		break;
 	}
 	currentAnimation = &idleRAnim;
@@ -1040,6 +1047,7 @@ void ModulePlayer::movimientoPlayer(){
 		if (App->input->keys[SDL_SCANCODE_N] == Key_State::KEY_DOWN && (App->frisbee->position.x - (position.x /*+20*/)) > 1 && (App->frisbee->position.x - (position.x + 20)) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
 
 			if (App->frisbee->position.y + 16 >= position.y && App->frisbee->position.y <= (position.y + 31)) {
+				bloqueo.Reset();
 				App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::BLOCKPLAYER1;
 				currentAnimation = &bloqueo;
@@ -1140,16 +1148,16 @@ void ModulePlayer::lanzamientoPlayer() {
 			if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
 				App->frisbee->parabolaFinalX = 230;
 				App->collisions->RemoveCollider(App->frisbee->collider);
-				App->frisbee->vel_parabola(position.x, 230);
+				App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
 				estadoTP = estadoTimerP::INICIO;
 			}
 			else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
-				App->frisbee->parabolaFinalX = App->sceneBeachStage->limiteCentralDer+5;
+				App->frisbee->parabolaFinalX = App->sceneBeachStage->limiteCentralDer+2;
 				App->collisions->RemoveCollider(App->frisbee->collider);
-				App->frisbee->vel_parabola(position.x, 140);
+				App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -1158,7 +1166,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			else if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
 				App->frisbee->parabolaFinalX = 185;
 				App->collisions->RemoveCollider(App->frisbee->collider);
-				App->frisbee->vel_parabola(position.x, 185);
+				App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -1173,26 +1181,26 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->indicacionPlayerParabola = true;
 			App->frisbee->xspeed = parabolaXSpeed;
 			App->frisbee->yspeed = parabolaYSpeed;
-			if (App->frisbee->position.y + 46 >= App->sceneBeachStage->limiteInferior+31) {
-				App->frisbee->parabolaFinalY = App->sceneBeachStage->limiteInferior +26;
+			if (App->frisbee->position.y + 35 >= App->sceneBeachStage->limiteInferior+31) {
+				App->frisbee->parabolaFinalY = App->sceneBeachStage->limiteInferior + 15;
 			}
 			else {
-				App->frisbee->parabolaFinalY = App->frisbee->position.y + 46;
+				App->frisbee->parabolaFinalY = App->frisbee->position.y + 35;
 			}
 
 			if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
 				App->frisbee->parabolaFinalX = 230;
 				App->collisions->RemoveCollider(App->frisbee->collider);
-				App->frisbee->vel_parabola(position.x, 230);
+				App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
 				estadoTP = estadoTimerP::INICIO;
 			}
 			else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
-				App->frisbee->parabolaFinalX = App->sceneBeachStage->limiteCentralDer + 5;
+				App->frisbee->parabolaFinalX = App->sceneBeachStage->limiteCentralDer + 2;
 				App->collisions->RemoveCollider(App->frisbee->collider);
-				App->frisbee->vel_parabola(position.x, 140);
+				App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -1201,7 +1209,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			else if (App->input->keys[SDL_SCANCODE_B] == Key_State::KEY_DOWN) {
 				App->frisbee->parabolaFinalX = 185;
 				App->collisions->RemoveCollider(App->frisbee->collider);
-				App->frisbee->vel_parabola(position.x, 185);
+				App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 				App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 				App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 				estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -1220,7 +1228,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->yspeed = parabolaYSpeed;
 			App->frisbee->parabolaFinalX = 230;
 			App->frisbee->parabolaFinalY = App->frisbee->position.y;
-			App->frisbee->vel_parabola(position.x, 230);
+			App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -1235,9 +1243,9 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->indicacionPlayerParabola = true;
 			App->frisbee->xspeed = parabolaXSpeed;
 			App->frisbee->yspeed = parabolaYSpeed;
-			App->frisbee->parabolaFinalX = 140;
+			App->frisbee->parabolaFinalX = App->sceneBeachStage->limiteCentralDer + 2;;
 			App->frisbee->parabolaFinalY = App->frisbee->position.y;
-			App->frisbee->vel_parabola(position.x, 140);
+			App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP1 = estadoPlayer::LANZAMIENTO;
@@ -1254,7 +1262,7 @@ void ModulePlayer::lanzamientoPlayer() {
 			App->frisbee->yspeed = parabolaYSpeed;
 			App->frisbee->parabolaFinalX = 185;
 			App->frisbee->parabolaFinalY = App->frisbee->position.y;
-			App->frisbee->vel_parabola(position.x, 185);
+			App->frisbee->vel_parabola(position.x, App->frisbee->parabolaFinalX);
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::PARABOLA;
 			App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::HORIZONTAL;
 			estadoP1 = estadoPlayer::LANZAMIENTO;

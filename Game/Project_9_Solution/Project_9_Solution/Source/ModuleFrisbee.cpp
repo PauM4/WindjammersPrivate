@@ -141,7 +141,9 @@ Update_Status ModuleFrisbee::Update()
 
 	case MOVIMIENTO:
 		movimientoFrisbee();
-		limitesFrisbee();
+		if (lanzamientoF != PARABOLA) {
+			limitesFrisbee();
+		}
 		break;	
 
 	case WITHPLAYER:
@@ -498,7 +500,7 @@ void ModuleFrisbee::limitesFrisbee() {
 			if (App->sceneStageSelect->sceneSelected == Concrete) {
 
 				//UP
-				if (position.y <= App->sceneBeachStage->limiteSuperior) { //48
+				if (position.y <= App->sceneBeachStage->limiteSuperior-4) { //48
 					App->audio->PlayFx(wallHitFX);
 					//Right
 					if (xspeed > 0)
@@ -513,15 +515,15 @@ void ModuleFrisbee::limitesFrisbee() {
 					yspeed *= -1;
 				}
 				//DOWN
-				else if (position.y >= App->sceneBeachStage->limiteInferior) { //170
+				else if (position.y >= App->sceneBeachStage->limiteInferior+11) { //170
 					App->audio->PlayFx(wallHitFX);
 					//Right
-					if (xspeed > 0 && position.y < 173)
+					if (xspeed > 0)
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x + 15, position.y+28, Collider::NONE, 0);
 					}
 					//Left	
-					else if (xspeed < 0 && position.y < 173)
+					else if (xspeed < 0)
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x - 25, position.y+28, Collider::NONE, 0);
 					}
@@ -550,12 +552,12 @@ void ModuleFrisbee::limitesFrisbee() {
 				else if (position.y >= App->sceneBeachStage->limiteInferior+15) { //170
 					App->audio->PlayFx(wallHitFX);
 					//Right
-					if (xspeed > 0 && position.y < 173)
+					if (xspeed > 0)
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x, position.y+14, Collider::NONE, 0); //15
 					}
 					//Left	
-					else if (xspeed < 0 && position.y < 173)
+					else if (xspeed < 0)
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x, position.y+14, Collider::NONE, 0); //-25
 					}
@@ -584,12 +586,12 @@ void ModuleFrisbee::limitesFrisbee() {
 				else if (position.y >= App->sceneBeachStage->limiteInferior + 15) { //170
 					App->audio->PlayFx(wallHitFX);
 					//Right
-					if (xspeed > 0 && position.y < 173)
+					if (xspeed > 0 )
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpright, position.x, position.y + 10, Collider::NONE, 0); //15
 					}
 					//Left	
-					else if (xspeed < 0 && position.y < 173)
+					else if (xspeed < 0 )
 					{
 						App->particles->AddParticle(0, 0, App->particles->xocUpleft, position.x, position.y + 10, Collider::NONE, 0); //-25
 					}

@@ -184,8 +184,8 @@ bool SceneBeachStage::Start()
 		limiteIzquierda = 10;
 		limiteSuperior = 50;
 		limiteInferior = 138;
-		limiteCentralDer = 140;
-		limiteDerecha = 258;
+		limiteCentralDer = 145;
+		limiteDerecha = 240;
 		posicionXInicialFrisbee = 130;
 		posicionYInicialFrisbee = 177;
 
@@ -225,8 +225,8 @@ bool SceneBeachStage::Start()
 
 		limiteCentralIzq = 100;
 		limiteIzquierda = 10;
-		limiteSuperior = 16;
-		limiteInferior = 169;
+		limiteSuperior = 20;
+		limiteInferior = 158;
 		limiteCentralDer = 150;
 		limiteDerecha = 244;
 		posicionXInicialFrisbee = 130;

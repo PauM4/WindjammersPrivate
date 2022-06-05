@@ -238,7 +238,7 @@ bool ModulePlayer2::Start()
 		
 
 		//bloqueo
-		for (int i = 0; i < 3; i++) {
+		for (int i = 2; i >= 0; i--) {
 			bloqueo.PushBack({ 0 + (i * 53), 570, 53, 57 });
 		}
 		bloqueo.loop = false;
@@ -288,7 +288,7 @@ bool ModulePlayer2::Start()
 
 		// Move Right
 		for (int i = 0; i < 6; i++) {
-			rightAnim.PushBack({ 792 + (i * 66), 0, 66, 66 });
+			rightAnim.PushBack({ 726 + (i * 66), 0, 66, 66 });
 		}
 		rightAnim.loop = true;
 		rightAnim.speed = 0.075f;
@@ -359,7 +359,7 @@ bool ModulePlayer2::Start()
 		dashLeft.speed = 0.45f;
 
 		//Dash arriba
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			dashUp.PushBack({ 198 + (i * 66), 132, 66, 66 });
 		}
 		dashUp.loop = false;
@@ -414,7 +414,13 @@ bool ModulePlayer2::Start()
 		}
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
+		break;
+		//Bloqueo
 
+		bloqueo.PushBack({ 330, 726, 66, 66 });
+		bloqueo.PushBack({ 396, 726, 66, 66 });
+		bloqueo.loop = false;
+		bloqueo.speed = 0.2f;
 		break;
 
 	case(CharList::Wessel):
@@ -588,6 +594,14 @@ bool ModulePlayer2::Start()
 		diagonalUpLeft.loop = false;
 		diagonalUpLeft.speed = 0.45f;
 
+		break;
+
+		//Bloqueo
+		for (int i = 2; i >= 0; i--) {
+			bloqueo.PushBack({ 900 + (i * 75), 650, 75, 65 });
+		}
+		bloqueo.loop = false;
+		bloqueo.speed = 0.2f;
 		break;
 	}
 
@@ -777,7 +791,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2)
 void ModulePlayer2::movimientoPlayer2() {
 	//MOVIMIENTO
 
-	if ((App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) && position.x < 258)
+	if ((App->input->keys[SDL_SCANCODE_RIGHT] == Key_State::KEY_REPEAT) && position.x < App->sceneBeachStage->limiteDerecha)
 	{
 		position.x += speed;
 
@@ -842,7 +856,7 @@ void ModulePlayer2::movimientoPlayer2() {
 	
 	}
 
-	else if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT && position.x > 140)
+	else if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT && position.x > App->sceneBeachStage->limiteCentralDer)
 	{
 		position.x -= speed;
 
@@ -903,7 +917,7 @@ void ModulePlayer2::movimientoPlayer2() {
 	}
 
 
-	else if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && position.y > 50)
+	else if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT && position.y > App->sceneBeachStage->limiteSuperior)
 	{
 		position.y -= speed;
 		if (currentAnimation != &upLAnim && last2 == 0)
@@ -956,7 +970,7 @@ void ModulePlayer2::movimientoPlayer2() {
 		bloqAnimation = false;
 	}
 
-	else if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && position.y < 138)
+	else if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT && position.y < App->sceneBeachStage->limiteInferior)
 	{
 		position.y += speed;
 		if (currentAnimation != &downLAnim && last2 == 0)
@@ -1017,7 +1031,7 @@ void ModulePlayer2::movimientoPlayer2() {
 	if (App->input->keys[SDL_SCANCODE_I] == Key_State::KEY_DOWN && ((position.x) - App->frisbee->position.x ) > 1 && ((position.x) - App->frisbee->position.x) < 40 && App->frisbee->lanzamientoF == ModuleFrisbee::tipoLanzamiento::NORMAL) {
 
 		if (App->frisbee->position.y >= position.y && App->frisbee->position.y <= (position.y + 31)) {
-	
+			bloqueo.Reset();
 			App->frisbee->estadoF = ModuleFrisbee::estadoFrisbee::BLOCK;
 			App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::BLOCKPLAYER2;
 			currentAnimation = &bloqueo;
