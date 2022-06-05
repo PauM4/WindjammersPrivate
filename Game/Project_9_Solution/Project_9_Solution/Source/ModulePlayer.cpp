@@ -806,6 +806,15 @@ void ModulePlayer::movimientoPlayer(){
 		{
 			position.x += speed;
 
+			if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
+				position.y -= speed;
+				currentAnimation = &upRAnim;
+			}
+			else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) {
+				position.y += speed;
+				currentAnimation = &downRAnim;
+			}
+
 			if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
 			{
 				rightAnim.Reset();
@@ -853,6 +862,15 @@ void ModulePlayer::movimientoPlayer(){
 		else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT && position.x > App->sceneBeachStage->limiteIzquierda)
 		{
 			position.x -= speed;
+
+			if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
+				position.y -= speed;
+				currentAnimation = &upLAnim;
+			}
+			else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) {
+				position.y += speed;
+				currentAnimation = &downLAnim;
+			}
 
 			if (currentAnimation != &leftAnim && App->input->keys[SDL_SCANCODE_W] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_S] != Key_State::KEY_REPEAT)
 			{ 
@@ -996,7 +1014,6 @@ void ModulePlayer::movimientoPlayer(){
 					position.y += 1, 5 * speed;
 					currentAnimation = &dashDown;
 				}
-
 
 			}
 			else if (estadoTP == FIN) {

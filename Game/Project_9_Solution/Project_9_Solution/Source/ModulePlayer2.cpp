@@ -781,6 +781,15 @@ void ModulePlayer2::movimientoPlayer2() {
 	{
 		position.x += speed;
 
+		if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT) {
+			position.y -= speed;
+			currentAnimation = &upRAnim;
+		}
+		else if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT) {
+			position.y += speed;
+			currentAnimation = &downRAnim;
+		}
+
 		if (currentAnimation != &rightAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
 		{
 			rightAnim.Reset();
@@ -834,6 +843,15 @@ void ModulePlayer2::movimientoPlayer2() {
 	else if (App->input->keys[SDL_SCANCODE_LEFT] == Key_State::KEY_REPEAT && position.x > 140)
 	{
 		position.x -= speed;
+
+		if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT) {
+			position.y -= speed;
+			currentAnimation = &upLAnim;
+		}
+		else if (App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT) {
+			position.y += speed;
+			currentAnimation = &downLAnim;
+		}
 
 		if (currentAnimation != &leftAnim && App->input->keys[SDL_SCANCODE_UP] != Key_State::KEY_REPEAT && App->input->keys[SDL_SCANCODE_DOWN] != Key_State::KEY_REPEAT)
 		{
