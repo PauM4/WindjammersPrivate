@@ -281,7 +281,7 @@ bool ModulePlayer::Start()
 		speed = 2;
 		
 		posicionInicialX = 20;
-		posicionInicialY = 90;
+		posicionInicialY = 95;
 
 		ajusteColliderX = 20;
 		ajusteColliderY = 15;
@@ -324,7 +324,7 @@ bool ModulePlayer::Start()
 
 		// Move Down Head Right
 		for (int i = 0; i < 6; i++) {
-			downRAnim.PushBack({ 792 + (i * 66), 66, 66, 66 });
+			downRAnim.PushBack({ 726 + (i * 66), 66, 66, 66 });
 		}
 		downRAnim.loop = true;
 		downRAnim.speed = 0.075f;
@@ -835,18 +835,21 @@ void ModulePlayer::movimientoPlayer(){
 				App->audio->PlayFx(dashFX);
 				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x, position.y + 35, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
+					diagonalUpRight.Reset();
 					timerP();
 					position.y -= 0.25* speed;
 					position.x += 0.25 * speed;
 					currentAnimation = &diagonalUpRight;
 				}
 				else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) {
+					diagonalDownRight.Reset();
 					timerP();
 					position.y += 0.25 * speed;
 					position.x += 0.25 * speed;
 					currentAnimation = &diagonalDownRight;
 				}
 				else {
+					dashRight.Reset();
 					timerP();
 					position.x += 1.5 * speed;
 					currentAnimation = &dashRight;
@@ -893,18 +896,21 @@ void ModulePlayer::movimientoPlayer(){
 				App->audio->PlayFx(dashFX);
 				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 35, position.y + 35, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_W] == Key_State::KEY_REPEAT) {
+					diagonalUpLeft.Reset();
 					timerP();
 					position.y -= 0.25 * speed;
 					position.x -= 0.25 * speed;
 					currentAnimation = &diagonalUpLeft;
 				}
 				else if (App->input->keys[SDL_SCANCODE_S] == Key_State::KEY_REPEAT) {
+					diagonalDownLeft.Reset();
 					timerP();
 					position.y += 0.25 * speed;
 					position.x -= 0.25 * speed;
 					currentAnimation = &diagonalDownLeft;
 				}
 				else {
+					dashLeft.Reset();
 					timerP();
 					position.x -= 1.5 * speed;
 					currentAnimation = &dashLeft;
@@ -946,18 +952,21 @@ void ModulePlayer::movimientoPlayer(){
 				App->audio->PlayFx(dashFX);
 				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 15, position.y + 25, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
+					diagonalUpRight.Reset();
 					timerP();
 					position.y -= 0.25 * speed;
 					position.x += 0.25 * speed;
 					currentAnimation = &diagonalUpRight;
 				}
 				else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT) {
+					diagonalUpLeft.Reset();
 					timerP();
 					position.y -= 0.25 * speed;
 					position.x -= 0.25 * speed;
 					currentAnimation = &diagonalUpLeft;
 				}
 				else {
+					dashUp.Reset();
 					timerP();
 					position.y -= 1, 5 * speed;
 					currentAnimation = &dashUp;
@@ -998,18 +1007,21 @@ void ModulePlayer::movimientoPlayer(){
 				App->audio->PlayFx(dashFX);
 				App->particles->AddParticle(0, 0, App->particles->dustParticle, position.x + 15, position.y, Collider::NONE, 0);
 				if (App->input->keys[SDL_SCANCODE_D] == Key_State::KEY_REPEAT) {
+					diagonalDownRight.Reset();
 					timerP();
 					position.y += 0.25 * speed;
 					position.x += 0.25 * speed;
 					currentAnimation = &diagonalDownRight;
 				}
 				else if (App->input->keys[SDL_SCANCODE_A] == Key_State::KEY_REPEAT) {
+					diagonalDownLeft.Reset();
 					timerP();
 					position.y += 0.25 * speed;
 					position.x -= 0.25 * speed;
 					currentAnimation = &diagonalDownLeft;
 				}
 				else {
+					dashDown.Reset();
 					timerP();
 					position.y += 1, 5 * speed;
 					currentAnimation = &dashDown;

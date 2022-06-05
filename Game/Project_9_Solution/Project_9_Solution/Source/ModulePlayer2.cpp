@@ -259,7 +259,7 @@ bool ModulePlayer2::Start()
 		speed = 2;
 
 		posicionInicialX = 215;
-		posicionInicialY = 90;
+		posicionInicialY = 95;
 
 		ajusteColliderX = 20;
 		ajusteColliderY = 15;
@@ -302,7 +302,7 @@ bool ModulePlayer2::Start()
 
 		// Move Down Head Right
 		for (int i = 0; i < 6; i++) {
-			downRAnim.PushBack({ 792 + (i * 66), 66, 66, 66 });
+			downRAnim.PushBack({ 726 + (i * 66), 66, 66, 66 });
 		}
 		downRAnim.loop = true;
 		downRAnim.speed = 0.075f;

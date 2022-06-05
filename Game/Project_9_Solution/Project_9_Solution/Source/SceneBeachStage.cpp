@@ -377,7 +377,7 @@ Update_Status SceneBeachStage::Update()
 			}
 
 		}
-		else if (estadoTS == FIN) {
+		else if (estadoTS == FIN && App->frisbee->estadoF != App->frisbee->MOVIMIENTO) {
 			Round();
 			estadoTS = INICIOT;
 
