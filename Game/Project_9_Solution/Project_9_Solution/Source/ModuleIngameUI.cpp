@@ -551,6 +551,8 @@ bool ModuleInGameUI::CleanUp()
 	App->fonts->UnLoad(debugFont);
 	App->fonts->UnLoad(scoreFont);
 	App->fonts->UnLoad(scoreFont2);
+	App->textures->Unload(leftCharLostTxt);
+	App->textures->Unload(rightCharLostTxt);
 
 
 	return true;
