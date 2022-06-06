@@ -127,12 +127,15 @@ bool ModuleInGameUI::Start()
 	{
 	case Mita:
 		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/mitaLeft.png");
+		leftCharLostTxt = App->textures->Load("Assets/Sprites/UI/Faces/mitaLostLeft.png");
 		break;
 	case Yoo:
 		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/yooLeft.png");
+		leftCharLostTxt = App->textures->Load("Assets/Sprites/UI/Faces/yooLostLeft.png");
 		break;
 	case Wessel:
 		leftCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/wesselLeft.png");
+		leftCharLostTxt = App->textures->Load("Assets/Sprites/UI/Faces/wesselLostLeft.png");
 		break;
 	}
 
@@ -141,12 +144,15 @@ bool ModuleInGameUI::Start()
 	{
 	case Mita:
 		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/mitaRight.png");
+		rightCharLostTxt = App->textures->Load("Assets/Sprites/UI/Faces/mitaLostRight.png");
 		break;
 	case Yoo:
 		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/yooRight.png");
+		rightCharLostTxt = App->textures->Load("Assets/Sprites/UI/Faces/yooLostRight.png");
 		break;
 	case Wessel:
 		rightCharTxt = App->textures->Load("Assets/Sprites/UI/Faces/wesselRight.png");
+		rightCharLostTxt = App->textures->Load("Assets/Sprites/UI/Faces/wesselLostRight.png");
 		break;
 	}
 
@@ -210,7 +216,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 		if (App->sceneBeachStage->winState == 1) {
 
 			App->render->Blit(leftCharTxt, 22, 78, NULL);
-			App->render->Blit(rightCharTxt, 156, 78, NULL);
+			App->render->Blit(rightCharLostTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 18, 48, &winUILeft);
 			App->render->Blit(uiSpriteTexture, 175, 54, &LoseUIRight);
 			ShowSetCount(!ambQuadradet);
@@ -219,7 +225,7 @@ Update_Status ModuleInGameUI::PostUpdate()
 		}
 		else if (App->sceneBeachStage->winState == 2) {
 
-			App->render->Blit(leftCharTxt, 22, 78, NULL);
+			App->render->Blit(leftCharLostTxt, 22, 78, NULL);
 			App->render->Blit(rightCharTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 176, 48, &winUIRight);
 			App->render->Blit(uiSpriteTexture, 30, 54, &LoseUILeft);
@@ -229,8 +235,8 @@ Update_Status ModuleInGameUI::PostUpdate()
 		}
 		else if (App->sceneBeachStage->winState == 3) {
 
-			App->render->Blit(leftCharTxt, 24, 78, NULL);
-			App->render->Blit(rightCharTxt, 156, 78, NULL);
+			App->render->Blit(leftCharLostTxt, 24, 78, NULL);
+			App->render->Blit(rightCharLostTxt, 156, 78, NULL);
 			App->render->Blit(uiSpriteTexture, 46, 36, &drawGameRect);
 			ShowSetCount(!ambQuadradet);
 			//App->render->Blit(uiSpriteTexture, 18, 48, &LoseUIRight);

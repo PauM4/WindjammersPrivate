@@ -42,6 +42,8 @@ public:
 	SDL_Texture* vsTextureTxt = nullptr;
 	SDL_Texture* leftNameTxt = nullptr;
 	SDL_Texture* rightNameTxt = nullptr;
+	SDL_Texture* leftCharLostTxt = nullptr;
+	SDL_Texture* rightCharLostTxt = nullptr; 
 
 	SDL_Texture* punterParabola = nullptr;
 
