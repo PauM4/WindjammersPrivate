@@ -1388,5 +1388,12 @@ void ModulePlayer2::limitePlayer2() {
 	
 }
 
-/*position.x = 230;
-position.y = 9*/
+bool ModulePlayer2::CleanUp() {
+	//2
+	App->textures->Unload(texture);
+	App->textures->Unload(dust_texture);
+	App->collisions->RemoveCollider(collider);
+
+
+	return true;
+}

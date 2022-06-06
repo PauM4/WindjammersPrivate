@@ -43,6 +43,8 @@ public:
 	// Receives an index from the sound fx array
 	bool PlayFx(uint index, int repeat = 0);
 
+	void CleanFX(const char* path);
+
 private:
 	// The current playing music
 	Mix_Music*	music = nullptr;

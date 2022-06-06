@@ -70,7 +70,7 @@ bool ModulePlayer::Start()
 			texture = App->textures->Load("Assets/Sprites/Characters/JapFB.png");
 		}
 		
-		speed = 3;
+		speed = 9;
 
 		posicionInicialX = 20;
 		posicionInicialY = 100;
@@ -78,7 +78,7 @@ bool ModulePlayer::Start()
 		ajusteColliderX = 10;
 		ajusteColliderY = 10;
 
-		lanzamientoXSpeed = 3;
+		lanzamientoXSpeed = 9;
 		lanzamientoYSpeed = 3;
 		parabolaXSpeed = 3;
 		parabolaYSpeed = 3;
@@ -1391,4 +1391,16 @@ void ModulePlayer::limitePlayer() {
 		position.y = App->sceneBeachStage->limiteSuperior+2;
 	}
 
+}
+
+bool ModulePlayer::CleanUp() {
+	//1
+	App->textures->Unload(texture);
+	App->collisions->RemoveCollider(collider);
+
+
+
+
+
+	return true;
 }

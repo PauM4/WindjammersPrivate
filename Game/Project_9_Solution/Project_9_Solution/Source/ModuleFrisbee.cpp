@@ -660,3 +660,14 @@ void ModuleFrisbee::anguloSupershot() {
 
 
 }
+
+bool ModuleFrisbee::CleanUp() {
+	//1
+	App->textures->Unload(texture);
+	App->collisions->RemoveCollider(collider);
+	App->collisions->RemoveCollider(provisional);
+	App->collisions->RemoveCollider(provisional2);
+	App->audio->CleanFX("Assets/Fx/Catch.wav");
+
+	return true;
+}

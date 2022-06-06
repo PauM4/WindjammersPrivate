@@ -533,6 +533,16 @@ Update_Status ModuleInGameUI::PostUpdate()
 
 bool ModuleInGameUI::CleanUp()
 {
+	App->textures->Unload(uiSpriteTexture);
+	App->textures->Unload(timerTexture);
+	App->textures->Unload(rectanguletLila);
+	App->textures->Unload(leftCharTxt);
+	App->textures->Unload(rightCharTxt);
+	App->textures->Unload(vsTextureTxt);
+	App->textures->Unload(leftNameTxt);
+	App->textures->Unload(rightNameTxt);
+	App->textures->Unload(punterParabola);
+
 
 	return true;
 }

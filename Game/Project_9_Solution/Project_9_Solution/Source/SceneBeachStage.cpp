@@ -652,6 +652,19 @@ bool SceneBeachStage::CleanUp()
 	App->collisions->Disable();
 	App->ingameUI->Disable();
 
+	App->textures->Unload(bgBeachTexture);
+	App->textures->Unload(bgLawnTexture);
+	App->textures->Unload(bgConcreteTexture);
+	App->textures->Unload(bgBeachObstacles);
+	App->textures->Unload(bgLawnObstacles);
+	App->textures->Unload(bgConcreteObstacles);
+	App->textures->Unload(timerTexture);
+	App->textures->Unload(uiSpriteTexture);
+	App->textures->Unload(texturaArbitro);
+	App->textures->Unload(Winn);
+
+
+
 	return true;
 }
 

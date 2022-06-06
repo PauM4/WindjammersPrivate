@@ -49,6 +49,38 @@ bool ModuleAudio::Init()
 	return ret;
 }
 
+void ModuleAudio::CleanFX(const char* path) {
+
+	/*Mix_Chunk* chunk = Mix_LoadWAV(path);
+	bool a = false;
+	for (uint i = 0; i < MAX_FX; ++i)
+	{
+		if (soundFx[i]->abuf == chunk->abuf) {
+			Mix_FreeChunk(soundFx[i]);
+			a = true;
+			break;
+		}
+
+		if (soundFx[i]->alen == chunk->alen) {
+			Mix_FreeChunk(soundFx[i]);
+			a = true;
+			break;
+		}
+
+
+	}
+	if (a) {
+		a = false;
+	}*/
+
+	for (uint i = 0; i < MAX_FX; ++i)
+	{
+		if (soundFx[i] != nullptr)
+			Mix_FreeChunk(soundFx[i]);
+	}
+}
+
+
 // Called before quitting
 bool ModuleAudio::CleanUp()
 {
