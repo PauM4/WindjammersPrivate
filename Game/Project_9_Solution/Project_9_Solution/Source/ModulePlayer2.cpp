@@ -109,7 +109,7 @@ bool ModulePlayer2::Start()
 
 
 		lanzamientoXSpeed = -3;
-		lanzamientoYSpeed = -3;
+		lanzamientoYSpeed = 3;
 		parabolaXSpeed = -3;
 		parabolaYSpeed = 3;
 
@@ -291,7 +291,7 @@ bool ModulePlayer2::Start()
 		ajusteColliderFrisbeeX = -4;
 
 		lanzamientoXSpeed = -4;
-		lanzamientoYSpeed = -4;
+		lanzamientoYSpeed = 4;
 		parabolaXSpeed = -3;
 		parabolaYSpeed = 3;
 
@@ -469,7 +469,7 @@ bool ModulePlayer2::Start()
 
 
 		lanzamientoXSpeed = -5;
-		lanzamientoYSpeed = -5;
+		lanzamientoYSpeed = 5;
 		parabolaXSpeed = -3;
 		parabolaYSpeed = 3;
 
@@ -1097,7 +1097,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 	{
 
 		App->frisbee->xspeed = lanzamientoXSpeed /pepe;
-		App->frisbee->yspeed = lanzamientoYSpeed / pepe;
+		App->frisbee->yspeed = -lanzamientoYSpeed / pepe;
 		App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 		App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DARRIBA;
 		estadoP2 = estadoPlayer2::LANZAMIENTO;
@@ -1109,7 +1109,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 	else if (App->input->keys[SDL_SCANCODE_O] == Key_State::KEY_DOWN && App->input->keys[SDL_SCANCODE_DOWN] == Key_State::KEY_REPEAT)
 	{
 		App->frisbee->xspeed = lanzamientoXSpeed / pepe;
-		App->frisbee->yspeed = -lanzamientoYSpeed / pepe;
+		App->frisbee->yspeed = lanzamientoYSpeed / pepe;
 		App->frisbee->lanzamientoF = ModuleFrisbee::tipoLanzamiento::NORMAL;
 		App->frisbee->direccionF = ModuleFrisbee::direccionFrisbeePlayer::DABAJO;
 		estadoP2 = estadoPlayer2::LANZAMIENTO;
@@ -1131,7 +1131,7 @@ void ModulePlayer2::lanzamientoPlayer2() {
 	}
 		
 	//LANZAMIENTO NUEVA PARABOLA UP
-	if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT)
+	else if (App->input->keys[SDL_SCANCODE_UP] == Key_State::KEY_REPEAT)
 	{
 		App->frisbee->indicacionPlayerParabola = false;
 		App->frisbee->xspeed = parabolaXSpeed;

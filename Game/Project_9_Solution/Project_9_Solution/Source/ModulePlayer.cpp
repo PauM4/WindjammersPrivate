@@ -96,7 +96,7 @@ bool ModulePlayer::Start()
 			texture = App->textures->Load("Assets/Sprites/Characters/JapFB.png");
 		}
 		
-		speed = 9;
+		speed = 3;
 
 		posicionInicialX = 20;
 		posicionInicialY = 100;
@@ -104,7 +104,7 @@ bool ModulePlayer::Start()
 		ajusteColliderX = 10;
 		ajusteColliderY = 10;
 
-		lanzamientoXSpeed = 9;
+		lanzamientoXSpeed = 3;
 		lanzamientoYSpeed = 3;
 		parabolaXSpeed = 3;
 		parabolaYSpeed = 3;
