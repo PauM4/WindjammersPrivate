@@ -41,8 +41,8 @@ bool SceneStageSelect::Start()
 	yMove = 55;
 	x1 = 24;
 	// -200 outside screen
-	x2 = -200;
-	x3 = -200;
+	x2 = -1000;
+	x3 = -1000;
 
 	bgStageTexture = App->textures->Load("Assets/Sprites/UI/stageSelectBg.png");
 	selectSquareTexture = App->textures->Load("Assets/Sprites/UI/UISpriteSheet_Upgrade.png");
@@ -85,7 +85,7 @@ Update_Status SceneStageSelect::Update()
 		{
 			sceneSelected = Lawn;
 			yMove = 79;
-			x1 = -200;
+			x1 = -1000;
 			x2 = 24;
 			App->audio->PlayFx(moveFx);
 		}
@@ -93,7 +93,7 @@ Update_Status SceneStageSelect::Update()
 		{
 			sceneSelected = Concrete;
 			yMove = 127;
-			x2 = -200;
+			x2 = -1000;
 			x3 = 24;
 			App->audio->PlayFx(moveFx);
 		}
@@ -105,7 +105,7 @@ Update_Status SceneStageSelect::Update()
 		{
 			sceneSelected = Beach;
 			yMove = 55;
-			x2 = -200;
+			x2 = -1000;
 			x1 = 24;
 			App->audio->PlayFx(moveFx);
 		}
@@ -113,7 +113,7 @@ Update_Status SceneStageSelect::Update()
 		{
 			sceneSelected = Lawn;
 			yMove = 79;
-			x3 = -200;
+			x3 = -1000;
 			x2 = 24;
 			App->audio->PlayFx(moveFx);
 		}
