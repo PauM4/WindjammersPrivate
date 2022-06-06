@@ -36,6 +36,20 @@ ModulePlayer2::~ModulePlayer2()
 
 bool ModulePlayer2::Start()
 {
+	if (App->sceneBeachStage->loadFxOnce == 0) {
+		tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
+		hiromiChargeFX = App->audio->LoadFx("Assets/Fx/HiromiCharge.wav");
+		hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
+
+		yooChargeFX = App->audio->LoadFx("Assets/Fx/B.YooCharge.wav");
+		yooPowerSoundFX = App->audio->LoadFx("Assets/FX/B.YooSuperSound.wav");
+
+		wesselChargeFX = App->audio->LoadFx("Assets/Fx/KlaussCharge.wav");
+		wesselPowerSoundFX = App->audio->LoadFx("Assets/Fx/KlaussSuperSound.wav");
+
+		dashFX = App->audio->LoadFx("Assets/Fx/Dash.wav");
+	}
+
 	idleRAnim.totalFrames = 0;
 	idleLAnim.totalFrames = 0;
 	idleDisk.totalFrames = 0;
@@ -72,17 +86,7 @@ bool ModulePlayer2::Start()
 
 	stopLoadFX = false;
 
-	tossFX = App->audio->LoadFx("Assets/Fx/Toss.wav");
-	hiromiChargeFX = App->audio->LoadFx("Assets/Fx/HiromiCharge.wav");
-	hiromiPowerSoundFX = App->audio->LoadFx("Assets/Fx/HiromiPowerSound.wav");
-
-	yooChargeFX = App->audio->LoadFx("Assets/Fx/B.YooCharge.wav");
-	yooPowerSoundFX = App->audio->LoadFx("Assets/FX/B.YooSuperSound.wav");
-
-	wesselChargeFX = App->audio->LoadFx("Assets/Fx/KlaussCharge.wav");
-	wesselPowerSoundFX = App->audio->LoadFx("Assets/Fx/KlaussSuperSound.wav");
-
-	dashFX = App->audio->LoadFx("Assets/Fx/Dash.wav");
+	
 
 	switch (App->sceneCharacterSelect->p2Char) {
 	case(CharList::Mita):

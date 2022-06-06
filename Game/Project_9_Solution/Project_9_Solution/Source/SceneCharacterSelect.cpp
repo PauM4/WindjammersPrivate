@@ -7,6 +7,9 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleParticles.h"
+#include "SceneBeachStage.h"
+#include "SceneTitle.h"
+
 
 SceneCharacterSelect::SceneCharacterSelect(bool startEnabled) : Module(startEnabled)
 {
@@ -22,10 +25,18 @@ SceneCharacterSelect::~SceneCharacterSelect()
 // Load assets
 bool SceneCharacterSelect::Start()
 {
-	moveFx = 0;
-	hiromiSelected = 0;
-	yooSelected = 0;
-	wesselSelected = 0;
+	if (App->sceneTitle->loadFxOnceTitle == 0) {
+		moveFx = 0;
+		hiromiSelected = 0;
+		yooSelected = 0;
+		wesselSelected = 0;
+		hiromiSelected = App->audio->LoadFx("Assets/Fx/HiromiSelected.wav");
+		yooSelected = App->audio->LoadFx("Assets/Fx/B.YooSelect.wav");
+		wesselSelected = App->audio->LoadFx("Assets/Fx/KlaussSelected.wav");
+		moveFx = App->audio->LoadFx("Assets/FX/MoveMenu.wav");
+	}
+
+	
 
 	LOG("Loading background assets");
 
@@ -47,10 +58,7 @@ bool SceneCharacterSelect::Start()
 	uiSpriteSheet = App->textures->Load("Assets/Sprites/UI/UISpriteSheet_Upgrade.png");
 
 	App->audio->PlayMusic("Assets/Music/01_Get Ready (Select Screen).ogg", 0.0f);
-	hiromiSelected = App->audio->LoadFx("Assets/Fx/HiromiSelected.wav");
-	yooSelected = App->audio->LoadFx("Assets/Fx/B.YooSelect.wav");
-	wesselSelected = App->audio->LoadFx("Assets/Fx/KlaussSelected.wav");
-	moveFx = App->audio->LoadFx("Assets/FX/MoveMenu.wav");
+	
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;

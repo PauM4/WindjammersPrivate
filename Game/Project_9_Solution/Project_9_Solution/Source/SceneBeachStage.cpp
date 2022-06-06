@@ -16,6 +16,8 @@
 #include "SceneStageSelect.h"
 #include "ModuleIngameUI.h"
 #include "SceneCharacterSelect.h"
+#include "SceneTitle.h"
+
 
 #include "SDL/include/SDL.h"
 
@@ -107,9 +109,40 @@ SceneBeachStage::~SceneBeachStage()
 // Load assets
 bool SceneBeachStage::Start()
 {
+
+	if (loadFxOnce == 0) {
+		round1FX = 0;
+
+		//FX de rounds
+		round1FX = App->audio->LoadFx("Assets/Fx/round1.wav");
+		twoPointsFX = App->audio->LoadFx("Assets/Fx/2Pts.wav");
+		threePointsFX = App->audio->LoadFx("Assets/Fx/3Pts.wav");
+		fivePointsFX = App->audio->LoadFx("Assets/Fx/5Pts.wav");
+
+		applauseFX = App->audio->LoadFx("Assets/Fx/Applause.wav");
+		bigApplauseFX = App->audio->LoadFx("Assets/Fx/BigApplause.wav");
+		excelentGameFX = App->audio->LoadFx("Assets/Fx/ExcelentGame.wav");
+		finalRoundFX = App->audio->LoadFx("Assets/Fx/FinalRound.wav");
+		getReadyFX = App->audio->LoadFx("Assets/Fx/GetReady.wav");
+		goalHitFX = App->audio->LoadFx("Assets/Fx/GoalHit.wav");
+
+		whistleFX = App->audio->LoadFx("Assets/Fx/Whistle.wav");
+
+		switch (App->sceneCharacterSelect->p1Char)
+		{
+		case Mita:
+			celebrationFX = App->audio->LoadFx("Assets/Fx/HiromiSetWin.wav");
+			break;
+		case Yoo:
+			celebrationFX = App->audio->LoadFx("Assets/Fx/YooSetWin.wav");
+			break;
+		case Wessel:
+			celebrationFX = App->audio->LoadFx("Assets/Fx/KlaussSetWin.wav");
+			break;
+		}
+	}
 	currentAnimationFrisbee = &quieto;
 
-	round1FX = 0;
 	time = 0;
 	LOG("Loading background assets");
 
@@ -138,33 +171,6 @@ bool SceneBeachStage::Start()
 
 	estadoGolScore = CLEAR;
 
-	//FX de rounds
-	round1FX = App->audio->LoadFx("Assets/Fx/round1.wav");
-	twoPointsFX = App->audio->LoadFx("Assets/Fx/2Pts.wav");
-	threePointsFX = App->audio->LoadFx("Assets/Fx/3Pts.wav");
-	fivePointsFX = App->audio->LoadFx("Assets/Fx/5Pts.wav");
-
-	applauseFX = App->audio->LoadFx("Assets/Fx/Applause.wav");
-	bigApplauseFX = App->audio->LoadFx("Assets/Fx/BigApplause.wav");
-	excelentGameFX = App->audio->LoadFx("Assets/Fx/ExcelentGame.wav");
-	finalRoundFX = App->audio->LoadFx("Assets/Fx/FinalRound.wav");
-	getReadyFX = App->audio->LoadFx("Assets/Fx/GetReady.wav");
-	goalHitFX = App->audio->LoadFx("Assets/Fx/GoalHit.wav");
-
-	whistleFX = App->audio->LoadFx("Assets/Fx/Whistle.wav");
-
-	switch (App->sceneCharacterSelect->p1Char)
-	{
-	case Mita:
-		celebrationFX = App->audio->LoadFx("Assets/Fx/HiromiSetWin.wav");
-		break;
-	case Yoo:
-		celebrationFX = App->audio->LoadFx("Assets/Fx/YooSetWin.wav");
-		break;
-	case Wessel:
-		celebrationFX = App->audio->LoadFx("Assets/Fx/KlaussSetWin.wav");
-		break;
-	}
 
 	//currentAnimationFrisbee = &lanzamientoIzquierda;
 
@@ -423,9 +429,10 @@ Update_Status SceneBeachStage::Update()
 		}
 		if (estadoTS == EJECUTANDO)
 		{
-			App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+			//App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
+			TimerS();
+
 		}
-		TimerS();
 		if (estadoTS == FIN)
 		{
 			//SceneBeachStage::Arbitro(1);
@@ -440,20 +447,14 @@ Update_Status SceneBeachStage::Update()
 	// DEBUG INSTANT WIN
 	if (App->input->keys[SDL_SCANCODE_F3] == Key_State::KEY_DOWN)
 	{
-		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
-
-		App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-		//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+		estadoTS = INICIOT;
 		debugwinP1 = true;
 		Win();
 	}
 	// DEBUG INSTANT LOSE
 	if (App->input->keys[SDL_SCANCODE_F4] == Key_State::KEY_DOWN)
 	{
-		App->audio->PlayMusic("Assets/Music/09_Lost Set.ogg", 0.0f);
-
-		App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-		//App->fade->FadeToBlack(this, (Module*)App->sceneTitle, 15);
+		estadoTS = INICIOT;
 		debugwinP2 = true;
 		Win();
 	}
@@ -662,7 +663,10 @@ bool SceneBeachStage::CleanUp()
 	App->textures->Unload(uiSpriteTexture);
 	App->textures->Unload(texturaArbitro);
 	App->textures->Unload(Winn);
+	App->fonts->UnLoad(debugFont);
 
+	loadFxOnce = 1;
+	App->sceneTitle->loadFxOnceTitle = 1;
 	//App->fonts->UnLoad(debugFont);
 
 	return true;
@@ -791,6 +795,7 @@ void SceneBeachStage::Win() {
 	}
 	else if (App->player->score != 0 && suddenDeath) {
 		//llamar animaci�n y texturas de que ha ganado el primer jugador la partida
+		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
 		winState = 1;
 		estadoS = FINAL;
 		App->player->currentAnimation = &App->player->win;
@@ -802,6 +807,7 @@ void SceneBeachStage::Win() {
 		//llamar animaci�n y texturas de que ha ganado el segundo jugador la partida
 		winState = 2;
 		estadoS = FINAL;
+		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
 		App->player->currentAnimation = &App->player->lose;
 		App->player2->currentAnimation = &App->player2->win;
 		currentAnimationFrisbee = &scoreP2;
@@ -812,6 +818,7 @@ void SceneBeachStage::Win() {
 		//SDL Delay
 		winState = 1;
 		estadoS = FINAL;
+		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
 		App->player->currentAnimation = &App->player->win;
 		App->player2->currentAnimation = &App->player2->lose;
 		currentAnimationFrisbee = &scoreP1;
@@ -820,6 +827,7 @@ void SceneBeachStage::Win() {
 		//llamar animaci�n y texturas de que ha ganado el segundo jugador la partida
 		winState = 2;
 		estadoS = FINAL;
+		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
 		App->player->currentAnimation = &App->player->lose;
 		App->player2->currentAnimation = &App->player2->win;
 		currentAnimationFrisbee = &scoreP2;
@@ -829,6 +837,7 @@ void SceneBeachStage::Win() {
 		//Animacion y texturas de que los dos han perdido
 		winState = 3;
 		estadoS = FINAL;
+		App->audio->PlayMusic("Assets/Music/06_Set Clear.ogg", 0.0f);
 		App->player->currentAnimation = &App->player->lose;
 		App->player2->currentAnimation = &App->player2->lose;
 

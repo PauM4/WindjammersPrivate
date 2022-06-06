@@ -46,6 +46,8 @@ public:
 	int frame;
 	bool hasPlayed;
 
+	int loadFxOnceTitle =0;
+
 	// Sound effects indices
 	uint selectFx;
 
