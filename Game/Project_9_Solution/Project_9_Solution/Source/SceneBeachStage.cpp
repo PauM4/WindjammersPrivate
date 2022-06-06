@@ -663,7 +663,7 @@ bool SceneBeachStage::CleanUp()
 	App->textures->Unload(texturaArbitro);
 	App->textures->Unload(Winn);
 
-
+	//App->fonts->UnLoad(debugFont);
 
 	return true;
 }

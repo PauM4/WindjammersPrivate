@@ -542,6 +542,9 @@ bool ModuleInGameUI::CleanUp()
 	App->textures->Unload(leftNameTxt);
 	App->textures->Unload(rightNameTxt);
 	App->textures->Unload(punterParabola);
+	App->fonts->UnLoad(debugFont);
+	App->fonts->UnLoad(scoreFont);
+	App->fonts->UnLoad(scoreFont2);
 
 
 	return true;

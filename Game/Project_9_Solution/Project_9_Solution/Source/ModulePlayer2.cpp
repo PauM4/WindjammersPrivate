@@ -36,6 +36,28 @@ ModulePlayer2::~ModulePlayer2()
 
 bool ModulePlayer2::Start()
 {
+	idleRAnim.totalFrames = 0;
+	idleLAnim.totalFrames = 0;
+	idleDisk.totalFrames = 0;
+	upLAnim.totalFrames = 0;
+	upRAnim.totalFrames = 0;
+	downLAnim.totalFrames = 0;
+	downRAnim.totalFrames = 0;
+	rightAnim.totalFrames = 0;
+	leftAnim.totalFrames = 0;
+	lanzamiento.totalFrames = 0;
+	polvo.totalFrames = 0;
+	win.totalFrames = 0;
+	lose.totalFrames = 0;
+	dashUp.totalFrames = 0;
+	dashDown.totalFrames = 0;
+	dashLeft.totalFrames = 0;
+	dashRight.totalFrames = 0;
+	diagonalUpRight.totalFrames = 0;
+	diagonalUpLeft.totalFrames = 0;
+	diagonalDownRight.totalFrames = 0;
+	diagonalDownLeft.totalFrames = 0;
+	bloqueo.totalFrames = 0;
 
 	score2 = 0;
 	last2 = 0;
@@ -1393,6 +1415,8 @@ bool ModulePlayer2::CleanUp() {
 	App->textures->Unload(texture);
 	App->textures->Unload(dust_texture);
 	App->collisions->RemoveCollider(collider);
+	App->fonts->UnLoad(scoreFont);
+	App->fonts->UnLoad(debugFont);
 
 
 	return true;
