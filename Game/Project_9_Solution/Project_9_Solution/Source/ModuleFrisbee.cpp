@@ -73,6 +73,23 @@ ModuleFrisbee::~ModuleFrisbee()
 
 bool ModuleFrisbee::Start()
 {
+	if (App->sceneBeachStage->loadFxOnce == 0) {
+		catchFx = App->audio->LoadFx("Assets/Fx/Catch.wav");
+		effectTossFx = App->audio->LoadFx("Assets/Fx/EffectToss.wav");
+		frisbeeOnAirFX = App->audio->LoadFx("Assets/Fx/Freesbeonair.wav");
+		landingFX = App->audio->LoadFx("Assets/Fx/Landing.wav");
+		wallHitFX = App->audio->LoadFx("Assets/Fx/WallHit.wav");
+
+		hiromiSuperFFX = App->audio->LoadFx("Assets/Fx/HiromiSuperF.wav");
+		hiromiSuperSonicFX = App->audio->LoadFx("Assets/Fx/HiromiSupersonic1.wav");
+
+		yooSuperSonicFX = App->audio->LoadFx("Assets/Fx/B.YooSuperSonic1.wav");
+		yooSuperFFX = App->audio->LoadFx("Assets/Fx/B.YooSuperF.wav");
+
+		wesselSuperSonicFX = App->audio->LoadFx("Assets/Fx/KlaussSupersonic1.wav");
+		wesselSuperFFX = App->audio->LoadFx("Assets/Fx/KlaussSuperF.wav");
+	}
+
 	bool ret = true;
 	speed = 1;
 	arbitro = 1;
@@ -91,20 +108,7 @@ bool ModuleFrisbee::Start()
 		texture = App->textures->Load("Assets/Sprites/Levels/FrisbeeB.png");
 	}
 
-	catchFx = App->audio->LoadFx("Assets/Fx/Catch.wav");
-	effectTossFx = App->audio->LoadFx("Assets/Fx/EffectToss.wav");
-	frisbeeOnAirFX = App->audio->LoadFx("Assets/Fx/Freesbeonair.wav");
-	landingFX = App->audio->LoadFx("Assets/Fx/Landing.wav");
-	wallHitFX = App->audio->LoadFx("Assets/Fx/WallHit.wav");
 
-	hiromiSuperFFX = App->audio->LoadFx("Assets/Fx/HiromiSuperF.wav");
-	hiromiSuperSonicFX = App->audio->LoadFx("Assets/Fx/HiromiSupersonic1.wav");
-
-	yooSuperSonicFX = App->audio->LoadFx("Assets/Fx/B.YooSuperSonic1.wav");
-	yooSuperFFX = App->audio->LoadFx("Assets/Fx/B.YooSuperF.wav");
-
-	wesselSuperSonicFX = App->audio->LoadFx("Assets/Fx/KlaussSupersonic1.wav");
-	wesselSuperFFX = App->audio->LoadFx("Assets/Fx/KlaussSuperF.wav");
 
 	position.x = App->sceneBeachStage->posicionXInicialFrisbee; 
 	position.y = App->sceneBeachStage->posicionYInicialFrisbee;
@@ -667,7 +671,7 @@ bool ModuleFrisbee::CleanUp() {
 	App->collisions->RemoveCollider(collider);
 	App->collisions->RemoveCollider(provisional);
 	App->collisions->RemoveCollider(provisional2);
-	App->audio->CleanFX("Assets/Fx/Catch.wav");
+	//App->audio->CleanFX("Assets/Fx/Catch.wav");
 
 	return true;
 }

@@ -9,6 +9,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 
+
 #include "SDL/include/SDL.h"
 
 SceneTitle::SceneTitle(bool startEnabled) : Module(startEnabled)
@@ -24,8 +25,13 @@ SceneTitle::~SceneTitle()
 // Load assets
 bool SceneTitle::Start()
 {
+	if (loadFxOnceTitle == 0) {
+		selectFx = 0;
+		selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
+	}
+
 	/*title.Reset();*/
-	selectFx = 0;
+	
 	LOG("Loading background assets");
 
 	bool ret = true;
@@ -42,7 +48,6 @@ bool SceneTitle::Start()
 
 	//SILENT AUDIO per aturar la música de IntroScreen
 	App->audio->PlayMusic("Assets/Music/silenceAudio.ogg");
-	selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;

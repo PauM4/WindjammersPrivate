@@ -8,6 +8,7 @@
 #include "ModuleFonts.h"
 #include "ModuleFadeToBlack.h"
 #include "SceneCharacterSelect.h"
+#include "SceneTitle.h"
 
 #include <stdio.h>
 
@@ -24,8 +25,14 @@ SceneStageSelect::~SceneStageSelect()
 // Load assets
 bool SceneStageSelect::Start()
 {
-	selectFx = 0;
-	moveFx = 0;
+	if (App->sceneTitle->loadFxOnceTitle == 0) {
+		selectFx = 0;
+		moveFx = 0;
+		selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
+		moveFx = App->audio->LoadFx("Assets/FX/MoveMenu.wav");
+	}
+
+	
 	LOG("Loading background assets");
 
 	bool ret = true;
@@ -55,8 +62,7 @@ bool SceneStageSelect::Start()
 	miniTiledTexture = App->textures->Load("Assets/Sprites/UI/miniTiled.png");
 	miniBeachTexture = App->textures->Load("Assets/Sprites/UI/miniBeach.png");
 
-	selectFx = App->audio->LoadFx("Assets/FX/Select.wav");
-	moveFx = App->audio->LoadFx("Assets/FX/MoveMenu.wav");
+	
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -74,6 +80,7 @@ bool SceneStageSelect::CleanUp() {
 	App->textures->Unload(miniStadiumTexture);
 	App->textures->Unload(miniTiledTexture);
 	App->textures->Unload(miniBeachTexture);
+	App->fonts->UnLoad(debugFont);
 	return true;
 }
 

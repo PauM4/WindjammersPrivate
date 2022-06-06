@@ -192,6 +192,8 @@ public:
 	bool stopCelebration;
 
 	bool getReadyOnce;
+
+	int loadFxOnce = 0;
 };
 
 #endif
